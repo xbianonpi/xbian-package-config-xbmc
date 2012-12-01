@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <!-- GENERAL -->
+    <category label="20000">
+    </category>
+    <category label="30000">
+        <setting label="31000" type="lsep" />
+        <setting label="31010" type="action" action="RunScript($CWD/resources/lib/viewer.py, downloadreport)"/>
+        <setting label="31020" type="enum" id="overclock"  lvalues="31021|31022|31023|31024|31025|31026" default="4" />
+        <setting label="31030" type="text" id="hostname" value='xbian'/>
+        <setting label="31040" type="enum" id="overclock"  lvalues="be|fr|nl|en" default="2" />
+        <setting label="31050" type="action" action="RunScript($CWD/resources/lib/viewer.py, downloadreport)"/>
+        
+        <setting label="32000" type="lsep" />
+        <setting label="root password" type="text" option="true" id="rootpw" value='raspberry'/>
+        <setting label="xbian password" type="text" option="true" id="xbianpw" value='raspberry'/>
+        
+        <setting label="33000" type="lsep" />
+        <setting label="33010" type="bool" id="wlan" value='false'/>
+        <setting label="33020" type="enum" id="lan"  lvalues="33021|33022" default="1" />
+        <setting label="330220" visible="eq(-1,1)" type="ipaddress" id="adress"/>
+        <setting label="330221" visible="eq(-2,1)" type="ipaddress" id="subnet"/>
+        <setting label="330222" visible="eq(-3,1)" type="ipaddress" id="gateway"/>
+        <setting label="330223" visible="eq(-4,1)" type="ipaddress" id="dns1"/>
+        <setting label="330223" visible="eq(-5,1)" type="ipaddress" id="dns2"/>
+        <setting label="33030" type="bool" id="rootlogin" value='false'/>
+        
+        <setting label="34000" type="lsep" />
+        <setting label="34010" type="bool" id="forcehdmi" value='false'/>
+        <setting label="34020" type="bool" id="ignorehdmi" value='false'/>
+        <setting label="34030" type="bool" id="cecinit" value='false'/>
+        <setting label="34040" type="bool" id="cec" value='false'/>
+        <setting label="34050" type="bool" id="overscan" value='true'/>
+        
+        <setting label="35000" type="lsep" />
+        <setting label="35010" type="text" id="vc1" value='0x'/>
+        <setting label="35020" type="text" id="mpeg2" value='0x'/>
+    </category>
+</settings>
