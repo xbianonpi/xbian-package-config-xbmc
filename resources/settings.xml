@@ -2,18 +2,21 @@
 <settings>
     <!-- GENERAL -->
     <category label="20000">
+        <setting label="21000" type="action" id="advance" visible="!Skin.HasSetting(advancedmode)" action="RunScript($CWD/resources/lib/api.py,mode=2)"/>        
+        <setting label="22000" type="action" id="normal" visible="Skin.HasSetting(advancedmode)" action="RunScript($CWD/resources/lib/api.py,mode=3)"/>        
     </category>
-    <category label="30000">
-        <setting label="31000" type="lsep" />
-        <setting label="31010" type="action" action="RunScript($CWD/resources/lib/viewer.py, downloadreport)"/>
-        <setting label="31020" type="enum" id="overclock"  lvalues="31021|31022|31023|31024|31025|31026" default="4" />
-        <setting label="31030" type="text" id="hostname" value='xbian'/>
-        <setting label="31040" type="enum" id="overclock"  lvalues="be|fr|nl|en" default="2" />
-        <setting label="31050" type="action" action="RunScript($CWD/resources/lib/viewer.py, downloadreport)"/>
+    <category label="30000">       
         
-        <setting label="32000" type="lsep" />
-        <setting label="root password" type="text" option="true" id="rootpw" value='raspberry'/>
-        <setting label="xbian password" type="text" option="true" id="xbianpw" value='raspberry'/>
+        <setting label="31000" visible="Skin.HasSetting(advancedmode)" type="lsep" />
+        <setting label="31010" visible="Skin.HasSetting(advancedmode)" type="action" action="RunScript($CWD/resources/lib/viewer.py, downloadreport)"/>
+        <setting label="31020" visible="Skin.HasSetting(advancedmode)" type="enum" id="overclock"  lvalues="31021|31022|31023|31024|31025|31026" default="4" />
+        <setting label="31030" visible="Skin.HasSetting(advancedmode)" type="text" id="hostname" value='xbian'/>
+        <setting label="31040" visible="Skin.HasSetting(advancedmode)" type="enum" id="timezone"  lvalues="be|fr|nl|en" default="2" />
+        <setting label="31050" visible="Skin.HasSetting(advancedmode)" type="action" action="RunScript($CWD/resources/lib/api.py,mode=1)"/>
+        
+        <setting label="32000" visible="eq(-7,true)" type="lsep" />
+        <setting label="root password" visible="eq(-8,true)" type="text" option="true" id="rootpw" value='raspberry'/>
+        <setting label="xbian password" visible="eq(-9,true)" type="text" option="true" id="xbianpw" value='raspberry'/>
         
         <setting label="33000" type="lsep" />
         <setting label="33010" type="bool" id="wlan" value='false'/>
@@ -23,7 +26,7 @@
         <setting label="330222" visible="eq(-3,1)" type="ipaddress" id="gateway"/>
         <setting label="330223" visible="eq(-4,1)" type="ipaddress" id="dns1"/>
         <setting label="330223" visible="eq(-5,1)" type="ipaddress" id="dns2"/>
-        <setting label="33030" type="bool" id="rootlogin" value='false'/>
+        <setting label="33030" type="bool" id="rootlogin" visible="Skin.HasSetting(advancedmode)" value='false'/>
         
         <setting label="34000" type="lsep" />
         <setting label="34010" type="bool" id="forcehdmi" value='false'/>
@@ -35,5 +38,13 @@
         <setting label="35000" type="lsep" />
         <setting label="35010" type="text" id="vc1" value='0x'/>
         <setting label="35020" type="text" id="mpeg2" value='0x'/>
+        
     </category>
+    <category label="40000">
+	</category>
+	<category label="50000">
+	</category>
+	<category label="60000">
+	</category>
+	
 </settings>
