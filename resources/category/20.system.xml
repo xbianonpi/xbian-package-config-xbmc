@@ -1,0 +1,32 @@
+<category label="30000">               
+    <setting label="31000" visible="Skin.HasSetting(advancedmode)" type="lsep" />
+    <setting label="31010" visible="Skin.HasSetting(advancedmode)" type="bool" id="resize" value='false'/>
+    <setting label="31020" visible="Skin.HasSetting(advancedmode)" type="enum" id="overclock"  lvalues="31021|31022|31023|31024|31025|31026" default="4" />
+    <setting label="31030" visible="Skin.HasSetting(advancedmode)" type="text" id="hostname" value='xbian'/>
+        
+    <setting label="32000" visible="eq(-7,true)" type="lsep" />
+    <setting label="root password" visible="eq(-8,true)" type="text" option="true" id="rootpassword" value='raspberry'/>
+    <setting label="xbian password" visible="eq(-9,true)" type="text" option="true" id="xbianpassword" value='raspberry'/>
+        
+    <setting label="33000" type="lsep" />
+    <setting label="33010" type="bool" id="wlan" value='false'/>
+    <setting label="33020" type="enum" id="lan"  lvalues="33021|33022" default="1" />
+    <setting label="330220" visible="eq(-1,1)" type="ipaddress" id="1adress"/>
+    <setting label="330221" visible="eq(-2,1)" type="ipaddress" id="1subnet"/>
+    <setting label="330222" visible="eq(-3,1)" type="ipaddress" id="1gateway"/>
+    <setting label="330223" visible="eq(-4,1)" type="ipaddress" id="1dns1"/>
+    <setting label="330223" visible="eq(-5,1)" type="ipaddress" id="1dns2"/>
+    <setting label="33030" type="bool" visible="Skin.HasSetting(advancedmode)" id="rootlogin"  value='false'/>
+        
+    <setting label="34000" type="lsep" />
+    <setting label="34010" type="bool" id="forcehdmi" value='false'/>
+    <setting label="34020" type="bool" id="ignorehdmi" value='false'/>
+    <setting label="34030" type="bool" id="cecinit" value='false'/>
+    <setting label="34040" type="bool" id="cec" value='false'/>
+    <setting label="34050" type="bool" id="overscan" value='true'/>
+        
+    <setting label="35000" type="lsep" />
+    <setting label="35010" type="text" id="vc1" value='0x'/>
+    <setting label="35020" type="text" id="mpeg2" value='0x'/>
+        
+</category>
