@@ -64,28 +64,19 @@
 			<font>font13</font>
 		</control>
 <control type="grouplist" id="59999">
-<posy>90</posy>
+<posy>100</posy>
 <posx>30</posx>
-<height>350</height>
+<height>340</height>
 <ondown>11</ondown>
 <onright>10</onright>
 <onleft>11</onleft>
 <onup>11</onup>
-<control type="radiobutton" id="60005">
-<description>update confirmation : wlan</description>
+<control type="radiobutton" id="60000">
+<description>update confirmation : resize</description>
 <width>550</width>
 <height>30</height>
 <aligny>center</aligny>
-<font>font12_title</font>
-<label>Change wlan to false</label>
-</control>
-<control type="radiobutton" id="60013">
-<description>update confirmation : forcehdmi</description>
-<width>550</width>
-<height>30</height>
-<aligny>center</aligny>
-<font>font12_title</font>
-<label>Change forcehdmi to false</label>
+<textureradioon>radiobutton-nofocus.png</textureradioon><textureradiooff>radiobutton-focus.png</textureradiooff><label>resize set to false</label>
 </control>
 </control>
 

@@ -2,10 +2,14 @@
 <strings>
     <!--GENERAL STRINGS -->
     <string id="19000">Apply these changes?</string>
-    <string id="20000">Information</string>
-    <string id="21000">Advanced Mode</string>
-    <string id="22000">Normal Mode</string>
-		
+    <string id="19001">Allow Advanced mode</string>
+    <string id="19002">One Time</string>
+    <string id="19003">Always</string>
+    <string id="19004">Advanced Mode</string>
+    <string id="19004">General</string>
+	
+    <!--CATEGORY STRINGS -->
+    <string id="20000">Information</string>	
     <string id="30000">Settings</string>
 		<string id="31000">System</string>
 			<string id="31010">Resize SD</string>
