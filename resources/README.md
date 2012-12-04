@@ -1,2 +1,0 @@
-xbian-config-python
-===================
