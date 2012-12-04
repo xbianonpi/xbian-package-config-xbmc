@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <!-- GENERAL -->
+  	<category label="19005">
+		<setting label="19004" type="bool"   id="advancedmode"   default="false" />
+	    <setting label="19001" type="enum"   id="advancedmodetype"   default="0"  lvalues="19002|19003"/> 
+	</category>
+</settings>
+
