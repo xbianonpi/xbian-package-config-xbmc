@@ -71,12 +71,33 @@
 <onright>10</onright>
 <onleft>11</onleft>
 <onup>11</onup>
-<control type="radiobutton" id="60000">
-<description>update confirmation : resize</description>
+<control type="radiobutton" id="60024">
+<description>update confirmation : mpeg2</description>
 <width>550</width>
 <height>30</height>
 <aligny>center</aligny>
-<textureradioon>radiobutton-nofocus.png</textureradioon><textureradiooff>radiobutton-focus.png</textureradiooff><label>resize set to false</label>
+<textureradioon>radiobutton-nofocus.png</textureradioon><textureradiooff>radiobutton-focus.png</textureradiooff><label>mpeg2 set to xbian21</label>
+</control>
+<control type="radiobutton" id="60023">
+<description>update confirmation : vc1</description>
+<width>550</width>
+<height>30</height>
+<aligny>center</aligny>
+<textureradioon>radiobutton-nofocus.png</textureradioon><textureradiooff>radiobutton-focus.png</textureradiooff><label>vc1 set to xbian21</label>
+</control>
+<control type="radiobutton" id="60017">
+<description>update confirmation : rootlogin</description>
+<width>550</width>
+<height>30</height>
+<aligny>center</aligny>
+<textureradioon>radiobutton-nofocus.png</textureradioon><textureradiooff>radiobutton-focus.png</textureradiooff><label>rootlogin set to false</label>
+</control>
+<control type="radiobutton" id="60002">
+<description>update confirmation : hostname</description>
+<width>550</width>
+<height>30</height>
+<aligny>center</aligny>
+<textureradioon>radiobutton-nofocus.png</textureradioon><textureradiooff>radiobutton-focus.png</textureradiooff><label>hostname set to xbian2b</label>
 </control>
 </control>
 
