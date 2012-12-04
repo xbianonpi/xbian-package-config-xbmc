@@ -29,6 +29,7 @@
 			<string id="33020">Lan</string>
 				<string id="33021">DHCP</string>
 				<string id="33022">FIXED</string>
+				<string id="33023">OFF</string>
 					<string id="330220">Address</string>
 					<string id="330221">Subnet</string>
 					<string id="330222">Gateway</string>

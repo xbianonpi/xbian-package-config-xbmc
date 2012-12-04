@@ -24,7 +24,7 @@ from xbmcaddon import Addon
 from elementtree.ElementTree import *
 
 #addon module
-from resources.lib.xbianconfigapi import APIget,APIset
+from resources.lib.api import APIget,APIset
 
  
 ADDON     = Addon( __addonID__ )
@@ -151,7 +151,7 @@ class Settings() :
     def close(self) :
         #Set Standard addon_config
         self.window.close()
-        shutil.copy2(os.path.join(BASE_RESOURCE_PATH,'settings_addon.xml'),os.path.join(BASE_RESOURCE_PATH,'settings.xml'))
+        #shutil.copy2(os.path.join(BASE_RESOURCE_PATH,'settings_addon.xml'),os.path.join(BASE_RESOURCE_PATH,'settings.xml'))
         
     def getCategories(self) :
         self.catdir = os.path.join(BASE_RESOURCE_PATH,'category')
@@ -281,6 +281,8 @@ else :
     xbmc.executebuiltin('Skin.Reset(advancedmode)')
 
 ADDON.openSettings()
+#window = Window('DialogAddonSettings.xml',ADDON_DIR, "Default")
+xbmc.executebuiltin('Skin.Reset(advancedmode)')
 settings.createWindowDialogXml()
-
+shutil.copy2(os.path.join(BASE_RESOURCE_PATH,'settings_addon.xml'),os.path.join(BASE_RESOURCE_PATH,'settings.xml'))
 
