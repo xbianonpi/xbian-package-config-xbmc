@@ -80,7 +80,8 @@ class system(Category) :
     #CALLBACK FUNCTION        
     
     #NETWORK
-    def setLan(self,ctrl,interface,mode,status,ipadress,subnet,gateway,dns1,dns2,ssid=None):
+    def setLan(self,ctrl,interface,status,mode,ipadress,subnet,gateway,dns1,dns2,ssid=None):
+        print mode
         if mode == NetworkSettings.DHCP :
             mode = 'dhcp'
             cmd = [mode,interface]
