@@ -173,11 +173,11 @@ class system(Category) :
     
     def getmpgLicenseConfig(self):
         licensempg =xbianConfig('licensempg2','select')
-        if licensempg[0][:2] == '0x' :
+        if len(licensempg) > 0 and licensempg[0][:2] == '0x' :
             self.mpgLicenseCmd = 'update'
             self.mpgLicense = licensempg[0]
         else :
-            if licensempg[0] == "" :
+            if len(licensempg) == 0 or licensempg[0] == "" :
                 self.mpgLicenseCmd = 'insert'
             else :
                 self.mpgLicenseCmd = 'update'
@@ -209,11 +209,11 @@ class system(Category) :
             
     def getvc1LicenseConfig(self):
         licensevc1 =xbianConfig('licensevc1','select')
-        if licensevc1[0][:2] == '0x' :
+        if len(licensevc1) > 0 and licensevc1[0][:2] == '0x' :
             self.vc1LicenseCmd = 'update'
             self.vc1License = licensevc1[0]
         else :
-            if licensevc1[0] == "" :
+            if len(licensevc1) == 0 or licensevc1[0] == "" :
                 self.vc1LicenseCmd = 'insert'
             else :
                 self.vc1LicenseCmd = 'update'
