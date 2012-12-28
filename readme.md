@@ -9,5 +9,5 @@ rm -r /home/xbian/.xbmc/addons/plugin.xbianconfig
 cd xbian-config-python
 mkdir /home/xbian/.xbmc/addons/plugin.xbianconfig
 cp -R * /home/xbian/.xbmc/addons/plugin.xbianconfig/
-chown xbian:xbian /home/xbian/.xbmc/addons/plugin.xbianconfig/
+chown -R xbian:xbian /home/xbian/.xbmc/addons/plugin.xbianconfig/
 ```
