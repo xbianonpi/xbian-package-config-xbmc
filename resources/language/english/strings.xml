@@ -7,6 +7,11 @@
     <string id="19003">Always</string>
     <string id="19004">Advanced Mode</string>
     <string id="19004">General</string>
+    
+    <string id="19100">Running</string>
+    <string id="19101">Stopped</string>
+    
+    
 	
     <!--CATEGORY STRINGS -->
     <string id="20000">Information</string>	

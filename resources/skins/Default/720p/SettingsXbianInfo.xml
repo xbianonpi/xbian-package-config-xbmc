@@ -1,0 +1,748 @@
+<window>
+	<defaultcontrol always="true">9001</defaultcontrol>
+	<allowoverlay>no</allowoverlay>
+	<controls>
+		<include>CommonBackground</include>
+		<control type="image">
+			<posx>0</posx>
+			<posy>100r</posy>
+			<width>1280</width>
+			<height>100</height>
+			<texture>floor.png</texture>
+			<animation effect="slide" start="0,10" end="0,0" time="200" condition="Window.Previous(Home)">WindowOpen</animation>
+			<animation effect="slide" start="0,0" end="0,10" time="200" condition="Window.Next(Home)">WindowClose</animation>
+		</control>
+		<control type="group">
+			<posx>90</posx>
+			<posy>30</posy>
+			<animation type="WindowOpen" reversible="false">
+				<effect type="zoom" start="80" end="100" center="640,360" easing="out" tween="back" time="300" />
+				<effect type="fade" start="0" end="100" time="300" />
+			</animation>
+			<animation type="WindowClose" reversible="false">
+				<effect type="zoom" start="100" end="80" center="640,360" easing="in" tween="back" time="300" />
+				<effect type="fade" start="100" end="0" time="300" />
+			</animation>
+			<control type="image">
+				<posx>5</posx>
+				<posy>5</posy>
+				<width>1090</width>
+				<height>630</height>
+				<texture border="15">ContentPanel.png</texture>
+			</control>
+			<control type="image">
+				<posx>5</posx>
+				<posy>625</posy>
+				<width>1090</width>
+				<height>64</height>
+				<texture border="15">ContentPanelMirror.png</texture>
+			</control>
+			<control type="button">
+				<description>Close Window button</description>
+				<posx>980</posx>
+				<posy>11</posy>
+				<width>64</width>
+				<height>32</height>
+				<label>-</label>
+				<font>-</font>
+				<onclick>PreviousMenu</onclick>
+				<texturefocus>DialogCloseButton-focus.png</texturefocus>
+				<texturenofocus>DialogCloseButton.png</texturenofocus>
+				<onleft>1</onleft>
+				<onright>1</onright>
+				<onup>1</onup>
+				<ondown>1</ondown>
+				<visible>system.getbool(input.enablemouse)</visible>
+			</control>
+			<control type="image">
+				<description>LOGO</description>
+				<posx>30</posx>
+				<posy>15</posy>
+				<width>220</width>
+				<height>80</height>
+				<aspectratio>keep</aspectratio>
+				<texture>Confluence_Logo.png</texture>
+			</control>
+			<control type="list" id="9000">
+				<posx>10</posx>
+				<posy>90</posy>
+				<width>260</width>
+				<height>481</height>
+				<itemgap>-1</itemgap>
+				<onup>9000</onup>
+				<ondown>9000</ondown>
+				<onleft>9001</onleft>
+				<onright>9001</onright>
+				<pagecontrol>-</pagecontrol>
+				<scrolltime>300</scrolltime>
+				<itemlayout height="60" width="260">
+				<control type="image">
+						<posx>0</posx>
+						<posy>0</posy>
+						<width>260</width>
+						<height>60</height>
+						<texture border="5">MenuItemNF.png</texture>
+				</control>
+				<control type="label" id="95">
+					<description>Menu Label no focus</description>
+					<posx>250</posx>
+					<posy>15</posy>
+					<height>60</height>
+					<width>241</width>
+					
+					<align>right</align>
+					<font>font13_title</font>
+					<textcolor>grey2</textcolor>
+					<label>$INFO[ListItem.Label]</label>
+				</control>
+				</itemlayout>
+				<focusedlayout height="60" width="260">
+					<control type="image">
+						<posx>0</posx>
+						<posy>0</posy>
+						<width>260</width>
+						<height>60</height>
+						<texture border="5">MenuItemFO.png</texture>
+				</control>
+					<control type="label" id="96">
+					<description>Menu Label focus</description>
+					<posx>250</posx>
+					<posy>15</posy>
+					<height>60</height>
+					<width>241</width>
+					<align>right</align>
+					
+					<font>font13_title</font>
+					<textcolor>white</textcolor>
+					<label>$INFO[ListItem.Label]</label>
+					</control>
+				</focusedlayout>
+				<content>
+<item id="36000">
+<onclick>-</onclick>
+<label>System</label>
+</item>
+				</content>
+			</control>
+			<control type="image">
+				<posx>268</posx>
+				<posy>10</posy>
+				<width>790</width>
+				<height>618</height>
+				<texture border="5">black-back2.png</texture>
+			</control>
+			<control type="image">
+				<posx>268</posx>
+				<posy>10</posy>
+				<width>804</width>
+				<height>100</height>
+				<aspectratio>stretch</aspectratio>
+				<texture>GlassTitleBar.png</texture>
+			</control>
+			<control type="label" id="40">
+				<description>header label</description>
+				<posx>300</posx>
+				<posy>20</posy>
+				<width>740</width>
+				<height>30</height>
+				<font>font16</font>
+				<label>-</label>
+				<align>left</align>
+				<aligny>center</aligny>
+				<textcolor>white</textcolor>
+				<shadowcolor>black</shadowcolor>
+			</control>
+			<control type="group" id="9001">
+				<posx>290</posx>
+				<posy>60</posy>
+				<width>750</width>
+				<height>500</height>				
+<control type="grouplist" id="36001">
+<itemgap>-1</itemgap>
+<onleft>9000</onleft>
+<onright>9000</onright>
+<visible>Container(9000).HasFocus(36000)</visible>
+<control type="label" id="36002">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>Network</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36005">
+<visible>false</visible>
+<description>hidden button to scroll up the list</description>
+</control>
+<control type="group" id="36007">
+<width>750</width>
+<height>40</height>
+<control type="spincontrol" id="36008">
+<onup>36005</onup>
+<textcolor>grey2</textcolor>
+<ondown>36006</ondown>
+<pulseonselect>false</pulseonselect>
+<subtype>page</subtype>
+<posx>670</posx>
+<posy>8</posy>
+<font>font13</font>
+<textoffsetx>5000</textoffsetx>
+</control>
+<control type="button" id="36009">
+<onup>36005</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36006</ondown>
+<pulseonselect>false</pulseonselect>
+<disabledcolor>white</disabledcolor>
+<visible>Control.HasFocus(36008)</visible>
+<label>Interfaces</label>
+<height>40</height>
+<posx>0</posx>
+<width>750</width>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemFO.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<onfocus>Control.SetFocus(36008,0)</onfocus>
+<font>font13</font>
+</control>
+<control type="button" id="36010">
+<onup>36005</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36006</ondown>
+<pulseonselect>false</pulseonselect>
+<disabledcolor>grey2</disabledcolor>
+<visible>!Control.HasFocus(36008)</visible>
+<label>Interfaces</label>
+<height>40</height>
+<posx>0</posx>
+<width>750</width>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<onfocus>Control.SetFocus(36008,0)</onfocus>
+<font>font13</font>
+</control>
+<control type="wraplist" id="36011">
+<onup>36005</onup>
+<enable>false</enable>
+<ondown>36006</ondown>
+<pulseonselect>false</pulseonselect>
+<height>40</height>
+<width>225</width>
+<scrolltime>0</scrolltime>
+<posx>450</posx>
+<posy>0</posy>
+<pagecontrol>36008</pagecontrol>
+<itemlayout width="225" height="40">
+</itemlayout>
+<focusedlayout width="225" height="40">
+<control type="label" id="36012">
+<textcolor>grey2</textcolor>
+<align>right</align>
+<label>$INFO[ListItem.Label]</label>
+<height>40</height>
+<width>225</width>
+<aligny>center</aligny>
+<posx>215</posx>
+<posy>0</posy>
+<font>font13</font>
+</control>
+</focusedlayout>
+<content>
+<item id="36018">
+<onclick>-</onclick>
+<label>eth0</label>
+</item>
+<item id="36037">
+<onclick>-</onclick>
+<label>wlan0</label>
+</item>
+</content>
+</control>
+</control>
+<control type="button" id="36006">
+<visible>false</visible>
+<description>hidden button to scroll down the list</description>
+</control>
+<control type="button" id="36021">
+<visible>false</visible>
+<description>hidden button to scroll up the list</description>
+</control>
+<control type="group" id="36023">
+<width>750</width>
+<visible>Container(36011).HasFocus(36018)</visible>
+<height>40</height>
+<control type="spincontrol" id="36024">
+<onup>36021</onup>
+<textcolor>grey2</textcolor>
+<ondown>36022</ondown>
+<pulseonselect>false</pulseonselect>
+<subtype>page</subtype>
+<posx>670</posx>
+<posy>8</posy>
+<font>font13</font>
+<textoffsetx>5000</textoffsetx>
+</control>
+<control type="button" id="36025">
+<onup>36021</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36022</ondown>
+<pulseonselect>false</pulseonselect>
+<disabledcolor>white</disabledcolor>
+<visible>Control.HasFocus(36024)</visible>
+<label> -Mode</label>
+<height>40</height>
+<posx>0</posx>
+<width>750</width>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemFO.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<onfocus>Control.SetFocus(36024,0)</onfocus>
+<font>font13</font>
+</control>
+<control type="button" id="36026">
+<onup>36021</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36022</ondown>
+<pulseonselect>false</pulseonselect>
+<disabledcolor>grey2</disabledcolor>
+<visible>!Control.HasFocus(36024)</visible>
+<label> -Mode</label>
+<height>40</height>
+<posx>0</posx>
+<width>750</width>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<onfocus>Control.SetFocus(36024,0)</onfocus>
+<font>font13</font>
+</control>
+<control type="wraplist" id="36027">
+<onup>36021</onup>
+<enable>false</enable>
+<ondown>36022</ondown>
+<pulseonselect>false</pulseonselect>
+<height>40</height>
+<width>225</width>
+<scrolltime>0</scrolltime>
+<posx>450</posx>
+<posy>0</posy>
+<pagecontrol>36024</pagecontrol>
+<itemlayout width="225" height="40">
+</itemlayout>
+<focusedlayout width="225" height="40">
+<control type="label" id="36028">
+<textcolor>grey2</textcolor>
+<align>right</align>
+<label>$INFO[ListItem.Label]</label>
+<height>40</height>
+<width>225</width>
+<aligny>center</aligny>
+<posx>215</posx>
+<posy>0</posy>
+<font>font13</font>
+</control>
+</focusedlayout>
+<content>
+<item id="36029">
+<onclick>-</onclick>
+<label>Dhcp</label>
+</item>
+<item id="36030">
+<onclick>-</onclick>
+<label>Static</label>
+</item>
+</content>
+</control>
+</control>
+<control type="button" id="36022">
+<visible>false</visible>
+<description>hidden button to scroll down the list</description>
+</control>
+<control type="button" id="36032">
+<texturefocus>MenuItemFO.png</texturefocus>
+<pulseonselect>false</pulseonselect>
+<visible>Container(36027).HasFocus(36030)</visible>
+<visible>Container(36011).HasFocus(36018)</visible>
+<label> -Adress</label>
+<height>40</height>
+<width>750</width>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36033">
+<texturefocus>MenuItemFO.png</texturefocus>
+<pulseonselect>false</pulseonselect>
+<visible>Container(36027).HasFocus(36030)</visible>
+<visible>Container(36011).HasFocus(36018)</visible>
+<label> -Subnet</label>
+<height>40</height>
+<width>750</width>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36034">
+<texturefocus>MenuItemFO.png</texturefocus>
+<pulseonselect>false</pulseonselect>
+<visible>Container(36027).HasFocus(36030)</visible>
+<visible>Container(36011).HasFocus(36018)</visible>
+<label> -Gateway</label>
+<height>40</height>
+<width>750</width>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36035">
+<texturefocus>MenuItemFO.png</texturefocus>
+<pulseonselect>false</pulseonselect>
+<visible>Container(36027).HasFocus(36030)</visible>
+<visible>Container(36011).HasFocus(36018)</visible>
+<label> -Primary Dns</label>
+<height>40</height>
+<width>750</width>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36036">
+<texturefocus>MenuItemFO.png</texturefocus>
+<pulseonselect>false</pulseonselect>
+<visible>Container(36027).HasFocus(36030)</visible>
+<visible>Container(36011).HasFocus(36018)</visible>
+<label> -Secondary Dns</label>
+<height>40</height>
+<width>750</width>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36040">
+<visible>false</visible>
+<description>hidden button to scroll up the list</description>
+</control>
+<control type="group" id="36042">
+<width>750</width>
+<visible>Container(36011).HasFocus(36037)</visible>
+<height>40</height>
+<control type="spincontrol" id="36043">
+<onup>36040</onup>
+<textcolor>grey2</textcolor>
+<ondown>36041</ondown>
+<pulseonselect>false</pulseonselect>
+<subtype>page</subtype>
+<posx>670</posx>
+<posy>8</posy>
+<font>font13</font>
+<textoffsetx>5000</textoffsetx>
+</control>
+<control type="button" id="36044">
+<onup>36040</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36041</ondown>
+<pulseonselect>false</pulseonselect>
+<disabledcolor>white</disabledcolor>
+<visible>Control.HasFocus(36043)</visible>
+<label> -Mode</label>
+<height>40</height>
+<posx>0</posx>
+<width>750</width>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemFO.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<onfocus>Control.SetFocus(36043,0)</onfocus>
+<font>font13</font>
+</control>
+<control type="button" id="36045">
+<onup>36040</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36041</ondown>
+<pulseonselect>false</pulseonselect>
+<disabledcolor>grey2</disabledcolor>
+<visible>!Control.HasFocus(36043)</visible>
+<label> -Mode</label>
+<height>40</height>
+<posx>0</posx>
+<width>750</width>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<onfocus>Control.SetFocus(36043,0)</onfocus>
+<font>font13</font>
+</control>
+<control type="wraplist" id="36046">
+<onup>36040</onup>
+<enable>false</enable>
+<ondown>36041</ondown>
+<pulseonselect>false</pulseonselect>
+<height>40</height>
+<width>225</width>
+<scrolltime>0</scrolltime>
+<posx>450</posx>
+<posy>0</posy>
+<pagecontrol>36043</pagecontrol>
+<itemlayout width="225" height="40">
+</itemlayout>
+<focusedlayout width="225" height="40">
+<control type="label" id="36047">
+<textcolor>grey2</textcolor>
+<align>right</align>
+<label>$INFO[ListItem.Label]</label>
+<height>40</height>
+<width>225</width>
+<aligny>center</aligny>
+<posx>215</posx>
+<posy>0</posy>
+<font>font13</font>
+</control>
+</focusedlayout>
+<content>
+<item id="36048">
+<onclick>-</onclick>
+<label>Dhcp</label>
+</item>
+<item id="36049">
+<onclick>-</onclick>
+<label>Static</label>
+</item>
+</content>
+</control>
+</control>
+<control type="button" id="36041">
+<visible>false</visible>
+<description>hidden button to scroll down the list</description>
+</control>
+<control type="button" id="36051">
+<texturefocus>MenuItemFO.png</texturefocus>
+<pulseonselect>false</pulseonselect>
+<visible>Container(36046).HasFocus(36049)</visible>
+<visible>Container(36011).HasFocus(36037)</visible>
+<label> -Adress</label>
+<height>40</height>
+<width>750</width>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36052">
+<texturefocus>MenuItemFO.png</texturefocus>
+<pulseonselect>false</pulseonselect>
+<visible>Container(36046).HasFocus(36049)</visible>
+<visible>Container(36011).HasFocus(36037)</visible>
+<label> -Subnet</label>
+<height>40</height>
+<width>750</width>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36053">
+<texturefocus>MenuItemFO.png</texturefocus>
+<pulseonselect>false</pulseonselect>
+<visible>Container(36046).HasFocus(36049)</visible>
+<visible>Container(36011).HasFocus(36037)</visible>
+<label> -Gateway</label>
+<height>40</height>
+<width>750</width>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36054">
+<texturefocus>MenuItemFO.png</texturefocus>
+<pulseonselect>false</pulseonselect>
+<visible>Container(36046).HasFocus(36049)</visible>
+<visible>Container(36011).HasFocus(36037)</visible>
+<label> -Primary Dns</label>
+<height>40</height>
+<width>750</width>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36055">
+<texturefocus>MenuItemFO.png</texturefocus>
+<pulseonselect>false</pulseonselect>
+<visible>Container(36046).HasFocus(36049)</visible>
+<visible>Container(36011).HasFocus(36037)</visible>
+<label> -Secondary Dns</label>
+<height>40</height>
+<width>750</width>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36056">
+<texturefocus>MenuItemFO.png</texturefocus>
+<pulseonselect>false</pulseonselect>
+<label2>Not Connected</label2>
+<visible>Container(36011).HasFocus(36037)</visible>
+<label> -Ssid</label>
+<height>40</height>
+<width>750</width>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36014">
+<visible>false</visible>
+<description>hidden button to scroll up the list</description>
+</control>
+<control type="group" id="36016">
+<width>750</width>
+<height>40</height>
+<control type="button" id="36017">
+<onup>36014</onup>
+<ondown>36015</ondown>
+<width>150</width>
+<align>center</align>
+<label>Apply</label>
+<pulseonselect>false</pulseonselect>
+<posx>590</posx>
+<posy>5</posy>
+<height>30</height>
+</control>
+</control>
+<control type="button" id="36015">
+<visible>false</visible>
+<description>hidden button to scroll down the list</description>
+</control>
+<control type="label" id="36057">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>Connectivity</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="radiobutton" id="36058">
+<texturefocus>MenuItemFO.png</texturefocus>
+<pulseonselect>false</pulseonselect>
+<label>Force Hdmi</label>
+<height>40</height>
+<width>750</width>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36059">
+<texturefocus>MenuItemFO.png</texturefocus>
+<pulseonselect>false</pulseonselect>
+<label>Disable Hdmi</label>
+<height>40</height>
+<width>750</width>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36060">
+<texturefocus>MenuItemFO.png</texturefocus>
+<pulseonselect>false</pulseonselect>
+<label>Enable Cec</label>
+<height>40</height>
+<width>750</width>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36061">
+<texturefocus>MenuItemFO.png</texturefocus>
+<pulseonselect>false</pulseonselect>
+<label>Ignore Cec Init</label>
+<height>40</height>
+<width>750</width>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<font>font13</font>
+</control>
+<control type="label" id="36062">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>License</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36063">
+<texturefocus>MenuItemFO.png</texturefocus>
+<pulseonselect>false</pulseonselect>
+<label>Mpeg2</label>
+<height>40</height>
+<width>750</width>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36064">
+<texturefocus>MenuItemFO.png</texturefocus>
+<pulseonselect>false</pulseonselect>
+<label>Vc1</label>
+<height>40</height>
+<width>750</width>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+</control>
+			</control>
+		</control>
+		<include>CommonNowPlaying</include>
+		<include>MainWindowMouseButtons</include>
+		<control type="image">
+			<description>Section header image</description>
+			<posx>20</posx>
+			<posy>3</posy>
+			<width>35</width>
+			<height>35</height>
+			<aspectratio>keep</aspectratio>
+			<texture>icon_system.png</texture>
+		</control>
+		<control type="grouplist">
+			<posx>65</posx>
+			<posy>5</posy>
+			<width>1000</width>
+			<height>30</height>
+			<orientation>horizontal</orientation>
+			<align>left</align>
+			<itemgap>5</itemgap>
+			<control type="label">
+				<include>WindowTitleCommons</include>
+				<label>$LOCALIZE[130]</label>
+			</control>
+		</control>
+		<include>Clock</include>
+	</controls>
+</window>
