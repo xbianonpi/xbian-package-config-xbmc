@@ -94,13 +94,10 @@ class system(Category) :
     def setlanCb(self,ctrl,rc) :
         if rc[0] == '1' :
             self.CmdOk('Network','Network udapte OK')
-            self.mpgLicense = self.newmpgLicense
         elif rc[0] == '0' :
             self.cmdError('Network',rc[1])
-            self.setmpgLicenseConfig(ctrl)
         else :
             self.cmdError('Network','Unexpecting Error : %s '%rc[0])
-            self.setmpgLicenseConfig(ctrl)
         
     def getLanConfig(self):
         for interface in self.interfaces :
