@@ -44,12 +44,19 @@ CmdQueue = Queue.Queue()
 updateThread = Updater(CmdQueue)
 updateThread.start()
 
-#CmdQueue.put(lambda: A.doXml())
-a = window.WindowSkinXml('SettingsXbianInfo.xml',ROOTDIR)
-from categories.system import system
-systemcat = system(CmdQueue)     
-a.addCategory(systemcat)
-a.doXml(os.path.join(ROOTDIR,'resources','skins','Default','720p','SettingsXbianInfo.template'))
-a.doModal()
-updateThread.stop()
+try :
+	a = window.WindowSkinXml('SettingsXbianInfo.xml',ROOTDIR)
+	from categories.system import system
+	systemcat = system(CmdQueue)     
+	a.addCategory(systemcat)
+	from categories.preference import preference
+	pref = preference(CmdQueue)     
+	a.addCategory(pref)
+
+	a.doXml(os.path.join(ROOTDIR,'resources','skins','Default','720p','SettingsXbianInfo.template'))
+	a.doModal()
+except :
+	print 'Exception in plugin-xbianconfig'
+finally :
+	updateThread.stop()
 

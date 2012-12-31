@@ -106,6 +106,9 @@ class MultiSettingControl(ContainerXml) :
         print 'helo'
         self.save_ctrl = ctrl
         ctrl.click = self.clickSave
+   
+    def getClickID(self) :
+			return self.save_ctrl.getClickID()
         
     def clickSave(self,controlId):
        if controlId == self.save_ctrl.getId() :
