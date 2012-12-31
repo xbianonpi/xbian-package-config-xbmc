@@ -16,6 +16,9 @@ class NetworkSettings(MultiSettingControl):
         self.addControl(self.interfaceSpinControl)
         SaveButton = ApplyButtonControl(Tag('label','Apply'))
         self.setSaveControl(SaveButton)
+    
+    def getClickID(self) :
+		return self.save_ctrl.getId()
         
     def clickSave(self,controlId):
        if controlId == self.save_ctrl.getId() :
@@ -28,6 +31,15 @@ class NetworkSettings(MultiSettingControl):
            print value
            self.onClick(self,*value)
     
+    def getValue(self):
+           value = [self.interfaceSpinControl.getValue()]
+           for control in self.interfaces[self.interfaceSpinControl.getValue()].getControls() :
+              if isinstance(control,ContainerXml) :
+                  value.extend(control.getValue())
+              else :    
+                  value.append(control.getValue())
+           return  value
+        
     def setValue(self,interface,mode,status,ipadress=None,subnet=None,gateway=None,dns1=None,dns2=None,ssid=None) :
         Staticvalue = [ipadress,subnet,gateway,dns1,dns2]
         controls = self.interfaces[interface].getControls()

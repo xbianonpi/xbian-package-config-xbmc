@@ -54,7 +54,9 @@ class xbmcxml :
 
    def getId(self) :
        return self.id
-   
+       
+   def getClickID(self) :
+		return self.id
    def getConfig(self):
        pass
     
@@ -144,11 +146,7 @@ class ContainerXml(xbmcxml):
         
     def addControl(self,control):
         self.controls.append(control)
-        #if isinstance(control,ContainerXml) :
-        #    self.controlIdList.extend(control.getIds())
-        #else :
-        #    self.controlIdList.append(control.getId())
-    
+        
     def getControls(self):
         return self.controls
     
@@ -169,12 +167,7 @@ class ContainerXml(xbmcxml):
     def click(self,controlId):
        if controlId in self.getIds() :
            for control in self.controls :
-               if isinstance(control,ContainerXml) :
-                    print 'send click to container' + str(control.getId())             
-               else :
-                   print 'send click to control ' + str(control.getId())             
                control.click(controlId)
-           #self.onClick(None)
     
     def onClick(self,ctrl,*value):
         pass

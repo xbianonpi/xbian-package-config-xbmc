@@ -8,13 +8,12 @@ class Updater(threading.Thread):
         
     def run(self):
         while not self._stopevent.isSet():
-            functions = self.queue.get()
-            ctrl = functions[0]
-            rc = functions[1]()
-            if functions[2] :
-				functions[2](ctrl,rc)
+            setting = self.queue.get()
+            if setting != "stop" :
+				setting[0].ThreadSetXbianValue(setting[1])
+            
             
     def stop(self):
         self._stopevent.set()
-        self.queue.put([None,lambda : True == True,None])
+        self.queue.put("stop")
          
