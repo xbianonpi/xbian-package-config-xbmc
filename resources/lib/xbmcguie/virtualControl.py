@@ -23,6 +23,7 @@ class xbmcxml :
 
    def __init__(self, *args,**kwargs):
        self.id = next(id_generator)
+       self.hasfocus = False
 
        #set available tags for this control
        self.availabletags=()
@@ -54,9 +55,21 @@ class xbmcxml :
 
    def getId(self) :
        return self.id
+   
+   def onFocus(self,ctrl) :
+        print 'focus to %d'%self.id
+        pass
+    
+   def onUnFocus(self,ctrl) :
+        print 'lost focus to %d'%self.id
+        pass
+    
+   def onClick(self,ctrl):
+        pass
        
    def getClickID(self) :
-		return self.id
+        return self.id
+   
    def getConfig(self):
        pass
     
@@ -108,18 +121,21 @@ class ControlXml(xbmcxml):
     def click(self,controlId):
        print 'cindy ' + str(controlId) + ' - ' + str(self.getId())
        if controlId == self.getId() :
-           self.onClick(self,self.getValue()) 
+           self.onClick(self) 
     
-    def onClick(self,ctrl,*args) :
-       pass
+    def focus(self,controlId) :
+       if controlId == self.getId() :
+           print 'must have focus ' + str(self.hasfocus)
+           if not self.hasfocus :
+                self.hasfocus = True
+                self.onFocus(self)
+       elif self.hasfocus :
+            self.hasfocus = False
+            self.onUnFocus(self)
     
     def getValue(self):
-        print 'pass here'
         pass
-    
-
-   
-        
+       
     def toXml(self):
        xml = ''
        if self.XBMCDEFAULTCONTROL :
@@ -168,9 +184,19 @@ class ContainerXml(xbmcxml):
        if controlId in self.getIds() :
            for control in self.controls :
                control.click(controlId)
-    
-    def onClick(self,ctrl,*value):
-        pass
+               
+    def focus(self,controlId):
+        if controlId in self.getIds() :
+            for control in self.controls :
+                control.focus(controlId)
+            if not self.hasfocus :
+                self.hasfocus = True
+                self.onFocus(self)
+        elif self.hasfocus :
+            for control in self.controls :
+                control.focus(controlId)
+            self.hasfocus = False
+            self.onUnFocus(self)
     
     def getValue(self):
         value = []

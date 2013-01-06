@@ -28,11 +28,6 @@ class Category():
     
     def onInit(self):
         pass
-    
-    def onClick(self,ctrlId):
-		self.category.click(ctrlId)
-		for setting in self.settings :
-			setting.onClick(ctrlId)
         
     def setTitle(self,Title) :
         self.Title = Title
@@ -59,15 +54,29 @@ class Setting():
 	DIALOGHEADER = "" #"override dialog header"
 	ERRORTEXT = "" #"Override Error Text here"
 	OKTEXT = "" #"override Ok Text"
+	SAVEMODE = 0 
 	BADUSERENTRYTEXT = ""
+	
+	
+	#SAVE MODE
+	NONE = -1 
+	ONCLICK = 0
+	ONUNFOCUS = 1
+	
 	ADDON     = Addon( __addonID__ )
+	
 	
 	def __init__(self) :
 		self.control = self.CONTROL
 		self.userValue = None
 		self.xbianValue = None
-		self.clickId = self.control.getClickID()
+		#self.clickId = self.control.getClickID()
 		self.queue = None
+		#self.SAVE = self.onSave
+		if self.SAVEMODE == self.ONCLICK :
+			self.control.onClick = self.onSave
+		elif self.SAVEMODE == self.ONUNFOCUS :
+			self.control.onUnFocus = self.onSave 
 		self.onInit()
 		
 	
@@ -85,9 +94,8 @@ class Setting():
 	def getSetting(self,id):
 		return self.ADDON.getSetting(id)
 	
-	def onClick(self,ctrlId):
-		if ctrlId == self.clickId :
-			self.updateFromUser()
+	def onSave(self,ctrl):
+		self.updateFromUser()
 			
 	def getControl(self) :
 		return self.control
@@ -112,20 +120,22 @@ class Setting():
 	
 	def updateFromUser(self):
 		self.userValue = self.getUserValue()
-		if self.userValue and self.checkUserValue(self.userValue) :
-			ok = True
-			if self.getSetting('confirmationonchange') != '0' :
-				if not dialog.yesno(self.DIALOGHEADER,'Apply Change') :
-					ok = False
-					self.updateFromXbian()
-			if ok :
-				self.QueueSetXbianValue(self.userValue)
-				self.setControlValue(self.userValue)
-				return True
-		elif self.userValue and not self.checkUserValue(self.userValue) :
-			dialog.ok(self.DIALOGHEADER,self.BADUSERENTRYTEXT)
-			self.setControlValue(self.xbianValue)
-	
+		if self.userValue != self.xbianValue :
+			if self.userValue and self.checkUserValue(self.userValue) :
+				ok = True
+				if self.getSetting('confirmationonchange') != '0' :
+					if not dialog.yesno(self.DIALOGHEADER,'Apply Change') :
+						ok = False
+						self.updateFromXbian()
+				if ok :
+					self.QueueSetXbianValue(self.userValue)
+					print 'will put uservalue'
+					self.setControlValue(self.userValue)
+					return True
+			elif self.userValue and not self.checkUserValue(self.userValue) :
+				dialog.ok(self.DIALOGHEADER,self.BADUSERENTRYTEXT)
+				self.setControlValue(self.xbianValue)
+		
 	def updateFromXbian(self):
 		#dialog.ok("update from xbian",ADDON.getSetting('notifyonerror'))
 		self.xbianValue = self.getXbianValue()
@@ -145,8 +155,10 @@ class Setting():
 			if self.getSetting('notifyonerror') != '0' :
 				xbmc.executebuiltin("Notification(%s,%s)"%(self.DIALOGHEADER,self.ERRORTEXT))
 			self.updateFromXbian()
-		elif self.getSetting('notifyonsuccess') == '1' :
+		else :
+			if self.getSetting('notifyonsuccess') == '1' :
 				xbmc.executebuiltin("Notification(%s,%s)"%(self.DIALOGHEADER,self.OKTEXT))
+			self.xbianValue = value
 		
 	def setXbianValue(self,value):
 		#this method must be overrided

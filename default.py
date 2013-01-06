@@ -25,7 +25,7 @@ import xbmcplugin
 from xbmcaddon import Addon
 
 #xbmcguie
-from resources.lib.xbmcguie import window
+from resources.lib.xbianWindow import XbianWindow
 
 from resources.lib.updateworker import Updater
 #addon module 
@@ -45,7 +45,7 @@ updateThread = Updater(CmdQueue)
 updateThread.start()
 
 try :
-	a = window.WindowSkinXml('SettingsXbianInfo.xml',ROOTDIR)
+	a = XbianWindow('SettingsXbianInfo.xml',ROOTDIR)
 	from categories.system import system
 	systemcat = system(CmdQueue)     
 	a.addCategory(systemcat)

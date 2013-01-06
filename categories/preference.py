@@ -5,7 +5,6 @@ from resources.lib.xbmcguie.category import Category,Setting
 
 import os
 
-from lib.NetworkCustomControlSetting import NetworkSettings
 from resources.lib.xbianconfig import xbianConfig
 
 import xbmcgui
@@ -23,7 +22,7 @@ class advancedMode(Setting) :
     
     def onInit(self) :
         self.key = 'advancedmode'
-        
+                    
     def getUserValue(self):
         return str(self.getControlValue())
     
@@ -35,10 +34,12 @@ class advancedMode(Setting) :
         self.control.setValue(value)
     
     def getXbianValue(self):
-        return self.getSetting(self.key)
+        rc = self.getSetting(self.key)
+        return rc
         
     def setXbianValue(self,value):
         self.setSetting(self.key,str(value))
+        xbmc.executebuiltin('Skin.ToggleSetting(%s)'%self.key)
         return True
 
 class notificationLabel(Setting) :
@@ -63,9 +64,30 @@ class confirmonChange(advancedMode) :
     def onInit(self) :
         self.key = 'confirmationonchange'
 
+class UpdateLabel(Setting) :
+    CONTROL = CategoryLabelControl(Tag('label','Update'))
+
+class updateonBoot(advancedMode) :
+    CONTROL = RadioButtonControl(Tag('label','Check update on boot'))
+    DIALOGHEADER = "Notification on Error"
+    def onInit(self) :
+        self.key = 'updateonboot'
+
+class updateTimer(advancedMode) :
+    CONTROL = RadioButtonControl(Tag('label','Check update every'))
+    DIALOGHEADER = "Notification on Error"
+    def onInit(self) :
+        self.key = 'notifyonerror'
+
+class updateAuto(advancedMode) :
+    CONTROL = RadioButtonControl(Tag('label','Automatique Update'))
+    DIALOGHEADER = "Notification on Error"
+    def onInit(self) :
+        self.key = 'updateauto'
+
 #CATEGORY CLASS
 class preference(Category) :
     TITLE = 'Preferences'
-    SETTINGS = [advancedLabel,advancedMode,notificationLabel,confirmonChange,notifyonError,notifyonSuccess]
+    SETTINGS = [advancedLabel,advancedMode,notificationLabel,confirmonChange,notifyonError,notifyonSuccess,UpdateLabel,updateonBoot,updateTimer,updateAuto]
     
     
