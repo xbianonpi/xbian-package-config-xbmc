@@ -81,15 +81,15 @@ class NetworkControl(MultiSettingControl):
             
             self.interfaceValue[key]['status'].setValue(value[1])    
             self.interfaceValue[key]['ipadress'].setValue(value[2])
-            self.interfaceValue[key]['ipadress'].onClick = lambda ipadress: self.interfaceValue[value[0]]['ipadress'].setValue(getIp('Ip adress',value[2]))
+            self.interfaceValue[key]['ipadress'].onClick = lambda ipadress: self.interfaceValue[key]['ipadress'].setValue(getIp('Ip adress',value[2]))
             self.interfaceValue[key]['subnet'].setValue(value[3])
-            self.interfaceValue[key]['subnet'].onClick = lambda subnet: self.interfaceValue[value[0]]['subnet'].setValue(getIp('Subnet',value[3]))
+            self.interfaceValue[key]['subnet'].onClick = lambda subnet: self.interfaceValue[key]['subnet'].setValue(getIp('Subnet',value[3]))
             self.interfaceValue[key]['gateway'].setValue(value[4])
-            self.interfaceValue[key]['gateway'].onClick = lambda gateway: self.interfaceValue[value[0]]['gateway'].setValue(getIp('Gateway',value[4]))
+            self.interfaceValue[key]['gateway'].onClick = lambda gateway: self.interfaceValue[key]['gateway'].setValue(getIp('Gateway',value[4]))
             self.interfaceValue[key]['dns1'].setValue(value[5])
-            self.interfaceValue[key]['dns1'].onClick = lambda dns1: self.interfaceValue[value[0]]['dns1'].setValue(getIp('Primary Dns',value[5]))
+            self.interfaceValue[key]['dns1'].onClick = lambda dns1: self.interfaceValue[key]['dns1'].setValue(getIp('Primary Dns',value[5]))
             self.interfaceValue[key]['dns2'].setValue(value[6])
-            self.interfaceValue[key]['dns2'].onClick = lambda dns2: self.interfaceValue[value[0]]['dns2'].setValue(getIp('Secondary Dns',value[6]))
+            self.interfaceValue[key]['dns2'].onClick = lambda dns2: self.interfaceValue[key]['dns2'].setValue(getIp('Secondary Dns',value[6]))
    
     def getValue(self) :
        default = self.interface.getValue()
