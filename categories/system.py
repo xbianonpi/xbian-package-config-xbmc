@@ -212,6 +212,74 @@ class vc1License(mpeg2License) :
     def onInit(self) :
         self.xbiankey = 'licensevc1'
     
+class connectivityLabel(Setting) :
+    CONTROL = CategoryLabelControl(Tag('label','Connectivity'))
+
+class forceHdmi(Setting) :
+    CONTROL = RadioButtonControl(Tag('label','Force Hdmi'))
+    DIALOGHEADER = "Force Hdmi"
+    ERRORTEXT = "Error on updating"
+    OKTEXT = "Update ok"
+                    
+    def getUserValue(self):
+        return str(self.getControlValue())
+    
+    def setControlValue(self,value) :
+        if value == '1' :
+            value = True
+        else :
+            value = False
+        self.control.setValue(value)
+    
+    def getXbianValue(self):
+		#get xbian config here
+		return '1'
+        
+    def setXbianValue(self,value):
+        #set xbian config here
+        dialog.ok(self.DIALOGHEADER,'Not yet implemented')
+        return True
+
+class ignoreHdmi(forceHdmi) :
+    CONTROL = RadioButtonControl(Tag('label','Ignore Hdmi'))
+    DIALOGHEADER = "Ignore Hdmi"
+                    
+    def getXbianValue(self):
+		#get xbian config here
+		return '1'
+        
+    def setXbianValue(self,value):
+        #set xbian config here
+        dialog.ok(self.DIALOGHEADER,'Not yet implemented')
+        return True
+
+class ignoreCECinit(forceHdmi) :
+    CONTROL = RadioButtonControl(Tag('label','Ignore CEC init'))
+    DIALOGHEADER = "Ignore Cec init"
+                    
+    def getXbianValue(self):
+		#get xbian config here
+		return '1'
+        
+    def setXbianValue(self,value):
+        #set xbian config here
+        dialog.ok(self.DIALOGHEADER,'Not yet implemented')
+        return True
+
+class disableCEC(forceHdmi) :
+    CONTROL = RadioButtonControl(Tag('label','Disable Cec'))
+    DIALOGHEADER = "ignore Cec init"
+                    
+    def getXbianValue(self):
+		#get xbian config here
+		return '1'
+        
+    def setXbianValue(self,value):
+        #set xbian config here
+        dialog.ok(self.DIALOGHEADER,'Not yet implemented')
+        return True
+
+
 class SytemLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label','System'),Tag('visible','skin.hasSetting(advancedmode)'))
     
@@ -255,8 +323,6 @@ class hostname(Setting) :
             ok = False
         return ok       
 
-
-
 class kernel(Setting) :
     CONTROL = SpinControlex(Tag('label','Kernel'),Tag('visible','skin.hasSetting(advancedmode)'))
     DIALOGHEADER = "Kernel Version"
@@ -294,7 +360,6 @@ class kernel(Setting) :
                 self.ERRORTEXT = "Kernel version doesn't exist"
             ok = False
         return ok
-
 
 class OverclockControl(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
@@ -380,4 +445,4 @@ class overclocking(Setting) :
 #CATEGORY CLASS
 class system(Category) :
     TITLE = 'System'
-    SETTINGS = [NewtorkLabel,NetworkSetting,LicenceLabel,mpeg2License,vc1License,SytemLabel,hostname,kernel,overclocking]
+    SETTINGS = [NewtorkLabel,NetworkSetting,LicenceLabel,mpeg2License,vc1License,connectivityLabel,forceHdmi,ignoreHdmi,ignoreCECinit,disableCEC,SytemLabel,hostname,kernel,overclocking]
