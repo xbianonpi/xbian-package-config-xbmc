@@ -139,7 +139,7 @@ class NetworkSetting(Setting) :
         #interface,status,mode,ipadress,subnet,gateway,dns1,dns2,ssid=None
         interface = values[0]
         value = values[1][interface]
-        if value[1] == NetworkControl.DHCP :
+        if value[0].lower() == NetworkControl.DHCP.lower() :
             mode = 'dhcp'
             cmd = [mode,interface]
         else :
@@ -166,7 +166,7 @@ class mpeg2License(Setting) :
     DIALOGHEADER = "MPEG2 License"
     ERRORTEXT = "Error updating"
     OKTEXT = "Update ok"
-    BADUSERENTRYTEXT = "Format is not Correct,must be 0x00000000"
+    BADUSERENTRYTEXT = "must be hex and looks like 0x00000000"
     
     def onInit(self) :
         self.xbiankey = 'licensempg2'
@@ -268,7 +268,7 @@ class ignoreCECinit(forceHdmi) :
 
 class disableCEC(forceHdmi) :
     CONTROL = RadioButtonControl(Tag('label','Disable Cec'))
-    DIALOGHEADER = "ignore Cec init"
+    DIALOGHEADER = "Disable Cec"
                     
     def getXbianValue(self):
 		#get xbian config here
