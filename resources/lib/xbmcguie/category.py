@@ -68,6 +68,7 @@ class Setting():
 	
 	def __init__(self) :
 		self.control = self.CONTROL
+		self.control.setTag(Tag('enable','false'))
 		self.userValue = None
 		self.xbianValue = None
 		#self.clickId = self.control.getClickID()
@@ -105,6 +106,7 @@ class Setting():
 	
 	def setControlValue(self,value) :
 		self.control.setValue(value)
+		
 	
 	def getUserValue(self):
 		#this method must be overrided if user can modify value
@@ -133,7 +135,7 @@ class Setting():
 					self.setControlValue(self.userValue)
 					return True
 			elif self.userValue and not self.checkUserValue(self.userValue) :
-				dialog.ok(self.DIALOGHEADER,self.BADUSERENTRYTEXT)
+				dialog.ok(self.DIALOGHEADER,'Bad Format',self.BADUSERENTRYTEXT)
 				self.setControlValue(self.xbianValue)
 		
 	def updateFromXbian(self):
