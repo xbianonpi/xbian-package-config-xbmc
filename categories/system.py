@@ -63,9 +63,10 @@ class NetworkControl(MultiSettingControl):
              self.interfaceValue[interface]['group'].addControl(self.interfaceValue[interface]['staticgroup'])
              
              #check if Wifi
+             self.interfaceValue[interface]['wifi'] = False
              if os.path.exists("/sys/class/net/%s/wireless"%interface) :
-                 #don't knwow how to do yet, check after
-                 pass
+                 self.interfaceValue[interface]['wifi'] = True
+                 self.interfaceValue[interface]['ssid'] = ButtonControl(Tag('label',' -Ssid'))
                 
     def setValue(self,values):
         default = values[0]
@@ -73,12 +74,11 @@ class NetworkControl(MultiSettingControl):
         networkValue = values[1]
         for key in networkValue :
             value = networkValue[key]
-            
             if value[0] == 'static' :
                 self.interfaceValue[key]['mode'].setValue(self.STATIC)
             else :
                 self.interfaceValue[key]['mode'].setValue(self.DHCP)
-            
+         
             self.interfaceValue[key]['status'].setValue(value[1])    
             self.interfaceValue[key]['ipadress'].setValue(value[2])
             self.interfaceValue[key]['ipadress'].onClick = lambda ipadress: self.interfaceValue[key]['ipadress'].setValue(getIp('Ip adress',value[2]))
@@ -90,6 +90,10 @@ class NetworkControl(MultiSettingControl):
             self.interfaceValue[key]['dns1'].onClick = lambda dns1: self.interfaceValue[key]['dns1'].setValue(getIp('Primary Dns',value[5]))
             self.interfaceValue[key]['dns2'].setValue(value[6])
             self.interfaceValue[key]['dns2'].onClick = lambda dns2: self.interfaceValue[key]['dns2'].setValue(getIp('Secondary Dns',value[6]))
+            
+            if self.interfaceValue[key]['wifi'] :
+                self.interfaceValue[key]['ssid'].setValue('%s (%s)'%(value[8],value[7]))
+                self.interfaceValue[key]['ssid'].onClick =  lambda ssid : self.interfaceValue[key]['ssid'].setValue(wifiConnect(key,value[8],value[7]))
    
     def getValue(self) :
        default = self.interface.getValue()
