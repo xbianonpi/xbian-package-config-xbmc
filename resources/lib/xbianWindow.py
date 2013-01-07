@@ -1,5 +1,6 @@
 import os
 from xbmcguie.window import WindowSkinXml
+import xbmcgui
 
 class XbianWindow(WindowSkinXml):   
     def __init__(self,strXMLname, strFallbackPath, strDefaultName=False, forceFallback=False) :
@@ -13,6 +14,7 @@ class XbianWindow(WindowSkinXml):
             #set default value to gui
             for setting in category.getSettings():
                 setting.updateFromXbian()
+                setting.getControl().setEnabled(True)
     
     def addCategory(self,category):        
         self.categories.append(category)

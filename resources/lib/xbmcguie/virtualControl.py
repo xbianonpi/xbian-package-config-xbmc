@@ -112,8 +112,7 @@ class xbmcxml :
 #base class for all Xbmc Control or custom Control
 class ControlXml(xbmcxml):
     XBMCDEFAULTCONTROL = False
-    
-    
+      
     def setWindowInstance(self,instance):
         self.Windowsinstance = instance
         self.Controlinstance = self.Windowsinstance.getControl(self.getId())
@@ -135,6 +134,9 @@ class ControlXml(xbmcxml):
     
     def getValue(self):
         pass
+    
+    def setEnabled(self,value):
+        self.Controlinstance.setEnabled(value)
        
     def toXml(self):
        xml = ''
@@ -206,6 +208,10 @@ class ContainerXml(xbmcxml):
             else :
                 value.append(control.getValue())
         return value
+    
+    def setEnabled(self,value):
+         for control in self.controls :
+            control.setEnabled(value)
     
     def toXml(self):
        xml = ''
