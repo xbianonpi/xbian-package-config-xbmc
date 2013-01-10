@@ -569,7 +569,7 @@ class sshroot(forceHdmi) :
     DIALOGHEADER = "SSH root"
                     
     def getXbianValue(self):
-        rc = xbianConfig('sshrootlogin','status')
+        rc = xbianConfig('sshroot','status')
         return rc[0]
         
     def setXbianValue(self,value):
@@ -577,7 +577,7 @@ class sshroot(forceHdmi) :
             cmd = 'enable'
         else :
             cmd = 'disable'
-        rc = xbianConfig('sshrootlogin',cmd)
+        rc = xbianConfig('sshroot',cmd)
         ok = True
         if not rc: 
             ok = False
