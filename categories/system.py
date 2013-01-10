@@ -565,7 +565,7 @@ class xbianpwd(rootpwd) :
         self.key = 'xbianpass'
     
 class sshroot(forceHdmi) :
-    CONTROL = RadioButtonControl(Tag('label','Allow ssh root'))
+    CONTROL = RadioButtonControl(Tag('label','Allow ssh root'),Tag('visible','skin.hasSetting(advancedmode)'))
     DIALOGHEADER = "SSH root"
                     
     def getXbianValue(self):
