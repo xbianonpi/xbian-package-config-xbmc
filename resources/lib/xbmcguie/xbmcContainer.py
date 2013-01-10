@@ -22,7 +22,7 @@ class GroupControl(ContainerXml) :
     FOCUSABLE = False
     ACTION = False
     XBMCDEFAULTCONTAINER = 'group'
-    additional_tag =('enable',)
+    additional_tag =('enable','visible')
 
     
 class GroupListControl(ContainerXml) :

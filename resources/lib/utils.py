@@ -21,8 +21,8 @@ def getIp(header,default=None):
     dialog = xbmcgui.Dialog() 
     return dialog.numeric(3,header,default)
     
-def getText(header,default=None):
-    kb = xbmc.Keyboard(default,header)
+def getText(header,default="",hidden=False):
+    kb = xbmc.Keyboard(default,header,hidden)
     kb.doModal()
     if (kb.isConfirmed()):
         return kb.getText()

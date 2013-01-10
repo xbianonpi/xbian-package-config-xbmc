@@ -232,8 +232,8 @@ class forceHdmi(Setting) :
         self.control.setValue(value)
     
     def getXbianValue(self):
-		#get xbian config here
-		return '1'
+        #get xbian config here
+        return '1'
         
     def setXbianValue(self,value):
         #set xbian config here
@@ -245,8 +245,8 @@ class ignoreHdmi(forceHdmi) :
     DIALOGHEADER = "Ignore Hdmi"
                     
     def getXbianValue(self):
-		#get xbian config here
-		return '1'
+        #get xbian config here
+        return '1'
         
     def setXbianValue(self,value):
         #set xbian config here
@@ -258,8 +258,8 @@ class ignoreCECinit(forceHdmi) :
     DIALOGHEADER = "Ignore Cec init"
                     
     def getXbianValue(self):
-		#get xbian config here
-		return '1'
+        #get xbian config here
+        return '1'
         
     def setXbianValue(self,value):
         #set xbian config here
@@ -271,8 +271,8 @@ class disableCEC(forceHdmi) :
     DIALOGHEADER = "Disable Cec"
                     
     def getXbianValue(self):
-		#get xbian config here
-		return '1'
+        #get xbian config here
+        return '1'
         
     def setXbianValue(self,value):
         #set xbian config here
@@ -442,7 +442,150 @@ class overclocking(Setting) :
             ok = False
         return ok
 
+class TimeZoneControl(MultiSettingControl):
+    XBMCDEFAULTCONTAINER = False
+    NOTSET = 'not set'
+    
+    def onInit(self) :
+        self.continentControl = SpinControlex(Tag('label','Continent'))
+        self.addControl(self.continentControl)   
+        self.continentList = xbianConfig('timezone','list')
+        self.continents={}
+        timezone = xbianConfig('timezone','select')
+        #check if timezone is set to add not set content
+        if timezone[0] == '-1' :
+			 self.continentList.insert(0,self.NOTSET)
+        for continent in self.continentList :		 
+             content = Content(Tag('label',continent),defaultSKin=False)
+             self.continentControl.addContent(content)
+             self.continents[continent] = {}
+             #bug for visible tag in spincontrolex, dont find what yet, workaround with multisetting
+             multiset = MultiSettingControl(Tag('visible','Container(%d).HasFocus(%d)'%(self.continentControl.getWrapListId(),content.getId())))
+             self.continents[continent]['control'] = SpinControlex(Tag('label','Country'))
+             multiset.addControl(self.continents[continent]['control'])
+             #self.addControl(self.continents[continent]['control'])
+             #get country for continent
+             
+             if continent == self.NOTSET :
+                self.continents[continent]['country'] = [self.NOTSET]
+             else :
+				self.continents[continent]['country'] = xbianConfig('timezone','list',continent)
+             for country in self.continents[continent]['country'] :
+                 content = Content(Tag('label',country),defaultSKin=False)
+                 self.continents[continent]['control'].addContent(content)
+             self.addControl(multiset)
+                       
+    def setValue(self,value):
+        if value :           
+            self.continentControl.setValue(value[0])
+            self.continents[value[0]]['control'].setValue(value[1])
+    
+    def getValue(self) :
+        continent = self.continentControl.getValue()
+        country = self.continents[continent]['control'].getValue()
+        return [continent,country]
+
+class timezone(Setting) :
+    CONTROL = TimeZoneControl(Tag('visible','skin.hasSetting(advancedmode)'))
+    DIALOGHEADER = "TimeZone"
+    ERRORTEXT = "Error updating"
+    OKTEXT = "Update ok"
+    SAVEMODE = Setting.ONUNFOCUS
+            
+    def getUserValue(self):
+        return self.control.getValue()
+        
+    def getXbianValue(self):
+        timezone =xbianConfig('timezone','select')
+        print timezone
+        if timezone and timezone[0] != '-1':
+            return(timezone[0].split(' '))          
+        else :
+            return [TimeZoneControl.NOTSET,TimeZoneControl.NOTSET]                
+        
+    def setXbianValue(self,value):
+        rc = xbianConfig('timezone','update',*value)
+        ok = True
+        if not rc or not rc[0]: 
+            ok = False
+        return ok
+
+class AccountLabel(Setting) :
+    CONTROL = CategoryLabelControl(Tag('label','Account'),Tag('visible','skin.hasSetting(advancedmode)'))
+    
+    def onInit(self):
+        #check if advanced mode is set
+        #must check here and not in preference since value are read one by one when plugin start.
+        #and this setting is read before preference - advanced mode
+        key = 'advancedmode'
+        rc = self.getSetting(key)
+        if rc == '1' :
+            xbmc.executebuiltin('Skin.SetBool(%s)'%key)
+        else :
+            xbmc.executebuiltin('Skin.Reset((%s)'%key)
+    
+class rootpwd(Setting) :
+    CONTROL = ButtonControl(Tag('label','Root Password'),Tag('visible','skin.hasSetting(advancedmode)'))
+    DIALOGHEADER = "Root Password"
+    ERRORTEXT = "Error updating"
+    OKTEXT = "Update ok"
+    BADUSERENTRYTEXT = "Password does not match"
+        
+    def onInit(self):
+        self.forceUpdate = True
+        self.password = None
+        self.key = 'rootpass'
+        
+    def checkUserValue(self,value):
+        return self.password == self.confirmpwd
+    def getUserValue(self):
+        self.password = getText(self.DIALOGHEADER,hidden=True)
+        self.confirmpwd = getText('Confirm ' + self.DIALOGHEADER,hidden=True)
+        return '*****'
+        
+    def getXbianValue(self):
+        return '*****'                
+        
+    def setXbianValue(self,value):
+        rc = xbianConfig(self.key,'update',self.password)
+        ok = True
+        if not rc: 
+            ok = False
+        elif rc[0] != '1' :
+            ok = False
+        return ok       
+
+class xbianpwd(rootpwd) :
+    CONTROL = ButtonControl(Tag('label','XBian password'),Tag('visible','skin.hasSetting(advancedmode)'))
+    DIALOGHEADER = "Xbian Password"
+    
+    def onInit(self):
+        self.forceUpdate = True
+        self.password = None
+        self.key = 'xbianpass'
+    
+class sshroot(forceHdmi) :
+    CONTROL = RadioButtonControl(Tag('label','Allow ssh root'))
+    DIALOGHEADER = "SSH root"
+                    
+    def getXbianValue(self):
+        rc = xbianConfig('sshrootlogin','status')
+        return rc[0]
+        
+    def setXbianValue(self,value):
+        if value == '1':
+            cmd = 'enable'
+        else :
+            cmd = 'disable'
+        rc = xbianConfig('sshrootlogin',cmd)
+        ok = True
+        if not rc: 
+            ok = False
+        elif rc[0] != '1' :
+            ok = False
+        return ok       
+
 #CATEGORY CLASS
 class system(Category) :
     TITLE = 'System'
-    SETTINGS = [NewtorkLabel,NetworkSetting,LicenceLabel,mpeg2License,vc1License,connectivityLabel,forceHdmi,ignoreHdmi,ignoreCECinit,disableCEC,SytemLabel,hostname,kernel,overclocking]
+    SETTINGS = [NewtorkLabel,NetworkSetting,LicenceLabel,mpeg2License,vc1License,connectivityLabel,forceHdmi,ignoreHdmi,ignoreCECinit,disableCEC,SytemLabel,hostname,timezone,kernel,overclocking,AccountLabel,rootpwd,xbianpwd,sshroot]
