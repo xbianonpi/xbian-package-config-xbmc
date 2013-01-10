@@ -78,6 +78,7 @@ class Setting():
 			self.control.onClick = self.onSave
 		elif self.SAVEMODE == self.ONUNFOCUS :
 			self.control.onUnFocus = self.onSave 
+		self.forceUpdate=False
 		self.onInit()
 		
 	
@@ -122,7 +123,7 @@ class Setting():
 	
 	def updateFromUser(self):
 		self.userValue = self.getUserValue()
-		if self.userValue != self.xbianValue :
+		if self.userValue != self.xbianValue or self.forceUpdate:
 			if self.userValue and self.checkUserValue(self.userValue) :
 				ok = True
 				if self.getSetting('confirmationonchange') != '0' :
@@ -164,6 +165,6 @@ class Setting():
 		
 	def setXbianValue(self,value):
 		#this method must be overrided
-		#get the default Xbian Value
+		#set the  Xbian Value
 		return True
 		

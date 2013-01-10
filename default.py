@@ -12,6 +12,7 @@ __version__      = "0.0.1"
 
 
 import os
+import sys
 import itertools
 import fnmatch
 import shutil
@@ -46,17 +47,23 @@ updateThread.start()
 
 try :
 	a = XbianWindow('SettingsXbianInfo.xml',ROOTDIR)
+	#here do auto import script
 	from categories.system import system
 	systemcat = system(CmdQueue)     
 	a.addCategory(systemcat)
 	from categories.preference import preference
 	pref = preference(CmdQueue)     
 	a.addCategory(pref)
+	
+	from categories.update import update
+	update = update(CmdQueue)     
+	a.addCategory(update)
 
 	a.doXml(os.path.join(ROOTDIR,'resources','skins','Default','720p','SettingsXbianInfo.template'))
 	a.doModal()
 except :
 	print 'Exception in plugin-xbianconfig'
+	print sys.exc_info()
 finally :
 	updateThread.stop()
 

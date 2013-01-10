@@ -29,7 +29,7 @@ class WindowSkinXml(xbmcgui.WindowXML):
     
     def close(self):
 		#seem don't work
-		#check after, have to call onFocus to lauch unFocus if modif is done
+		#check after, have to call unFocus(0) when close
 		self.onFocus(0)
 		xbmcgui.WindowXML.close(self)
 

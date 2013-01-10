@@ -158,12 +158,14 @@ class SpinControlex(ControlXml) :
         self.controls['groupControl'].addControl(self.controls['SpinControlButton'])
 
         #create 3 fake button control for checking focus+enabled and have label
+        #MainControl visible conditon
+        
         self.controls['FakebtnLabelFocus'] = ButtonControl(*self.getArrayTags())
         self.controls['FakebtnLabelFocus'].setTag(Tag('enable',"false"))
         self.controls['FakebtnLabelFocus'].setTag(Tag('posx',0))
         self.controls['FakebtnLabelFocus'].setTag(Tag('posy',0))
         self.controls['FakebtnLabelFocus'].setTag(Tag('disabledcolor',self.getTag('focusedcolor').getValue()['value']))
-        self.controls['FakebtnLabelFocus'].setTag(Tag('visible','Control.HasFocus(%d) + Control.IsEnabled(%d)'%(self.controls['SpinControlButton'].getId(),self.controls['SpinControlButton'].getId())))
+        self.controls['FakebtnLabelFocus'].setTag(Tag('visible','Control.HasFocus(%d) + Control.IsEnabled(%d) + control.IsVisible(%d)'%(self.controls['SpinControlButton'].getId(),self.controls['SpinControlButton'].getId(),self.controls['SpinControlButton'].getId())))
         self.controls['FakebtnLabelFocus'].setTag(Tag('texturenofocus',self.controls['FakebtnLabelFocus'].getTag('texturefocus').getValue()['value']))
         self.controls['groupControl'].addControl(self.controls['FakebtnLabelFocus'])
 
@@ -172,7 +174,8 @@ class SpinControlex(ControlXml) :
         self.controls['FakebtnLabelNoFocus'].setTag(Tag('disabledcolor',self.getTag('textcolor').getValue()['value']))
         self.controls['FakebtnLabelNoFocus'].setTag(Tag('posx',0))
         self.controls['FakebtnLabelNoFocus'].setTag(Tag('posy',0))
-        self.controls['FakebtnLabelNoFocus'].setTag(Tag('visible','!Control.HasFocus(%d) + Control.IsEnabled(%d)'%(self.controls['SpinControlButton'].getId(),self.controls['SpinControlButton'].getId())))
+        
+        self.controls['FakebtnLabelNoFocus'].setTag(Tag('visible','!Control.HasFocus(%d) + Control.IsEnabled(%d) + control.IsVisible(%d)'%(self.controls['SpinControlButton'].getId(),self.controls['SpinControlButton'].getId(),self.controls['SpinControlButton'].getId())))
         self.controls['FakebtnLabelNoFocus'].setTag(Tag('texturefocus',self.controls['FakebtnLabelFocus'].getTag('texturenofocus').getValue()['value']))
         self.controls['groupControl'].addControl(self.controls['FakebtnLabelNoFocus'])
 
@@ -180,7 +183,7 @@ class SpinControlex(ControlXml) :
         self.controls['FakebtnLabelDisabled'].setTag(Tag('enable',"false"))
         self.controls['FakebtnLabelDisabled'].setTag(Tag('posx',0))
         self.controls['FakebtnLabelDisabled'].setTag(Tag('posy',0))
-        self.controls['FakebtnLabelDisabled'].setTag(Tag('visible','!Control.IsEnabled(%d)'%self.controls['SpinControlButton'].getId()))
+        self.controls['FakebtnLabelDisabled'].setTag(Tag('visible','!Control.IsEnabled(%d) + control.IsVisible(%d)'%(self.controls['SpinControlButton'].getId(),self.controls['SpinControlButton'].getId())))
         self.controls['groupControl'].addControl(self.controls['FakebtnLabelDisabled'])
 
         #create the wraplist Control (contain different choice)

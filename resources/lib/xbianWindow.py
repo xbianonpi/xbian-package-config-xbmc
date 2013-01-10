@@ -1,4 +1,4 @@
-import os
+import os,sys
 from xbmcguie.window import WindowSkinXml
 import xbmcgui
 
@@ -13,8 +13,14 @@ class XbianWindow(WindowSkinXml):
         for category in self.categories :
             #set default value to gui
             for setting in category.getSettings():
-                setting.updateFromXbian()
-                setting.getControl().setEnabled(True)
+				try :
+					setting.updateFromXbian()
+				except :
+					#don't enable control if error
+					print 'Exception in updateFromXbian for setting'
+					print sys.exc_info()				
+				else :
+					setting.getControl().setEnabled(True)
     
     def addCategory(self,category):        
         self.categories.append(category)
