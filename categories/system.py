@@ -224,12 +224,8 @@ class videooutputControl(MultiSettingControl):
         for videooutput in self.videooutputlist :
             guiname = videooutput.replace('_',' ').capitalize()
             self.videooutputcontrol[videooutput] = RadioButtonControl(Tag('label',guiname))
-            self.videooutputcontrol[videooutput].onClick = lambda forward : self.forwardClick()
+            self.videooutputcontrol[videooutput].onClick = lambda forwardclick : self.onClick(self)
             self.addControl(self.videooutputcontrol[videooutput])
-    
-    def forwardClick(self) :
-        self.onClick(self)
-        
         
     def setValue(self,values) :
         for key in values :
@@ -273,6 +269,7 @@ class videooutput(Setting) :
         for key in value :
             if value[key] != self.xbianValue[key] :
                  rc = xbianConfig('videoflags','update',key,value[key])
+                 self.DIALOGHEADER = key.replace('_',' ').title()
                  break
         if rc and rc[0] == '1' :
             return True
@@ -539,6 +536,9 @@ class xbianpwd(rootpwd) :
 class sshroot(Setting) :
     CONTROL = RadioButtonControl(Tag('label','Allow SSH root login'),Tag('visible','skin.hasSetting(advancedmode)'))
     DIALOGHEADER = "SSH root"
+    ERRORTEXT = "Error on updating"
+    OKTEXT = "Update ok"
+    
                     
     def getUserValue(self):
         return str(self.getControlValue())
