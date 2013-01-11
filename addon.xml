@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.xbianconfig"
-    name="Xbian Conf" version="0.0.2" provider-name="xbian">
+    name="Xbian-Config" version="0.0.2" provider-name="xbian">
   <requires>
     <import addon="xbmc.python" version="2.0"/>
   </requires>
@@ -8,10 +8,10 @@
      <provides>executable</provides> 
   </extension> 
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">Backup and restore your XBMC database and configuration files in the event of a crash or file corruption.</summary>
-    <summary lang="fr">Sauvegarder et restaurer vos bases de données XBMC et vos fichiers de configuration en cas de crash ou de fichiers corrompus.</summary>
-    <description lang="en">Avez-vous déjà perdu votre configuration XBMC et espéré avoir fait une sauvegarde ? Maintenant, vous pouvez le faire en un simple click. Vous pouvez exporter vos bases de données, playlists, miniatures, addons et autres fichiers de configuration vers n'importe quel endroit accessible depuis XBMC.</description>
-    <description lang="fr">Avez-vous déjà perdu votre configuration XBMC et espéré avoir fait une sauvegarde ? Maintenant, vous pouvez le faire en un simple click. Vous pouvez exporter vos bases de données, playlists, miniatures, addons et autres fichiers de configuration vers n'importe quel endroit accessible depuis XBMC.</description>
+    <summary lang="en">Config easily your XBian system.</summary>
+    <summary lang="fr">Configurer facilement le systeme XBian.</summary>
+    <description lang="en">xbian description (TODO).</description>
+    <description lang="fr">xbian description (TODO).</description>
     <platform>all</platform>
     <language></language>
   </extension>
