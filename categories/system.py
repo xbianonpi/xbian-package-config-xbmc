@@ -159,10 +159,10 @@ class NetworkSetting(Setting) :
         
         
 class LicenceLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','License'))
+    CONTROL = CategoryLabelControl(Tag('label','Licenses'))
 
 class mpeg2License(Setting) :
-    CONTROL = ButtonControl(Tag('label','Mpeg2'))
+    CONTROL = ButtonControl(Tag('label','MPG2'))
     DIALOGHEADER = "MPEG2 License"
     ERRORTEXT = "Error updating"
     OKTEXT = "Update ok"
@@ -206,7 +206,7 @@ class mpeg2License(Setting) :
         
     
 class vc1License(mpeg2License) :
-    CONTROL = ButtonControl(Tag('label','Vc1'))
+    CONTROL = ButtonControl(Tag('label','VC1'))
     DIALOGHEADER = "VC1 License"
     
     def onInit(self) :
@@ -295,7 +295,7 @@ class SytemLabel(Setting) :
             xbmc.executebuiltin('Skin.Reset((%s)'%key)
     
 class hostname(Setting) :
-    CONTROL = ButtonControl(Tag('label','HostName'),Tag('visible','skin.hasSetting(advancedmode)'))
+    CONTROL = ButtonControl(Tag('label','Hostname'),Tag('visible','skin.hasSetting(advancedmode)'))
     DIALOGHEADER = "Host Name"
     ERRORTEXT = "Error updating"
     OKTEXT = "Update ok"
@@ -442,58 +442,31 @@ class overclocking(Setting) :
             ok = False
         return ok
 
-class TimeZoneControl(MultiSettingControl):
-    XBMCDEFAULTCONTAINER = False
-    NOTSET = 'not set'
-    
-    def onInit(self) :
-        self.continentControl = SpinControlex(Tag('label','Continent'))
-        self.addControl(self.continentControl)   
-        self.continentList = xbianConfig('timezone','list')
-        self.continents={}
-        timezone = xbianConfig('timezone','select')
-        #check if timezone is set to add not set content
-        if timezone[0] == '-1' :
-			 self.continentList.insert(0,self.NOTSET)
-        for continent in self.continentList :		 
-             content = Content(Tag('label',continent),defaultSKin=False)
-             self.continentControl.addContent(content)
-             self.continents[continent] = {}
-             #bug for visible tag in spincontrolex, dont find what yet, workaround with multisetting
-             multiset = MultiSettingControl(Tag('visible','Container(%d).HasFocus(%d)'%(self.continentControl.getWrapListId(),content.getId())))
-             self.continents[continent]['control'] = SpinControlex(Tag('label','Country'))
-             multiset.addControl(self.continents[continent]['control'])
-             #self.addControl(self.continents[continent]['control'])
-             #get country for continent
-             
-             if continent == self.NOTSET :
-                self.continents[continent]['country'] = [self.NOTSET]
-             else :
-				self.continents[continent]['country'] = xbianConfig('timezone','list',continent)
-             for country in self.continents[continent]['country'] :
-                 content = Content(Tag('label',country),defaultSKin=False)
-                 self.continents[continent]['control'].addContent(content)
-             self.addControl(multiset)
-                       
-    def setValue(self,value):
-        if value :           
-            self.continentControl.setValue(value[0])
-            self.continents[value[0]]['control'].setValue(value[1])
-    
-    def getValue(self) :
-        continent = self.continentControl.getValue()
-        country = self.continents[continent]['control'].getValue()
-        return [continent,country]
 
 class timezone(Setting) :
-    CONTROL = TimeZoneControl(Tag('visible','skin.hasSetting(advancedmode)'))
+    CONTROL = ButtonControl(Tag('label','Timezone'),Tag('visible','skin.hasSetting(advancedmode)'))
     DIALOGHEADER = "TimeZone"
     ERRORTEXT = "Error updating"
     OKTEXT = "Update ok"
-    SAVEMODE = Setting.ONUNFOCUS
+    
+    def setControlValue(self,value) :
+        self.control.setValue('%s / %s'%(value[0].title(),value[1].title()))
             
     def getUserValue(self):
-        return self.control.getValue()
+        continentList = xbianConfig('timezone','list')
+        continentgui = []
+        for continent in continentList :
+            continentgui.append(continent.title())
+        rcr = dialog.select('Region',continentgui)
+        if rcr != -1 :
+            countrylist = xbianConfig('timezone','list',continentList[rcr])
+            countrygui = []
+            for country in countrylist :
+                countrygui.append(country.title())
+            rcc = dialog.select('Country',countrygui)
+            if rcc != -1 :
+               return [continentList[rcr],countrylist[rcc]]
+        return self.xbianValue
         
     def getXbianValue(self):
         timezone =xbianConfig('timezone','select')
@@ -501,7 +474,7 @@ class timezone(Setting) :
         if timezone and timezone[0] != '-1':
             return(timezone[0].split(' '))          
         else :
-            return [TimeZoneControl.NOTSET,TimeZoneControl.NOTSET]                
+            return ['Not Set','Not Set']                
         
     def setXbianValue(self,value):
         rc = xbianConfig('timezone','update',*value)
@@ -565,7 +538,7 @@ class xbianpwd(rootpwd) :
         self.key = 'xbianpass'
     
 class sshroot(forceHdmi) :
-    CONTROL = RadioButtonControl(Tag('label','Allow ssh root'),Tag('visible','skin.hasSetting(advancedmode)'))
+    CONTROL = RadioButtonControl(Tag('label','Allow SSH root login'),Tag('visible','skin.hasSetting(advancedmode)'))
     DIALOGHEADER = "SSH root"
                     
     def getXbianValue(self):
