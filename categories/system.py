@@ -215,70 +215,69 @@ class vc1License(mpeg2License) :
 class connectivityLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label','Connectivity'))
 
-class forceHdmi(Setting) :
-    CONTROL = RadioButtonControl(Tag('label','Force Hdmi'))
-    DIALOGHEADER = "Force Hdmi"
+class videooutputControl(MultiSettingControl):
+    XBMCDEFAULTCONTAINER = False
+    
+    def onInit(self) :
+        self.videooutputlist = xbianConfig('videoflags','list')
+        self.videooutputcontrol = {}
+        for videooutput in self.videooutputlist :
+            guiname = videooutput.replace('_',' ').capitalize()
+            self.videooutputcontrol[videooutput] = RadioButtonControl(Tag('label',guiname))
+            self.videooutputcontrol[videooutput].onClick = lambda forward : self.forwardClick()
+            self.addControl(self.videooutputcontrol[videooutput])
+    
+    def forwardClick(self) :
+        self.onClick(self)
+        
+        
+    def setValue(self,values) :
+        for key in values :
+            if values[key] == '1' :
+                boolvalue = True
+            else :
+                boolvalue = False
+            self.videooutputcontrol[key].setValue(boolvalue)
+            
+    def getValue(self) :
+        rc = {}
+        for videooutput in self.videooutputlist :
+            rc[videooutput] = str(self.videooutputcontrol[videooutput].getValue())
+        return rc
+            
+            
+            
+
+class videooutput(Setting) :
+    CONTROL = videooutputControl()
+    DIALOGHEADER = "Video Output "
     ERRORTEXT = "Error on updating"
     OKTEXT = "Update ok"
                     
+    def onInit(self) :
+        self.listvalue = xbianConfig('videoflags','list')
+        self.value = {}
+        
     def getUserValue(self):
-        return str(self.getControlValue())
+        return self.getControlValue()
     
-    def setControlValue(self,value) :
-        if value == '1' :
-            value = True
+    def getXbianValue(self):
+        for value in self.listvalue :
+            if not self.value.has_key(value) :
+                self.value[value] = xbianConfig('videoflags','select',value)[0]
+        return self.value
+        
+    def setXbianValue(self,value):
+        #set xbian config here
+        print value
+        for key in value :
+            if value[key] != self.xbianValue[key] :
+                 rc = xbianConfig('videoflags','update',key,value[key])
+                 break
+        if rc and rc[0] == '1' :
+            return True
         else :
-            value = False
-        self.control.setValue(value)
-    
-    def getXbianValue(self):
-        #get xbian config here
-        return '1'
-        
-    def setXbianValue(self,value):
-        #set xbian config here
-        dialog.ok(self.DIALOGHEADER,'Not yet implemented')
-        return True
-
-class ignoreHdmi(forceHdmi) :
-    CONTROL = RadioButtonControl(Tag('label','Ignore Hdmi'))
-    DIALOGHEADER = "Ignore Hdmi"
-                    
-    def getXbianValue(self):
-        #get xbian config here
-        return '1'
-        
-    def setXbianValue(self,value):
-        #set xbian config here
-        dialog.ok(self.DIALOGHEADER,'Not yet implemented')
-        return True
-
-class ignoreCECinit(forceHdmi) :
-    CONTROL = RadioButtonControl(Tag('label','Ignore CEC init'))
-    DIALOGHEADER = "Ignore Cec init"
-                    
-    def getXbianValue(self):
-        #get xbian config here
-        return '1'
-        
-    def setXbianValue(self,value):
-        #set xbian config here
-        dialog.ok(self.DIALOGHEADER,'Not yet implemented')
-        return True
-
-class disableCEC(forceHdmi) :
-    CONTROL = RadioButtonControl(Tag('label','Disable Cec'))
-    DIALOGHEADER = "Disable Cec"
-                    
-    def getXbianValue(self):
-        #get xbian config here
-        return '1'
-        
-    def setXbianValue(self,value):
-        #set xbian config here
-        dialog.ok(self.DIALOGHEADER,'Not yet implemented')
-        return True
-
+            return False
 
 class SytemLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label','System'),Tag('visible','skin.hasSetting(advancedmode)'))
@@ -537,10 +536,20 @@ class xbianpwd(rootpwd) :
         self.password = None
         self.key = 'xbianpass'
     
-class sshroot(forceHdmi) :
+class sshroot(Setting) :
     CONTROL = RadioButtonControl(Tag('label','Allow SSH root login'),Tag('visible','skin.hasSetting(advancedmode)'))
     DIALOGHEADER = "SSH root"
                     
+    def getUserValue(self):
+        return str(self.getControlValue())
+    
+    def setControlValue(self,value) :
+        if value == '1' :
+            value = True
+        else :
+            value = False
+        self.control.setValue(value)
+    
     def getXbianValue(self):
         rc = xbianConfig('sshroot','status')
         return rc[0]
@@ -561,4 +570,4 @@ class sshroot(forceHdmi) :
 #CATEGORY CLASS
 class system(Category) :
     TITLE = 'System'
-    SETTINGS = [NewtorkLabel,NetworkSetting,LicenceLabel,mpeg2License,vc1License,connectivityLabel,forceHdmi,ignoreHdmi,ignoreCECinit,disableCEC,SytemLabel,hostname,timezone,kernel,overclocking,AccountLabel,rootpwd,xbianpwd,sshroot]
+    SETTINGS = [NewtorkLabel,NetworkSetting,LicenceLabel,mpeg2License,vc1License,connectivityLabel,videooutput,SytemLabel,hostname,timezone,kernel,overclocking,AccountLabel,rootpwd,xbianpwd,sshroot]
