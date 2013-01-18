@@ -7,6 +7,7 @@
   <extension point="xbmc.python.script" library="default.py"> 
      <provides>executable</provides> 
   </extension> 
+  <extension point="xbmc.service" library="services.py" start="startup"/>
   <extension point="xbmc.addon.metadata">
     <summary lang="en">Config easily your XBian system.</summary>
     <summary lang="fr">Configurer facilement le systeme XBian.</summary>

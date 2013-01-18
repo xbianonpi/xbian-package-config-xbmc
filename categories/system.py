@@ -40,6 +40,15 @@ class NetworkControl(MultiSettingControl):
              self.interfaceValue[interface]['status'] = ButtonControl(Tag('label',' -Status'))
              self.interfaceValue[interface]['group'].addControl(self.interfaceValue[interface]['status'])
              
+             #check if Wifi
+             self.interfaceValue[interface]['wifi'] = False
+             print interface,xbianConfig('network','type',interface)
+             if xbianConfig('network','type',interface)[0] == '1':
+                 self.interfaceValue[interface]['wifi'] = True
+                 self.interfaceValue[interface]['ssid'] = ButtonControl(Tag('label',' -Ssid'))
+                 self.interfaceValue[interface]['group'].addControl(self.interfaceValue[interface]['ssid'])
+             
+             
              #add interface mode Control (static/dhcp)
              self.interfaceValue[interface]['mode'] = SpinControlex(Tag('label',' -Mode'))
              dhcp = Content(Tag('label',self.DHCP),defaultSKin=False)
@@ -62,11 +71,6 @@ class NetworkControl(MultiSettingControl):
              self.interfaceValue[interface]['staticgroup'].addControl(self.interfaceValue[interface]['dns2'])
              self.interfaceValue[interface]['group'].addControl(self.interfaceValue[interface]['staticgroup'])
              
-             #check if Wifi
-             self.interfaceValue[interface]['wifi'] = False
-             if os.path.exists("/sys/class/net/%s/wireless"%interface) :
-                 self.interfaceValue[interface]['wifi'] = True
-                 self.interfaceValue[interface]['ssid'] = ButtonControl(Tag('label',' -Ssid'))
                 
     def setValue(self,values):
         default = values[0]
@@ -92,9 +96,14 @@ class NetworkControl(MultiSettingControl):
             self.interfaceValue[key]['dns2'].onClick = lambda dns2: self.interfaceValue[key]['dns2'].setValue(getIp('Secondary Dns',value[6]))
             
             if self.interfaceValue[key]['wifi'] :
-                self.interfaceValue[key]['ssid'].setValue('%s (%s)'%(value[8],value[7]))
-                self.interfaceValue[key]['ssid'].onClick =  lambda ssid : self.interfaceValue[key]['ssid'].setValue(wifiConnect(key,value[8],value[7]))
+                self.interfaceValue[key]['ssid'].setValue('%s-%s'%(value[8],value[7]))                
+                self.interfaceValue[key]['ssid'].onClick = self.test 
    
+    def test(self,t) :
+        key = 'wlan0'
+        print self.interfaceValue[key]
+        self.interfaceValue[key]['ssid'].setValue(wifiConnect(key,'none','none'))
+        
     def getValue(self) :
        default = self.interface.getValue()
        networkValue = {}
@@ -104,7 +113,10 @@ class NetworkControl(MultiSettingControl):
            tmp = networkValue[interface][0]
            networkValue[interface][0] = networkValue[interface][1].lower()
            networkValue[interface][1] = tmp
-           
+           if self.interfaceValue[interface]['wifi'] :
+               print 'get value ssid %s'%str(self.interfaceValue[interface]['ssid'].getValue().split('-'))
+               networkValue[interface].extend(self.interfaceValue[interface]['ssid'].getValue().split('-'))
+       print ('return network value %s'%str(networkValue))
        return [default,networkValue]
         
 class NetworkSetting(Setting) :
@@ -128,9 +140,14 @@ class NetworkSetting(Setting) :
             if interface_config[2] == 'UP' or not default :
                 default = interface
             self.lanConfig[interface] = []
+            print 'coco',interface_config
             for config in interface_config :
                 try :
-                    self.lanConfig[interface].append(config.split(' ')[1])
+                    val = config.split(' ')                   
+                    if val[0] == 'ssid' and not val[1]:
+                        self.lanConfig[interface][-1] = None
+                        val[1] = 'Not Connected'                    
+                    self.lanConfig[interface].append(val[1])                    
                 except :
                     self.lanConfig[interface].append(None)    
         return [default,self.lanConfig]
@@ -144,8 +161,8 @@ class NetworkSetting(Setting) :
             cmd = [mode,interface]
         else :
             mode = 'static'
-            if value[6] == '' :
-                value[6] = value[5]
+            #if value[6] == '' :
+            #    value[6] = value[5]
             cmd = [mode,interface,value[2],value[3],value[4],value[5],value[6]]
         rc = xbianConfig('network',*cmd)
         ok = True
