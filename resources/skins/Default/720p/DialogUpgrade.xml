@@ -42,7 +42,7 @@
 			<height>30</height>
 			<align>left</align>
 			<aligny>center</aligny>
-			<label>XBian is upgrading</label>
+			<label>XBian System is updating</label>
 			<haspath>true</haspath>
 			<font>font13</font>
 		</control>
@@ -54,7 +54,7 @@
 			<height>30</height>
 			<align>left</align>
 			<aligny>center</aligny>
-			<label>The upgrade can take few minutes</label>
+			<label>XBian may reboot during the update procedure</label>
 			<haspath>true</haspath>
 			<font>font13</font>
 		</control>
@@ -66,7 +66,7 @@
 			<height>30</height>
 			<align>left</align>
 			<aligny>center</aligny>
-			<label>Xbmc can reboot during upgrade</label>
+			<label>Please wait and do NOT turn OFF your RPi</label>
 			<haspath>true</haspath>
 			<font>font13</font>
 		</control>
@@ -78,7 +78,7 @@
 			<height>30</height>
 			<align>left</align>
 			<aligny>center</aligny>
-			<label>DO NOT UNPLUG THE PI</label>
+			<label>or unplug the SD Card or network!</label>
 			<haspath>true</haspath>
 			<font>font13</font>
 		</control>
