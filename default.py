@@ -45,7 +45,8 @@ CmdQueue = Queue.Queue()
 updateThread = Updater(CmdQueue)
 updateThread.start()
 
-try :
+#try :
+if True :
 	a = XbianWindow('SettingsXbianInfo.xml',ROOTDIR)
 	#here do auto import script
 	from categories.system import system
@@ -61,9 +62,11 @@ try :
 
 	a.doXml(os.path.join(ROOTDIR,'resources','skins','Default','720p','SettingsXbianInfo.template'))
 	a.doModal()
-except :
+#except :
+else :
 	print 'Exception in plugin-xbianconfig'
 	print sys.exc_info()
-finally :
+#finally :
+if True :
 	updateThread.stop()
 

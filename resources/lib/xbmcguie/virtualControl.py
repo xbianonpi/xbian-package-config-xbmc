@@ -5,7 +5,7 @@ from tag import Tag
 
 #defaultSkin Control Settings
 #check later if possible to get from skin
-defaultSkinSetting = {'height':40,'width':750,'textcolor':'grey2','focusedcolor':'white','disabledcolor':'grey3','pulseonselect':'false','texturefocus':'MenuItemFO.png','texturenofocus':'MenuItemNF.png','font':'font13'}
+defaultSkinSetting = {'height':40,'width':750,'textcolor':'grey2','focusedcolor':'white','disabledcolor':'grey3','pulseonselect':'false','texturefocus':'MenuItemFO.png','texturenofocus':'MenuItemNF.png','font':'font13','texturesliderbackground' : 'ScrollBarV.png','texturesliderbar' : 'ScrollBarV_bar.png','texturesliderbarfocus' : 'ScrollBarV_bar_focus.png','textureslidernib':'ScrollBarNib.png','textureslidernibfocus': 'ScrollBarNib.png'}
 
 #virtual class xbmcxml
 #Base class for Control and Container
@@ -172,6 +172,7 @@ class ContainerXml(xbmcxml):
         ids = []
         for control in self.controls :
             if isinstance(control,ContainerXml) :
+                print control
                 ids.extend(control.getIds())
             else :
                 ids.append(control.getId())

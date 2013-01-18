@@ -5,6 +5,7 @@ def xbianConfig(*args):
         cmd.extend(args)
         print cmd
         rc= subprocess.check_output(cmd)
+        print rc
         rcs = rc.split('\n')
         return filter(lambda x: len(x)>0, rcs)
         

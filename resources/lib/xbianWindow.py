@@ -29,7 +29,8 @@ class XbianWindow(WindowSkinXml):
     
     def addCategory(self,category):        
         self.categories.append(category)
-        WindowSkinXml.addControl(self,category.getCategory())
+        self.addControl(category.getCategory())
+        
      
     def doXml(self,template) :       
         xmltemplate = open(template)
@@ -40,8 +41,8 @@ class XbianWindow(WindowSkinXml):
                     xmlout.write(category.getTitleContent().toXml())
             elif '<control type="xbian" value="categories"/>' in line :
                 for category in self.categories :
-                    print category
                     xmlout.write(category.getCategory().toXml())
+                    #xmlout.write(category.getScrollBar().toXml())
             else :
                 xmlout.write(line)
         xmltemplate.close()

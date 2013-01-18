@@ -1,5 +1,6 @@
 from tag import Tag
 from xbmcContainer import GroupListControl,Content
+from xbmcControl import scrollbarControl
 
 import xbmc
 import xbmcgui
@@ -19,11 +20,13 @@ class Category():
         self.queue = queue
         self.settings = []
         for setting in self.SETTINGS :
-			self.settings.append(setting())
+            self.settings.append(setting())
+        #self.scrollbar = scrollbarControl(Tag('onright',9000),Tag('posx',1060),Tag('posy',60),Tag('width',25),Tag('height',530),Tag('visible','Container(9000).HasFocus(%d)'%self.Menucategory.getId()),Tag('showonepage','false'))
         self.category  = GroupListControl(Tag('onleft',9000),Tag('onright',9000),Tag('itemgap',-1),Tag('visible','Container(9000).HasFocus(%d)'%self.Menucategory.getId()),defaultSKin = False)
+        #self.scrollbar.setTag(Tag('onleft',self.category.getId()))
         for setting in self.settings :
-			setting.addQueue(self.queue)
-			self.category.addControl(setting.getControl())
+            setting.addQueue(self.queue)
+            self.category.addControl(setting.getControl())
         self.onInit()
     
     def onInit(self):
@@ -46,125 +49,134 @@ class Category():
         return self.settings
     
     def getCategory(self):
-		return self.category
+        return self.category
 
-    
+    def getScrollBar(self):
+        return self.scrollbar
+        
 class Setting():
-	CONTROL = None
-	DIALOGHEADER = "" #"override dialog header"
-	ERRORTEXT = "" #"Override Error Text here"
-	OKTEXT = "" #"override Ok Text"
-	SAVEMODE = 0 
-	BADUSERENTRYTEXT = ""
-	
-	
-	#SAVE MODE
-	NONE = -1 
-	ONCLICK = 0
-	ONUNFOCUS = 1
-	
-	ADDON     = Addon( __addonID__ )
-	
-	
-	def __init__(self) :
-		self.control = self.CONTROL
-		self.control.setTag(Tag('enable','false'))
-		self.userValue = None
-		self.xbianValue = None
-		#self.clickId = self.control.getClickID()
-		self.queue = None
-		#self.SAVE = self.onSave
-		if self.SAVEMODE == self.ONCLICK :
-			self.control.onClick = self.onSave
-		elif self.SAVEMODE == self.ONUNFOCUS :
-			self.control.onUnFocus = self.onSave 
-		self.forceUpdate=False
-		self.onInit()
-		
-	
-	def onInit(self) :
-		#Override this method if you need to do something on init
-		#don't override __init__
-		pass
-	
-	def addQueue(self,queue):
-		self.queue = queue
-	
-	def setSetting(self,id,value):
-		self.ADDON.setSetting(id,value)
-	
-	def getSetting(self,id):
-		return self.ADDON.getSetting(id)
-	
-	def onSave(self,ctrl):
-		self.updateFromUser()
-			
-	def getControl(self) :
-		return self.control
-		
-	def getControlValue(self):
-		return self.control.getValue()
-	
-	def setControlValue(self,value) :
-		self.control.setValue(value)
-		
-	
-	def getUserValue(self):
-		#this method must be overrided if user can modify value
-		#must create the user interface
-		return None
-	
-	def checkUserValue(self,value):
-		#this method can be overrided if user can modify value
-		#check validity of user Value
-		#return True if data is valid
-		#False either
-		return True
-	
-	def updateFromUser(self):
-		self.userValue = self.getUserValue()
-		if self.userValue != self.xbianValue or self.forceUpdate:
-			if self.userValue and self.checkUserValue(self.userValue) :
-				ok = True
-				if self.getSetting('confirmationonchange') != '0' :
-					if not dialog.yesno(self.DIALOGHEADER,'Apply Change') :
-						ok = False
-						self.updateFromXbian()
-				if ok :
-					self.QueueSetXbianValue(self.userValue)
-					print 'will put uservalue'
-					self.setControlValue(self.userValue)
-					return True
-			elif self.userValue and not self.checkUserValue(self.userValue) :
-				dialog.ok(self.DIALOGHEADER,'Bad Format',self.BADUSERENTRYTEXT)
-				self.setControlValue(self.xbianValue)
-		
-	def updateFromXbian(self):
-		#dialog.ok("update from xbian",ADDON.getSetting('notifyonerror'))
-		self.xbianValue = self.getXbianValue()
-		self.setControlValue(self.xbianValue)
-		
-	def getXbianValue(self):
-		#this method must be overrided
-		#get the default Xbian Value
-		return None
-	
-	def QueueSetXbianValue(self,value) :
-		if self.queue :
-			self.queue.put([self,value])
-	
-	def ThreadSetXbianValue(self,value) :
-		if 	not self.setXbianValue(value) :
-			if self.getSetting('notifyonerror') != '0' :
-				xbmc.executebuiltin("Notification(%s,%s)"%(self.DIALOGHEADER,self.ERRORTEXT))
-			self.updateFromXbian()
-		else :
-			if self.getSetting('notifyonsuccess') == '1' :
-				xbmc.executebuiltin("Notification(%s,%s)"%(self.DIALOGHEADER,self.OKTEXT))
-			self.xbianValue = value
-		
-	def setXbianValue(self,value):
-		#this method must be overrided
-		#set the  Xbian Value
-		return True
-		
+    CONTROL = None
+    DIALOGHEADER = "" #"override dialog header"
+    ERRORTEXT = "" #"Override Error Text here"
+    OKTEXT = "" #"override Ok Text"
+    SAVEMODE = 0 
+    BADUSERENTRYTEXT = ""
+    APPLYTEXT = 'Apply Change'
+    
+    
+    #SAVE MODE
+    NONE = -1 
+    ONCLICK = 0
+    ONUNFOCUS = 1
+    
+    ADDON     = Addon( __addonID__ )
+    
+    
+    def __init__(self) :
+        self.control = self.CONTROL
+        self.control.setTag(Tag('enable','false'))
+        self.userValue = None
+        self.xbianValue = None
+        #self.clickId = self.control.getClickID()
+        self.queue = None
+        #self.SAVE = self.onSave
+        if self.SAVEMODE == self.ONCLICK :
+            self.control.onClick = self.onSave
+        elif self.SAVEMODE == self.ONUNFOCUS :
+            self.control.onUnFocus = self.onSave 
+        self.forceUpdate=False
+        self.canBeUpdated = True
+        self.onInit()
+        
+    
+    def onInit(self) :
+        #Override this method if you need to do something on init
+        #don't override __init__
+        pass
+    
+    def addQueue(self,queue):
+        self.queue = queue
+    
+    def setSetting(self,id,value):
+        self.ADDON.setSetting(id,value)
+    
+    def getSetting(self,id):
+        return self.ADDON.getSetting(id)
+    
+    def onSave(self,ctrl):
+        self.updateFromUser()
+            
+    def getControl(self) :
+        return self.control
+        
+    def getControlValue(self):
+        return self.control.getValue()
+    
+    def setControlValue(self,value) :
+        self.control.setValue(value)
+        
+    
+    def getUserValue(self):
+        #this method must be overrided if user can modify value
+        #must create the user interface
+        return None
+    
+    def checkUserValue(self,value):
+        #this method can be overrided if user can modify value
+        #check validity of user Value
+        #return True if data is valid
+        #False either
+        return True
+    
+    def updateFromUser(self):
+        if self.canBeUpdated :
+            self.userValue = self.getUserValue()
+            if self.userValue != self.xbianValue or self.forceUpdate:
+                if self.userValue and self.checkUserValue(self.userValue) :
+                    ok = True
+                    if self.getSetting('confirmationonchange') != '0' :
+                        if not dialog.yesno(self.DIALOGHEADER,self.APPLYTEXT) :
+                            ok = False
+                            self.updateFromXbian()
+                    if ok :
+                        self.QueueSetXbianValue(self.userValue)
+                        print 'will put uservalue'
+                        self.setControlValue(self.userValue)
+                        return True
+                elif self.userValue and not self.checkUserValue(self.userValue) :
+                    dialog.ok(self.DIALOGHEADER,'Bad Format',self.BADUSERENTRYTEXT)
+                    self.setControlValue(self.xbianValue)
+        
+    def updateFromXbian(self):
+        #dialog.ok("update from xbian",ADDON.getSetting('notifyonerror'))
+        self.xbianValue = self.getXbianValue()
+        self.setControlValue(self.xbianValue)
+        
+    def getXbianValue(self):
+        #this method must be overrided
+        #get the default Xbian Value
+        return None
+    
+    def QueueSetXbianValue(self,value) :
+        if self.queue :
+            self.queue.put([self,value])
+    
+    def ThreadSetXbianValue(self,value) :
+        rc =  self.setXbianValue(value)
+        if rc == False :
+            if self.getSetting('notifyonerror') != '0' :
+                xbmc.executebuiltin("Notification(%s,%s)"%(self.DIALOGHEADER,self.ERRORTEXT))
+            self.updateFromXbian()
+        elif rc == True:
+            if self.getSetting('notifyonsuccess') == '1' :
+                xbmc.executebuiltin("Notification(%s,%s)"%(self.DIALOGHEADER,self.OKTEXT))
+            self.xbianValue = value
+        elif rc == None :
+            #need a reboot
+            pass
+        
+    def setXbianValue(self,value):
+        #this method must be overrided
+        #set the  Xbian Value
+        return True
+        

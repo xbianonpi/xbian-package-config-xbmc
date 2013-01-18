@@ -4,6 +4,11 @@ from virtualControl import ControlXml
 from tag import Tag
 from xbmcContainer import *
 
+class scrollbarControl(ControlXml):
+	FOCUSABLE = True
+	XBMCDEFAULTCONTROL = 'scrollbar'
+	additional_tag = ('texturesliderbackground','texturesliderbar','texturesliderbarfocus','textureslidernib','textureslidernibfocus','orientation','showonepage')
+		
 class ButtonControl(ControlXml) :
     FOCUSABLE = True
     ACTION = True
