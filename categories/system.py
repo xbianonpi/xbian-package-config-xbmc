@@ -8,6 +8,7 @@ from resources.lib.xbmcguie.category import Category,Setting
 from resources.lib.xbianconfig import xbianConfig
 from resources.lib.utils import *
 
+
 import xbmcgui
 import os
 
@@ -42,12 +43,12 @@ class NetworkControl(MultiSettingControl):
              
              #check if Wifi
              self.interfaceValue[interface]['wifi'] = False
-             print interface,xbianConfig('network','type',interface)
              if xbianConfig('network','type',interface)[0] == '1':
                  self.interfaceValue[interface]['wifi'] = True
                  self.interfaceValue[interface]['ssid'] = ButtonControl(Tag('label',' -Ssid'))
+                 self.interfaceValue[interface]['ssid'].onClick = lambda wifi : self.wifi(interface) 
                  self.interfaceValue[interface]['group'].addControl(self.interfaceValue[interface]['ssid'])
-             
+                 
              
              #add interface mode Control (static/dhcp)
              self.interfaceValue[interface]['mode'] = SpinControlex(Tag('label',' -Mode'))
@@ -60,10 +61,15 @@ class NetworkControl(MultiSettingControl):
              #add Static Group
              self.interfaceValue[interface]['staticgroup'] = MultiSettingControl(Tag('visible','Container(%d).HasFocus(%d)'%(self.interfaceValue[interface]['mode'].getWrapListId(),static.getId())))
              self.interfaceValue[interface]['ipadress'] = ButtonControl(Tag('label','  -Adress'))
+             self.interfaceValue[interface]['ipadress'].onClick = lambda ipadress: ipadress.setValue(getIp('Ip adress',ipadress.getValue()))
              self.interfaceValue[interface]['subnet'] = ButtonControl(Tag('label','  -Subnet'))
+             self.interfaceValue[interface]['subnet'].onClick = lambda subnet: subnet.setValue(getIp('Subnet',subnet.getValue()))
              self.interfaceValue[interface]['gateway'] = ButtonControl(Tag('label','  -Gateway'))
+             self.interfaceValue[interface]['gateway'].onClick = lambda gateway: gateway.setValue(getIp('Gateway',gateway.getValue()))
              self.interfaceValue[interface]['dns1'] = ButtonControl(Tag('label','  -Primary Dns'))
+             self.interfaceValue[interface]['dns1'].onClick = lambda dns1: dns1.setValue(getIp('Primary Dns',dns1.getValue()))
              self.interfaceValue[interface]['dns2'] = ButtonControl(Tag('label','  -Secondary Dns'))
+             self.interfaceValue[interface]['dns2'].onClick = lambda dns2: dns2.setValue(getIp('Primary Dns',dns2.getValue()))
              self.interfaceValue[interface]['staticgroup'].addControl(self.interfaceValue[interface]['ipadress'])
              self.interfaceValue[interface]['staticgroup'].addControl(self.interfaceValue[interface]['subnet'])
              self.interfaceValue[interface]['staticgroup'].addControl(self.interfaceValue[interface]['gateway'])
@@ -73,49 +79,61 @@ class NetworkControl(MultiSettingControl):
              
                 
     def setValue(self,values):
+        print 'yok Set Values %s'%str(values)
         default = values[0]
-        self.interface.setValue(default)
+        #self.interface.setValue(default)
         networkValue = values[1]
         for key in networkValue :
+            print 'yok %s'%key
             value = networkValue[key]
-            if value[0] == 'static' :
+            #if value[0] == 'static' :            
+            print 'yok2 %s' %self.interfaceValue[key]['mode'].getValue()
+            if value[0] == 'static' or value[0] == 'manual' :
                 self.interfaceValue[key]['mode'].setValue(self.STATIC)
-            else :
+            else:
                 self.interfaceValue[key]['mode'].setValue(self.DHCP)
          
             self.interfaceValue[key]['status'].setValue(value[1])    
-            self.interfaceValue[key]['ipadress'].setValue(value[2])
-            self.interfaceValue[key]['ipadress'].onClick = lambda ipadress: self.interfaceValue[key]['ipadress'].setValue(getIp('Ip adress',value[2]))
+            self.interfaceValue[key]['ipadress'].setValue(value[2])            
             self.interfaceValue[key]['subnet'].setValue(value[3])
-            self.interfaceValue[key]['subnet'].onClick = lambda subnet: self.interfaceValue[key]['subnet'].setValue(getIp('Subnet',value[3]))
             self.interfaceValue[key]['gateway'].setValue(value[4])
-            self.interfaceValue[key]['gateway'].onClick = lambda gateway: self.interfaceValue[key]['gateway'].setValue(getIp('Gateway',value[4]))
-            self.interfaceValue[key]['dns1'].setValue(value[5])
-            self.interfaceValue[key]['dns1'].onClick = lambda dns1: self.interfaceValue[key]['dns1'].setValue(getIp('Primary Dns',value[5]))
+            self.interfaceValue[key]['dns1'].setValue(value[5])            
             self.interfaceValue[key]['dns2'].setValue(value[6])
-            self.interfaceValue[key]['dns2'].onClick = lambda dns2: self.interfaceValue[key]['dns2'].setValue(getIp('Secondary Dns',value[6]))
             
             if self.interfaceValue[key]['wifi'] :
-                self.interfaceValue[key]['ssid'].setValue('%s-%s'%(value[8],value[7]))                
-                self.interfaceValue[key]['ssid'].onClick = self.test 
+                self.interfaceValue[key]['ssid'].setValue('%s'%value[7]) 
+               
    
-    def test(self,t) :
-        key = 'wlan0'
-        print self.interfaceValue[key]
-        self.interfaceValue[key]['ssid'].setValue(wifiConnect(key,'none','none'))
+    def wifi(self,interface) :
+        pass
         
     def getValue(self) :
        default = self.interface.getValue()
        networkValue = {}
-       for interface in self.interfacelist :
-           networkValue[interface] = self.interfaceValue[interface]['group'].getValue()
-           #swap status and mode to be compliant with xbian_config
-           tmp = networkValue[interface][0]
-           networkValue[interface][0] = networkValue[interface][1].lower()
-           networkValue[interface][1] = tmp
+       for interface in self.interfacelist :           
+           networktmp = self.interfaceValue[interface]['group'].getValue()
+           #sort to be compliant to xbianconfig
+           networkValue[interface] = []
+           print networktmp
            if self.interfaceValue[interface]['wifi'] :
-               print 'get value ssid %s'%str(self.interfaceValue[interface]['ssid'].getValue().split('-'))
-               networkValue[interface].extend(self.interfaceValue[interface]['ssid'].getValue().split('-'))
+               networkValue[interface].append(networktmp[2].lower())
+               networkValue[interface].append(networktmp[0])
+               networkValue[interface].append(networktmp[3])
+               networkValue[interface].append(networktmp[4])
+               networkValue[interface].append(networktmp[5])
+               networkValue[interface].append(networktmp[6])
+               networkValue[interface].append(networktmp[7])
+               networkValue[interface].append(networktmp[1])
+           else :
+               networkValue[interface].append(networktmp[1].lower())
+               networkValue[interface].append(networktmp[0])
+               networkValue[interface].append(networktmp[2])
+               networkValue[interface].append(networktmp[3])
+               networkValue[interface].append(networktmp[4])
+               networkValue[interface].append(networktmp[5])
+               networkValue[interface].append(networktmp[6])
+            
+        
        print ('return network value %s'%str(networkValue))
        return [default,networkValue]
         
@@ -129,49 +147,99 @@ class NetworkSetting(Setting) :
 #    def setControlValue(self,value): 
 #            self.getControl().setValue(val)
     
+    def onInit(self) :
+        self.control.wifi = self.connectWifi
+        
+    def connectWifi(self,interface) :
+        if wifiConnect(interface) :
+            progress = xbmcgui.DialogProgress()
+            progress.create('Refresh','Refreshing status for %s'%interface)
+            time.sleep(5)
+            interface_config = xbianConfig('network','status',interface)
+            print 'yok %s'%str(interface_config)
+            lanConfig = []
+            for config in interface_config :
+                try :
+                    val = config.split(' ')             
+                    if val[0] == 'mode' and val[1] == 'manual':
+                        val[1] = 'static'      
+                    if val[0] == 'ssid' and not val[1]:
+                        val[1] = 'Not connected'               
+                    if not val[0] in ('protection','key') :
+                        lanConfig.append(val[1])                    
+                except :
+                    lanConfig.append(None)    
+            self.xbianValue[interface] = lanConfig 
+            progress.close()
+            #sleep a bit otherwise windows is not ready, and there's a xbmc bug i think.
+            time.sleep(0.2)
+            self.setControlValue({interface : lanConfig})
+            
+        
+    def setControlValue(self,value) :
+        self.control.setValue([self.default,value])
+    
+    def isModified(self) :
+        equal = False
+        for key in self.xbianValue :
+            print 'yak : %s %s'%(str(self.xbianValue[key]),str(self.userValue[key]))
+            if self.xbianValue[key][0] != self.userValue[key][0] :
+                equal = True
+                break
+            if self.userValue[key][0] != 'dhcp' :
+                j = (0,2,3,4,5,6)
+                for i in j :
+                    if self.xbianValue[key][i] != self.userValue[key][i] :
+                        print 'yak : %s != %s'%(self.xbianValue[key][i],self.userValue[key][i])
+                        equal = True
+                        break
+        return equal 
+    
     def getUserValue(self):
-        return self.getControl().getValue()
+        tmp = self.getControl().getValue()
+        self.default = tmp[0]
+        return tmp[1]
     
     def getXbianValue(self):
-        default = False
+        self.default = False
         self.lanConfig={}
         for interface in self.getControl().interfacelist :
             interface_config = xbianConfig('network','status',interface)
-            if interface_config[2] == 'UP' or not default :
-                default = interface
+            if interface_config[2] == 'UP' or not self.default :
+                self.default = interface
             self.lanConfig[interface] = []
             print 'coco',interface_config
             for config in interface_config :
                 try :
-                    val = config.split(' ')                   
+                    val = config.split(' ')             
+                    if val[0] == 'mode' and val[1] == 'manual':
+                        val[1] = 'static'      
                     if val[0] == 'ssid' and not val[1]:
-                        self.lanConfig[interface][-1] = None
-                        val[1] = 'Not Connected'                    
-                    self.lanConfig[interface].append(val[1])                    
+                        val[1] = 'Not connected'               
+                    if not val[0] in ('protection','key') :
+                        self.lanConfig[interface].append(val[1])                    
                 except :
                     self.lanConfig[interface].append(None)    
-        return [default,self.lanConfig]
+        return self.lanConfig
     
     def setXbianValue(self,values):
-        #interface,status,mode,ipadress,subnet,gateway,dns1,dns2,ssid=None
-        interface = values[0]
-        value = values[1][interface]
-        if value[0].lower() == NetworkControl.DHCP.lower() :
-            mode = 'dhcp'
-            cmd = [mode,interface]
-        else :
-            mode = 'static'
-            #if value[6] == '' :
-            #    value[6] = value[5]
-            cmd = [mode,interface,value[2],value[3],value[4],value[5],value[6]]
-        rc = xbianConfig('network',*cmd)
+        print 'in set values %s'%str(values)
         ok = True
-        if not rc :
-            ok = False
-            self.ERRORTEXT = "No return Code From Xbian"
-        elif rc[0] != '1' : 
-            ok = False
-            self.ERRORTEXT = rc[1]
+        for interface in values :
+            if values[interface] != self.xbianValue[interface]:
+                if values[interface][0].lower() == NetworkControl.DHCP.lower() :
+                    mode = 'dhcp'
+                    cmd = [mode,interface]
+                else :
+                     mode = 'static'
+                     cmd = [mode,interface,values[interface][2],values[interface][3],values[interface][4],values[interface][5],values[interface][6]]
+                rc = xbianConfig('network',*cmd)                
+                if not rc :
+                    ok = False
+                    self.ERRORTEXT = "No return Code From Xbian"
+                elif rc[0] != '1' : 
+                    ok = False
+                    self.ERRORTEXT = rc[1]
         return ok           
         
         

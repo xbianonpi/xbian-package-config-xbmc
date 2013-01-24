@@ -21,7 +21,7 @@ BASE_RESOURCE_PATH = os.path.join( ROOTDIR, "resources" )
 
 
 class updateLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','Update'))
+	CONTROL = CategoryLabelControl(Tag('label','Update'))
 
 class updateAvailable(Setting) :
     CONTROL = ButtonControl(Tag('label','Update :'))

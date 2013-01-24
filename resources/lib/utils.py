@@ -1,5 +1,6 @@
 import xbmc,xbmcgui
 from xbianconfig import xbianConfig
+import time
 
 def getNumeric(header,default=None,min=False,max=False):
     dialog = xbmcgui.Dialog() 
@@ -29,60 +30,60 @@ def getText(header,default="",hidden=False):
     else :
         return None
 
-def wifiConnect(interface,ssid,mode):
-	dialog = xbmcgui.Dialog()
-	progress = xbmcgui.DialogProgress()
-	progress.create('Scanning','Scanning for wlan on %s'%interface)
-	#progress.update(0) #should hide progress bar, don't work
-	networklist = xbianConfig('network','scan',interface)
-	if progress.iscanceled():
-		cont = False
-	else :
-		progress.close()
-		displaylist = []
-		for ssid in networklist :
-			ssiddetails = ssid.split(',')
-			name =  ssiddetails[0]			
-			#check security
-			if ssiddetails[1] == 'on' :
-				name += ' (%s)'%ssiddetails[2]
-			displaylist.append(name)
-		rc = dialog.select('Select Network',displaylist)
-		cont = True
-		if rc != -1 :
-			selectSsid = networklist[rc].split(',') 
-			print 'selected',selectSsid
-			name =  selectSsid[0]
-			
-			#if not open, ask key :
-			if selectSsid[1] == 'on' and cont :
-				key = getText('Network Key')
-				if not key :
-					cont = False
-				else :
-					security = selectSsid[2]
-			elif selectSsid[1] == 'off' :
-				security = 'Open'
-				key = ''
-		else :
-			cont = False	
-			
-	if cont :
-		print interface,security,name,key
-		rc = xbianConfig('network','credentials',interface,security,name,key)
-		if rc and rc[0] == '1' :
-			rc = xbianConfig('network','restart',interface)
-			rc = 2
-			while  rc == '2' :
-				rc = xbianConfig('network','progress',interface)[0]
-				xbmc.sleep(0.5)
-			if rc == '1':
-				return '%s (%s)'%(name,security) 
-			else :
-				dialog.ok("wifi",'Cant connect')
-			
-	
-	return '%s (%s)'%(ssid,mode)
-		
-		
-	
+SSID = 0
+SECURITYTYPE = 1
+SECURITY = 2
+SIGNAL = 3
+
+def wifiConnect(interface):
+    dialog = xbmcgui.Dialog()    
+    progress = xbmcgui.DialogProgress()
+    progress.create('Scanning','Scanning for wlan on %s'%interface)
+    #progress.update(0) #should hide progress bar, don't work
+    networklist = xbianConfig('network','scan',interface)
+    networks = []
+    for network in networklist :
+        tmp = network.split(',')
+        tmp[SSID] = tmp[SSID].replace('"','')
+        networks.append(tmp)
+        
+    canceled = False
+    
+    while not canceled :
+        if progress.iscanceled():
+            canceled = True
+        else :
+            progress.close()
+            displaylist = []
+            for network in networks :
+                name = '%s [COLOR blue](%s)[/COLOR]'%(network[SSID],network[SECURITYTYPE])
+                displaylist.append(name)
+            selectedNetwork = dialog.select('Select Network',displaylist)
+            if selectedNetwork == -1 :
+                canceled = True
+            else :
+                if networks[selectedNetwork][SECURITY] == 'on' :
+                    key = getText('%s : Security Key'%networks[selectedNetwork][SSID])
+                    if not key :
+                        continue
+                else :
+                    key = ""
+                        
+                progress.create('Scanning','Connecting %s to %s'%(interface,networks[selectedNetwork][SSID]))
+                rc = xbianConfig('network','credentials',interface,networks[selectedNetwork][SECURITYTYPE],networks[selectedNetwork][SSID],key)
+                if rc and rc[0] == '1' :
+                    rc = xbianConfig('network','restart',interface)
+                    rc = '2'
+                    while rc == '2' :
+                        rc = xbianConfig('network','progress',interface)[0]
+                        time.sleep(0.5)
+                    if rc == '1' :
+                        progress.close()
+                        return True
+                    else :
+                        progress.close()
+                        dialog.ok("Wireless",'%s : cannot connect to %s (%s)'%(interface,networks[selectedNetwork][SSID],rc))
+                        
+    return False
+        
+    
