@@ -5,10 +5,10 @@ from tag import Tag
 from xbmcContainer import *
 
 class scrollbarControl(ControlXml):
-	FOCUSABLE = True
-	XBMCDEFAULTCONTROL = 'scrollbar'
-	additional_tag = ('texturesliderbackground','texturesliderbar','texturesliderbarfocus','textureslidernib','textureslidernibfocus','orientation','showonepage')
-		
+    FOCUSABLE = True
+    XBMCDEFAULTCONTROL = 'scrollbar'
+    additional_tag = ('texturesliderbackground','texturesliderbar','texturesliderbarfocus','textureslidernib','textureslidernibfocus','orientation','showonepage')
+        
 class ButtonControl(ControlXml) :
     FOCUSABLE = True
     ACTION = True
@@ -87,6 +87,15 @@ class CategoryLabelControl(ControlXml) :
         self.setTag(Tag('shadowcolor','black'))
         self.setTag(Tag('align','left'))
         self.setTag(Tag('aligny','center'))             
+    
+    def getValue(self):
+        if hasattr(self,'Controlinstance') :
+            return self.Controlinstance.getLabel()
+    
+    def setValue(self,value):
+        if hasattr(self,'Controlinstance') :
+            self.Controlinstance.setLabel(str(value))
+    
                         
 class SpinControl(ControlXml) :
     FOCUSABLE = True
@@ -124,7 +133,6 @@ class SpinControlex(ControlXml) :
 
     def onInit(self):
         self.controls = {}
-        self.contents = []
         
         if not self.hasTag('onup') :
             #create a fake button to allow scroll up
@@ -266,8 +274,8 @@ class SpinControlex(ControlXml) :
         return xbmc.getInfoLabel('Container(%d).ListItem.Label'%self.controls['wraplistControl'].getId())
     
     def setValue(self,value):
+        print self.controls['wraplistControl'].getId()
         nbItem = xbmc.getInfoLabel('Container(%d).NumItems'%self.controls['wraplistControl'].getId())
-        find = False
         for i in range(int(nbItem)):
             if value == xbmc.getInfoLabel('Container(%d).ListItem(%d).Label'%(self.controls['wraplistControl'].getId(),i)) :
                 find = True

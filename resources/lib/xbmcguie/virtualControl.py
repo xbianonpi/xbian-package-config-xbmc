@@ -57,11 +57,9 @@ class xbmcxml :
        return self.id
    
    def onFocus(self,ctrl) :
-        print 'focus to %d'%self.id
         pass
     
    def onUnFocus(self,ctrl) :
-        print 'lost focus to %d'%self.id
         pass
     
    def onClick(self,ctrl):
@@ -118,13 +116,11 @@ class ControlXml(xbmcxml):
         self.Controlinstance = self.Windowsinstance.getControl(self.getId())
         
     def click(self,controlId):
-       print 'cindy ' + str(controlId) + ' - ' + str(self.getId())
        if controlId == self.getId() :
            self.onClick(self) 
     
     def focus(self,controlId) :
        if controlId == self.getId() :
-           print 'must have focus ' + str(self.hasfocus)
            if not self.hasfocus :
                 self.hasfocus = True
                 self.onFocus(self)
@@ -137,6 +133,9 @@ class ControlXml(xbmcxml):
     
     def setEnabled(self,value):
         self.Controlinstance.setEnabled(value)
+    
+    def setVisible(self,value):
+        self.Controlinstance.setVisible(value)
        
     def toXml(self):
        xml = ''
@@ -172,7 +171,6 @@ class ContainerXml(xbmcxml):
         ids = []
         for control in self.controls :
             if isinstance(control,ContainerXml) :
-                print control
                 ids.extend(control.getIds())
             else :
                 ids.append(control.getId())
@@ -213,6 +211,10 @@ class ContainerXml(xbmcxml):
     def setEnabled(self,value):
          for control in self.controls :
             control.setEnabled(value)
+   
+    def setVisible(self,value):
+       for control in self.controls :
+            control.setVisible(value)
     
     def toXml(self):
        xml = ''

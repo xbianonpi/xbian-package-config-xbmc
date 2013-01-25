@@ -127,20 +127,29 @@ class Setting():
         #return True if data is valid
         #False either
         return True
-    
+    def isModified(self):
+        return self.userValue != self.xbianValue
+        
+    def askConfirmation(self,force=False) :
+        if self.getSetting('confirmationonchange') != '0' or force :
+            if dialog.yesno(self.DIALOGHEADER,self.APPLYTEXT) :
+                return True
+            else :
+                return False
+        else :
+            return True
+        
     def updateFromUser(self):
         if self.canBeUpdated :
             self.userValue = self.getUserValue()
-            if self.userValue != self.xbianValue or self.forceUpdate:
+            if  self.isModified() or self.forceUpdate:
                 if self.userValue and self.checkUserValue(self.userValue) :
                     ok = True
-                    if self.getSetting('confirmationonchange') != '0' :
-                        if not dialog.yesno(self.DIALOGHEADER,self.APPLYTEXT) :
-                            ok = False
-                            self.updateFromXbian()
+                    if not self.askConfirmation() :
+                        ok = False
+                        self.updateFromXbian()
                     if ok :
                         self.QueueSetXbianValue(self.userValue)
-                        print 'will put uservalue'
                         self.setControlValue(self.userValue)
                         return True
                 elif self.userValue and not self.checkUserValue(self.userValue) :
@@ -161,15 +170,21 @@ class Setting():
         if self.queue :
             self.queue.put([self,value])
     
+    def notifyOnError(self,force=False) :
+        if self.getSetting('notifyonerror') != '0' or force :
+            xbmc.executebuiltin("Notification(%s,%s)"%(self.DIALOGHEADER,self.ERRORTEXT))
+    
+    def notifyOnSuccess(self,force=False) :
+        if self.getSetting('notifyonsuccess') == '1' or force :
+                xbmc.executebuiltin("Notification(%s,%s)"%(self.DIALOGHEADER,self.OKTEXT))
+                
     def ThreadSetXbianValue(self,value) :
         rc =  self.setXbianValue(value)
         if rc == False :
-            if self.getSetting('notifyonerror') != '0' :
-                xbmc.executebuiltin("Notification(%s,%s)"%(self.DIALOGHEADER,self.ERRORTEXT))
+            self.notifyOnError()
             self.updateFromXbian()
         elif rc == True:
-            if self.getSetting('notifyonsuccess') == '1' :
-                xbmc.executebuiltin("Notification(%s,%s)"%(self.DIALOGHEADER,self.OKTEXT))
+            self.notifyOnSuccess()
             self.xbianValue = value
         elif rc == None :
             #need a reboot
