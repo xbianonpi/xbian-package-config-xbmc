@@ -373,7 +373,7 @@ class SytemLabel(Setting) :
         if rc == '1' :
             xbmc.executebuiltin('Skin.SetBool(%s)'%key)
         else :
-            xbmc.executebuiltin('Skin.Reset((%s)'%key)
+            xbmc.executebuiltin('Skin.Reset(%s)'%key)
     
 class hostname(Setting) :
     CONTROL = ButtonControl(Tag('label','Hostname'),Tag('visible','skin.hasSetting(advancedmode)'))

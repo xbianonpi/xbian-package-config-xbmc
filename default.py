@@ -52,13 +52,18 @@ if True :
 	from categories.system import system
 	systemcat = system(CmdQueue)     
 	a.addCategory(systemcat)
-	from categories.preference import preference
-	pref = preference(CmdQueue)     
-	a.addCategory(pref)
+	
+	from categories.services import services
+	service = services(CmdQueue)     
+	a.addCategory(service)	
 	
 	from categories.update import update
 	update = update(CmdQueue)     
 	a.addCategory(update)
+	
+	from categories.preference import preference
+	pref = preference(CmdQueue)     
+	a.addCategory(pref)
 
 	a.doXml(os.path.join(ROOTDIR,'resources','skins','Default','720p','SettingsXbianInfo.template'))
 	a.doModal()

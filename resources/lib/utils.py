@@ -1,6 +1,15 @@
 import xbmc,xbmcgui
 from xbianconfig import xbianConfig
 import time
+import threading
+import os
+from xbmcaddon import Addon
+
+__addonID__      = "plugin.xbianconfig"
+ADDON     = Addon( __addonID__ )
+ADDON_DIR = ADDON.getAddonInfo( "path" )
+ROOTDIR            = ADDON_DIR
+BASE_RESOURCE_PATH = os.path.join( ROOTDIR, "resources" )
 
 def getNumeric(header,default=None,min=False,max=False):
     dialog = xbmcgui.Dialog() 
@@ -29,6 +38,43 @@ def getText(header,default="",hidden=False):
         return kb.getText()
     else :
         return None
+
+class dialogWait :
+	#didn't work, xbmc crash when use it
+	def __init__(self):
+		self.dlg = WaitDlg('DialogWait.xml',ROOTDIR)
+	
+	def create(self,header,line1='',line2='',line3='',line4=''):
+		#self.dlg.create(header,line1,line2,line3,line4)
+		self.dlg.show()
+		self.dlg.update(header,line1,line2,line3,line4)
+		#a = threading.Thread(None, self.dlg.doModal,None)
+		
+	def update(self,line1='',line2='',line3='',line4='') :
+		self.dlg.update(line1,line2,line3,line4)
+	def close(self):
+		self.dlg.close2()
+
+class WaitDlg(xbmcgui.WindowXMLDialog):	
+	def update(self,header='',line1='',line2='',line3='',line4=''):
+		self.headerCtrl = self.getControl(1)
+		self.line1Ctrl = self.getControl(2)
+		self.line2Ctrl = self.getControl(3)
+		self.line3Ctrl = self.getControl(4)
+		self.line4Ctrl = self.getControl(5)
+		if header :
+			self.headerCtrl.setLabel(self.header)
+		if line1 :
+			self.line1Ctrl.setLabel(line1)
+		if line2 :
+			self.line2Ctrl.setLabel(line2)
+		if line3 :
+			self.line3Ctrl.setLabel(line3)
+		if line4 :
+			self.line4Ctrl.setLabel(line4)
+	def close2() :
+		self.close()
+	
 
 SSID = 0
 SECURITYTYPE = 1
