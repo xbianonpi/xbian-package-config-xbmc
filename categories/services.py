@@ -84,7 +84,7 @@ class ServicesControl(MultiSettingControl):
             self.services[service] = self.services['custom%d'%self.customId]
             print self.services[service]
             print self.services['custom%d'%self.customId]
-            self.services[service]['label'].setValue(service.title())
+            self.services[service]['label'].setLabel(service.title())
             self.serviceList.append(service)
             self.customId += 1
             if self.customId > self.nbCustom :
@@ -149,6 +149,53 @@ class servicesManager(Setting) :
         self.control.onDaemonClick = self.onDaemon
         self.control.onDeleteClick = self.onDelete       
         self.control.onAddCustomClick = self.onAddCustom
+        self.publicMethod['refresh'] = self.refresh
+    
+    def refresh(self) :
+        services = xbianConfig('services','list')       
+        if services != self.serviceInstalled :
+            #check if i have to add service
+            for service in services :
+                if service not in self.serviceInstalled :
+                    self.addService(service)
+            #check if i have to delete service
+            for service in self.serviceInstalled[:] :
+                if service not in services :
+                    print 'have to delete %s'%service
+                    self.deleteService(service)
+                    
+    def deleteService(self,service):
+        self.control.setVisible(service,False)
+        self.serviceInstalled.remove(service)
+    
+    def addService(self,name) :
+        self.control.setCustom(name)                   
+        #wait.update(line2='Refreshing Value')
+        serviceStatus = xbianConfig('services','status')
+        for service in serviceStatus :
+            status = service.split(' ')
+            if status[0] == name :  
+               running = False
+               autostart = False
+               if status[1] == '3' :
+                  autostart = True
+               elif status[1] == '4' :
+                  running = True
+               elif status[1] == '5' :
+                  running = True
+                  autostart = True
+               #get dameon:
+               daemon = xbianConfig('services','select',status[0])
+               if daemon :
+                  daemon = daemon[0]
+               else :
+                  daemon = False
+               self.xbianValue[status[0]] = [running,autostart,daemon]
+               self.setControlValue({status[0]:[running,autostart,daemon]})
+               break
+        self.control.setVisible(name,True)
+        self.serviceInstalled.append(status[0])
+
     
     def onAddCustom(self) :
         canInsert = False
@@ -168,33 +215,7 @@ class servicesManager(Setting) :
                         rc = xbianConfig('services','insert',name,daemon)                    
                         wait.update(25)
                         if rc and rc[0] == '1' :                       
-                            self.control.setCustom(name)                   
-                            #wait.update(line2='Refreshing Value')
-                            serviceStatus = xbianConfig('services','status')
-                            wait.update(50)
-                            for service in serviceStatus :
-                                status = service.split(' ')
-                                if status[0] == name :  
-                                    running = False
-                                    autostart = False
-                                    if status[1] == '3' :
-                                        autostart = True
-                                    elif status[1] == '4' :
-                                        running = True
-                                    elif status[1] == '5' :
-                                        running = True
-                                        autostart = True
-                                    #get dameon:
-                                    daemon = xbianConfig('services','select',status[0])
-                                    wait.update(75)
-                                    if daemon :
-                                        daemon = daemon[0]
-                                    else :
-                                        daemon = False
-                                    self.xbianValue[status[0]] = [running,autostart,daemon]
-                                    self.setControlValue({status[0]:[running,autostart,daemon]})
-                                    break
-                            self.control.setVisible(name,True)
+                            self.addService(name)
                             wait.close()
                             self.OKTEXT = 'Service %s added succesfully'%name
                             self.notifyOnSuccess()
@@ -213,14 +234,15 @@ class servicesManager(Setting) :
     def onDelete(self,service) :
         self.APPLYTEXT = 'Do you want to delete %s?'%service
         if self.askConfirmation() :
-            self.control.setVisible(service,False)
+            #self.control.setVisible(service,False)
             rc = xbianConfig('services','delete',service)
             if rc and rc[0] != '1' :
-                self.control.setVisible(service,True)
+                #self.control.setVisible(service,True)
                 self.ERRORTEXT = 'Unknwown error '
                 self.notifyOnError()
             else :
-                self.OKTEXT = 'Service %s deleted succesfully'%name
+                self.deleteService(service)
+                self.OKTEXT = 'Service %s deleted succesfully'%service
                 self.notifyOnSuccess()
                 
         

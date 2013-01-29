@@ -39,6 +39,23 @@ def getText(header,default="",hidden=False):
     else :
         return None
 
+class PackageInfo :
+	def __init__(self,header,name,versionl,versionr,sized,sizei,desc,dep):
+		xbmc.executebuiltin('Skin.SetString(packageheader,Info : %s)'%header)
+		xbmc.executebuiltin('Skin.SetString(packagename,Name : %s)'%name)
+		xbmc.executebuiltin('Skin.SetString(packageversionr,Remote version : %s)'%versionr)
+		if not versionl :
+			versionl = 'Not installed'
+		xbmc.executebuiltin('Skin.SetString(packageversioni,Local version : %s)'%versionl)
+		xbmc.executebuiltin('Skin.SetString(packagesized,Download size : %s)'%sized)
+		xbmc.executebuiltin('Skin.SetString(packagesizei,Installed size : %s)'%sizei)
+		xbmc.executebuiltin('Skin.SetString(packagedesc,Description : %s)'%desc)
+		if not dep :
+			dep = 'None'
+		xbmc.executebuiltin('Skin.SetString(packagedep,Dependency : %s)'%dep.replace(',',''))
+		self.dlg = xbmcgui.WindowXMLDialog('DialogPackageInfo.xml',ROOTDIR)
+		self.dlg.doModal()
+
 class dialogWait :
 	#didn't work, xbmc crash when use it
 	def __init__(self):

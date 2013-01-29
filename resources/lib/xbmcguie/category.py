@@ -35,6 +35,9 @@ class Category():
     def setTitle(self,Title) :
         self.Title = Title
         self.Menucategory = Content(Tag('label',self.Title))
+    
+    def getTitle(self) :
+        return self.Title
         
     def queueCmd(self,setting):
         self.queue.put(setting)
@@ -86,6 +89,8 @@ class Setting():
             self.control.onUnFocus = self.onSave 
         self.forceUpdate=False
         self.canBeUpdated = True
+        self.publicMethod = {}
+        self.globalMethod = None
         self.onInit()
         
     
@@ -96,6 +101,13 @@ class Setting():
     
     def addQueue(self,queue):
         self.queue = queue
+    
+    def getPublicMethod(self) :
+        return self.publicMethod
+    
+    def setPublicMethod(self,methods):
+        self.globalMethod = methods
+    
     
     def setSetting(self,id,value):
         self.ADDON.setSetting(id,value)

@@ -88,11 +88,7 @@ class CategoryLabelControl(ControlXml) :
         self.setTag(Tag('align','left'))
         self.setTag(Tag('aligny','center'))             
     
-    def getValue(self):
-        if hasattr(self,'Controlinstance') :
-            return self.Controlinstance.getLabel()
-    
-    def setValue(self,value):
+    def setLabel(self,value):
         if hasattr(self,'Controlinstance') :
             self.Controlinstance.setLabel(str(value))
     

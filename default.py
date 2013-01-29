@@ -57,6 +57,10 @@ if True :
 	service = services(CmdQueue)     
 	a.addCategory(service)	
 	
+	from categories.packages import packages
+	package = packages(CmdQueue)     
+	a.addCategory(package)	
+	
 	from categories.update import update
 	update = update(CmdQueue)     
 	a.addCategory(update)
