@@ -7,6 +7,7 @@ class XbianWindow(WindowSkinXml):
     def __init__(self,strXMLname, strFallbackPath, strDefaultName=False, forceFallback=False) :
         WindowSkinXml.__init__(self,strXMLname, strFallbackPath, strDefaultName=False, forceFallback=False)
         self.categories = []
+        self.publicMethod = {}
     
     def onInit(self):
         WindowSkinXml.onInit(self)
@@ -15,11 +16,20 @@ class XbianWindow(WindowSkinXml):
         initthread.start()
         
     def onInitThread(self):
+        #first, get all public method
         for category in self.categories :
+            self.publicMethod[category.getTitle()] = {}
+            for setting in category.getSettings():
+                public = setting.getPublicMethod()
+                for key in public :
+                    self.publicMethod[category.getTitle()][key] = public[key]
+                        
+        for category in self.categories :           
             #set default value to gui
             for setting in category.getSettings():
                 try :
                     setting.updateFromXbian()
+                    setting.setPublicMethod(self.publicMethod)
                 except :
                     #don't enable control if error
                     print 'Exception in updateFromXbian for setting'
