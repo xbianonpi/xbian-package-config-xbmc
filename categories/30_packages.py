@@ -96,7 +96,7 @@ class PackagesControl(MultiSettingControl):
 
 class packagesManager(Setting) :
     CONTROL = PackagesControl()
-    DIALOGHEADER = "Xbian packages Manager"
+    DIALOGHEADER = "XBian packages Manager"
     ERRORTEXT = "Error"
     OKTEXT = "OK"
     APPLYTEXT = "Apply"

@@ -38,7 +38,7 @@ class updaterDlg(xbmcgui.WindowXMLDialog):
            else :
                 self.upgraded =  False 
         elif ADDON.getSetting('updating') == 'true' :
-			#dameon have crashed or xbian has reboot during install
+			#dameon have crashed or XBian has reboot during install
 			self.upgraded =  False 
 			ADDON.setSetting('updating','false')
 			

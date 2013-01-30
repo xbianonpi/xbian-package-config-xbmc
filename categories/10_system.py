@@ -236,7 +236,7 @@ class NetworkSetting(Setting) :
                 rc = xbianConfig('network',*cmd)                
                 if not rc :
                     ok = False
-                    self.ERRORTEXT = "No return Code From Xbian"
+                    self.ERRORTEXT = "No return Code From XBian"
                 elif rc[0] != '1' : 
                     ok = False
                     self.ERRORTEXT = rc[1]

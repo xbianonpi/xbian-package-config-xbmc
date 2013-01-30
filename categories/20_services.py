@@ -134,7 +134,7 @@ class ServicesControl(MultiSettingControl):
 
 class servicesManager(Setting) :
     CONTROL = ServicesControl()
-    DIALOGHEADER = "Xbian Services Manager"
+    DIALOGHEADER = "XBian Services Manager"
     ERRORTEXT = "Error"
     OKTEXT = "OK"
     APPLYTEXT = "Aplly"
