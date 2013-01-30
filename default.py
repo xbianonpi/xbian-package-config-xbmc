@@ -50,7 +50,7 @@ class xbian_config_python :
 			open(self.onRun,'w').close()
 			self.CmdQueue = Queue.Queue()
 			self.updateThread = Updater(self.CmdQueue)
-			#updateThread.start()
+			updateThread.start()
 			self.wait = xbmcgui.DialogProgress()
 			self.window = XbianWindow('SettingsXbianInfo.xml',ROOTDIR)
 			self.category_list = []
@@ -91,10 +91,8 @@ class xbian_config_python :
     def threadInitCategory(self,modulename) :
         globals_, locals_ = globals(), locals()
         subpackage = ".".join([CATEGORY_PATH, modulename])
-        module = __import__(subpackage, globals_, locals_, [modulename])
-        print dir(module)                        
+        module = __import__(subpackage, globals_, locals_, [modulename])                       
         catInstance = getattr(module,modulename.split('_')[1])
-        print catInstance
         self.category_list_instance[modulename] = catInstance(self.CmdQueue)
         self.update_progress()
 
