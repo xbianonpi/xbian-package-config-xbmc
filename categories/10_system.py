@@ -536,17 +536,21 @@ class timezone(Setting) :
     def getUserValue(self):
         continentList = xbianConfig('timezone','list')
         continentgui = []
-        for continent in continentList :
-            continentgui.append(continent.title())
-        rcr = dialog.select('Region',continentgui)
-        if rcr != -1 :
-            countrylist = xbianConfig('timezone','list',continentList[rcr])
-            countrygui = []
-            for country in countrylist :
-                countrygui.append(country.title())
-            rcc = dialog.select('Country',countrygui)
-            if rcc != -1 :
-               return [continentList[rcr],countrylist[rcc]]
+        have_to_stop = False
+        while not have_to_stop :
+            for continent in continentList :
+                continentgui.append(continent.replace('_',' ').title())
+            rcr = dialog.select('Region',continentgui)
+            if rcr == -1 :
+                have_to_stop = True
+            else :
+                countrylist = xbianConfig('timezone','list',continentList[rcr])
+                countrygui = []
+                for country in countrylist :
+                    countrygui.append(country.replace('_',' ').title())
+                rcc = dialog.select('Location',countrygui)
+                if rcc != -1 :
+                   return [continentList[rcr],countrylist[rcc]]
         return self.xbianValue
         
     def getXbianValue(self):
@@ -655,4 +659,4 @@ class sshroot(Setting) :
 #CATEGORY CLASS
 class system(Category) :
     TITLE = 'System'
-    SETTINGS = [NewtorkLabel,NetworkSetting,LicenceLabel,mpeg2License,vc1License,connectivityLabel,videooutput,SytemLabel,hostname,timezone,kernel,overclocking,AccountLabel,rootpwd,xbianpwd,sshroot]
+    SETTINGS = [SytemLabel,hostname,timezone,kernel,overclocking,AccountLabel,rootpwd,xbianpwd,sshroot,NewtorkLabel,NetworkSetting,connectivityLabel,videooutput,LicenceLabel,mpeg2License,vc1License]
