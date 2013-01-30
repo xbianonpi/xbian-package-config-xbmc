@@ -43,42 +43,46 @@ ADDON_DATA  = xbmc.translatePath( "special://profile/addon_data/%s/" % __addonID
 CATEGORY_PATH = 'categories'
 class xbian_config_python :
     def __init__(self) :
-		self.onRun = os.path.join('/','tmp','.xbian_config_python')
-		if os.path.isfile(self.onRun) :
-			xbmcgui.Dialog().ok('XBian-config','Xbian-config is still running','Please wait a bit...')
-		else :		
-			open(self.onRun,'w').close()
-			self.CmdQueue = Queue.Queue()
-			self.updateThread = Updater(self.CmdQueue)
-			updateThread.start()
-			self.wait = xbmcgui.DialogProgress()
-			self.window = XbianWindow('SettingsXbianInfo.xml',ROOTDIR)
-			self.category_list = []
-			self.category_list_thread = []
-			self.category_list_instance = {}
-			self.finished = 0
-			self.stop = False
-			for fn in os.listdir(os.path.join(ROOTDIR,CATEGORY_PATH)):
-				if fn[0] != '_' and fn.split('.')[-1] in ('py', 'pyw'):
-					modulename = fn.split('.')[0] # filename without extension
-					self.category_list.append(modulename)
-			self.category_list.sort()
-			self.total = len(self.category_list)
-			self.wait.create('Generating Windows','Please wait')
-			self.wait.update(0)
-			for module in self.category_list :
-				self.category_list_thread.append(threading.Thread(None,self.threadInitCategory, None, (module,)))
-				self.category_list_thread[-1].start()
-			for i,threadInst in enumerate(self.category_list_thread):
-				if not self.stop :
-					threadInst.join()
-					self.window.addCategory(self.category_list_instance[self.category_list[i]])
-			if not self.stop :
-				self.window.doXml(os.path.join(ROOTDIR,'resources','skins','Default','720p','SettingsXbianInfo.template'))
-				self.wait.close()
-				self.window.doModal() 
-			self.updateThread.stop()
-			os.remove(self.onRun)
+        self.onRun = os.path.join('/','tmp','.xbian_config_python')
+        if os.path.isfile(self.onRun) :
+            xbmcgui.Dialog().ok('XBian-config','Xbian-config is still running','Please wait a bit...')
+        else :      
+            open(self.onRun,'w').close()
+            try :
+                self.CmdQueue = Queue.Queue()
+                self.updateThread = Updater(self.CmdQueue)
+                self.updateThread.start()
+                self.wait = xbmcgui.DialogProgress()
+                self.window = XbianWindow('SettingsXbianInfo.xml',ROOTDIR)
+                self.category_list = []
+                self.category_list_thread = []
+                self.category_list_instance = {}
+                self.finished = 0
+                self.stop = False
+                for fn in os.listdir(os.path.join(ROOTDIR,CATEGORY_PATH)):
+                    if fn[0] != '_' and fn.split('.')[-1] in ('py', 'pyw'):
+                        modulename = fn.split('.')[0] # filename without extension
+                        self.category_list.append(modulename)
+                self.category_list.sort()
+                self.total = len(self.category_list)
+                self.wait.create('Generating Windows','Please wait')
+                self.wait.update(0)
+                for module in self.category_list :
+                    self.category_list_thread.append(threading.Thread(None,self.threadInitCategory, None, (module,)))
+                    self.category_list_thread[-1].start()
+                for i,threadInst in enumerate(self.category_list_thread):
+                    if not self.stop :
+                        threadInst.join()
+                        self.window.addCategory(self.category_list_instance[self.category_list[i]])
+                if not self.stop :
+                    self.window.doXml(os.path.join(ROOTDIR,'resources','skins','Default','720p','SettingsXbianInfo.template'))
+                    self.wait.close()
+                    self.window.doModal() 
+            except :
+                print sys.exc_info()
+            finally :
+                self.updateThread.stop()
+                os.remove(self.onRun)
         
     def update_progress(self) :
         self.finished += 1
