@@ -137,7 +137,7 @@ class servicesManager(Setting) :
     DIALOGHEADER = "XBian Services Manager"
     ERRORTEXT = "Error"
     OKTEXT = "OK"
-    APPLYTEXT = "Aplly"
+    APPLYTEXT = "Apply"
 
     def onInit(self) :
         self.serviceInstalled = xbianConfig('services','list')
