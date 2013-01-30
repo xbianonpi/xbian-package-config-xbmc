@@ -169,13 +169,13 @@ class Setting():
                     self.setControlValue(self.xbianValue)
         
     def updateFromXbian(self):
-        #dialog.ok("update from xbian",ADDON.getSetting('notifyonerror'))
+        #dialog.ok("update from XBian",ADDON.getSetting('notifyonerror'))
         self.xbianValue = self.getXbianValue()
         self.setControlValue(self.xbianValue)
         
     def getXbianValue(self):
         #this method must be overrided
-        #get the default Xbian Value
+        #get the default XBian Value
         return None
     
     def QueueSetXbianValue(self,value) :
@@ -204,6 +204,6 @@ class Setting():
         
     def setXbianValue(self,value):
         #this method must be overrided
-        #set the  Xbian Value
+        #set the  XBian Value
         return True
         

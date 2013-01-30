@@ -25,10 +25,10 @@ class updateLabel(Setting) :
 
 class updateAvailable(Setting) :
     CONTROL = ButtonControl(Tag('label','Update :'))
-    DIALOGHEADER = "Xbian Update"
+    DIALOGHEADER = "XBian Update"
     ERRORTEXT = "Error upgrading"
     OKTEXT = "Upgrade ok"
-    APPLYTEXT = "Do you want to upgrade Xbian"
+    APPLYTEXT = "Do you want to upgrade XBian"
     
     
     def onInit(self):

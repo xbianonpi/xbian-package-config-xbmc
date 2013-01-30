@@ -31,7 +31,7 @@ class XbianWindow(WindowSkinXml):
                     setting.setPublicMethod(self.publicMethod)
                 except :
                     #don't enable control if error
-                    print 'Exception in updateFromXbian for setting'
+                    print 'Exception in updateFromXBian for setting'
                     print sys.exc_info()                
                 else :
                     setting.getControl().setEnabled(True)
