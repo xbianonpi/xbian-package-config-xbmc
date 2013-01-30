@@ -11,11 +11,6 @@ class XbianWindow(WindowSkinXml):
     
     def onInit(self):
         WindowSkinXml.onInit(self)
-        #set the windows instance in all xbmc control
-        initthread  = threading.Thread(None,self.onInitThread)
-        initthread.start()
-        
-    def onInitThread(self):
         #first, get all public method
         for category in self.categories :
             self.publicMethod[category.getTitle()] = {}
@@ -23,8 +18,12 @@ class XbianWindow(WindowSkinXml):
                 public = setting.getPublicMethod()
                 for key in public :
                     self.publicMethod[category.getTitle()][key] = public[key]
-                        
-        for category in self.categories :           
+        #set the windows instance in all xbmc control
+        for category in self.categories :
+			initthread  = threading.Thread(None,self.onInitThread, None, (category,))
+			initthread.start()
+        
+    def onInitThread(self,category):                                
             #set default value to gui
             for setting in category.getSettings():
                 try :
