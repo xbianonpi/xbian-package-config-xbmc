@@ -37,10 +37,13 @@ class PackagesControl(MultiSettingControl):
         for cat in tmp :
             t = cat.split(',')
             tmp_cat = {}
-            tmp_cat['name'] = t[0]
-            tmp_cat['available'] = int(t[1])
-            tmp_cat['installed'] = int(t[2])
-            self.packageCatList.append(tmp_cat)
+            try :
+                tmp_cat['name'] = t[0]
+                tmp_cat['available'] = int(t[1])
+                tmp_cat['installed'] = int(t[2])
+                self.packageCatList.append(tmp_cat)
+            except :
+                print 'error in package list return'
         for packageDetails in self.packageCatList :     
             self.packages[packageDetails['name']] = {}
             self.packages[packageDetails['name']]['group'] = MultiSettingControl()
@@ -76,7 +79,7 @@ class PackagesControl(MultiSettingControl):
         pass
     
     def onInfoClick(self,package) :
-		pass
+        pass
     
     
             
@@ -110,10 +113,10 @@ class packagesManager(Setting) :
         self.control.onInfoClick = self.onInfo
         
     def onInfo(self,package) :
-		rc = xbianConfig('packages','info',package)
-		if rc :			
-			PackageInfo(package,rc[0].partition(' ')[2],rc[1].partition(' ')[2],rc[2].partition(' ')[2],rc[3].partition(' ')[2],rc[4].partition(' ')[2],rc[5].partition(' ')[2],rc[6].partition(' ')[2])
-			
+        rc = xbianConfig('packages','info',package)
+        if rc :         
+            PackageInfo(package,rc[0].partition(' ')[2],rc[1].partition(' ')[2],rc[2].partition(' ')[2],rc[3].partition(' ')[2],rc[4].partition(' ')[2],rc[5].partition(' ')[2],rc[6].partition(' ')[2])
+            
     
     def onStatus(self,package,value) :
         wait = xbmcgui.DialogProgress()
@@ -157,7 +160,7 @@ class packagesManager(Setting) :
                      self.notifyOnError()
                      return self.INSTALLED
             else :
-				return self.INSTALLED
+                return self.INSTALLED
         else :
             self.APPLYTEXT = 'Do you want to install the %s package?'%package
             if self.askConfirmation(True) :             
@@ -213,7 +216,7 @@ class packagesManager(Setting) :
                     self.notifyOnError()
                     return self.NOTINSTALLED     
             else :
-				return self.NOTINSTALLED    
+                return self.NOTINSTALLED    
             
     def getXbianValue(self):
         packages = {}
