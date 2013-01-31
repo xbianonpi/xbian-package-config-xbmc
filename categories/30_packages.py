@@ -229,16 +229,17 @@ class packagesManager(Setting) :
         for packageCat in self.control.packageCatList :
             package = []
             tmp = xbianConfig('packages','list',packageCat['name'])
-            for packag in tmp :
-                packageTmp = packag.split(',')
-                pack = {}
-                pack['name'] = packageTmp[0]
-                if packageTmp[1] == '1' :
-                    pack['status'] = self.INSTALLED
-                else :
-                    pack['status'] = self.NOTINSTALLED
-                package.append(pack)
-            packages[packageCat['name']] = package
+            if tmp[0]!= '-2' and tmp[0]!= '-3' :
+				for packag in tmp :
+					packageTmp = packag.split(',')
+					pack = {}
+					pack['name'] = packageTmp[0]
+					if packageTmp[1] == '1' :
+						pack['status'] = self.INSTALLED
+					else :
+						pack['status'] = self.NOTINSTALLED
+					package.append(pack)
+				packages[packageCat['name']] = package
         print 'yap %s'%str(packages)
         return packages
             
