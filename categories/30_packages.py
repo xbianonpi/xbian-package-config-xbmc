@@ -34,6 +34,12 @@ class PackagesControl(MultiSettingControl):
         tmp = xbianConfig('packages','list')
         self.packageCatList = []        
         self.packages = {}
+        if tmp and tmp[0] == '-3' :
+			rc = xbianConfig('packages','updatedb')
+			if rc[0] == '1' :
+				tmp = xbianConfig('packages','list')
+			else :
+				tmp = []
         for cat in tmp :
             t = cat.split(',')
             tmp_cat = {}
