@@ -23,6 +23,10 @@ class ButtonControl(ControlXml) :
         if hasattr(self,'Controlinstance') :
             self.Controlinstance.setLabel(label=self.Controlinstance.getLabel(),label2=str(value))
     
+    def setLabel(self,value):
+        if hasattr(self,'Controlinstance') :
+            self.Controlinstance.setLabel(label=str(value),label2=self.Controlinstance.getLabel2())
+    
 class ApplyButtonControl(ControlXml) :
     FOCUSABLE = True
     ACTION = True
