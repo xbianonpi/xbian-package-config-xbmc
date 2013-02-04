@@ -58,19 +58,16 @@ class PackageInfo :
 
 class dialogWait :
 	#didn't work, xbmc crash when use it
-	def __init__(self):
-		self.dlg = WaitDlg('DialogWait.xml',ROOTDIR)
+	def __init__(self,header,info):
+		xbmc.executebuiltin('Skin.SetString(waitheader,%s)'%header)
+		xbmc.executebuiltin('Skin.SetString(waitinfo,%s)'%info)
+		self.dlg = xbmcgui.WindowXMLDialog('DialogWait.xml',ROOTDIR)
 	
-	def create(self,header,line1='',line2='',line3='',line4=''):
-		#self.dlg.create(header,line1,line2,line3,line4)
+	def show(self):
 		self.dlg.show()
-		self.dlg.update(header,line1,line2,line3,line4)
-		#a = threading.Thread(None, self.dlg.doModal,None)
 		
-	def update(self,line1='',line2='',line3='',line4='') :
-		self.dlg.update(line1,line2,line3,line4)
 	def close(self):
-		self.dlg.close2()
+		self.dlg.close()
 
 class WaitDlg(xbmcgui.WindowXMLDialog):	
 	def update(self,header='',line1='',line2='',line3='',line4=''):

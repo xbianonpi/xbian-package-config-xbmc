@@ -48,7 +48,8 @@ class xbian_config_python :
             xbmcgui.Dialog().ok('XBian-config','Xbian-config is still running','Please wait a bit...')
         else :      
             open(self.onRun,'w').close()
-            try :
+            #try :
+            if True :
                 self.CmdQueue = Queue.Queue()
                 self.updateThread = Updater(self.CmdQueue)
                 self.updateThread.start()
@@ -78,9 +79,12 @@ class xbian_config_python :
                     self.window.doXml(os.path.join(ROOTDIR,'resources','skins','Default','720p','SettingsXbianInfo.template'))
                     self.wait.close()
                     self.window.doModal() 
-            except :
+            #except :
+            else :
+                xbmcgui.Dialog().ok('XBian-config','Something went wrong while creating window','You can ask on www.xbian.org for help')
                 print sys.exc_info()
-            finally :
+            if True :
+            #finally :
                 self.updateThread.stop()
                 os.remove(self.onRun)
         
@@ -90,7 +94,9 @@ class xbian_config_python :
             self.stop = True
             self.wait.close()
         else :
-            self.wait.update(int((float(self.finished)/self.total) * 100))
+            perc = int((float(self.finished)/self.total) * 100)
+            print 'percent : %d'%perc
+            self.wait.update(perc)
         
     def threadInitCategory(self,modulename) :
         globals_, locals_ = globals(), locals()
@@ -98,6 +104,7 @@ class xbian_config_python :
         module = __import__(subpackage, globals_, locals_, [modulename])                       
         catInstance = getattr(module,modulename.split('_')[1])
         self.category_list_instance[modulename] = catInstance(self.CmdQueue)
+        print 'finished %s'%modulename
         self.update_progress()
 
 
