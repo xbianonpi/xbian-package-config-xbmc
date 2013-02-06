@@ -152,9 +152,8 @@ class NetworkSetting(Setting) :
         
     def connectWifi(self,interface) :
         if wifiConnect(interface) :
-            progress = xbmcgui.DialogProgress()
-            progress.create('Refresh','Refreshing status for %s'%interface)
-            time.sleep(5)
+            progress = dialogWait('Refresh','Reloading values for %s'%(interface))
+            progress.show()              
             interface_config = xbianConfig('network','status',interface)
             print 'yok %s'%str(interface_config)
             lanConfig = []
@@ -174,7 +173,11 @@ class NetworkSetting(Setting) :
             #sleep a bit otherwise windows is not ready, and there's a xbmc bug i think.
             time.sleep(0.2)
             self.setControlValue({interface : lanConfig})
-            
+            self.OKTEXT = '%s successfully connected'%interface
+            self.notifyOnSuccess()
+        else :
+            self.ERRORTEXT = 'Cannot connect %s'%interface
+            self.notifyOnError()    
         
     def setControlValue(self,value) :
         self.control.setValue([self.default,value])
@@ -182,7 +185,6 @@ class NetworkSetting(Setting) :
     def isModified(self) :
         equal = False
         for key in self.xbianValue :
-            print 'yak : %s %s'%(str(self.xbianValue[key]),str(self.userValue[key]))
             if self.xbianValue[key][0] != self.userValue[key][0] :
                 equal = True
                 break
@@ -190,7 +192,6 @@ class NetworkSetting(Setting) :
                 j = (0,2,3,4,5,6)
                 for i in j :
                     if self.xbianValue[key][i] != self.userValue[key][i] :
-                        print 'yak : %s != %s'%(self.xbianValue[key][i],self.userValue[key][i])
                         equal = True
                         break
         return equal 
