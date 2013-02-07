@@ -137,7 +137,7 @@ class packagesManager(Setting) :
             #remove package
             self.APPLYTEXT = 'Do you want to remove the %s package?'%package
             if self.askConfirmation(True) :
-                progressDlg = dialogWait('Removing','Please wait while uninstalling %s'%package)
+                progressDlg = dialogWait('Removing','Please wait while uninstalling %s ...'%package)
                 progressDlg.show()         
                 rc = xbianConfig('packages','remove',package)
                 if rc and rc[0] == '1' :
@@ -169,7 +169,7 @@ class packagesManager(Setting) :
                          self.ERRORTEXT = 'Package %s is an essential package and cannot be removed'%package                     
                     else :                      
                          #normally never pass here
-                         self.ERRORTEXT = 'Unknown Error while removing %s'%package
+                         self.ERRORTEXT = 'Unknown error while removing %s'%package
                     progressDlg.close()
                     self.notifyOnError()
                      
@@ -199,9 +199,9 @@ class packagesManager(Setting) :
                     #display info dialog
                     self.showInfo(package[select])
                 elif sel == 1 :
-                    self.APPLYTEXT = 'Do you want to install the package : %s?'%package[select]
+                    self.APPLYTEXT = 'Do you want to install the package: %s?'%package[select]
                     if self.askConfirmation(True) :                
-                        progressDlg = dialogWait('Installing','Please wait while installing %s'%package[select])
+                        progressDlg = dialogWait('Installing','Please wait while installing %s ...'%package[select])
                         progressDlg.show() 
                         rc = xbianConfig('packages','install',package[select])
                         if rc and rc[0] == '1' :                        
@@ -225,7 +225,7 @@ class packagesManager(Setting) :
                             self.control.addPackage(cat,package[select])
                             self.globalMethod['Services']['refresh']()                        
                             print 'ipg2 : packages added on gui'                            
-                            self.OKTEXT = 'Package %s succesfully installed'%package[select]
+                            self.OKTEXT = 'Package %s successfully installed'%package[select]
                             self.notifyOnSuccess()                        
                         else :
                             if rc and rc[0] == '2' :
