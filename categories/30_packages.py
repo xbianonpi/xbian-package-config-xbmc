@@ -20,8 +20,8 @@ BASE_RESOURCE_PATH = os.path.join( ROOTDIR, "resources" )
 
 dialog = xbmcgui.Dialog()
 
-RUNNING = 'running'
-STOPPED = 'stopped'
+RUNNING = 'Running'
+STOPPED = 'Stopped'
 RESTART = 'Restart'
 STOP = 'Stop'
 START = 'Start'
@@ -112,7 +112,7 @@ class PackagesControl(MultiSettingControl):
 
 class packagesManager(Setting) :
     CONTROL = PackagesControl()
-    DIALOGHEADER = "XBian packages Manager"
+    DIALOGHEADER = "XBian Package Manager"
     ERRORTEXT = "Error"
     OKTEXT = "OK"
     APPLYTEXT = "Apply"
@@ -131,7 +131,7 @@ class packagesManager(Setting) :
         select = dialog.select('Select',choice)
         if select == 0 :
             #display info dialog
-            progress = dialogWait('Loading','Please wait while loading informations for %s'%package)
+            progress = dialogWait('Loading','Please wait while loading the information for %s'%package)
             progress.show() 
             rc = xbianConfig('packages','info',package)
             progress.close() 
@@ -162,7 +162,7 @@ class packagesManager(Setting) :
                     progressDlg.close()
                     self.control.removePackage(cat,package)
                     self.globalMethod['Services']['refresh']()
-                    self.OKTEXT = 'Package %s succesfully removed'%package
+                    self.OKTEXT = 'Package %s successfully removed'%package
                     self.notifyOnSuccess()
                     
                 else :
@@ -173,7 +173,7 @@ class packagesManager(Setting) :
                          self.ERRORTEXT = 'Package %s is an essential package and cannot be removed'%package                     
                     else :                      
                          #normally never pass here
-                         self.ERRORTEXT = 'Unknown Error while removing %s'%package
+                         self.ERRORTEXT = 'Unknown error while removing %s'%package
                     progressDlg.close()
                     self.notifyOnError()
                      
@@ -223,7 +223,7 @@ class packagesManager(Setting) :
                         self.control.addPackage(cat,package[select])
                         self.globalMethod['Services']['refresh']()                        
                         print 'ipg2 : packages added on gui'                            
-                        self.OKTEXT = 'Package %s succesfully installed'%package[select]
+                        self.OKTEXT = 'Package %s successfully installed'%package[select]
                         self.notifyOnSuccess()                        
                     else :
                         if rc and rc[0] == '2' :
@@ -238,7 +238,7 @@ class packagesManager(Setting) :
                             self.ERRORTEXT = 'The package itself got an internal error'
                         else :                          
                             #normally never pass here
-                            self.ERRORTEXT = 'Unknown Error while installing %s'%package
+                            self.ERRORTEXT = 'Unknown error while installing %s'%package
                         progressDlg.close()
                         self.notifyOnError()                                        
                     
@@ -254,7 +254,7 @@ class packagesManager(Setting) :
         if value == self.INSTALLED :
             self.APPLYTEXT = 'Do you want to remove the %s package?'%package
             if self.askConfirmation(True) :
-                wait.create('Removing %s'%package,'Please Wait while removing...')
+                wait.create('Removing %s'%package,'Please wait...')
                 wait.update(0)
                 rc = xbianConfig('packages','remove',package)
                 if rc and rc[0] == '1' :
@@ -270,7 +270,7 @@ class packagesManager(Setting) :
                     #refresh service list
                     self.globalMethod['Services']['refresh']()
                     wait.close()
-                    self.OKTEXT = 'Package %s succesfully removed'%package
+                    self.OKTEXT = 'Package %s successfully removed'%package
                     self.notifyOnSuccess()
                     return self.NOTINSTALLED
                 elif rc and rc[0] == '2' :
@@ -287,7 +287,7 @@ class packagesManager(Setting) :
                 else : 
                      wait.close()
                      #normally never pass here
-                     self.ERRORTEXT = 'Unknown Error while removing %s'%package
+                     self.ERRORTEXT = 'Unknown error while removing %s'%package
                      self.notifyOnError()
                      return self.INSTALLED
             else :
@@ -295,7 +295,7 @@ class packagesManager(Setting) :
         else :
             self.APPLYTEXT = 'Do you want to install the %s package?'%package
             if self.askConfirmation(True) :             
-                wait.create('Installing %s'%package,'Please Wait while installing...')
+                wait.create('Installing %s'%package,'Please wait...')
                 wait.update(0)
                 rc = xbianConfig('packages','install',package)
                 if rc and rc[0] == '1' :
@@ -311,7 +311,7 @@ class packagesManager(Setting) :
                     #refresh service list
                     self.globalMethod['Services']['refresh']()
                     wait.close()
-                    self.OKTEXT = 'Package %s succesfully installed'%package
+                    self.OKTEXT = 'Package %s successfully installed'%package
                     self.notifyOnSuccess()
                     return self.INSTALLED
                 elif rc and rc[0] == '2' :
@@ -343,7 +343,7 @@ class packagesManager(Setting) :
                 else : 
                     wait.close()
                     #normally never pass here
-                    self.ERRORTEXT = 'Unknown Error while installing %s'%package
+                    self.ERRORTEXT = 'Unknown error while installing %s'%package
                     self.notifyOnError()
                     return self.NOTINSTALLED     
             else :

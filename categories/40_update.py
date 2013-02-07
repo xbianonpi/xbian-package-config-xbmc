@@ -86,10 +86,10 @@ class upgradeXbianLabel(Setting) :
 
 class xbianUpgrade(Setting) :
     CONTROL = updateControl()
-    DIALOGHEADER = "Xbian Upgrade"
+    DIALOGHEADER = "XBian Upgrade"
     ERRORTEXT = "Error"
     OKTEXT = "OK"
-    APPLYTEXT = "Do you wan to upgrade XBian"
+    APPLYTEXT = "Do you want to upgrade XBian"
 
     def onInit(self) :
         self.control.onUpdateClick = self.onUpdate       
@@ -136,7 +136,7 @@ class xbianUpgrade(Setting) :
             elif rc and rc[0] == '6' :
                 self.ERRORTEXT = 'The packages itselves got a internal error'
             else :
-                self.ERRORTEXT = 'Unexpected Error'            
+                self.ERRORTEXT = 'Unexpected error'            
             os.remove(lockfile)
             dlg.close()
             self.notifyOnError()    
@@ -165,10 +165,10 @@ class updatePackageLabel(Setting) :
 
 class packageUpdate(xbianUpgrade) :
     CONTROL = updateControl()
-    DIALOGHEADER = "Packages Update"
+    DIALOGHEADER = "Update Packages"
     ERRORTEXT = "Error"
     OKTEXT = "OK"
-    APPLYTEXT = "Do you wan to update this package?"
+    APPLYTEXT = "Do you want to update this package?"
 
 
     def keyword(self) :

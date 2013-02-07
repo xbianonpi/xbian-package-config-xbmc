@@ -2,8 +2,8 @@
 <strings>
     <!--GENERAL STRINGS -->
     <string id="19000">Apply these changes?</string>
-    <string id="19001">Allow Advanced mode</string>
-    <string id="19002">One Time</string>
+    <string id="19001">Allow advanced mode</string>
+    <string id="19002">One time</string>
     <string id="19003">Always</string>
     <string id="19004">Advanced Mode</string>
     <string id="19004">General</string>
@@ -21,17 +21,17 @@
 			<string id="31020">Overclocking</string>
 				<string id="31021">None</string>
 				<string id="31022">Modest</string>
-				<string id="31023">Xbian</string>
+				<string id="31023">XBian</string>
 				<string id="31024">Medium</string>
 				<string id="31025">High</string>
 				<string id="31026">Turbo</string>
 			<string id="31030">Hostname</string>
 			<string id="31040">Timezone</string>
-			<string id="31050">kernel</string>
+			<string id="31050">Kernel</string>
 		<string id="32000">User Acconts</string>
 		<string id="33000">Networking</string>
-			<string id="33010">Wlan</string>
-			<string id="33020">Lan</string>
+			<string id="33010">WLAN</string>
+			<string id="33020">LAN</string>
 				<string id="33021">DHCP</string>
 				<string id="33022">FIXED</string>
 				<string id="33023">OFF</string>
@@ -47,8 +47,8 @@
 			<string id="34040">Disable CEC</string>
 			<string id="34050">Disable overscan</string>
 		<string id="35000">Licenses</string>
-			<string id="35010">Vc1</string>
-			<string id="35020">Mpeg2</string>
+			<string id="35010">VC1</string>
+			<string id="35020">MPEG2</string>
 	<string id="40000">Services</string>
 	<string id="50000">Packages</string>
 	<string id="60000">Updates</string>  

@@ -20,8 +20,8 @@ BASE_RESOURCE_PATH = os.path.join( ROOTDIR, "resources" )
 
 dialog = xbmcgui.Dialog()
 
-RUNNING = 'running'
-STOPPED = 'stopped'
+RUNNING = 'Running'
+STOPPED = 'Stopped'
 RESTART = 'Restart'
 STOP = 'Stop'
 START = 'Start'
@@ -134,10 +134,10 @@ class ServicesControl(MultiSettingControl):
 
 class servicesManager(Setting) :
     CONTROL = ServicesControl()
-    DIALOGHEADER = "Xbian Services Manager"
+    DIALOGHEADER = "XBian Service Manager"
     ERRORTEXT = "Error"
     OKTEXT = "OK"
-    APPLYTEXT = "Aplly"
+    APPLYTEXT = "Apply"
 
     def onInit(self) :
         self.serviceInstalled = xbianConfig('services','list')
@@ -224,7 +224,7 @@ class servicesManager(Setting) :
                             self.ERRORTEXT = '%s is not installed, please install it first'%name
                             self.notifyOnError()
                         else :
-                            self.ERRORTEXT = 'unknwown error'
+                            self.ERRORTEXT = 'Unknown error'
                             self.notifyOnError()
                             wait.close()
                     canInsert = True
@@ -238,18 +238,18 @@ class servicesManager(Setting) :
             rc = xbianConfig('services','delete',service)
             if rc and rc[0] != '1' :
                 #self.control.setVisible(service,True)
-                self.ERRORTEXT = 'Unknwown error '
+                self.ERRORTEXT = 'Unknown error'
                 self.notifyOnError()
             else :
                 self.deleteService(service)
-                self.OKTEXT = 'Service %s deleted succesfully'%service
+                self.OKTEXT = 'Service %s succesfully deleted'%service
                 self.notifyOnSuccess()
                 
         
     def onDaemon(self,service,value) :
-        tmp = getText('%s daemon (separate by space)'%service,value)
+        tmp = getText('%s daemon (separated by space)'%service,value)
         if tmp and tmp != value:
-            self.APPLYTEXT = 'Do you want to udpate dameon?'
+            self.APPLYTEXT = 'Do you want to update dameon?'
             if self.askConfirmation() :
                 rc = xbianConfig('services','update',service,tmp)
                 if rc and rc[0] == '1' :
@@ -257,7 +257,7 @@ class servicesManager(Setting) :
                     self.notifyOnSuccess()
                     return tmp
                 else :
-                    self.ERRORTEXT = 'Unknwown error '
+                    self.ERRORTEXT = 'Unknown error'
                     self.notifyOnError()
         return value
         
@@ -273,11 +273,11 @@ class servicesManager(Setting) :
                 tmp = 'disable'
             rc = xbianConfig('services','autostart',service,tmp)
             if rc and rc[0] == '1' :
-                self.OKTEXT = 'Autostart updated succesfully'
+                self.OKTEXT = 'Autostart updated successfully'
                 self.notifyOnSuccess()
                 return value
             else :
-                self.ERRORTEXT = 'Unknwown error '
+                self.ERRORTEXT = 'Unknown error'
                 self.notifyOnError()
         return not value
             
@@ -295,7 +295,7 @@ class servicesManager(Setting) :
                     if self.askConfirmation() :        
                         rc = xbianConfig('services','stop',service)
                         if rc and rc[0] == '1' :
-                            self.OKTEXT = '%s stop succesfully'%service
+                            self.OKTEXT = '%s successfully stopped'%service
                             self.notifyOnSuccess()
                             return STOPPED
                     self.notifyOnError()
@@ -305,7 +305,7 @@ class servicesManager(Setting) :
                     if self.askConfirmation() :        
                         rc = xbianConfig('services','restart',service)
                         if rc and rc[0] == '1' :
-                            self.OKTEXT = '%s restart succesfully'%service
+                            self.OKTEXT = '%s successfully restarted'%service
                             self.notifyOnSuccess()
                             return RUNNING
                     self.notifyOnError()
@@ -315,7 +315,7 @@ class servicesManager(Setting) :
             if self.askConfirmation() :        
                 rc = xbianConfig('services','start',service)
                 if rc and rc[0] == '1' :
-                    self.OKTEXT = '%s started succesfully'%service
+                    self.OKTEXT = '%s successfully started'%service
                     self.notifyOnSuccess()
                     return RUNNING
             self.notifyOnError()
