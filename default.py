@@ -3,9 +3,9 @@
 __script__       = "Unknown"
 __plugin__       = "xbian-config"
 __addonID__      = "plugin.xbianconfig"
-__author__       = "Belese (http://www.xbian.org)"
+__author__       = "Belese(http://www.xbian.org)"
 __url__          = "http://www.xbian.org"
-__credits__      = "XBian"
+__credits__      = "Xbian"
 __platform__     = "xbmc media center"
 __date__         = "30-11-2012"
 __version__      = "0.0.1"
@@ -45,11 +45,10 @@ class xbian_config_python :
     def __init__(self) :
         self.onRun = os.path.join('/','tmp','.xbian_config_python')
         if os.path.isfile(self.onRun) :
-            xbmcgui.Dialog().ok('XBian-config','XBian-config is still running','Please wait a bit...')
+            xbmcgui.Dialog().ok('XBian-config','Xbian-config is still running','Please wait a bit...')
         else :      
             open(self.onRun,'w').close()
-            #try :
-            if True :
+            try :            
                 self.CmdQueue = Queue.Queue()
                 self.updateThread = Updater(self.CmdQueue)
                 self.updateThread.start()
@@ -66,7 +65,7 @@ class xbian_config_python :
                         self.category_list.append(modulename)
                 self.category_list.sort()
                 self.total = len(self.category_list)
-                self.wait.create('Generating Windows','Please wait...')
+                self.wait.create('Generating Windows','Please wait')
                 self.wait.update(0)
                 for module in self.category_list :
                     self.category_list_thread.append(threading.Thread(None,self.threadInitCategory, None, (module,)))
@@ -79,12 +78,10 @@ class xbian_config_python :
                     self.window.doXml(os.path.join(ROOTDIR,'resources','skins','Default','720p','SettingsXbianInfo.template'))
                     self.wait.close()
                     self.window.doModal() 
-            #except :
-            else :
-                xbmcgui.Dialog().ok('XBian-config','Something went wrong while creating the window','Please contact us on www.xbian.org for further support')
+            except :            
+                xbmcgui.Dialog().ok('XBian-config','Something went wrong while creating window','You can ask on www.xbian.org for help')
                 print sys.exc_info()
-            if True :
-            #finally :
+            finally :
                 self.updateThread.stop()
                 os.remove(self.onRun)
         
@@ -94,14 +91,15 @@ class xbian_config_python :
             self.stop = True
             self.wait.close()
         else :
-            perc = int((float(self.finished)/self.total) * 100)
+            perc = int((float(self.finished)/(self.total*2)) * 100)
             print 'percent : %d'%perc
             self.wait.update(perc)
         
-    def threadInitCategory(self,modulename) :
+    def threadInitCategory(self,modulename) :        
         globals_, locals_ = globals(), locals()
         subpackage = ".".join([CATEGORY_PATH, modulename])
         module = __import__(subpackage, globals_, locals_, [modulename])                       
+        self.update_progress()
         catInstance = getattr(module,modulename.split('_')[1])
         self.category_list_instance[modulename] = catInstance(self.CmdQueue)
         print 'finished %s'%modulename

@@ -102,44 +102,46 @@ class xbianUpgrade(Setting) :
     def onUpdate(self,updateId):
         lockfile = '/var/lock/.%s'%self.key
         open(lockfile,'w').close()
-        updateId = str(updateId)
-        dlg = dialogWait('Xbian Update','Please wait while updating')
-        dlg.show()
-        rc =xbianConfig('updates','install',self.key,updateId)
-        if rc and rc[0] == '1' :
-            #wait upgrade
-            while not xbmc.abortRequested and xbianConfig('updates','progress')[0] == '1':
-                time.sleep(2)
-            if xbmc.abortRequested :
-                return None
-            else :
-                os.remove(lockfile) 
-                #remove update from list
-                updateList = updateId.split(' ')
-                for updates in updateList :
-					for update in self.xbianValue :
-						if update.split(';')[0] == updates :
-							self.xbianValue.remove(update)
-							self.control.removeUpdate(update)
-							break
-                dlg.close()
-                self.notifyOnSuccess()
-        else :
-            if rc and rc[0] == '2' :
-                self.ERRORTEXT = 'These packages are already updated'           
-            elif rc and rc[0] == '3' :
-                self.ERRORTEXT = 'Packages not found in apt repository'
-            elif rc and rc[0] == '4' :
-                self.ERRORTEXT = 'Packages not found in apt repository'
-            elif rc and rc[0] == '5' :
-                self.ERRORTEXT = 'There is a size mismatch for the remote packages'             
-            elif rc and rc[0] == '6' :
-                self.ERRORTEXT = 'The packages itselves got a internal error'
-            else :
-                self.ERRORTEXT = 'Unexpected error'            
-            os.remove(lockfile)
-            dlg.close()
-            self.notifyOnError()    
+        updateId = str(updateId)        
+        if self.askConfirmation(True) :
+			dlg = dialogWait('Xbian Update','Please wait while updating')
+			dlg.show()
+			print 'ipg 3 : update %s %s'%(self.key,updateId)
+			rc =xbianConfig('updates','install',self.key,updateId)
+			if rc and rc[0] == '1' :
+				#wait upgrade
+				while not xbmc.abortRequested and xbianConfig('updates','progress')[0] == '1':
+					time.sleep(2)
+				if xbmc.abortRequested :
+					return None
+				else :
+					os.remove(lockfile) 
+					#remove update from list
+					updateList = updateId.split(' ')
+					for updates in updateList :
+						for update in self.xbianValue :
+							if update.split(';')[0] == updates :
+								self.xbianValue.remove(update)
+								self.control.removeUpdate(update)
+								break
+					dlg.close()
+					self.notifyOnSuccess()
+			else :
+				if rc and rc[0] == '2' :
+					self.ERRORTEXT = 'These packages are already updated'           
+				elif rc and rc[0] == '3' :
+					self.ERRORTEXT = 'Packages not found in apt repository'
+				elif rc and rc[0] == '4' :
+					self.ERRORTEXT = 'Packages not found in apt repository'
+				elif rc and rc[0] == '5' :
+					self.ERRORTEXT = 'There is a size mismatch for the remote packages'             
+				elif rc and rc[0] == '6' :
+					self.ERRORTEXT = 'The packages itselves got a internal error'
+				else :
+					self.ERRORTEXT = 'Unexpected error'            
+				os.remove(lockfile)
+				dlg.close()
+				self.notifyOnError()    
             
     def onUpdateAll(self) :
         updates = ''
@@ -167,7 +169,7 @@ class packageUpdate(xbianUpgrade) :
     CONTROL = updateControl()
     DIALOGHEADER = "Update Packages"
     ERRORTEXT = "Error"
-    OKTEXT = "OK"
+    OKTEXT = "Package is successfully updated"
     APPLYTEXT = "Do you want to update this package?"
 
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.xbianconfig"
-    name="XBian-Config" version="0.0.2" provider-name="xbian">
+    name="XBian-Config" version="1.0" provider-name="xbian">
   <requires>
     <import addon="xbmc.python" version="2.0"/>
   </requires>
@@ -9,10 +9,8 @@
   </extension> 
   <extension point="xbmc.service" library="services.py" start="startup"/>
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">Config easily your XBian system.</summary>
-    <summary lang="fr">Configurer facilement le systeme XBian.</summary>
-    <description lang="en">xBian description (TODO).</description>
-    <description lang="fr">xBian description (TODO).</description>
+    <summary lang="en">Config easily your XBian system.</summary>    
+    <description lang="en">XBian is a small, fast and lightweight media center distro for the Raspberry Pi, based on a minimal Raspbian image. Our slogan is “XBMC on Raspberry Pi, the bleeding edge” as our main focus is delivering the fastest XBMC solution for the Raspberry Pi.</description>
     <platform>all</platform>
     <language></language>
   </extension>

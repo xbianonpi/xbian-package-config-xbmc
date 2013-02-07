@@ -263,7 +263,7 @@ class mpeg2License(Setting) :
     def checkUserValue(self,value):
         try :
             hexvalue = int(value,16)
-            keyok = len(value) == 10 and value[:2] == '0x'
+            keyok = ((len(value) == 10) or (len(value) == 9))  and value[:2] == '0x'
         except :
             keyok = False   
         return keyok
