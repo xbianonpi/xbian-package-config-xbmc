@@ -20,11 +20,6 @@ BASE_RESOURCE_PATH = os.path.join( ROOTDIR, "resources" )
 
 dialog = xbmcgui.Dialog()
 
-RUNNING = 'Running'
-STOPPED = 'Stopped'
-RESTART = 'Restart'
-STOP = 'Stop'
-START = 'Start'
 
 class PackagesControl(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
@@ -59,7 +54,7 @@ class PackagesControl(MultiSettingControl):
                 package.onClick = lambda select : self.selectClick(self.getCurrentCat(select),select.getLabel())
                 self.packages[key]['list'].append(package)
                 self.packages[key]['group'].addControl(package)
-                self.packages[key]['set'].append('False')
+                self.packages[key]['set'].append(False)
                 
             
             #add Get more Button
@@ -80,7 +75,7 @@ class PackagesControl(MultiSettingControl):
     def addPackage(self,category,package) :                        
         for i,tmp in enumerate(self.packages[category]['set']) :
             if not tmp :                
-                break        
+                break            
         self.packages[category]['set'][i] = True
         self.packages[category]['list'][i].setLabel(package)
         xbmc.executebuiltin('Skin.SetBool(%s%d)'%(category,i))
@@ -123,20 +118,21 @@ class packagesManager(Setting) :
     def onInit(self) :   
         pass    
         self.control.getmoreClick = self.onGetMore
-        self.control.selectClick = self.onSelect
-        self.control.onInfoClick = self.onInfo
+        self.control.selectClick = self.onSelect        
         
+    def showInfo(self,package) :
+        progress = dialogWait('Loading','Please wait while loading the information for %s'%package)
+        progress.show() 
+        rc = xbianConfig('packages','info',package)
+        progress.close() 
+        if rc :         
+            PackageInfo(package,rc[0].partition(' ')[2],rc[1].partition(' ')[2],rc[2].partition(' ')[2],rc[3].partition(' ')[2],rc[4].partition(' ')[2],rc[5].partition(' ')[2],rc[6].partition(' ')[2])
     def onSelect(self,cat,package) :
         choice = ['Informations','Remove Package']
         select = dialog.select('Select',choice)
         if select == 0 :
             #display info dialog
-            progress = dialogWait('Loading','Please wait while loading the information for %s'%package)
-            progress.show() 
-            rc = xbianConfig('packages','info',package)
-            progress.close() 
-            if rc :         
-                PackageInfo(package,rc[0].partition(' ')[2],rc[1].partition(' ')[2],rc[2].partition(' ')[2],rc[3].partition(' ')[2],rc[4].partition(' ')[2],rc[5].partition(' ')[2],rc[6].partition(' ')[2])
+            self.showInfo(package)
         elif select == 1 :
             #remove package
             self.APPLYTEXT = 'Do you want to remove the %s package?'%package
@@ -150,11 +146,11 @@ class packagesManager(Setting) :
                     progress = 1
                     status = 1                    
                     while waitRemove : 
-                            if progress == 1 :
+                            if progress != 0 :
                                 progress = int(xbianConfig('packages','progress')[0])                                                        
-                            if status == 1 :    
+                            if status != 0 :    
                                 status = int(xbianConfig('packages','status',package)[0])                            
-                            if progress == 0 and status == 0 :
+                            if progress != 1 and status != 1 :
                                 waitRemove = False
                             else :
                                 time.sleep(5)
@@ -173,7 +169,7 @@ class packagesManager(Setting) :
                          self.ERRORTEXT = 'Package %s is an essential package and cannot be removed'%package                     
                     else :                      
                          #normally never pass here
-                         self.ERRORTEXT = 'Unknown error while removing %s'%package
+                         self.ERRORTEXT = 'Unknown Error while removing %s'%package
                     progressDlg.close()
                     self.notifyOnError()
                      
@@ -197,157 +193,57 @@ class packagesManager(Setting) :
                 package.append(packageTmp[0])
            select =dialog.select('Select Package',package)
            if select != -1 :
-                self.APPLYTEXT = 'Do you want to install the package : %s?'%package[select]
-                if self.askConfirmation(True) :                
-                    progressDlg = dialogWait('Installing','Please wait while installing %s'%package[select])
-                    progressDlg.show() 
-                    rc = xbianConfig('packages','install',package[select])
-                    if rc and rc[0] == '1' :                        
-                        waitInstall = True
-                        progress = 1
-                        status = 0                        
-                        while waitInstall : 
-                            if progress == 1 :
-                                progress = int(xbianConfig('packages','progress')[0])                            
-                            if status == 0 :    
-                                status = int(xbianConfig('packages','status',package[select])[0])
-                            
-                            if progress == 0 and status == 1 :
-                                waitInstall = False
-                            else :
-                                time.sleep(5)
+                choice = ['Informations','Install Package']
+                sel = dialog.select('Select',choice)
+                if sel == 0 :
+                    #display info dialog
+                    self.showInfo(package[select])
+                elif sel == 1 :
+                    self.APPLYTEXT = 'Do you want to install the package : %s?'%package[select]
+                    if self.askConfirmation(True) :                
+                        progressDlg = dialogWait('Installing','Please wait while installing %s'%package[select])
+                        progressDlg.show() 
+                        rc = xbianConfig('packages','install',package[select])
+                        if rc and rc[0] == '1' :                        
+                            waitInstall = True
+                            progress = 1
+                            status = 0                        
+                            while waitInstall : 
+                                if progress != 0 :
+                                    progress = int(xbianConfig('packages','progress')[0])                            
+                                if status != 1 :    
+                                    status = int(xbianConfig('packages','status',package[select])[0])
+                                
+                                if progress !=1 and status != 0 :
+                                    waitInstall = False
+                                else :
+                                    time.sleep(5)
 
 
-                        progressDlg.close()                                                
-                        time.sleep(0.5)
-                        self.control.addPackage(cat,package[select])
-                        self.globalMethod['Services']['refresh']()                        
-                        print 'ipg2 : packages added on gui'                            
-                        self.OKTEXT = 'Package %s successfully installed'%package[select]
-                        self.notifyOnSuccess()                        
-                    else :
-                        if rc and rc[0] == '2' :
-                            self.ERRORTEXT = 'Package %s is already installed'%package[select]                          
-                        elif rc and rc[0] == '3' :                          
-                            self.ERRORTEXT = 'Package %s not found in apt-repository'%package[select]                           
-                        elif rc and rc[0] == '4' :                          
-                            self.ERRORTEXT = 'A newer version of this package is already installed'                         
-                        elif rc and rc[0] == '5' :                          
-                            self.ERRORTEXT = 'There is a size mismatch for the remote package'                          
-                        elif rc and rc[0] == '6' :                          
-                            self.ERRORTEXT = 'The package itself got an internal error'
-                        else :                          
-                            #normally never pass here
-                            self.ERRORTEXT = 'Unknown error while installing %s'%package
-                        progressDlg.close()
-                        self.notifyOnError()                                        
-                    
-    
-    def onInfo(self,package) :
-        rc = xbianConfig('packages','info',package)
-        if rc :         
-            PackageInfo(package,rc[0].partition(' ')[2],rc[1].partition(' ')[2],rc[2].partition(' ')[2],rc[3].partition(' ')[2],rc[4].partition(' ')[2],rc[5].partition(' ')[2],rc[6].partition(' ')[2])
-            
-    
-    def onStatus(self,package,value) :
-        wait = xbmcgui.DialogProgress()
-        if value == self.INSTALLED :
-            self.APPLYTEXT = 'Do you want to remove the %s package?'%package
-            if self.askConfirmation(True) :
-                wait.create('Removing %s'%package,'Please wait...')
-                wait.update(0)
-                rc = xbianConfig('packages','remove',package)
-                if rc and rc[0] == '1' :
-                    #remove package
-                    waitRemove = True
-                    while waitRemove : 
-                        progress = int(xbianConfig('packages','progress')[0])
-                        status = int(xbianConfig('packages','status',package)[0])
-                        if progress == 0 and status == 0 :
-                            waitRemove = False
-                        else :
+                            progressDlg.close()                                                
                             time.sleep(0.5)
-                    #refresh service list
-                    self.globalMethod['Services']['refresh']()
-                    wait.close()
-                    self.OKTEXT = 'Package %s successfully removed'%package
-                    self.notifyOnSuccess()
-                    return self.NOTINSTALLED
-                elif rc and rc[0] == '2' :
-                     #normally never pass here
-                     wait.close()
-                     self.ERRORTEXT = 'Package %s is not installed'%package
-                     self.notifyOnError()
-                     return self.NOTINSTALLED
-                elif rc and rc[0] == '3' :
-                     wait.close()
-                     self.ERRORTEXT = 'Package %s is an essential package and cannot be removed'%package
-                     self.notifyOnError()
-                     return self.INSTALLED
-                else : 
-                     wait.close()
-                     #normally never pass here
-                     self.ERRORTEXT = 'Unknown error while removing %s'%package
-                     self.notifyOnError()
-                     return self.INSTALLED
-            else :
-                return self.INSTALLED
-        else :
-            self.APPLYTEXT = 'Do you want to install the %s package?'%package
-            if self.askConfirmation(True) :             
-                wait.create('Installing %s'%package,'Please wait...')
-                wait.update(0)
-                rc = xbianConfig('packages','install',package)
-                if rc and rc[0] == '1' :
-                    #remove package
-                    waitInstall = True
-                    while waitInstall : 
-                        progress = int(xbianConfig('packages','progress')[0])
-                        status = int(xbianConfig('packages','status',package)[0])
-                        if progress == 0 and status == 1 :
-                            waitInstall = False
+                            self.control.addPackage(cat,package[select])
+                            self.globalMethod['Services']['refresh']()                        
+                            print 'ipg2 : packages added on gui'                            
+                            self.OKTEXT = 'Package %s succesfully installed'%package[select]
+                            self.notifyOnSuccess()                        
                         else :
-                            time.sleep(0.5)
-                    #refresh service list
-                    self.globalMethod['Services']['refresh']()
-                    wait.close()
-                    self.OKTEXT = 'Package %s successfully installed'%package
-                    self.notifyOnSuccess()
-                    return self.INSTALLED
-                elif rc and rc[0] == '2' :
-                    wait.close()
-                    #normally never pass here
-                    self.ERRORTEXT = 'Package %s is already installed'%package
-                    self.notifyOnError()
-                    return self.INSTALLED
-                elif rc and rc[0] == '3' :
-                    wait.close()
-                    self.ERRORTEXT = 'Package %s not found in apt-repository'%package
-                    self.notifyOnError()
-                    return self.NOTINSTALLED
-                elif rc and rc[0] == '4' :
-                    wait.close() 
-                    self.ERRORTEXT = 'A newer version of this package is already installed'
-                    self.notifyOnError()
-                    return self.INSTALLED
-                elif rc and rc[0] == '5' :
-                    wait.close()
-                    self.ERRORTEXT = 'There is a size mismatch for the remote package'
-                    self.notifyOnError()
-                    return self.NOTINSTALLED
-                elif rc and rc[0] == '6' :
-                    wait.close()
-                    self.ERRORTEXT = 'The package itself got an internal error'
-                    self.notifyOnError()
-                    return self.NOTINSTALLED
-                else : 
-                    wait.close()
-                    #normally never pass here
-                    self.ERRORTEXT = 'Unknown error while installing %s'%package
-                    self.notifyOnError()
-                    return self.NOTINSTALLED     
-            else :
-                return self.NOTINSTALLED    
+                            if rc and rc[0] == '2' :
+                                self.ERRORTEXT = 'Package %s is already installed'%package[select]                          
+                            elif rc and rc[0] == '3' :                          
+                                self.ERRORTEXT = 'Package %s not found in apt-repository'%package[select]                           
+                            elif rc and rc[0] == '4' :                          
+                                self.ERRORTEXT = 'A newer version of this package is already installed'                         
+                            elif rc and rc[0] == '5' :                          
+                                self.ERRORTEXT = 'There is a size mismatch for the remote package'                          
+                            elif rc and rc[0] == '6' :                          
+                                self.ERRORTEXT = 'The package itself got an internal error'
+                            else :                          
+                                #normally never pass here
+                                self.ERRORTEXT = 'Unknown error while installing %s'%package
+                            progressDlg.close()
+                            self.notifyOnError()                                        
+                        
             
     def getXbianValue(self):
         packages = self.control.packages
