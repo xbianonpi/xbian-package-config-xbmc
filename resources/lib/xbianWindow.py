@@ -26,13 +26,16 @@ class XbianWindow(WindowSkinXml):
     def onInitThread(self,category):                                
             #set default value to gui
             for setting in category.getSettings():
-                try :
+                #try :                                   
+                if True :
                     setting.updateFromXbian()
-                    setting.setPublicMethod(self.publicMethod)
+                    setting.setPublicMethod(self.publicMethod)                               
+                try :
+					pass
                 except :
                     #don't enable control if error
                     print 'Exception in updateFromXbian for setting'
-                    print sys.exc_info()                
+                    print sys.exc_info()                      
                 else :
                     setting.getControl().setEnabled(True)
     

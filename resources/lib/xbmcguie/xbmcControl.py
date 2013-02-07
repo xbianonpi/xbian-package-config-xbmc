@@ -26,6 +26,9 @@ class ButtonControl(ControlXml) :
     def setLabel(self,value):
         if hasattr(self,'Controlinstance') :
             self.Controlinstance.setLabel(label=str(value),label2=self.Controlinstance.getLabel2())
+    def getLabel(self):
+        if hasattr(self,'Controlinstance') :
+            return self.Controlinstance.getLabel()
     
 class ApplyButtonControl(ControlXml) :
     FOCUSABLE = True
@@ -258,7 +261,7 @@ class SpinControlex(ControlXml) :
         if tag.getKey() in self.focusable_tag :
             self.controls['SpinControlButton'].setTag(tag)
 
-    def addContent(self,content):
+    def addContent(self,content):		
         self.controls['wraplistControl'].addContent(content)
 
     def getWrapListId(self):
@@ -276,6 +279,8 @@ class SpinControlex(ControlXml) :
     def setValue(self,value):
         print self.controls['wraplistControl'].getId()
         nbItem = xbmc.getInfoLabel('Container(%d).NumItems'%self.controls['wraplistControl'].getId())
+        print 'ipg2 %s '%value
+        find = False
         for i in range(int(nbItem)):
             if value == xbmc.getInfoLabel('Container(%d).ListItem(%d).Label'%(self.controls['wraplistControl'].getId(),i)) :
                 find = True
