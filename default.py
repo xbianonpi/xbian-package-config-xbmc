@@ -28,7 +28,6 @@ from xbmcaddon import Addon
 #xbmcguie
 from resources.lib.xbianWindow import XbianWindow
 
-from resources.lib.updateworker import Updater
 #addon module 
 ADDON     = Addon( __addonID__ )
 Language  = ADDON.getLocalizedString
