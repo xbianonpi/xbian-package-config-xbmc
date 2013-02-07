@@ -15,8 +15,8 @@ class xbmcLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label','Xbmc'))
 
 class xbmcGui(Setting) :
-    CONTROL = SpinControlex(Tag('label','XBMC gui resolution'))
-    DIALOGHEADER = "XBMC gui resolution"
+    CONTROL = SpinControlex(Tag('label','XBMC GUI resolution'))
+    DIALOGHEADER = "XBMC GUI resolution"
     ERRORTEXT = "Error updating"
     OKTEXT = "Update ok"
     SAVEMODE = Setting.ONUNFOCUS
@@ -50,7 +50,7 @@ class xbmcGui(Setting) :
         
 #CATEGORY CLASS
 class xbmc(Category) :
-    TITLE = 'Xbmc'
+    TITLE = 'XBMC'
     SETTINGS = [xbmcLabel,xbmcGui]
     
     
