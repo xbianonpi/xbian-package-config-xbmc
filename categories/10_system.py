@@ -585,7 +585,7 @@ class AccountLabel(Setting) :
     
 class rootpwd(Setting) :
     CONTROL = ButtonControl(Tag('label','root password'),Tag('visible','skin.hasSetting(advancedmode)'))
-    DIALOGHEADER = "root password"
+    DIALOGHEADER = "User root password"
     ERRORTEXT = "Error updating"
     OKTEXT = "Update ok"
     BADUSERENTRYTEXT = "Passwords don't match"
@@ -616,7 +616,7 @@ class rootpwd(Setting) :
 
 class xbianpwd(rootpwd) :
     CONTROL = ButtonControl(Tag('label','xbian password'),Tag('visible','skin.hasSetting(advancedmode)'))
-    DIALOGHEADER = "xbian Password"
+    DIALOGHEADER = "User xbian Password"
     
     def onInit(self):
         self.forceUpdate = True
