@@ -88,6 +88,6 @@ class updateAuto(advancedMode) :
 #CATEGORY CLASS
 class preference(Category) :
     TITLE = 'Preferences'
-    SETTINGS = [advancedLabel,advancedMode,notificationLabel,confirmonChange,notifyonError,notifyonSuccess]
+    SETTINGS = [advancedLabel,advancedMode,notificationLabel,confirmonChange,notifyonError,notifyonSuccess,UpdateLabel,updateonBoot,updateTimer,updateAuto]
     
     
