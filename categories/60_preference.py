@@ -15,7 +15,7 @@ class advancedLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label','Advanced'))
 
 class advancedMode(Setting) :
-    CONTROL = RadioButtonControl(Tag('label','Advanced Mode'))
+    CONTROL = RadioButtonControl(Tag('label','Advanced mode'))
     DIALOGHEADER = "Advanced Mode"
     ERRORTEXT = "Error on updating"
     OKTEXT = "Update ok"
@@ -58,7 +58,7 @@ class notifyonSuccess(advancedMode) :
         self.key = 'notifyonsuccess'
 
 class confirmonChange(advancedMode) :
-    CONTROL = RadioButtonControl(Tag('label','Ask Confirmation before save'))
+    CONTROL = RadioButtonControl(Tag('label','Ask confirmation before saving'))
     DIALOGHEADER = "Confirm Modification"
     
     def onInit(self) :
@@ -69,19 +69,19 @@ class UpdateLabel(Setting) :
 
 class updateonBoot(advancedMode) :
     CONTROL = RadioButtonControl(Tag('label','Check update on boot'))
-    DIALOGHEADER = "Notification on Error"
+    DIALOGHEADER = "Check Update on Boot"
     def onInit(self) :
         self.key = 'updateonboot'
 
 class updateTimer(advancedMode) :
     CONTROL = RadioButtonControl(Tag('label','Check update every'))
-    DIALOGHEADER = "Notification on Error"
+    DIALOGHEADER = "Check Update Every"
     def onInit(self) :
         self.key = 'notifyonerror'
 
 class updateAuto(advancedMode) :
-    CONTROL = RadioButtonControl(Tag('label','Automatique Update'))
-    DIALOGHEADER = "Notification on Error"
+    CONTROL = RadioButtonControl(Tag('label','Automatic update'))
+    DIALOGHEADER = "Automatic Update"
     def onInit(self) :
         self.key = 'updateauto'
 

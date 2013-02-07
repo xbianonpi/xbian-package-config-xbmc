@@ -19,7 +19,7 @@ class NewtorkLabel(Setting) :
     
 class NetworkControl(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
-    DHCP = 'Dhcp'
+    DHCP = 'DHCP'
     STATIC = 'Static'
     
     def onInit(self) :
@@ -139,7 +139,7 @@ class NetworkControl(MultiSettingControl):
         
 class NetworkSetting(Setting) :
     CONTROL = NetworkControl()
-    DIALOGHEADER = "NETWORK SETTINGS"
+    DIALOGHEADER = "Network Settings"
     ERRORTEXT = "Error on updating"
     OKTEXT = "Update ok"
     SAVEMODE = Setting.ONUNFOCUS
@@ -237,7 +237,7 @@ class NetworkSetting(Setting) :
                 rc = xbianConfig('network',*cmd)                
                 if not rc :
                     ok = False
-                    self.ERRORTEXT = "No return Code From Xbian"
+                    self.ERRORTEXT = "No return code from xbian-config"
                 elif rc[0] != '1' : 
                     ok = False
                     self.ERRORTEXT = rc[1]
@@ -249,10 +249,10 @@ class LicenceLabel(Setting) :
 
 class mpeg2License(Setting) :
     CONTROL = ButtonControl(Tag('label','MPG2'))
-    DIALOGHEADER = "MPEG2 License"
+    DIALOGHEADER = "MPEG2 license"
     ERRORTEXT = "Error updating"
     OKTEXT = "Update ok"
-    BADUSERENTRYTEXT = "must be hex and looks like 0x00000000"
+    BADUSERENTRYTEXT = "A license must be 9 or 10 characters long and looks like 0x00000000"
     
     def onInit(self) :
         self.xbiankey = 'licensempg2'
@@ -293,7 +293,7 @@ class mpeg2License(Setting) :
     
 class vc1License(mpeg2License) :
     CONTROL = ButtonControl(Tag('label','VC1'))
-    DIALOGHEADER = "VC1 License"
+    DIALOGHEADER = "VC1 license"
     
     def onInit(self) :
         self.xbiankey = 'licensevc1'
@@ -332,7 +332,7 @@ class videooutputControl(MultiSettingControl):
 
 class videooutput(Setting) :
     CONTROL = videooutputControl()
-    DIALOGHEADER = "Video Output "
+    DIALOGHEADER = "Video output "
     ERRORTEXT = "Error on updating"
     OKTEXT = "Update ok"
                     
@@ -378,10 +378,10 @@ class SytemLabel(Setting) :
     
 class hostname(Setting) :
     CONTROL = ButtonControl(Tag('label','Hostname'),Tag('visible','skin.hasSetting(advancedmode)'))
-    DIALOGHEADER = "Host Name"
+    DIALOGHEADER = "Hostname"
     ERRORTEXT = "Error updating"
     OKTEXT = "Update ok"
-    BADUSERENTRYTEXT = "Format is not Correct,bad carachter inside"
+    BADUSERENTRYTEXT = "You used invalid characters in the new hostname"
         
     def getUserValue(self):
         return getText(self.DIALOGHEADER,self.getControlValue())
@@ -527,7 +527,7 @@ class overclocking(Setting) :
 
 class timezone(Setting) :
     CONTROL = ButtonControl(Tag('label','Timezone'),Tag('visible','skin.hasSetting(advancedmode)'))
-    DIALOGHEADER = "TimeZone"
+    DIALOGHEADER = "Timezone"
     ERRORTEXT = "Error updating"
     OKTEXT = "Update ok"
     
@@ -584,11 +584,11 @@ class AccountLabel(Setting) :
             xbmc.executebuiltin('Skin.Reset((%s)'%key)
     
 class rootpwd(Setting) :
-    CONTROL = ButtonControl(Tag('label','Root Password'),Tag('visible','skin.hasSetting(advancedmode)'))
-    DIALOGHEADER = "Root Password"
+    CONTROL = ButtonControl(Tag('label','root password'),Tag('visible','skin.hasSetting(advancedmode)'))
+    DIALOGHEADER = "root password"
     ERRORTEXT = "Error updating"
     OKTEXT = "Update ok"
-    BADUSERENTRYTEXT = "Password does not match"
+    BADUSERENTRYTEXT = "Passwords don't match"
         
     def onInit(self):
         self.forceUpdate = True
@@ -615,8 +615,8 @@ class rootpwd(Setting) :
         return ok       
 
 class xbianpwd(rootpwd) :
-    CONTROL = ButtonControl(Tag('label','XBian password'),Tag('visible','skin.hasSetting(advancedmode)'))
-    DIALOGHEADER = "Xbian Password"
+    CONTROL = ButtonControl(Tag('label','xbian password'),Tag('visible','skin.hasSetting(advancedmode)'))
+    DIALOGHEADER = "xbian Password"
     
     def onInit(self):
         self.forceUpdate = True
