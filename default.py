@@ -3,9 +3,9 @@
 __script__       = "Unknown"
 __plugin__       = "xbian-config"
 __addonID__      = "plugin.xbianconfig"
-__author__       = "Belese(http://www.xbian.org)"
+__author__       = "Belese (http://www.xbian.org)"
 __url__          = "http://www.xbian.org"
-__credits__      = "Xbian"
+__credits__      = "XBian"
 __platform__     = "xbmc media center"
 __date__         = "30-11-2012"
 __version__      = "0.0.1"
@@ -44,7 +44,7 @@ class xbian_config_python :
     def __init__(self) :
         self.onRun = os.path.join('/','tmp','.xbian_config_python')
         if os.path.isfile(self.onRun) :
-            xbmcgui.Dialog().ok('XBian-config','Xbian-config is still running','Please wait a bit...')
+            xbmcgui.Dialog().ok('XBian-config','XBian-config is still running','Please wait...')
         else :      
             open(self.onRun,'w').close()
             try :            
@@ -64,7 +64,7 @@ class xbian_config_python :
                         self.category_list.append(modulename)
                 self.category_list.sort()
                 self.total = len(self.category_list)
-                self.wait.create('Generating Windows','Please wait')
+                self.wait.create('Generating Windows','Please wait...')
                 self.wait.update(0)
                 for module in self.category_list :
                     self.category_list_thread.append(threading.Thread(None,self.threadInitCategory, None, (module,)))
@@ -78,7 +78,7 @@ class xbian_config_python :
                     self.wait.close()
                     self.window.doModal() 
             except :            
-                xbmcgui.Dialog().ok('XBian-config','Something went wrong while creating window','You can ask on www.xbian.org for help')
+                xbmcgui.Dialog().ok('XBian-config','Something went wrong while creating the window','Please contact us on www.xbian.org for further support')
                 print sys.exc_info()
             finally :
                 self.updateThread.stop()
