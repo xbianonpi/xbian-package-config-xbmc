@@ -11,7 +11,7 @@ class firstrun(service):
         #check if first run
         print 'fisrt run'
         a = ADDON.getSetting('firstxbianrun')
-        if not a :
+        if not a or a != 'true' :
 			#set default preference:
 			ADDON.setSetting('advancedmode','0')
 			ADDON.setSetting('notifyonerror','1')
