@@ -7,6 +7,9 @@ import os
 __addonID__ = "plugin.xbianconfig"
 ADDON     = Addon( __addonID__ )
 ADDON_DATA  = xbmc.translatePath( "special://profile/addon_data/%s/" % __addonID__ )
+ADDON_DIR = ADDON.getAddonInfo( "path" )
+LangXBMC  = xbmc.getLocalizedString
+ROOTDIR            = ADDON_DIR
 
 class firstrun(service):
     def onStart(self):
@@ -18,5 +21,8 @@ class firstrun(service):
 			ADDON.setSetting('notifyonsuccess','1')
 			ADDON.setSetting('confirmationonchange','1')
         	#set default preference:			
-			xbmcgui.Dialog().ok('Welcome to XBian','Thanks to have choose XBian','You can configure it, go to','System -> XBian')
+			self.dlg = xbmcgui.WindowXMLDialog('welcomeDialog.xml',ROOTDIR)
+			self.dlg.doModal()
+			
+			#xbmcgui.Dialog().ok('Welcome to XBian','Thanks to have choose XBian','You can configure it, go to','System -> XBian')
 			open(firstlock,'w').close()			
