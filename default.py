@@ -27,7 +27,7 @@ from xbmcaddon import Addon
 
 #xbmcguie
 from resources.lib.xbianWindow import XbianWindow
-
+from resources.lib.updateworker import Updater
 #addon module 
 ADDON     = Addon( __addonID__ )
 Language  = ADDON.getLocalizedString
@@ -49,8 +49,8 @@ class xbian_config_python :
             open(self.onRun,'w').close()
             try :            
                 self.CmdQueue = Queue.Queue()
-                #self.updateThread = Updater(self.CmdQueue)
-                #self.updateThread.start()
+                self.updateThread = Updater(self.CmdQueue)
+                self.updateThread.start()
                 self.wait = xbmcgui.DialogProgress()
                 self.window = XbianWindow('SettingsXbianInfo.xml',ROOTDIR)
                 self.category_list = []
