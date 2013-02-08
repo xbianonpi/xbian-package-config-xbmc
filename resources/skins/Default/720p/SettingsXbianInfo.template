@@ -1,5 +1,5 @@
 <window>
-	<defaultcontrol always="true">9001</defaultcontrol>
+	<defaultcontrol always="true">9000</defaultcontrol>
 	<allowoverlay>no</allowoverlay>
 	<controls>
 		<include>CommonBackground</include>
