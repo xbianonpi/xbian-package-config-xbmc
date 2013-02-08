@@ -92,6 +92,7 @@ class Setting():
         self.canBeUpdated = True
         self.publicMethod = {}
         self.globalMethod = None
+        self.updatingSetting = False
         self.onInit()
         
     
@@ -152,8 +153,8 @@ class Setting():
         else :
             return True
         
-    def updateFromUser(self):
-        if self.canBeUpdated :
+    def updateFromUser(self):        
+        if self.canBeUpdated and not self.updatingSetting :
             self.userValue = self.getUserValue()
             if  self.isModified() or self.forceUpdate:
                 if self.userValue and self.checkUserValue(self.userValue) :
@@ -162,6 +163,7 @@ class Setting():
                         ok = False
                         self.updateFromXbian()
                     if ok :
+                        self.updatingSetting = True
                         self.QueueSetXbianValue(self.userValue)
                         self.setControlValue(self.userValue)
                         return True

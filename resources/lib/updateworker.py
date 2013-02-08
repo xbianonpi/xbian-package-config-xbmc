@@ -11,6 +11,7 @@ class Updater(threading.Thread):
             setting = self.queue.get()
             if setting != "stop" :
 				setting[0].ThreadSetXbianValue(setting[1])
+				setting[0].updatingSetting = False
             
             
     def stop(self):
