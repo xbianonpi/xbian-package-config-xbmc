@@ -41,7 +41,7 @@ class advancedMode(Setting) :
               xbmc.executebuiltin('Skin.SetBool(%s)'%self.key)
         else :
               print "clear %s %s"%(self.key,rc)
-              xbmc.executebuiltin('Skin.Reset((%s)'%self.key)
+              xbmc.executebuiltin('Skin.Reset(%s)'%self.key)
         return rc
         
     def setXbianValue(self,value):
