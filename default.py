@@ -81,7 +81,7 @@ class xbian_config_python :
                     self.window.stopRequested = True 
                     rebootneeded = xbianConfig('reboot')
                     if rebootneeded and rebootneeded[0] == '1' :
-                        if xbmcgui.Dialog().yesno('XBian-Config','A reboot is needed','Do you want to reboot now?') :
+                        if xbmcgui.Dialog().yesno('XBian-config','A reboot is needed','Do you want to reboot now?') :
                             #reboot
                             xbmc.executebuiltin('Reboot')
             except :
