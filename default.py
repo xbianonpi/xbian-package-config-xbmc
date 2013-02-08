@@ -48,8 +48,7 @@ class xbian_config_python :
             xbmcgui.Dialog().ok('XBian-config','XBian-config is still running','Please wait...')
         else :      
             open(self.onRun,'w').close()
-            #try :
-            if True :            
+            try :            
                 self.CmdQueue = Queue.Queue()
                 self.updateThread = Updater(self.CmdQueue)
                 self.updateThread.start()
@@ -85,8 +84,6 @@ class xbian_config_python :
                         if xbmcgui.Dialog().yesno('XBian-Config','A reboot is needed','Do you want to reboot now?') :
                             #reboot
                             xbmc.executebuiltin('Reboot')
-            try :
-				pass
             except :
                 self.window.stopRequested = True            
                 xbmcgui.Dialog().ok('XBian-config','Something went wrong while creating the window','Please contact us on www.xbian.org for further support')

@@ -31,12 +31,9 @@ class XbianWindow(WindowSkinXml):
             for setting in category.getSettings():                
                 if self.stopRequested :
 					break
-                #try :                                   
-                if True :
+                try :                                                   
                     setting.updateFromXbian()
-                    setting.setPublicMethod(self.publicMethod)                                               
-                try :                                   
-					pass
+                    setting.setPublicMethod(self.publicMethod)                                                               
                 except :
                     #don't enable control if error
                     print 'Exception in updateFromXbian for setting'
