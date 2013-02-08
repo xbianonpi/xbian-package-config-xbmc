@@ -3,7 +3,6 @@ import subprocess
 def xbianConfig(*args):
         cmd = ['sudo','/usr/local/sbin/xbian-config']
         cmd.extend(args)
-        print cmd
         rc= subprocess.check_output(cmd)
         print rc
         rcs = rc.split('\n')

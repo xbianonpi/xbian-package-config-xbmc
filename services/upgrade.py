@@ -4,7 +4,6 @@ import xbmc
 from xbmcaddon import Addon
 from resources.lib.service import service
 from resources.lib.xbianconfig import xbianConfig
-from resources.lib.updater import updater
 from resources.lib.utils import dialogWait
 
 __addonID__      = "plugin.xbianconfig"

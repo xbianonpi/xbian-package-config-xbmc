@@ -25,7 +25,6 @@ class xbmcGui(Setting) :
         resolutionlist =xbianConfig('xbmc','guires','list')
         if resolutionlist :
             for resolution in resolutionlist :
-                print 'ipg %s '%resolution
                 content = Content(Tag('label','%sp'%resolution),defaultSKin=False)
                 self.control.addContent(content)
 
@@ -35,7 +34,6 @@ class xbmcGui(Setting) :
     def getXbianValue(self):
         resolution =xbianConfig('xbmc','guires','select')
         if resolution :
-            print 'ipg return %s '%resolution[0]
             return '%sp'%resolution[0]
         else :
             return ''                

@@ -277,9 +277,7 @@ class SpinControlex(ControlXml) :
         return xbmc.getInfoLabel('Container(%d).ListItem.Label'%self.controls['wraplistControl'].getId())
     
     def setValue(self,value):
-        print self.controls['wraplistControl'].getId()
-        nbItem = xbmc.getInfoLabel('Container(%d).NumItems'%self.controls['wraplistControl'].getId())
-        print 'ipg2 %s '%value
+        nbItem = xbmc.getInfoLabel('Container(%d).NumItems'%self.controls['wraplistControl'].getId())        
         find = False
         for i in range(int(nbItem)):
             if value == xbmc.getInfoLabel('Container(%d).ListItem(%d).Label'%(self.controls['wraplistControl'].getId(),i)) :

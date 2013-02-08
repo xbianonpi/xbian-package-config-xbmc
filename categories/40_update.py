@@ -10,7 +10,6 @@ from resources.lib.xbmcguie.tag import Tag
 from resources.lib.xbmcguie.category import Category,Setting
 
 from resources.lib.xbianconfig import xbianConfig
-from resources.lib.updater import updater
 from resources.lib.utils import dialogWait
 import xbmcgui,xbmc
 from xbmcaddon import Addon
@@ -59,8 +58,7 @@ class updateControl(MultiSettingControl):
                 return i+1
             
     def addUpdate(self,update) :        
-        values = update.split(';')
-        print 'yal %s'%str(values)
+        values = update.split(';')        
         self.updates[int(values[0])-1]['name'].setLabel(values[1])
         self.updates[int(values[0])-1]['name'].setValue(values[3])
         xbmc.executebuiltin('Skin.SetBool(%s%d)'%(self.key,int(values[0])-1))
@@ -105,8 +103,7 @@ class xbianUpgrade(Setting) :
         updateId = str(updateId)        
         if self.askConfirmation(True) :
 			dlg = dialogWait('Xbian Update','Please wait while updating')
-			dlg.show()
-			print 'ipg 3 : update %s %s'%(self.key,updateId)
+			dlg.show()			
 			rc =xbianConfig('updates','install',self.key,updateId)
 			if rc and rc[0] == '1' :
 				#wait upgrade

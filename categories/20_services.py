@@ -75,15 +75,12 @@ class ServicesControl(MultiSettingControl):
         for service in self.serviceList :            
             if service[:6] != 'custom' :
                 for key in self.services[service] :
-                    print service, key
                     if self.services[service][key] == control :
                         return service
             
     def setCustom(self,service) :
         if service not in self.serviceList :
             self.services[service] = self.services['custom%d'%self.customId]
-            print self.services[service]
-            print self.services['custom%d'%self.customId]
             self.services[service]['label'].setLabel(service.title())
             self.serviceList.append(service)
             self.customId += 1
@@ -161,7 +158,6 @@ class servicesManager(Setting) :
             #check if i have to delete service
             for service in self.serviceInstalled[:] :
                 if service not in services :
-                    print 'have to delete %s'%service
                     self.deleteService(service)
                     
     def deleteService(self,service):
@@ -287,7 +283,6 @@ class servicesManager(Setting) :
             if select == -1 :
                 return value
             else :
-                print 'onStatus select %d'%select
                 if select == 0 :
                     self.APPLYTEXT = 'Do you want to stop %s ?'%service
                     if self.askConfirmation() :        
