@@ -4,12 +4,28 @@ import time
 import threading
 import os
 from xbmcaddon import Addon
+import pickle
 
 __addonID__      = "plugin.xbianconfig"
 ADDON     = Addon( __addonID__ )
 ADDON_DIR = ADDON.getAddonInfo( "path" )
 ROOTDIR            = ADDON_DIR
 BASE_RESOURCE_PATH = os.path.join( ROOTDIR, "resources" )
+ADDON_DATA  = xbmc.translatePath( "special://profile/addon_data/%s/" % __addonID__ )
+
+def setSetting(key,value) :
+	settingFile = open(os.path.join(ADDON_DATA,str(key)),'w')
+	pickle.dump(value,settingFile)
+	settingFile.close()
+
+def getSetting(key) :
+	settingPath = os.path.join(ADDON_DATA,str(key))
+	if os.path.isfile(settingPath) :
+		return pickle.load(open(settingPath,'r'))
+	else:
+		return None
+	
+
 
 def getNumeric(header,default=None,min=False,max=False):
     dialog = xbmcgui.Dialog() 
