@@ -24,5 +24,5 @@ class firstrun(service):
 			self.dlg = xbmcgui.WindowXMLDialog('welcomeDialog.xml',ROOTDIR)
 			self.dlg.doModal()
 			
-			#xbmcgui.Dialog().ok('Welcome to XBian','Thanks to have choose XBian','You can configure it, go to','System -> XBian')
+			#xbmcgui.Dialog().ok('Welcome to XBian','Thanks to have chosen XBian','You can configure it, go to','System -> XBian')
 			open(firstlock,'w').close()			
