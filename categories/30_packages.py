@@ -223,8 +223,7 @@ class packagesManager(Setting) :
                             progressDlg.close()                                                
                             time.sleep(0.5)
                             self.control.addPackage(cat,package[select])
-                            self.globalMethod['Services']['refresh']()                        
-                            print 'ipg2 : packages added on gui'                            
+                            self.globalMethod['Services']['refresh']()                                                  
                             self.OKTEXT = 'Package %s successfully installed'%package[select]
                             self.notifyOnSuccess()                        
                         else :

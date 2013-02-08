@@ -91,7 +91,6 @@ class MultiSettingControl(ContainerXml) :
     def toXml(self):
         xml = ""
         if hasattr(self,'save_ctrl'):
-            print 'helo2'
             self.addControl(self.save_ctrl)
         for control in self.controls :
             if self.hasTag('visible') :
@@ -103,7 +102,6 @@ class MultiSettingControl(ContainerXml) :
         return xml
     
     def setSaveControl(self,ctrl):
-        print 'helo'
         self.save_ctrl = ctrl
         ctrl.click = self.clickSave
    
@@ -118,7 +116,6 @@ class MultiSettingControl(ContainerXml) :
                   value.extend(control.getValue())
               else :    
                   value.append(control.getValue())
-           print value
            self.onClick(self,*value)
 
 

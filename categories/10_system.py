@@ -3,8 +3,6 @@ from resources.lib.xbmcguie.xbmcControl import *
 from resources.lib.xbmcguie.tag import Tag
 from resources.lib.xbmcguie.category import Category,Setting
 
-#from lib.NetworkCustomControlSetting import NetworkSettings
-
 from resources.lib.xbianconfig import xbianConfig
 from resources.lib.utils import *
 
@@ -78,16 +76,12 @@ class NetworkControl(MultiSettingControl):
              self.interfaceValue[interface]['group'].addControl(self.interfaceValue[interface]['staticgroup'])
              
                 
-    def setValue(self,values):
-        print 'yok Set Values %s'%str(values)
+    def setValue(self,values):        
         default = values[0]
         #self.interface.setValue(default)
         networkValue = values[1]
         for key in networkValue :
-            print 'yok %s'%key
-            value = networkValue[key]
-            #if value[0] == 'static' :            
-            print 'yok2 %s' %self.interfaceValue[key]['mode'].getValue()
+            value = networkValue[key]           
             if value[0] == 'static' or value[0] == 'manual' :
                 self.interfaceValue[key]['mode'].setValue(self.STATIC)
             else:
@@ -113,8 +107,7 @@ class NetworkControl(MultiSettingControl):
        for interface in self.interfacelist :           
            networktmp = self.interfaceValue[interface]['group'].getValue()
            #sort to be compliant to xbianconfig
-           networkValue[interface] = []
-           print networktmp
+           networkValue[interface] = []           
            if self.interfaceValue[interface]['wifi'] :
                networkValue[interface].append(networktmp[2].lower())
                networkValue[interface].append(networktmp[0])
@@ -132,9 +125,6 @@ class NetworkControl(MultiSettingControl):
                networkValue[interface].append(networktmp[4])
                networkValue[interface].append(networktmp[5])
                networkValue[interface].append(networktmp[6])
-            
-        
-       print ('return network value %s'%str(networkValue))
        return [default,networkValue]
         
 class NetworkSetting(Setting) :
@@ -152,8 +142,6 @@ class NetworkSetting(Setting) :
         
     def connectWifi(self,interface) :
         self.userValue = self.getUserValue()
-        print 'on connect wifi %s' %(self.userValue)
-        print 'on connect wifi %s' %(self.xbianValue)
         if self.isModified() :
             progress = dialogWait('Updating','Updating settings for %s'%(interface))
             progress.show()              
@@ -164,7 +152,6 @@ class NetworkSetting(Setting) :
             progress = dialogWait('Refresh','Reloading values for %s'%(interface))
             progress.show()              
             interface_config = xbianConfig('network','status',interface)
-            print 'yok %s'%str(interface_config)
             lanConfig = []
             for config in interface_config :
                 try :
@@ -218,7 +205,6 @@ class NetworkSetting(Setting) :
             if interface_config[2] == 'UP' or not self.default :
                 self.default = interface
             self.lanConfig[interface] = []
-            print 'coco',interface_config
             for config in interface_config :
                 try :
                     val = config.split(' ')             
@@ -233,7 +219,6 @@ class NetworkSetting(Setting) :
         return self.lanConfig
     
     def setXbianValue(self,values):
-        print 'in set values %s'%str(values)
         ok = True
         for interface in values :
             if values[interface] != self.xbianValue[interface]:
@@ -360,7 +345,6 @@ class videooutput(Setting) :
         
     def setXbianValue(self,value):
         #set xbian config here
-        print value
         for key in value :
             if value[key] != self.xbianValue[key] :
                  rc = xbianConfig('videoflags','update',key,value[key])
@@ -555,7 +539,6 @@ class timezone(Setting) :
         
     def getXbianValue(self):
         timezone =xbianConfig('timezone','select')
-        print timezone
         if timezone and timezone[0] != '-1':
             return(timezone[0].split(' '))          
         else :

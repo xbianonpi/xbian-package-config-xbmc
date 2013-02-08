@@ -48,7 +48,8 @@ class xbian_config_python :
             xbmcgui.Dialog().ok('XBian-config','XBian-config is still running','Please wait...')
         else :      
             open(self.onRun,'w').close()
-            try :            
+            #try :
+            if True :            
                 self.CmdQueue = Queue.Queue()
                 self.updateThread = Updater(self.CmdQueue)
                 self.updateThread.start()
@@ -84,6 +85,8 @@ class xbian_config_python :
                         if xbmcgui.Dialog().yesno('XBian-Config','A reboot is needed','Do you want to reboot now?') :
                             #reboot
                             xbmc.executebuiltin('Reboot')
+            try :
+				pass
             except :
                 self.window.stopRequested = True            
                 xbmcgui.Dialog().ok('XBian-config','Something went wrong while creating the window','Please contact us on www.xbian.org for further support')
@@ -98,8 +101,7 @@ class xbian_config_python :
             self.stop = True
             self.wait.close()
         else :
-            perc = int((float(self.finished)/(self.total*2)) * 100)
-            print 'percent : %d'%perc
+            perc = int((float(self.finished)/(self.total*2)) * 100)            
             self.wait.update(perc)
         
     def threadInitCategory(self,modulename) :        
@@ -108,8 +110,7 @@ class xbian_config_python :
         module = __import__(subpackage, globals_, locals_, [modulename])                       
         self.update_progress()
         catInstance = getattr(module,modulename.split('_')[1])
-        self.category_list_instance[modulename] = catInstance(self.CmdQueue)
-        print 'finished %s'%modulename
+        self.category_list_instance[modulename] = catInstance(self.CmdQueue)        
         self.update_progress()
 
 
