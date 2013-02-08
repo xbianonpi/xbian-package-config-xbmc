@@ -1,6 +1,7 @@
 from tag import Tag
 from xbmcContainer import GroupListControl,Content
 from xbmcControl import scrollbarControl
+from resources.lib.utils import *
 
 import xbmc
 import xbmcgui
@@ -110,10 +111,10 @@ class Setting():
     
     
     def setSetting(self,id,value):
-        self.ADDON.setSetting(id,value)
+        setSetting(id,value)
     
     def getSetting(self,id):
-        return self.ADDON.getSetting(id)
+        return getSetting(id)
     
     def onSave(self,ctrl):
         self.updateFromUser()
