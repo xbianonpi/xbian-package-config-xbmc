@@ -8,6 +8,7 @@ class XbianWindow(WindowSkinXml):
         WindowSkinXml.__init__(self,strXMLname, strFallbackPath, strDefaultName=False, forceFallback=False)
         self.categories = []
         self.publicMethod = {}
+        self.stopRequested = False
     
     def onInit(self):
         WindowSkinXml.onInit(self)
@@ -20,12 +21,16 @@ class XbianWindow(WindowSkinXml):
                     self.publicMethod[category.getTitle()][key] = public[key]
         #set the windows instance in all xbmc control
         for category in self.categories :
+			if self.stopRequested :
+				break
 			initthread  = threading.Thread(None,self.onInitThread, None, (category,))
 			initthread.start()
         
     def onInitThread(self,category):                                
             #set default value to gui
-            for setting in category.getSettings():
+            for setting in category.getSettings():                
+                if self.stopRequested :
+					break
                 try :                                   
                     setting.updateFromXbian()
                     setting.setPublicMethod(self.publicMethod)                                               

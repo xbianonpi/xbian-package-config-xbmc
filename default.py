@@ -78,12 +78,14 @@ class xbian_config_python :
                     self.window.doXml(os.path.join(ROOTDIR,'resources','skins','Default','720p','SettingsXbianInfo.template'))
                     self.wait.close()                    
                     self.window.doModal() 
+                    self.window.stopRequested = True 
                     rebootneeded = xbianConfig('reboot')
                     if rebootneeded and rebootneeded[0] == '1' :
-						if xbmcgui.Dialog().yesno('XBian-Config','A reboot is needed','Do you want to reboot now?') :
-							#reboot
-							xbmc.executebuiltin('Reboot')
-            except :            
+                        if xbmcgui.Dialog().yesno('XBian-Config','A reboot is needed','Do you want to reboot now?') :
+                            #reboot
+                            xbmc.executebuiltin('Reboot')
+            except :
+                self.window.stopRequested = True            
                 xbmcgui.Dialog().ok('XBian-config','Something went wrong while creating the window','Please contact us on www.xbian.org for further support')
                 print sys.exc_info()
             finally :
