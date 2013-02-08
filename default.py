@@ -41,7 +41,7 @@ MEDIA_PATH         = os.path.join( BASE_RESOURCE_PATH, "media" )
 ADDON_DATA  = xbmc.translatePath( "special://profile/addon_data/%s/" % __addonID__ )
 CATEGORY_PATH = 'categories'
 class xbian_config_python :
-    def __init__(self) :
+    def __init__(self) :              
         self.onRun = os.path.join('/','tmp','.xbian_config_python')
         if os.path.isfile(self.onRun) :
             xbmcgui.Dialog().ok('XBian-config','XBian-config is still running','Please wait...')
@@ -75,7 +75,7 @@ class xbian_config_python :
                         self.window.addCategory(self.category_list_instance[self.category_list[i]])
                 if not self.stop :
                     self.window.doXml(os.path.join(ROOTDIR,'resources','skins','Default','720p','SettingsXbianInfo.template'))
-                    self.wait.close()
+                    self.wait.close()                    
                     self.window.doModal() 
             except :            
                 xbmcgui.Dialog().ok('XBian-config','Something went wrong while creating the window','Please contact us on www.xbian.org for further support')
