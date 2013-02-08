@@ -137,7 +137,7 @@ class servicesManager(Setting) :
     DIALOGHEADER = "Xbian Services Manager"
     ERRORTEXT = "Error"
     OKTEXT = "OK"
-    APPLYTEXT = "Aplly"
+    APPLYTEXT = "Apply"
 
     def onInit(self) :
         self.serviceInstalled = xbianConfig('services','list')
@@ -215,7 +215,7 @@ class servicesManager(Setting) :
                         if rc and rc[0] == '1' :                       
                             self.addService(name)
                             progress.close()
-                            self.OKTEXT = 'Service %s added succesfully'%name
+                            self.OKTEXT = 'Service %s added successfully'%name
                             self.notifyOnSuccess()
                         elif rc and rc[0] == '-2':
                             progress.close()
@@ -236,11 +236,11 @@ class servicesManager(Setting) :
             rc = xbianConfig('services','delete',service)
             if rc and rc[0] != '1' :
                 #self.control.setVisible(service,True)
-                self.ERRORTEXT = 'Unknwown error '
+                self.ERRORTEXT = 'Unknwown error'
                 self.notifyOnError()
             else :
                 self.deleteService(service)
-                self.OKTEXT = 'Service %s deleted succesfully'%service
+                self.OKTEXT = 'Service %s deleted successfully'%service
                 self.notifyOnSuccess()
                 
         
@@ -251,11 +251,11 @@ class servicesManager(Setting) :
             if self.askConfirmation() :
                 rc = xbianConfig('services','update',service,tmp)
                 if rc and rc[0] == '1' :
-                    self.OKTEXT = 'Daemon updated succesfully'
+                    self.OKTEXT = 'Daemon updated successfully'
                     self.notifyOnSuccess()
                     return tmp
                 else :
-                    self.ERRORTEXT = 'Unknwown error '
+                    self.ERRORTEXT = 'Unknwown error'
                     self.notifyOnError()
         return value
         
@@ -271,11 +271,11 @@ class servicesManager(Setting) :
                 tmp = 'disable'
             rc = xbianConfig('services','autostart',service,tmp)
             if rc and rc[0] == '1' :
-                self.OKTEXT = 'Autostart updated succesfully'
+                self.OKTEXT = 'Autostart updated successfully'
                 self.notifyOnSuccess()
                 return value
             else :
-                self.ERRORTEXT = 'Unknwown error '
+                self.ERRORTEXT = 'Unknwown error'
                 self.notifyOnError()
         return not value
             
@@ -309,7 +309,7 @@ class servicesManager(Setting) :
                         rc = xbianConfig('services','restart',service)
                         progress.close()
                         if rc and rc[0] == '1' :
-                            self.OKTEXT = '%s restart succesfully'%service
+                            self.OKTEXT = '%s restart successfully'%service
                             self.notifyOnSuccess()
                             return RUNNING
                     self.notifyOnError()
