@@ -14,17 +14,17 @@ BASE_RESOURCE_PATH = os.path.join( ROOTDIR, "resources" )
 ADDON_DATA  = xbmc.translatePath( "special://profile/addon_data/%s/" % __addonID__ )
 
 def setSetting(key,value) :
-	settingFile = open(os.path.join(ADDON_DATA,str(key)),'w')
-	pickle.dump(value,settingFile)
-	settingFile.close()
+    settingFile = open(os.path.join(ADDON_DATA,str(key)),'w')
+    pickle.dump(value,settingFile)
+    settingFile.close()
 
 def getSetting(key) :
-	settingPath = os.path.join(ADDON_DATA,str(key))
-	if os.path.isfile(settingPath) :
-		return pickle.load(open(settingPath,'r'))
-	else:
-		return None
-	
+    settingPath = os.path.join(ADDON_DATA,str(key))
+    if os.path.isfile(settingPath) :
+        return pickle.load(open(settingPath,'r'))
+    else:
+        return None
+    
 
 
 def getNumeric(header,default=None,min=False,max=False):
@@ -135,17 +135,23 @@ def wifiConnect(interface):
        progress.show()                 
        rc = xbianConfig('network','credentials',interface,networks[selectedNetwork][SECURITYTYPE],networks[selectedNetwork][SSID],key)
        if rc and rc[0] == '1' :
-             rc = xbianConfig('network','restart',interface)
-             rc = '2'
-             while rc == '2' or rc == '-12' :
-                 rc = xbianConfig('network','progress',interface)[0]
-                 time.sleep(0.5)
-             if rc == '1' :
-                 progress.close()
-                 return True
+             restart = xbianConfig('network','restart',interface)
+             if restart and restart[0] == '1' :
+                 rc = '2'
+                 while rc == '2' or rc == '-12' :
+                     tmp = xbianConfig('network','progress',interface)
+                     if tmp :
+                        rc = tmp[0]
+                     time.sleep(1)
+                 if rc == '1' :
+                     progress.close()
+                     return True
+                 else :
+                     progress.close()
+                     dialog.ok("Wireless",'%s : cannot connect to %s (%s)'%(interface,networks[selectedNetwork][SSID],rc))
              else :
                  progress.close()
-                 dialog.ok("Wireless",'%s : cannot connect to %s (%s)'%(interface,networks[selectedNetwork][SSID],rc))
+                 dialog.ok("Wireless Error",'Cannot restart %s'%interface)      
        else :
             progress.close()
             dialog.ok("Wireless",'%s : cannot connect to %s (%s)'%(interface,networks[selectedNetwork][SSID],rc))

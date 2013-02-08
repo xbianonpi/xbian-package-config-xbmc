@@ -28,6 +28,7 @@ from xbmcaddon import Addon
 #xbmcguie
 from resources.lib.xbianWindow import XbianWindow
 from resources.lib.updateworker import Updater
+from resources.lib.xbianconfig import xbianConfig
 #addon module 
 ADDON     = Addon( __addonID__ )
 Language  = ADDON.getLocalizedString
@@ -77,6 +78,11 @@ class xbian_config_python :
                     self.window.doXml(os.path.join(ROOTDIR,'resources','skins','Default','720p','SettingsXbianInfo.template'))
                     self.wait.close()                    
                     self.window.doModal() 
+                    rebootneeded = xbianConfig('reboot')
+                    if rebootneeded and rebootneeded[0] == '1' :
+						if xbmcgui.Dialog().yesno('XBian-Config','A reboot is needed','Do you want to reboot now?') :
+							#reboot
+							xbmc.executebuiltin('Reboot')
             except :            
                 xbmcgui.Dialog().ok('XBian-config','Something went wrong while creating the window','Please contact us on www.xbian.org for further support')
                 print sys.exc_info()

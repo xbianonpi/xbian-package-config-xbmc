@@ -151,6 +151,15 @@ class NetworkSetting(Setting) :
         self.control.wifi = self.connectWifi
         
     def connectWifi(self,interface) :
+        self.userValue = self.getUserValue()
+        print 'on connect wifi %s' %(self.userValue)
+        print 'on connect wifi %s' %(self.xbianValue)
+        if self.isModified() :
+            progress = dialogWait('Updating','Updating settings for %s'%(interface))
+            progress.show()              
+            self.setXbianValue(self.userValue)
+            progress.close()
+            
         if wifiConnect(interface) :
             progress = dialogWait('Refresh','Reloading values for %s'%(interface))
             progress.show()              
@@ -184,7 +193,7 @@ class NetworkSetting(Setting) :
     
     def isModified(self) :
         equal = False
-        for key in self.xbianValue :
+        for key in self.userValue :
             if self.xbianValue[key][0] != self.userValue[key][0] :
                 equal = True
                 break
@@ -364,17 +373,7 @@ class videooutput(Setting) :
 
 class SytemLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label','System'),Tag('visible','skin.hasSetting(advancedmode)'))
-    
-    def onInit(self):
-        #check if advanced mode is set
-        #must check here and not in preference since value are read one by one when plugin start.
-        #and this setting is read before preference - advanced mode
-        key = 'advancedmode'
-        rc = self.getSetting(key)
-        if rc == '1' :
-            xbmc.executebuiltin('Skin.SetBool(%s)'%key)
-        else :
-            xbmc.executebuiltin('Skin.Reset((%s)'%key)
+            
     
 class hostname(Setting) :
     CONTROL = ButtonControl(Tag('label','Hostname'),Tag('visible','skin.hasSetting(advancedmode)'))
