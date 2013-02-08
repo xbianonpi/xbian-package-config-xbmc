@@ -207,9 +207,9 @@ class servicesManager(Setting) :
             else :
                 daemon = getText('Daemon (leave empty if none)')               
                 if daemon != None :
-                    self.APPLYTEXT = 'Do you want to insert %s'%name
+                    self.APPLYTEXT = 'Do you want to insert %s ?'%name
                     if self.askConfirmation() :
-                        progress = dialogWait('Restarting','Please wait while restarting %s...'%service)
+                        progress = dialogWait('Inserting','Please wait while inserting %s...'%name)
                         progress.show() 
                         rc = xbianConfig('services','insert',name,daemon)                                            
                         if rc and rc[0] == '1' :                       
