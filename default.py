@@ -92,7 +92,7 @@ class xbian_config_python :
             except :
                 self.window.stopRequested = True            
                 xbmcgui.Dialog().ok('XBian-config','Something went wrong while creating the window','Please contact us on www.xbian.org for further support')
-                print sys.exc_info()
+                xbmc.log('XBian : Cannot create Main window: %s'%(str(sys.exc_info())))                            
             finally :
                 self.updateThread.stop()
                 os.remove(self.onRun)
