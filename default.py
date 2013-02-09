@@ -43,6 +43,7 @@ ADDON_DATA  = xbmc.translatePath( "special://profile/addon_data/%s/" % __addonID
 CATEGORY_PATH = 'categories'
 class xbian_config_python :
     def __init__(self) :              
+        xbmc.log('XBian : XBian-config-python started')
         self.onRun = os.path.join('/','tmp','.xbian_config_python')
         if os.path.isfile(self.onRun) :
             xbmcgui.Dialog().ok('XBian-config','XBian-config is still running','Please wait...')
@@ -73,11 +74,15 @@ class xbian_config_python :
                 for i,threadInst in enumerate(self.category_list_thread):
                     if not self.stop :
                         threadInst.join()
-                        self.window.addCategory(self.category_list_instance[self.category_list[i]])
+                        try :
+                            self.window.addCategory(self.category_list_instance[self.category_list[i]])
+                        except:
+                            xbmc.log('XBian : Cannot add category: %s \n%s'%(str(self.category_list[i]),str(sys.exc_info())))                            
                 if not self.stop :
                     self.window.doXml(os.path.join(ROOTDIR,'resources','skins','Default','720p','SettingsXbianInfo.template'))
                     self.wait.close()                    
                     self.window.doModal() 
+                    xbmc.log('XBian : XBian-config-python closed')
                     self.window.stopRequested = True 
                     rebootneeded = xbianConfig('reboot')
                     if rebootneeded and rebootneeded[0] == '1' :

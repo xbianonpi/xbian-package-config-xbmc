@@ -1,4 +1,5 @@
 import subprocess
+import xbmc
 
 def xbianConfig(*args):
         cmd = ['sudo','/usr/local/sbin/xbian-config']
@@ -6,6 +7,8 @@ def xbianConfig(*args):
         rc= subprocess.check_output(cmd)
         print rc
         rcs = rc.split('\n')
-        return filter(lambda x: len(x)>0, rcs)
+        result  = filter(lambda x: len(x)>0, rcs)
+        xbmc.log('XBian : %s : %s '%(' '.join(cmd),str(result)),xbmc.LOGDEBUG)
+        return result
         
 
