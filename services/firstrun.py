@@ -17,6 +17,8 @@ class firstrun(service):
         #check if first run        
         firstlock = os.path.join(ADDON_DATA,'.firstrun')
         if not os.path.isfile(firstlock) :
+        	        if not os.path.exists(ADDON_DATA):
+                            os.mkdir(ADDON_DATA)
 			setSetting('advancedmode','0')
 			setSetting('notifyonerror','1')
 			setSetting('notifyonsuccess','1')
