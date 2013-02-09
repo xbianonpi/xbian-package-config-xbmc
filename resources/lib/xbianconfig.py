@@ -8,7 +8,7 @@ def xbianConfig(*args):
         print rc
         rcs = rc.split('\n')
         result  = filter(lambda x: len(x)>0, rcs)
-        xbmc.log('XBian : %s : %s '%(' '.join(cmd),str(result)),xbmc.LOGDEBUG)
+        xbmc.log('XBian : xbian-config %s : %s '%(' '.join(cmd[2:]),str(result)),xbmc.LOGDEBUG)
         return result
         
 
