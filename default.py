@@ -66,7 +66,7 @@ class xbian_config_python :
                         self.category_list.append(modulename)
                 self.category_list.sort()
                 self.total = len(self.category_list)
-                self.wait.create('Generating Windows','Please wait...')
+                self.wait.create('Generating Windows','Please wait...this will take a minute')
                 self.wait.update(0)
                 for module in self.category_list :
                     self.category_list_thread.append(threading.Thread(None,self.threadInitCategory, None, (module,)))
