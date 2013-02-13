@@ -12,37 +12,15 @@ ADDON     = Addon( __addonID__ )
 class upgrade(service):
     def onInit(self):
         self.StopRequested = False
+        self.xbianUpdate = False
+        self.packageUpdate = False
+        print 'upgrade service started'
     
     def onAbortRequested(self):
         self.StopRequested = True
-            
-    def onStart(self):
-        #check if Xbian is upgrading
-        if os.path.isfile('/var/lock/.upgrades') :
-            if xbianConfig('updates','progress')[0] == '1':
-				dlg = dialogWait('Xbian Update','Please wait while updating')
-				dlg.show()
-				while not self.StopRequested and xbianConfig('updates','progress')[0] == '1':
-					time.sleep(2)
-				dlg.close()
-				if self.StopRequested :
-					return				
-            xbmc.executebuiltin("Notification(%s,%s)"%('XBian Upgrade','Xbian was updated successfully'))
-            os.remove('/var/lock/.upgrades')
         
-        #check is packages is updating
-        if os.path.isfile('/var/lock/.packages') :
-            if xbianConfig('updates','progress')[0] == '1':
-				dlg = dialogWait('Xbian Update','Please wait while updating')
-				dlg.show()
-				while not self.StopRequested and xbianConfig('updates','progress')[0] == '1':
-					time.sleep(2)
-				dlg.close()
-				if self.StopRequested :
-					return				
-            xbmc.executebuiltin("Notification(%s,%s)"%('Package Update','Package was updated successfully'))
-            os.remove('/var/lock/.packages')
-        
+    def onScreensaverActivated(self):
+        print 'screensaver activated'
         #check if new upgrade avalaible
         rc =xbianConfig('updates','list','upgrades')
         if rc and rc[0] == '-3' :
@@ -53,7 +31,7 @@ class upgrade(service):
                 rc[0]= '0'
         if rc and rc[0] not in ('0','-2') :
             retval = rc[0].split(';') 
-            xbmc.executebuiltin("Notification(XBian Upgrade,A new version (%s) of XBian is out)"%(retval[3]))            
+            self.xbianUpdate = retval[3]            
        
        #check if new update package avalaible
         rc =xbianConfig('updates','list','packages')
@@ -64,5 +42,47 @@ class upgrade(service):
             else :
                 rc[0]= '0'
         if rc and rc[0] not in ('0','-2') :
+            self.packageUpdate = True
             xbmc.executebuiltin("Notification(Packages Update,Some XBian package can be updated)")
        
+
+    
+    def onScreensaverDeactivated(self):
+        print 'screensaver Deactivated'
+        if self.xbianUpdate :
+            xbmc.executebuiltin("Notification(XBian Upgrade,A new version (%s) of XBian is out)"%(self.xbianUpdate))            
+            self.xbianUpdate = False            
+        if self.packageUpdate :
+            xbmc.executebuiltin("Notification(Packages Update,Some XBian package can be updated)")
+            self.packageUpdate = False
+            
+    def onStart(self):
+        #check if Xbian is upgrading
+        if os.path.isfile('/var/lock/.upgrades') :
+            if xbianConfig('updates','progress')[0] == '1':
+                dlg = dialogWait('Xbian Update','Please wait while updating')
+                dlg.show()
+                while not self.StopRequested and xbianConfig('updates','progress')[0] == '1':
+                    time.sleep(2)
+                dlg.close()
+                if self.StopRequested :
+                    return              
+            xbmc.executebuiltin("Notification(%s,%s)"%('XBian Upgrade','Xbian was updated successfully'))
+            os.remove('/var/lock/.upgrades')
+        
+        #check is packages is updating
+        if os.path.isfile('/var/lock/.packages') :
+            if xbianConfig('updates','progress')[0] == '1':
+                dlg = dialogWait('Xbian Update','Please wait while updating')
+                dlg.show()
+                while not self.StopRequested and xbianConfig('updates','progress')[0] == '1':
+                    time.sleep(2)
+                dlg.close()
+                if self.StopRequested :
+                    return              
+            xbmc.executebuiltin("Notification(%s,%s)"%('Package Update','Package was updated successfully'))
+            os.remove('/var/lock/.packages')
+        while not self.StopRequested: #End if XBMC closes
+			xbmc.sleep(50000) #Repeat (ms) 
+        
+        
