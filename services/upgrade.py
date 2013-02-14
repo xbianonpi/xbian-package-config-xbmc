@@ -60,20 +60,20 @@ class upgrade(service):
         #check if Xbian is upgrading
         if os.path.isfile('/var/lock/.upgrades') :
             if xbianConfig('updates','progress')[0] == '1':
-                dlg = dialogWait('Xbian Update','Please wait while updating')
+                dlg = dialogWait('XBian Update','Please wait while updating')
                 dlg.show()
                 while not self.StopRequested and xbianConfig('updates','progress')[0] == '1':
                     time.sleep(2)
                 dlg.close()
                 if self.StopRequested :
                     return              
-            xbmc.executebuiltin("Notification(%s,%s)"%('XBian Upgrade','Xbian was updated successfully'))
+            xbmc.executebuiltin("Notification(%s,%s)"%('XBian Upgrade','XBian was updated successfully'))
             os.remove('/var/lock/.upgrades')
         
         #check is packages is updating
         if os.path.isfile('/var/lock/.packages') :
             if xbianConfig('updates','progress')[0] == '1':
-                dlg = dialogWait('Xbian Update','Please wait while updating')
+                dlg = dialogWait('XBian Update','Please wait while updating')
                 dlg.show()
                 while not self.StopRequested and xbianConfig('updates','progress')[0] == '1':
                     time.sleep(2)
