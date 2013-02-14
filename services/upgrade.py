@@ -43,7 +43,6 @@ class upgrade(service):
                 rc[0]= '0'
         if rc and rc[0] not in ('0','-2') :
             self.packageUpdate = True
-            xbmc.executebuiltin("Notification(Packages Update,Some XBian package can be updated)")
        
 
     
