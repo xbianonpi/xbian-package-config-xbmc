@@ -29,6 +29,7 @@ from xbmcaddon import Addon
 from resources.lib.xbianWindow import XbianWindow
 from resources.lib.updateworker import Updater
 from resources.lib.xbianconfig import xbianConfig
+from resources.lib.utils import dialogWait
 #addon module 
 ADDON     = Addon( __addonID__ )
 Language  = ADDON.getLocalizedString
@@ -84,7 +85,10 @@ class xbian_config_python :
                     self.window.doModal() 
                     xbmc.log('XBian : XBian-config-python closed')
                     self.window.stopRequested = True 
+                    progress = dialogWait('XBian config','Checking if reboot needed...'%package)
+                    progress.show() 
                     rebootneeded = xbianConfig('reboot')
+                    progress.close()
                     if rebootneeded and rebootneeded[0] == '1' :
                         if xbmcgui.Dialog().yesno('XBian-config','A reboot is needed','Do you want to reboot now?') :
                             #reboot
