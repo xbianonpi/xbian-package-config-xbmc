@@ -168,7 +168,7 @@ class NetworkSetting(Setting) :
             self.xbianValue[interface] = lanConfig 
             progress.close()
             #sleep a bit otherwise windows is not ready, and there's a xbmc bug i think.
-            time.sleep(0.2)
+            time.sleep(0.6)
             self.setControlValue({interface : lanConfig})
             self.OKTEXT = '%s successfully connected'%interface
             self.notifyOnSuccess()
