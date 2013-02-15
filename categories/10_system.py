@@ -82,7 +82,7 @@ class NetworkControl(MultiSettingControl):
         networkValue = values[1]
         for key in networkValue :
             value = networkValue[key]           
-            if value[0] == 'static' or value[0] == 'manual' :
+            if value[0] == 'static' :
                 self.interfaceValue[key]['mode'].setValue(self.STATIC)
             else:
                 self.interfaceValue[key]['mode'].setValue(self.DHCP)
@@ -154,15 +154,16 @@ class NetworkSetting(Setting) :
             interface_config = xbianConfig('network','status',interface)
             lanConfig = []
             for config in interface_config :
-                try :
+                try :            
                     val = config.split(' ')             
                     if val[0] == 'mode' and val[1] == 'manual':
-                        val[1] = 'static'      
+                        val[1] = 'dhcp'      
                     if val[0] == 'ssid' and not val[1]:
                         val[1] = 'Not connected'               
                     if not val[0] in ('protection','key') :
-                        lanConfig.append(val[1])                    
+                        lanConfig.append(val[1])                                    
                 except :
+                    print 'XBian : Cannot refreh wifi settings'
                     lanConfig.append(None)    
             self.xbianValue[interface] = lanConfig 
             progress.close()
@@ -293,7 +294,7 @@ class vc1License(mpeg2License) :
         self.xbiankey = 'licensevc1'
     
 class connectivityLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','Connectivity'))
+    CONTROL = CategoryLabelControl(Tag('label','Connectivity'),Tag('visible','skin.hasSetting(advancedmode)'))
 
 class videooutputControl(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
@@ -325,7 +326,7 @@ class videooutputControl(MultiSettingControl):
             
 
 class videooutput(Setting) :
-    CONTROL = videooutputControl()
+    CONTROL = videooutputControl(Tag('visible','skin.hasSetting(advancedmode)'))
     DIALOGHEADER = "Video output "
     ERRORTEXT = "Error on updating"
     OKTEXT = "Update ok"
