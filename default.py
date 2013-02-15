@@ -85,7 +85,7 @@ class xbian_config_python :
                     self.window.doModal() 
                     xbmc.log('XBian : XBian-config-python closed')
                     self.window.stopRequested = True 
-                    progress = dialogWait('XBian config','Checking if reboot needed...'%package)
+                    progress = dialogWait('XBian config','Checking if reboot needed...')
                     progress.show() 
                     rebootneeded = xbianConfig('reboot')
                     progress.close()
