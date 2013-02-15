@@ -242,12 +242,14 @@ class packagesManager(Setting) :
                             if rc and rc[0] == '2' :
                                 self.ERRORTEXT = 'Package %s is already installed'%package[select]                          
                             elif rc and rc[0] == '3' :                          
-                                self.ERRORTEXT = 'Package %s not found in apt-repository'%package[select]                           
+                                self.ERRORTEXT = 'Package %s not found in apt-repository'%package[select]                       
                             elif rc and rc[0] == '4' :                          
-                                self.ERRORTEXT = 'A newer version of this package is already installed'                         
+                                self.ERRORTEXT = 'Package not found in apt repository'                             
                             elif rc and rc[0] == '5' :                          
-                                self.ERRORTEXT = 'There is a size mismatch for the remote package'                          
+                                self.ERRORTEXT = 'A newer version of this package is already installed'                         
                             elif rc and rc[0] == '6' :                          
+                                self.ERRORTEXT = 'There is a size mismatch for the remote package'                          
+                            elif rc and rc[0] == '7' :                          
                                 self.ERRORTEXT = 'The package itself got an internal error'
                             else :                          
                                 #normally never pass here
