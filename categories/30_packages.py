@@ -139,13 +139,13 @@ class packagesManager(Setting) :
             if self.askConfirmation(True) :
                 progressDlg = dialogWait('Removing','Please wait while uninstalling %s ...'%package)
                 progressDlg.show()         
-                rc = xbianConfig('packages','removetest',package[select])
+                rc = xbianConfig('packages','removetest',package)
                 if rc and rc[0] == '3' :
                    rc = xbianConfig('packages','updatedb')
                    if rc and rc[0] == '1' :
-                      rc = xbianConfig('packages','removetest',package[select])
+                      rc = xbianConfig('packages','removetest',package)
                 if rc and rc[0] == '1' :                                                                
-                   rc = xbianConfig('packages','remove',package[select])
+                   rc = xbianConfig('packages','remove',package)
                 if rc and rc[0] == '1' :
                     #remove package
                     waitRemove = True
