@@ -4,7 +4,8 @@ import xbmc
 from xbmcaddon import Addon
 from resources.lib.service import service
 from resources.lib.xbianconfig import xbianConfig
-from resources.lib.utils import dialogWait
+from resources.lib.utils import dialogWait,setSetting,getSetting
+from datetime import datetime, timedelta
 
 __addonID__      = "plugin.xbianconfig"
 ADDON     = Addon( __addonID__ )
@@ -20,30 +21,32 @@ class upgrade(service):
         self.StopRequested = True
         
     def onScreensaverActivated(self):
-        print 'screensaver activated'
-        #check if new upgrade avalaible
-        rc =xbianConfig('updates','list','upgrades')
-        if rc and rc[0] == '-3' :
-            rctmp = xbianConfig('updates','updatedb')
-            if rctmp and rctmp[0] == '1' :
-                 rc =xbianConfig('updates','list','upgrades')
-            else :
-                rc[0]= '0'
-        if rc and rc[0] not in ('0','-2') :
-            retval = rc[0].split(';') 
-            self.xbianUpdate = retval[3]            
-       
-       #check if new update package avalaible
-        rc =xbianConfig('updates','list','packages')
-        if rc and rc[0] == '-3' :
-            rctmp = xbianConfig('updates','updatedb')
-            if rctmp and rctmp[0] == '1' :
-                 rc =xbianConfig('updates','list','packages')
-            else :
-                rc[0]= '0'
-        if rc and rc[0] not in ('0','-2') :
-            self.packageUpdate = True
-       
+        print 'screensaver activated'                
+        if not xbmc.Player().isPlaying() and (getSetting('lastupdatecheck') == None  or getSetting('lastupdatecheck') < datetime.now() - timedelta(days=1)):			
+            print 'XBian : Checking for update'
+            #check if new upgrade avalaible
+            rc =xbianConfig('updates','list','upgrades')
+            if rc and rc[0] == '-3' :
+                rctmp = xbianConfig('updates','updatedb')
+                if rctmp and rctmp[0] == '1' :
+                     rc =xbianConfig('updates','list','upgrades')
+                else :
+                    rc[0]= '0'
+            if rc and rc[0] not in ('0','-2') :
+                retval = rc[0].split(';') 
+                self.xbianUpdate = retval[3]            
+           
+           #check if new update package avalaible
+            rc =xbianConfig('updates','list','packages')
+            if rc and rc[0] == '-3' :
+                rctmp = xbianConfig('updates','updatedb')
+                if rctmp and rctmp[0] == '1' :
+                     rc =xbianConfig('updates','list','packages')
+                else :
+                    rc[0]= '0'
+            if rc and rc[0] not in ('0','-2') :
+                self.packageUpdate = True
+            setSetting('lastupdatecheck',datetime.now())
 
     
     def onScreensaverDeactivated(self):
@@ -81,7 +84,11 @@ class upgrade(service):
                     return              
             xbmc.executebuiltin("Notification(%s,%s)"%('Package Update','Package was updated successfully'))
             os.remove('/var/lock/.packages')
+        #for those one who deactivate its screensaver, force check every 10 days
+        if getSetting('lastupdatecheck') != None and getSetting('lastupdatecheck') < datetime.now() - timedelta(days=10):
+			self.onScreensaverActivated()
+			self.onScreensaverDeactivated()
         while not self.StopRequested: #End if XBMC closes
-			xbmc.sleep(50000) #Repeat (ms) 
+            xbmc.sleep(50000) #Repeat (ms) 
         
         
