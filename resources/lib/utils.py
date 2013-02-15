@@ -133,29 +133,35 @@ def wifiConnect(interface):
                key = ""
        progress = dialogWait('Connecting','Connecting %s to %s'%(interface,networks[selectedNetwork][SSID]))
        progress.show()                 
-       rc = xbianConfig('network','credentials',interface,networks[selectedNetwork][SECURITYTYPE],networks[selectedNetwork][SSID],key)
-       if rc and rc[0] == '1' :
-             restart = xbianConfig('network','restart',interface)
-             if restart and restart[0] == '1' :
-                 rc = '2'
-                 while rc == '2' or rc == '-12' :
-                     tmp = xbianConfig('network','progress',interface)
-                     if tmp :
-                        rc = tmp[0]
-                     time.sleep(1)
-                 if rc == '1' :
-                     progress.close()
-                     return True
+       retry = 2
+       current_try = 1
+       connected = False
+       while not connected and current_try <= retry :
+           rc = xbianConfig('network','credentials',interface,networks[selectedNetwork][SECURITYTYPE],networks[selectedNetwork][SSID],key)         
+           if rc and rc[0] == '1' :
+                 restart = xbianConfig('network','restart',interface)
+                 if restart and restart[0] == '1' :
+                     rc = '2'
+                     while rc == '2' or rc == '-12' :
+                         tmp = xbianConfig('network','progress',interface)
+                         if tmp :
+                            rc = tmp[0]
+                         time.sleep(1)
+                     if rc == '1' :
+                         progress.close()
+                         return True
+                     else :
+                        current_try += 1                
                  else :
                      progress.close()
-                     dialog.ok("Wireless",'%s : cannot connect to %s (%s)'%(interface,networks[selectedNetwork][SSID],rc))
-             else :
-                 progress.close()
-                 dialog.ok("Wireless Error",'Cannot restart %s'%interface)      
-       else :
-            progress.close()
-            dialog.ok("Wireless",'%s : cannot connect to %s (%s)'%(interface,networks[selectedNetwork][SSID],rc))
-                        
+                     dialog.ok("Wireless Error",'Cannot restart %s'%interface)
+                     return False  
+           else :
+                progress.close()
+                dialog.ok("Wireless",'%s : cannot connect to %s (%s)'%(interface,networks[selectedNetwork][SSID],rc))
+                return False
+    progress.close()
+    dialog.ok("Wireless",'%s : cannot connect to %s (%s)'%(interface,networks[selectedNetwork][SSID],rc))                       
     return False
         
     
