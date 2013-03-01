@@ -87,7 +87,7 @@ class xbianUpgrade(Setting) :
     DIALOGHEADER = "XBian Upgrade"
     ERRORTEXT = "Error"
     OKTEXT = "OK"
-    APPLYTEXT = "Do you want to upgrade XBian"
+    APPLYTEXT = "Do you want to upgrade XBian?"
 
     def onInit(self) :
         self.control.onUpdateClick = self.onUpdate       
@@ -102,7 +102,7 @@ class xbianUpgrade(Setting) :
         open(lockfile,'w').close()
         updateId = str(updateId)        
         if self.askConfirmation(True) :
-			dlg = dialogWait('Xbian Update','Please wait while updating')
+			dlg = dialogWait('XBian Update','Please wait while updating')
 			dlg.show()			
 			rc =xbianConfig('updates','install',self.key,updateId)
 			if rc and rc[0] == '1' :
