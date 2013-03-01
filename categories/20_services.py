@@ -131,7 +131,7 @@ class ServicesControl(MultiSettingControl):
 
 class servicesManager(Setting) :
     CONTROL = ServicesControl()
-    DIALOGHEADER = "Xbian Services Manager"
+    DIALOGHEADER = "XBian Services Manager"
     ERRORTEXT = "Error"
     OKTEXT = "OK"
     APPLYTEXT = "Apply"
@@ -219,7 +219,7 @@ class servicesManager(Setting) :
                             self.notifyOnError()
                         else :
                             progress.close()
-                            self.ERRORTEXT = 'Unknwown error'
+                            self.ERRORTEXT = 'Unknown error'
                             self.notifyOnError()                            
                     canInsert = True
                     
@@ -232,7 +232,7 @@ class servicesManager(Setting) :
             rc = xbianConfig('services','delete',service)
             if rc and rc[0] != '1' :
                 #self.control.setVisible(service,True)
-                self.ERRORTEXT = 'Unknwown error'
+                self.ERRORTEXT = 'Unknown error'
                 self.notifyOnError()
             else :
                 self.deleteService(service)
@@ -243,7 +243,7 @@ class servicesManager(Setting) :
     def onDaemon(self,service,value) :
         tmp = getText('%s daemon (separate by space)'%service,value)
         if tmp and tmp != value:
-            self.APPLYTEXT = 'Do you want to udpate dameon?'
+            self.APPLYTEXT = 'Do you want to update daemon?'
             if self.askConfirmation() :
                 rc = xbianConfig('services','update',service,tmp)
                 if rc and rc[0] == '1' :
@@ -251,7 +251,7 @@ class servicesManager(Setting) :
                     self.notifyOnSuccess()
                     return tmp
                 else :
-                    self.ERRORTEXT = 'Unknwown error'
+                    self.ERRORTEXT = 'Unknown error'
                     self.notifyOnError()
         return value
         
@@ -271,7 +271,7 @@ class servicesManager(Setting) :
                 self.notifyOnSuccess()
                 return value
             else :
-                self.ERRORTEXT = 'Unknwown error'
+                self.ERRORTEXT = 'Unknown error'
                 self.notifyOnError()
         return not value
             
@@ -312,7 +312,7 @@ class servicesManager(Setting) :
         else :
             self.APPLYTEXT = 'Do you want to start %s ?'%service
             if self.askConfirmation() :        
-                progress = dialogWait('Restarting','Please wait while starting %s...'%service)
+                progress = dialogWait('Starting','Please wait while starting %s...'%service)
                 progress.show() 
                 rc = xbianConfig('services','start',service)
                 progress.close()
