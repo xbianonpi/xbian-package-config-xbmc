@@ -65,7 +65,7 @@ class Setting():
     OKTEXT = "" #"override Ok Text"
     SAVEMODE = 0 
     BADUSERENTRYTEXT = ""
-    APPLYTEXT = 'Apply Change'
+    APPLYTEXT = 'Apply Change?'
     
     
     #SAVE MODE
