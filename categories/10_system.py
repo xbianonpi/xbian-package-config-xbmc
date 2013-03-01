@@ -163,7 +163,7 @@ class NetworkSetting(Setting) :
                     if not val[0] in ('protection','key') :
                         lanConfig.append(val[1])                                    
                 except :
-                    print 'XBian : Cannot refreh wifi settings'
+                    print 'XBian : Cannot refresh wifi settings'
                     lanConfig.append(None)    
             self.xbianValue[interface] = lanConfig 
             progress.close()
@@ -327,7 +327,7 @@ class videooutputControl(MultiSettingControl):
 
 class videooutput(Setting) :
     CONTROL = videooutputControl(Tag('visible','skin.hasSetting(advancedmode)'))
-    DIALOGHEADER = "Video output "
+    DIALOGHEADER = "Video output"
     ERRORTEXT = "Error on updating"
     OKTEXT = "Update ok"
                     
