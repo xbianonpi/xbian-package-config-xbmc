@@ -65,7 +65,7 @@ class upgrade(service):
                 dlg = dialogWait('XBian Update','Please wait while updating')
                 dlg.show()
                 while not self.StopRequested and xbianConfig('updates','progress')[0] == '1':
-                    time.sleep(2)
+                    xbmc.sleep(2000)
                 dlg.close()
                 if self.StopRequested :
                     return              
@@ -78,7 +78,7 @@ class upgrade(service):
                 dlg = dialogWait('XBian Update','Please wait while updating')
                 dlg.show()
                 while not self.StopRequested and xbianConfig('updates','progress')[0] == '1':
-                    time.sleep(2)
+                    xbmc.sleep(2000)
                 dlg.close()
                 if self.StopRequested :
                     return              
@@ -89,6 +89,6 @@ class upgrade(service):
 			self.onScreensaverActivated()
 			self.onScreensaverDeactivated()
         while not self.StopRequested: #End if XBMC closes
-            xbmc.sleep(50000) #Repeat (ms) 
+            xbmc.sleep(100) #Repeat (ms) 
         
         
