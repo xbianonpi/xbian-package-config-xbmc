@@ -1,1 +1,7 @@
-<html><body>You are being <a href="https://raw.github.com/xbianonpi/xbian-package-initramfs/master/gen.package.sh">redirected</a>.</body></html>
+#!/bin/sh
+
+package=$(cat ./content/DEBIAN/control | grep Package | awk '{print $2}')
+version=$(cat ./content/DEBIAN/control | grep Version | awk '{print $2}')
+
+fakeroot find ./content  | grep -v DEBIAN/ | sort | xargs md5sum > ./content/DEBIAN/md5sums 
+fakeroot dpkg-deb -b ./content "${package}""${version}".deb
