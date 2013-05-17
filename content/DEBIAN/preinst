@@ -1,0 +1,41 @@
+#!/bin/bash
+
+if [ $1 == "install" -o $1 == "upgrade" ]; then
+
+	if [ ! -d "/home/xbian/.xbmc/addons/plugin.xbianconfig" ]; then
+		mkdir -p "/home/xbian/.xbmc/addons/plugin.xbianconfig";
+	fi
+
+	if [ ! -d "/home/xbian/.xbmc/addons/plugin.xbianconfig/resources" ]; then
+		mkdir -p "/home/xbian/.xbmc/addons/plugin.xbianconfig/resources";
+	fi
+
+	if [ ! -d "/home/xbian/.xbmc/addons/plugin.xbianconfig/resources/language/english" ]; then
+		mkdir -p "/home/xbian/.xbmc/addons/plugin.xbianconfig/resources/language/english";
+	fi
+
+	if [ ! -d "/home/xbian/.xbmc/addons/plugin.xbianconfig/resources/language/french" ]; then
+		mkdir -p "/home/xbian/.xbmc/addons/plugin.xbianconfig/resources/language/french";
+	fi
+
+	if [ ! -d "/home/xbian/.xbmc/addons/plugin.xbianconfig/resources/skins/Default/720p" ]; then
+		mkdir -p "/home/xbian/.xbmc/addons/plugin.xbianconfig/resources/skins/Default/720p";
+	fi
+
+	if [ ! -d "/home/xbian/.xbmc/addons/plugin.xbianconfig/resources/lib" ]; then
+		mkdir -p "/home/xbian/.xbmc/addons/plugin.xbianconfig/resources/lib";
+	fi
+
+	if [ ! -d "/home/xbian/.xbmc/addons/plugin.xbianconfig/resources/lib/xbmcguie" ]; then
+		mkdir -p "/home/xbian/.xbmc/addons/plugin.xbianconfig/resources/lib/xbmcguie";
+	fi
+
+	if [ ! -d "/home/xbian/.xbmc/addons/plugin.xbianconfig/services" ]; then
+		mkdir -p "/home/xbian/.xbmc/addons/plugin.xbianconfig/services";
+	fi
+
+	if [ ! -d "/home/xbian/.xbmc/addons/plugin.xbianconfig/categories" ]; then
+		mkdir -p "/home/xbian/.xbmc/addons/plugin.xbianconfig/categories";
+	fi
+		
+fi

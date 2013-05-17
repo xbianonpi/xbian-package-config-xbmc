@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ $1 == "remove" ]; then
+	
+	if [ -d /home/xbian/.xbmc/addons/plugin.xbianconfig ]; then
+		rm -r /home/xbian/.xbmc/addons/plugin.xbianconfig;
+	fi
+
+fi
