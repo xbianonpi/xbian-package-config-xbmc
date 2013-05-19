@@ -18,6 +18,7 @@ import fnmatch
 import shutil
 import threading
 import Queue
+import subprocess
 
 # xbmc modules
 import xbmc
@@ -46,11 +47,16 @@ class xbian_config_python :
     def __init__(self) :              
         xbmc.log('XBian : XBian-config-python started')
         self.onRun = os.path.join('/','tmp','.xbian_config_python')
+        self.bootMnt = os.path.ismount('/boot')
         if os.path.isfile(self.onRun) :
             xbmcgui.Dialog().ok('XBian-config','XBian-config is still running','Please wait...')
         else :      
             open(self.onRun,'w').close()
             try :            
+                #mount boot if not mounted
+                if not self.bootMnt :
+                    xbmc.log('XBian : Mount /boot')
+                    subprocess.check_call(['mount','/boot'])                    
                 self.CmdQueue = Queue.Queue()
                 self.updateThread = Updater(self.CmdQueue)
                 self.updateThread.start()
@@ -97,9 +103,12 @@ class xbian_config_python :
                 self.window.stopRequested = True            
                 xbmcgui.Dialog().ok('XBian-config','Something went wrong while creating the window','Please contact us on www.xbian.org for further support')
                 xbmc.log('XBian : Cannot create Main window: %s'%(str(sys.exc_info())))                            
-            finally :
+            finally :                
                 self.updateThread.stop()
-                os.remove(self.onRun)
+                os.remove(self.onRun)                
+                if not self.bootMnt :
+                    xbmc.log('XBian :  unmount /boot')
+                    subprocess.check_call(['umount','/boot'])                    
         
     def update_progress(self) :
         self.finished += 1
