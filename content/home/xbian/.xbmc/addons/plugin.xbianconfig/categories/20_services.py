@@ -88,8 +88,8 @@ class ServicesControl(MultiSettingControl):
                 self.services['custom']['addcustom'].setEnabled(False)
         
     def setVisible(self,service,state):
-        for serv in self.serviceList :
-            if self.services[serv] == self.services[service] :
+        for serv in self.serviceList :		
+            if self.services.has_key(service) and self.services[serv] == self.services[service] :
                 if state :
                     xbmc.executebuiltin('Skin.SetBool(%s)'%serv)
                 else :
