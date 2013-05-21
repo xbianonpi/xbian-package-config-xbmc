@@ -7,6 +7,6 @@ Priority: optional
 Codename: wheezy
 Architecture: armhf
 Depends: xbian-package-config-shell (>=2.1)
-Installed-Size: 200
 Maintainer: Belese <development@xbian.org>
 Description: Configuration utility for XBian.
+Installed-Size: 392
