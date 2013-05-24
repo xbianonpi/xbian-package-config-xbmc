@@ -9,4 +9,3 @@ Architecture: armhf
 Depends: xbian-package-config-shell (>=2.1)
 Maintainer: Belese <development@xbian.org>
 Description: Configuration utility for XBian.
-Installed-Size: 392
