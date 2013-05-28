@@ -137,7 +137,7 @@ def wifiConnect(interface):
        current_try = 1
        connected = False
        while not connected and current_try <= retry :
-           rc = xbianConfig('network','credentials',interface,networks[selectedNetwork][SECURITYTYPE],networks[selectedNetwork][SSID],key)         
+           rc = xbianConfig('network','credentials',interface,networks[selectedNetwork][SECURITYTYPE],'"%s"'%networks[selectedNetwork][SSID],key)         
            if rc and rc[0] == '1' :
                  restart = xbianConfig('network','restart',interface)
                  if restart and restart[0] == '1' :
