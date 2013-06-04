@@ -1,9 +1,13 @@
 import subprocess
 import xbmc
 
+def sh_escape(s):
+   return s.replace("(","\\(").replace(")","\\)").replace(" ","\\ ")
+
 def xbianConfig(*args):
         cmd = ['sudo','/usr/local/sbin/xbian-config']
-        cmd.extend(args)
+        for arg in args :
+           cmd.append(sh_escape(arg))
         rc= subprocess.check_output(cmd)
         rcs = rc.split('\n')
         result  = filter(lambda x: len(x)>0, rcs)
