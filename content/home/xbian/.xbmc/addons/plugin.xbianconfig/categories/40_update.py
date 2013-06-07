@@ -29,14 +29,14 @@ class updateControl(MultiSettingControl):
         char_set = string.ascii_lowercase
         self.key = ''.join(random.sample(char_set,6))
         self.keyupdateall = '%sall'%self.key
-        self.nbUpdate = 10
+        self.nbUpdate = 15
         self.nbcanbeupdate = 0
         self.updates = []
         for i in range(self.nbUpdate) :
             self.updates.append({})
         
         keynoupdate = ''
-        for i,update in enumerate(self.updates) :
+        for i,update in enumerate(self.updates) :                        
             xbmc.executebuiltin('Skin.Reset(%s%d)'%(self.key,i))
             update['name'] = ButtonControl(Tag('visible','skin.hasSetting(%s%d)'%(self.key,i)))
             update['name'].onClick = lambda update : self.onUpdateClick(self.getCurrentUpdate(update))
@@ -155,7 +155,7 @@ class xbianUpgrade(Setting) :
             else :
                 rc[0]= '0'
         if rc and rc[0] not in ('0','-2') : 
-            for update in rc :
+            for update in rc[:15] :
                 self.control.addUpdate(update)
         return rc
 
