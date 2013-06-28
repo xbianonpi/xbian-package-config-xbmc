@@ -1,9 +1,24 @@
+__addonID__      = "plugin.xbianconfig"
+
 import os
 import xbmcgui
+import xbmc
+from xbmcaddon import Addon
+
+ADDON     = Addon( __addonID__ )
+ADDON_DIR = ADDON.getAddonInfo( "path" )
+ROOTDIR            = ADDON_DIR
+
+SKIN_DIR = xbmc.getSkinDir()
+
+try:
+   with open(os.path.join(ROOTDIR,'resources','skins',SKIN_DIR,'720p','SettingsXbianInfo.template')): pass
+except IOError:
+   SKIN_DIR = 'Default'
 
 class WindowSkinXml(xbmcgui.WindowXML):   
     def __init__(self,strXMLname, strFallbackPath, strDefaultName=False, forceFallback=False):
-        self.xmlfile = os.path.join(strFallbackPath,'resources','skins','Default','720p',strXMLname)
+        self.xmlfile = os.path.join(strFallbackPath,'resources','skins',SKIN_DIR,'720p',strXMLname)
         self.controls = []
     
     def onInit(self):

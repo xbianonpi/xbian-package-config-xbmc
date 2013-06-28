@@ -43,6 +43,14 @@ BASE_RESOURCE_PATH = os.path.join( ROOTDIR, "resources" )
 MEDIA_PATH         = os.path.join( BASE_RESOURCE_PATH, "media" )
 ADDON_DATA  = xbmc.translatePath( "special://profile/addon_data/%s/" % __addonID__ )
 CATEGORY_PATH = 'categories'
+
+SKIN_DIR = xbmc.getSkinDir()
+
+try:
+   with open(os.path.join(ROOTDIR,'resources','skins',SKIN_DIR,'720p','SettingsXbianInfo.template')): pass
+except IOError:
+   SKIN_DIR = 'Default'
+
 class xbian_config_python :
     def __init__(self) :              
         xbmc.log('XBian : XBian-config-python started')
@@ -86,7 +94,7 @@ class xbian_config_python :
                         except:
                             xbmc.log('XBian : Cannot add category: %s \n%s'%(str(self.category_list[i]),str(sys.exc_info())))                            
                 if not self.stop :
-                    self.window.doXml(os.path.join(ROOTDIR,'resources','skins','Default','720p','SettingsXbianInfo.template'))
+                    self.window.doXml(os.path.join(ROOTDIR,'resources','skins',SKIN_DIR,'720p','SettingsXbianInfo.template'))
                     self.wait.close()                    
                     self.window.doModal() 
                     xbmc.log('XBian : XBian-config-python closed')
