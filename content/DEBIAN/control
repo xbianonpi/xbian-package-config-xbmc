@@ -1,10 +1,10 @@
 Origin: XBian
 Package: xbian-package-config-xbmc
-Version: 1.1-2.1
+Version: 1.1-2.2
 Section: utils
 Essential: No
 Priority: optional
 Architecture: armhf
-Depends: xbian-package-config-shell (>=2.1)
+Depends: xbian-package-config-shell (>=2.1.4-8)
 Maintainer: Belese <development@xbian.org>
 Description: Configuration utility for XBian.

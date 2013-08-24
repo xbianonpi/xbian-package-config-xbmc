@@ -9,6 +9,7 @@ from resources.lib.utils import *
 
 import xbmcgui
 import os
+import base64
 
 dialog=xbmcgui.Dialog()
 
@@ -158,6 +159,10 @@ class NetworkSetting(Setting) :
                     val = config.split(' ')             
                     if val[0] == 'mode' and val[1] == 'manual':
                         val[1] = 'dhcp'      
+                    if val[0] == 'ssid':
+                        val[1] = base64.b64decode(val[1])
+                    if val[0] == 'key':
+                        val[1] = base64.b64decode(val[1])
                     if val[0] == 'ssid' and not val[1]:
                         val[1] = 'Not connected'               
                     if not val[0] in ('protection','key') :
@@ -211,6 +216,10 @@ class NetworkSetting(Setting) :
                     val = config.split(' ')             
                     if val[0] == 'mode' and val[1] == 'manual':
                         val[1] = 'static'      
+                    if val[0] == 'ssid':
+                        val[1] = base64.b64decode(val[1])
+                    if val[0] == 'key':
+                        val[1] = base64.b64decode(val[1])
                     if val[0] == 'ssid' and not val[1]:
                         val[1] = 'Not connected'               
                     if not val[0] in ('protection','key') :

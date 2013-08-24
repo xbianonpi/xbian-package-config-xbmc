@@ -5,6 +5,7 @@ import threading
 import os
 from xbmcaddon import Addon
 import pickle
+import base64
 
 __addonID__      = "plugin.xbianconfig"
 ADDON     = Addon( __addonID__ )
@@ -137,7 +138,7 @@ def wifiConnect(interface):
        current_try = 1
        connected = False
        while not connected and current_try <= retry :
-           rc = xbianConfig('network','credentials',interface,networks[selectedNetwork][SECURITYTYPE],networks[selectedNetwork][SSID],key)         
+           rc = xbianConfig('network','credentials',interface,networks[selectedNetwork][SECURITYTYPE],base64.b64encode(networks[selectedNetwork][SSID]),base64.b64encode(key))         
            if rc and rc[0] == '1' :
                  restart = xbianConfig('network','restart',interface)
                  if restart and restart[0] == '1' :
