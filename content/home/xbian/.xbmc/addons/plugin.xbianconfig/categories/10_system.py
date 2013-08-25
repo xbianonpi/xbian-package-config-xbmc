@@ -59,7 +59,7 @@ class NetworkControl(MultiSettingControl):
              
              #add Static Group
              self.interfaceValue[interface]['staticgroup'] = MultiSettingControl(Tag('visible','Container(%d).HasFocus(%d)'%(self.interfaceValue[interface]['mode'].getWrapListId(),static.getId())))
-             self.interfaceValue[interface]['ipadress'] = ButtonControl(Tag('label','  -Adress'))
+             self.interfaceValue[interface]['ipadress'] = ButtonControl(Tag('label','  -Address'))
              self.interfaceValue[interface]['ipadress'].onClick = lambda ipadress: ipadress.setValue(getIp('Ip adress',ipadress.getValue()))
              self.interfaceValue[interface]['subnet'] = ButtonControl(Tag('label','  -Subnet'))
              self.interfaceValue[interface]['subnet'].onClick = lambda subnet: subnet.setValue(getIp('Subnet',subnet.getValue()))
