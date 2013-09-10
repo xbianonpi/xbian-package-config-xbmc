@@ -11,6 +11,8 @@ firstrun_thread = firstrun()
 firstrun_thread.onStart()
 
 from services.upgrade import upgrade
+from services.upgrade import checkreboot
 upgrade_thread = upgrade()     
 upgrade_thread.onStart()
-
+checkreboot_thread = checkreboot()
+checkreboot_thread.onStart()

@@ -51,6 +51,13 @@ class upgrade(service):
     
     def onScreensaverDeactivated(self):
         print 'screensaver Deactivated'
+        rebootneeded = xbianConfig('reboot')
+        progress.close()
+        if rebootneeded and rebootneeded[0] == '1' :
+            if xbmcgui.Dialog().yesno('XBian-config','A reboot is needed','Do you want to reboot now?') :
+                #reboot
+                xbmc.executebuiltin('Reboot')
+
         if self.xbianUpdate :
             xbmc.executebuiltin("Notification(XBian Upgrade,A new version (%s) of XBian is out)"%(self.xbianUpdate))            
             self.xbianUpdate = False            
@@ -89,6 +96,25 @@ class upgrade(service):
 			self.onScreensaverActivated()
 			self.onScreensaverDeactivated()
         while not self.StopRequested: #End if XBMC closes
-            xbmc.sleep(100) #Repeat (ms) 
-        
-        
+            xbmc.sleep(1000) #Repeat (ms) 
+
+
+class checkreboot(service):
+    def onInit(self):
+        self.StopRequested = False
+        print 'reboot checker started'
+
+    def onAbortRequested(self):
+        self.StopRequested = True
+
+    def onStart(self):
+        print 'reboot checker started'
+        while not self.StopRequested: #End if XBMC closes
+            print 'checking if reboot needed'
+            rebootneeded = xbianConfig('reboot')
+            progress.close()
+            if rebootneeded and rebootneeded[0] == '1' :
+                if xbmcgui.Dialog().yesno('XBian-config','A reboot is needed','Do you want to reboot now?') :
+                    #reboot
+                    xbmc.executebuiltin('Reboot')
+            xbmc.sleep(300000) #Repeat (ms) 
