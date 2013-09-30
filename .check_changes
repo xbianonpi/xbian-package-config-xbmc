@@ -1,0 +1,8 @@
+#!/bin/sh
+
+for f in $(find ./content/  -printf '%P\n' -iname \* | grep -v DEBIAN); do
+        [ -d ./content/$f ] && continue
+        if ! diff -q ./content/$f /$f > /dev/null; then
+                cp -v --preserve=timestamp,mode $1 /$f ./content/$f
+        fi
+done
