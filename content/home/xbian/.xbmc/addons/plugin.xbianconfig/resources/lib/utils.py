@@ -47,6 +47,10 @@ def getNumeric(header,default=None,min=False,max=False):
 def getIp(header,default=None):
     dialog = xbmcgui.Dialog() 
     return dialog.numeric(3,header,default)
+
+def getFile(header,default=None) :
+    dialog = xbmcgui.Dialog() 
+    return dialog.browse(3,header,'files')
     
 def getText(header,default="",hidden=False):
     kb = xbmc.Keyboard(default,header,hidden)

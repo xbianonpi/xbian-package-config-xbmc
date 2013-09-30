@@ -149,16 +149,16 @@ class servicesManager(Setting) :
         self.publicMethod['refresh'] = self.refresh
     
     def refresh(self) :
-        services = xbianConfig('services','list')       
-        if services != self.serviceInstalled :
+        services = xbianConfig('services','list')
+###        if services != self.serviceInstalled :
             #check if i have to add service
-            for service in services :
-                if service not in self.serviceInstalled :
-                    self.addService(service)
+###            for service in services :
+###                if service not in self.serviceInstalled :
+###                    self.addService(service)
             #check if i have to delete service
-            for service in self.serviceInstalled[:] :
-                if service not in services :
-                    self.deleteService(service)
+###            for service in self.serviceInstalled[:] :
+###                if service not in services :
+###                    self.deleteService(service)
                     
     def deleteService(self,service):
         self.control.setVisible(service,False)
@@ -167,7 +167,7 @@ class servicesManager(Setting) :
     def addService(self,name) :
         self.control.setCustom(name)                   
         #wait.update(line2='Refreshing Value')
-        serviceStatus = xbianConfig('services','status')
+        serviceStatus = xbianConfig('services','status',name)
         for service in serviceStatus :
             status = service.split(' ')
             if status[0] == name :  
@@ -181,11 +181,13 @@ class servicesManager(Setting) :
                   running = True
                   autostart = True
                #get dameon:
-               daemon = xbianConfig('services','select',status[0])
-               if daemon :
-                  daemon = daemon[0]
-               else :
-                  daemon = False
+#               daemon = xbianConfig('services','select',status[0])
+#               if daemon :
+#                  daemon = daemon[0]
+#               else :
+#                  daemon = False
+               daemon = False
+
                self.xbianValue[status[0]] = [running,autostart,daemon]
                self.setControlValue({status[0]:[running,autostart,daemon]})
                break
@@ -338,11 +340,14 @@ class servicesManager(Setting) :
                 running = True
                 autostart = True
             #get dameon:
-            daemon = xbianConfig('services','select',status[0])
-            if daemon :
-                daemon = daemon[0]
-            else :
-                daemon = False
+#            daemon = xbianConfig('services','select',status[0])
+#            if daemon :
+#                daemon = daemon[0]
+#            else :
+#                daemon = False
+
+            daemon = False
+
             services[status[0]] = [running,autostart,daemon]
         return services            
         

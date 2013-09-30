@@ -69,7 +69,7 @@ class confirmonChange(advancedMode) :
         self.key = 'confirmationonchange'
 
 class UpdateLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','Update'))
+    CONTROL = CategoryLabelControl(Tag('label','XBian updates'))
 
 class updateonBoot(advancedMode) :
     CONTROL = RadioButtonControl(Tag('label','Check update on boot'))

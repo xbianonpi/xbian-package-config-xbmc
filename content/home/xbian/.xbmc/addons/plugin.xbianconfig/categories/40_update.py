@@ -10,7 +10,7 @@ from resources.lib.xbmcguie.tag import Tag
 from resources.lib.xbmcguie.category import Category,Setting
 
 from resources.lib.xbianconfig import xbianConfig
-from resources.lib.utils import dialogWait
+from resources.lib.utils import *
 import xbmcgui,xbmc
 from xbmcaddon import Addon
 
@@ -20,6 +20,10 @@ ADDON_DIR = ADDON.getAddonInfo( "path" )
 ROOTDIR            = ADDON_DIR
 BASE_RESOURCE_PATH = os.path.join( ROOTDIR, "resources" )
 
+
+#if i add integer, xbmc diplay as Translation String
+BACKUP_PROFILE = ['Daily','Weekly','Monthly']
+dialog=xbmcgui.Dialog()
 
 
 class updateControl(MultiSettingControl):
@@ -131,11 +135,11 @@ class xbianUpgrade(Setting) :
 				elif rc and rc[0] == '4' :
 					self.ERRORTEXT = 'Packages not found in apt repository'
 				elif rc and rc[0] == '5' :
-					self.ERRORTEXT = 'There is a size mismatch for the remote packages'             
+					self.ERRORTEXT = 'There is a size mismatch for the remote packages'
 				elif rc and rc[0] == '6' :
 					self.ERRORTEXT = 'The packages itselves got a internal error'
 				else :
-					self.ERRORTEXT = 'Unexpected error'            
+					self.ERRORTEXT = 'Unexpected error'
 				os.remove(lockfile)
 				dlg.close()
 				self.notifyOnError()    
@@ -172,11 +176,161 @@ class packageUpdate(xbianUpgrade) :
 
     def keyword(self) :
         self.key = 'packages'
-            
+
+dialog=xbmcgui.Dialog()
+
+
+class UpdateLabel(Setting) :
+    CONTROL = CategoryLabelControl(Tag('label','Automatic updates'))
+        
+class updateAuto(Setting) :
+    CONTROL = RadioButtonControl(Tag('label','Auto install available updates'))
+    DIALOGHEADER = "Automatic Updates"
+    ERRORTEXT = "Error on updating"
+    OKTEXT = "Update ok"
+
+    def getUserValue(self):
+        return str(self.getControlValue())
+
+    def setControlValue(self,value) :
+        if value == '1' :
+            value = True
+        else :
+            value = False
+        self.control.setValue(value)
+
+    def getXbianValue(self):
+        rc =xbianConfig('updates','enableauto')
+        return rc[0]
+
+    def setXbianValue(self,value):
+        rc =xbianConfig('updates','enableauto',str(value))
+        if rc and rc[0] == '1' :
+            return True
+        else :
+            return False
+
+class snapAPT(Setting) :
+    CONTROL = RadioButtonControl(Tag('label','Do a snapshot with APT-GET transaction'))
+    DIALOGHEADER = "Snapshot on APT"
+    ERRORTEXT = "Error on updating"
+    OKTEXT = "Update ok"
+
+    def getUserValue(self):
+        return str(self.getControlValue())
+
+    def setControlValue(self,value) :
+        if value == '1' :
+            value = True
+        else :
+            value = False
+        self.control.setValue(value)
+
+    def getXbianValue(self):
+        rc =xbianConfig('updates','snapapt')
+        return rc[0]
+
+    def setXbianValue(self,value):
+        rc =xbianConfig('updates','snapapt',str(value))
+        if rc and rc[0] == '1' :
+            return True
+        else :
+            return False
+
+class empty1(Setting) :
+    CONTROL = CategoryLabelControl(Tag('label',''))
+
+class systemBackup(Setting) :
+    CONTROL = CategoryLabelControl(Tag('label','Backup complete system to .img file or to a device / XBian system clone'))
+
+class AutoBackup(MultiSettingControl):
+    XBMCDEFAULTCONTAINER = False
+
+    def onInit(self) :
+        self.backupEnable = RadioButtonControl(Tag('label','Auto image / clone generation'))
+        self.addControl(self.backupEnable)
+        self.backupProperty = MultiSettingControl(Tag('visible','SubString(Control.GetLabel(%d),*)'%self.backupEnable.getId()))
+        self.backupPath = ButtonControl(Tag('label','        - File name or block device'))
+        self.backupPath.onClick = lambda backupPath: self.backupPath.setValue(getFile('Backup Path',self.backupPath.getValue()))
+        self.backupProperty.addControl(self.backupPath)
+        self.deltaControl = SpinControlex(Tag('label','        - type'))
+        for number in BACKUP_PROFILE :
+            self.deltaControl.addContent(Content(Tag('label',number),defaultSKin=False))
+        self.backupProperty.addControl(self.deltaControl)
+        self.addControl(self.backupProperty)
+
+    def setValue(self,value):
+        self.backupEnable.setValue(value[0])
+        self.backupPath.setValue(value[1])
+        self.deltaControl.setValue(value[2])
+
+
+class AutoBackupGui(Setting) :
+    CONTROL = AutoBackup(Tag('visible','skin.hasSetting(advancedmode)'))
+    DIALOGHEADER = "Auto Backup"
+    ERRORTEXT = "Error updating"
+    OKTEXT = "Update ok"
+    SAVEMODE = Setting.ONUNFOCUS
+
+    def getUserValue(self):
+        values =  self.control.getValue()
+        print 'Get user Value %s'%str(values)
+        return values
+
+    def getXbianValue(self):
+        #TODO
+        #read default Value from file here
+        #value is like [1, '/home/belese/', 'Daily']
+        print 'Get xbian Value'
+        return ['1','/tmp','Daily']
+
+    def setXbianValue(self,value):
+        #TODO
+        #save xbian value in file here
+        #value is like [1, '/home/belese/', 'Daily']
+        #return True if ok, False either
+        print 'Save xbian :%s'%value
+        return True
+
+class InventoryInt(MultiSettingControl):
+    XBMCDEFAULTCONTAINER = False
+
+    def onInit(self) :
+        self.AutoInventory = RadioButtonControl(Tag('label','Auto update package inventory'))
+        self.addControl(self.AutoInventory)
+        self.AutoInventoryProperty = MultiSettingControl(Tag('visible','SubString(Control.GetLabel(%d),*)'%self.AutoInventory.getId()))
+        self.delay =  ButtonControl(Tag('label','        - interval (days)'))
+        self.delay.onClick = lambda delay: self.delay.setValue(getNumeric('interval (days)',self.delay.getValue(),1,365))
+        self.AutoInventoryProperty.addControl(self.delay)
+        self.addControl(self.AutoInventoryProperty)
+    
+    def setValue(self,value):
+        self.AutoInventory.setValue(value[0])
+        self.delay.setValue(value[1])
+
+class InventoryIntGui(Setting) :
+    CONTROL = InventoryInt()
+    DIALOGHEADER = "Auto update package inventory"
+    ERRORTEXT = "Error updating"
+    OKTEXT = "Update ok"
+    SAVEMODE = Setting.ONUNFOCUS
+    
+    def getUserValue(self):
+        values =  self.control.getValue()
+        return values
+
+    def getXbianValue(self):
+        rc =xbianConfig('updates','autoinventory')
+        r =rc[0].split(' ')
+        return [int(r[0]), r[1]]
+
+    def setXbianValue(self,value):
+        rc =xbianConfig('updates','autoinventory',str(value[0]),str(value[1]))
+        if rc and rc[0] == '1' :
+            return True
+        else :
+            return False
 
 class update(Category) :
     TITLE = 'Update'
-    SETTINGS = [upgradeXbianLabel,xbianUpgrade,updatePackageLabel,packageUpdate]
-    
-
-
+    SETTINGS = [upgradeXbianLabel,xbianUpgrade,updatePackageLabel,packageUpdate,UpdateLabel,InventoryIntGui,updateAuto,snapAPT,empty1,systemBackup,AutoBackupGui]

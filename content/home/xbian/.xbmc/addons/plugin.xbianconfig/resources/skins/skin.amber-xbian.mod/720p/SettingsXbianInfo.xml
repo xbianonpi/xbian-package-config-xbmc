@@ -55,8 +55,6 @@
 					<posy>0</posy>
 					<height>40</height>
 					<width>201</width>
-					<!--<align>right</align>
-					<!--<font>font13_title</font>-->
 					<textcolor>Grey2</textcolor>
 					<label>$INFO[ListItem.Label]</label>
 				</control>
@@ -75,54 +73,37 @@
 					<posy>0</posy>
 					<height>40</height>
 					<width>201</width>
-					<!--<align>right</align>
-					<!--<font>font13_title</font>-->
 					<textcolor>Orange</textcolor>
 					<label>$INFO[ListItem.Label]</label>
 					</control>
 				</focusedlayout>
 				<content>
-<item id="36091">
+<item id="36093">
 <onclick>-</onclick>
 <label>System</label>
 </item>
-<item id="36252">
+<item id="36283">
 <onclick>-</onclick>
 <label>Services</label>
 </item>
-<item id="36292">
+<item id="36337">
 <onclick>-</onclick>
 <label>Packages</label>
 </item>
-<item id="36327">
+<item id="36407">
 <onclick>-</onclick>
 <label>Update</label>
 </item>
-<item id="36337">
+<item id="36437">
 <onclick>-</onclick>
 <label>XBMC</label>
 </item>
-<item id="36348">
+<item id="36445">
 <onclick>-</onclick>
 <label>Preferences</label>
 </item>
 				</content>
 			</control>
-<!--			<control type="image">
-				<posx>268</posx>
-				<posy>10</posy>
-				<width>790</width>
-				<height>618</height>
-				<texture border="5">black-back2.png</texture>
-			</control>--
-			<control type="image">
-				<posx>268</posx>
-				<posy>10</posy>
-				<width>804</width>
-				<height>100</height>
-				<aspectratio>stretch</aspectratio>
-				<texture>GlassTitleBar.png</texture>
-			</control>-->
 			<control type="label" id="40">
 				<description>header label</description>
 				<posx>300</posx>
@@ -141,12 +122,12 @@
 				<posy>140</posy>
 				<width>755</width>
 				<height>333</height>	
-<control type="grouplist" id="36356">
+<control type="grouplist" id="36453">
 <itemgap>-1</itemgap>
 <onleft>9000</onleft>
 <onright>9000</onright>
-<visible>Container(9000).HasFocus(36091)</visible>
-<control type="label" id="36047">
+<visible>Container(9000).HasFocus(36093)</visible>
+<control type="label" id="36048">
 <textcolor>blue</textcolor>
 <width>750</width>
 <align>left</align>
@@ -157,7 +138,7 @@
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36048">
+<control type="button" id="36049">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
@@ -171,7 +152,7 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36086">
+<control type="button" id="36087">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
@@ -185,18 +166,18 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36050">
+<control type="button" id="36051">
 <visible>false</visible>
 <description>hidden button to scroll up the list</description>
 </control>
-<control type="group" id="36052">
+<control type="group" id="36053">
 <width>750</width>
 <visible>skin.hasSetting(advancedmode)</visible>
 <height>40</height>
-<control type="spincontrol" id="36053">
-<onup>36050</onup>
+<control type="spincontrol" id="36054">
+<onup>36051</onup>
 <textcolor>grey2</textcolor>
-<ondown>36051</ondown>
+<ondown>36052</ondown>
 <disabledcolor>grey3</disabledcolor>
 <enable>false</enable>
 <visible>skin.hasSetting(advancedmode)</visible>
@@ -209,13 +190,13 @@
 <onright>9000</onright>
 <textoffsetx>5000</textoffsetx>
 </control>
-<control type="button" id="36054">
-<onup>36050</onup>
+<control type="button" id="36055">
+<onup>36051</onup>
 <texturefocus>MenuItemFO.png</texturefocus>
-<ondown>36051</ondown>
+<ondown>36052</ondown>
 <width>750</width>
 <disabledcolor>white</disabledcolor>
-<visible>Control.HasFocus(36053) + Control.IsEnabled(36053) + control.IsVisible(36053)</visible>
+<visible>Control.HasFocus(36054) + Control.IsEnabled(36054) + control.IsVisible(36054)</visible>
 <label>Kernel</label>
 <height>40</height>
 <posx>0</posx>
@@ -227,13 +208,13 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36055">
-<onup>36050</onup>
+<control type="button" id="36056">
+<onup>36051</onup>
 <texturefocus>MenuItemFO.png</texturefocus>
-<ondown>36051</ondown>
+<ondown>36052</ondown>
 <width>750</width>
 <disabledcolor>grey2</disabledcolor>
-<visible>!Control.HasFocus(36053) + Control.IsEnabled(36053) + control.IsVisible(36053)</visible>
+<visible>!Control.HasFocus(36054) + Control.IsEnabled(36054) + control.IsVisible(36054)</visible>
 <label>Kernel</label>
 <height>40</height>
 <posx>0</posx>
@@ -245,13 +226,13 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36056">
-<onup>36050</onup>
+<control type="button" id="36057">
+<onup>36051</onup>
 <texturefocus>MenuItemFO.png</texturefocus>
-<ondown>36051</ondown>
+<ondown>36052</ondown>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>!Control.IsEnabled(36053) + control.IsVisible(36053)</visible>
+<visible>!Control.IsEnabled(36054) + control.IsVisible(36054)</visible>
 <label>Kernel</label>
 <height>40</height>
 <posx>0</posx>
@@ -263,10 +244,10 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="wraplist" id="36057">
-<onup>36050</onup>
+<control type="wraplist" id="36058">
+<onup>36051</onup>
 <enable>false</enable>
-<ondown>36051</ondown>
+<ondown>36052</ondown>
 <visible>skin.hasSetting(advancedmode)</visible>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -274,25 +255,13 @@
 <posx>450</posx>
 <posy>0</posy>
 <width>225</width>
-<pagecontrol>36053</pagecontrol>
+<pagecontrol>36054</pagecontrol>
 <itemlayout width="225" height="40">
 </itemlayout>
 <focusedlayout width="225" height="40">
-<control type="label" id="36058">
-<textcolor>grey3</textcolor>
-<visible>!Control.IsEnabled(36053)</visible>
-<align>right</align>
-<label>$INFO[ListItem.Label]</label>
-<height>40</height>
-<width>225</width>
-<aligny>center</aligny>
-<posx>215</posx>
-<posy>0</posy>
-<font>font13</font>
-</control>
 <control type="label" id="36059">
-<textcolor>white</textcolor>
-<visible>Control.HasFocus(36053) + Control.IsEnabled(36053)</visible>
+<textcolor>grey3</textcolor>
+<visible>!Control.IsEnabled(36054)</visible>
 <align>right</align>
 <label>$INFO[ListItem.Label]</label>
 <height>40</height>
@@ -303,8 +272,20 @@
 <font>font13</font>
 </control>
 <control type="label" id="36060">
+<textcolor>white</textcolor>
+<visible>Control.HasFocus(36054) + Control.IsEnabled(36054)</visible>
+<align>right</align>
+<label>$INFO[ListItem.Label]</label>
+<height>40</height>
+<width>225</width>
+<aligny>center</aligny>
+<posx>215</posx>
+<posy>0</posy>
+<font>font13</font>
+</control>
+<control type="label" id="36061">
 <textcolor>grey2</textcolor>
-<visible>!Control.HasFocus(36053) + Control.IsEnabled(36053)</visible>
+<visible>!Control.HasFocus(36054) + Control.IsEnabled(36054)</visible>
 <align>right</align>
 <label>$INFO[ListItem.Label]</label>
 <height>40</height>
@@ -316,29 +297,29 @@
 </control>
 </focusedlayout>
 <content>
-<item id="36350">
+<item id="36447">
 <onclick>-</onclick>
-<label>3.6.11</label>
+<label>3.10.12</label>
 </item>
 </content>
 </control>
 </control>
-<control type="button" id="36051">
+<control type="button" id="36052">
 <visible>false</visible>
 <description>hidden button to scroll down the list</description>
 </control>
-<control type="button" id="36063">
+<control type="button" id="36064">
 <visible>false</visible>
 <description>hidden button to scroll up the list</description>
 </control>
-<control type="group" id="36065">
+<control type="group" id="36066">
 <width>750</width>
 <visible>skin.hasSetting(advancedmode)</visible>
 <height>40</height>
-<control type="spincontrol" id="36066">
-<onup>36063</onup>
+<control type="spincontrol" id="36067">
+<onup>36064</onup>
 <textcolor>grey2</textcolor>
-<ondown>36064</ondown>
+<ondown>36065</ondown>
 <disabledcolor>grey3</disabledcolor>
 <enable>false</enable>
 <pulseonselect>false</pulseonselect>
@@ -350,13 +331,13 @@
 <onright>9000</onright>
 <textoffsetx>5000</textoffsetx>
 </control>
-<control type="button" id="36067">
-<onup>36063</onup>
+<control type="button" id="36068">
+<onup>36064</onup>
 <texturefocus>MenuItemFO.png</texturefocus>
-<ondown>36064</ondown>
+<ondown>36065</ondown>
 <width>750</width>
 <disabledcolor>white</disabledcolor>
-<visible>Control.HasFocus(36066) + Control.IsEnabled(36066) + control.IsVisible(36066)</visible>
+<visible>Control.HasFocus(36067) + Control.IsEnabled(36067) + control.IsVisible(36067)</visible>
 <label>Overclocking</label>
 <height>40</height>
 <posx>0</posx>
@@ -368,13 +349,13 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36068">
-<onup>36063</onup>
+<control type="button" id="36069">
+<onup>36064</onup>
 <texturefocus>MenuItemFO.png</texturefocus>
-<ondown>36064</ondown>
+<ondown>36065</ondown>
 <width>750</width>
 <disabledcolor>grey2</disabledcolor>
-<visible>!Control.HasFocus(36066) + Control.IsEnabled(36066) + control.IsVisible(36066)</visible>
+<visible>!Control.HasFocus(36067) + Control.IsEnabled(36067) + control.IsVisible(36067)</visible>
 <label>Overclocking</label>
 <height>40</height>
 <posx>0</posx>
@@ -386,13 +367,13 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36069">
-<onup>36063</onup>
+<control type="button" id="36070">
+<onup>36064</onup>
 <texturefocus>MenuItemFO.png</texturefocus>
-<ondown>36064</ondown>
+<ondown>36065</ondown>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>!Control.IsEnabled(36066) + control.IsVisible(36066)</visible>
+<visible>!Control.IsEnabled(36067) + control.IsVisible(36067)</visible>
 <label>Overclocking</label>
 <height>40</height>
 <posx>0</posx>
@@ -404,35 +385,23 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="wraplist" id="36070">
-<onup>36063</onup>
+<control type="wraplist" id="36071">
+<onup>36064</onup>
 <enable>false</enable>
-<ondown>36064</ondown>
+<ondown>36065</ondown>
 <width>225</width>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <scrolltime>0</scrolltime>
 <posx>450</posx>
 <posy>0</posy>
-<pagecontrol>36066</pagecontrol>
+<pagecontrol>36067</pagecontrol>
 <itemlayout width="225" height="40">
 </itemlayout>
 <focusedlayout width="225" height="40">
-<control type="label" id="36071">
-<textcolor>grey3</textcolor>
-<visible>!Control.IsEnabled(36066)</visible>
-<align>right</align>
-<label>$INFO[ListItem.Label]</label>
-<height>40</height>
-<width>225</width>
-<aligny>center</aligny>
-<posx>215</posx>
-<posy>0</posy>
-<font>font13</font>
-</control>
 <control type="label" id="36072">
-<textcolor>white</textcolor>
-<visible>Control.HasFocus(36066) + Control.IsEnabled(36066)</visible>
+<textcolor>grey3</textcolor>
+<visible>!Control.IsEnabled(36067)</visible>
 <align>right</align>
 <label>$INFO[ListItem.Label]</label>
 <height>40</height>
@@ -443,8 +412,20 @@
 <font>font13</font>
 </control>
 <control type="label" id="36073">
+<textcolor>white</textcolor>
+<visible>Control.HasFocus(36067) + Control.IsEnabled(36067)</visible>
+<align>right</align>
+<label>$INFO[ListItem.Label]</label>
+<height>40</height>
+<width>225</width>
+<aligny>center</aligny>
+<posx>215</posx>
+<posy>0</posy>
+<font>font13</font>
+</control>
+<control type="label" id="36074">
 <textcolor>grey2</textcolor>
-<visible>!Control.HasFocus(36066) + Control.IsEnabled(36066)</visible>
+<visible>!Control.HasFocus(36067) + Control.IsEnabled(36067)</visible>
 <align>right</align>
 <label>$INFO[ListItem.Label]</label>
 <height>40</height>
@@ -456,63 +437,48 @@
 </control>
 </focusedlayout>
 <content>
-<item id="36074">
+<item id="36075">
 <onclick>-</onclick>
 <label>None</label>
 </item>
-<item id="36075">
+<item id="36076">
 <onclick>-</onclick>
 <label>Modest</label>
 </item>
-<item id="36076">
+<item id="36077">
 <onclick>-</onclick>
 <label>XBian</label>
 </item>
-<item id="36077">
+<item id="36078">
 <onclick>-</onclick>
 <label>Medium</label>
 </item>
-<item id="36078">
+<item id="36079">
 <onclick>-</onclick>
 <label>High</label>
 </item>
-<item id="36079">
+<item id="36080">
 <onclick>-</onclick>
 <label>Turbo</label>
 </item>
-<item id="36080">
+<item id="36081">
 <onclick>-</onclick>
 <label>Custom</label>
 </item>
 </content>
 </control>
 </control>
-<control type="button" id="36064">
+<control type="button" id="36065">
 <visible>false</visible>
 <description>hidden button to scroll down the list</description>
-</control>
-<control type="button" id="36082">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>Container(36070).HasFocus(36080)</visible>
-<visible>skin.hasSetting(advancedmode)</visible>
-<label> -Arm</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
 </control>
 <control type="button" id="36083">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>Container(36070).HasFocus(36080)</visible>
+<visible>Container(36071).HasFocus(36081)</visible>
 <visible>skin.hasSetting(advancedmode)</visible>
-<label> -Core</label>
+<label> -Arm</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -525,9 +491,9 @@
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>Container(36070).HasFocus(36080)</visible>
+<visible>Container(36071).HasFocus(36081)</visible>
 <visible>skin.hasSetting(advancedmode)</visible>
-<label> -SDram</label>
+<label> -Core</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -540,7 +506,22 @@
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>Container(36070).HasFocus(36080)</visible>
+<visible>Container(36071).HasFocus(36081)</visible>
+<visible>skin.hasSetting(advancedmode)</visible>
+<label> -SDram</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36086">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Container(36071).HasFocus(36081)</visible>
 <visible>skin.hasSetting(advancedmode)</visible>
 <label> -Overvoltage</label>
 <height>40</height>
@@ -551,7 +532,7 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36087">
+<control type="label" id="36088">
 <textcolor>blue</textcolor>
 <width>750</width>
 <align>left</align>
@@ -562,7 +543,7 @@
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36088">
+<control type="button" id="36089">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
@@ -576,7 +557,7 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36089">
+<control type="button" id="36090">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
@@ -590,7 +571,7 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36090">
+<control type="radiobutton" id="36091">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
@@ -917,7 +898,7 @@
 <disabledcolor>grey3</disabledcolor>
 <visible>Container(36025).HasFocus(36030)</visible>
 <visible>Container(36010).HasFocus(36014)</visible>
-<label>  -Adress</label>
+<label>  -Address</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -1067,6 +1048,20 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
+<control type="radiobutton" id="36047">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<label>Disable splash</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
 <control type="label" id="36037">
 <textcolor>blue</textcolor>
 <align>left</align>
@@ -1104,27 +1099,27 @@
 <font>font13</font>
 </control>
 </control>
-<control type="grouplist" id="36357">
+<control type="grouplist" id="36454">
 <itemgap>-1</itemgap>
 <onleft>9000</onleft>
 <onright>9000</onright>
-<visible>Container(9000).HasFocus(36252)</visible>
-<control type="label" id="36094">
+<visible>Container(9000).HasFocus(36283)</visible>
+<control type="label" id="36095">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(ifplugd)</visible>
+<visible>skin.hasSetting(avahi-daemon)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Ifplugd</label>
+<label>Avahi-Daemon</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36095">
+<control type="button" id="36096">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(ifplugd)</visible>
+<visible>skin.hasSetting(avahi-daemon)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1134,27 +1129,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36096">
+<control type="radiobutton" id="36097">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(ifplugd)</visible>
+<visible>skin.hasSetting(avahi-daemon)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36097">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(ifplugd)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -1168,7 +1148,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(ifplugd)</visible>
+<visible>skin.hasSetting(avahi-daemon)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36099">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(avahi-daemon)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1178,22 +1173,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36100">
+<control type="label" id="36101">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(avahi-daemon)</visible>
+<visible>skin.hasSetting(console-setup)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Avahi-Daemon</label>
+<label>Console-Setup</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36101">
+<control type="button" id="36102">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(avahi-daemon)</visible>
+<visible>skin.hasSetting(console-setup)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1203,27 +1198,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36102">
+<control type="radiobutton" id="36103">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(avahi-daemon)</visible>
+<visible>skin.hasSetting(console-setup)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36103">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(avahi-daemon)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -1237,7 +1217,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(avahi-daemon)</visible>
+<visible>skin.hasSetting(console-setup)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36105">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(console-setup)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1247,22 +1242,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36106">
+<control type="label" id="36107">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(nzbget)</visible>
+<visible>skin.hasSetting(cron)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Nzbget</label>
+<label>Cron</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36107">
+<control type="button" id="36108">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(nzbget)</visible>
+<visible>skin.hasSetting(cron)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1272,27 +1267,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36108">
+<control type="radiobutton" id="36109">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(nzbget)</visible>
+<visible>skin.hasSetting(cron)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36109">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(nzbget)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -1306,7 +1286,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(nzbget)</visible>
+<visible>skin.hasSetting(cron)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36111">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(cron)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1316,22 +1311,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36112">
+<control type="label" id="36113">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(klogd)</visible>
+<visible>skin.hasSetting(dbus)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Klogd</label>
+<label>Dbus</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36113">
+<control type="button" id="36114">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(klogd)</visible>
+<visible>skin.hasSetting(dbus)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1341,27 +1336,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36114">
+<control type="radiobutton" id="36115">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(klogd)</visible>
+<visible>skin.hasSetting(dbus)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36115">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(klogd)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -1375,7 +1355,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(klogd)</visible>
+<visible>skin.hasSetting(dbus)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36117">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(dbus)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1385,22 +1380,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36118">
+<control type="label" id="36119">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(xbmc)</visible>
+<visible>skin.hasSetting(gssd)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Xbmc</label>
+<label>Gssd</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36119">
+<control type="button" id="36120">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(xbmc)</visible>
+<visible>skin.hasSetting(gssd)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1410,27 +1405,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36120">
+<control type="radiobutton" id="36121">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(xbmc)</visible>
+<visible>skin.hasSetting(gssd)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36121">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(xbmc)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -1444,7 +1424,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(xbmc)</visible>
+<visible>skin.hasSetting(gssd)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36123">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(gssd)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1454,22 +1449,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36124">
+<control type="label" id="36125">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(ntp)</visible>
+<visible>skin.hasSetting(idmapd)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Ntp</label>
+<label>Idmapd</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36125">
+<control type="button" id="36126">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(ntp)</visible>
+<visible>skin.hasSetting(idmapd)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1479,27 +1474,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36126">
+<control type="radiobutton" id="36127">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(ntp)</visible>
+<visible>skin.hasSetting(idmapd)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36127">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(ntp)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -1513,7 +1493,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(ntp)</visible>
+<visible>skin.hasSetting(idmapd)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36129">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(idmapd)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1523,22 +1518,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36130">
+<control type="label" id="36131">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(cron)</visible>
+<visible>skin.hasSetting(ifplugd)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Cron</label>
+<label>Ifplugd</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36131">
+<control type="button" id="36132">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(cron)</visible>
+<visible>skin.hasSetting(ifplugd)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1548,27 +1543,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36132">
+<control type="radiobutton" id="36133">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(cron)</visible>
+<visible>skin.hasSetting(ifplugd)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36133">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(cron)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -1582,7 +1562,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(cron)</visible>
+<visible>skin.hasSetting(ifplugd)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36135">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(ifplugd)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1592,22 +1587,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36136">
+<control type="label" id="36137">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(lirc)</visible>
+<visible>skin.hasSetting(iguanaIR)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Lirc</label>
+<label>Iguanair</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36137">
+<control type="button" id="36138">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(lirc)</visible>
+<visible>skin.hasSetting(iguanaIR)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1617,27 +1612,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36138">
+<control type="radiobutton" id="36139">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(lirc)</visible>
+<visible>skin.hasSetting(iguanaIR)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36139">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(lirc)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -1651,7 +1631,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(lirc)</visible>
+<visible>skin.hasSetting(iguanaIR)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36141">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(iguanaIR)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1661,22 +1656,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36142">
+<control type="label" id="36143">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(dbus)</visible>
+<visible>skin.hasSetting(klogd)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Dbus</label>
+<label>Klogd</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36143">
+<control type="button" id="36144">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(dbus)</visible>
+<visible>skin.hasSetting(klogd)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1686,27 +1681,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36144">
+<control type="radiobutton" id="36145">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(dbus)</visible>
+<visible>skin.hasSetting(klogd)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36145">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(dbus)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -1720,7 +1700,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(dbus)</visible>
+<visible>skin.hasSetting(klogd)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36147">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(klogd)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1730,22 +1725,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36148">
+<control type="label" id="36149">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(couchpotato)</visible>
+<visible>skin.hasSetting(lirc)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Couchpotato</label>
+<label>Lirc</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36149">
+<control type="button" id="36150">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(couchpotato)</visible>
+<visible>skin.hasSetting(lirc)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1755,27 +1750,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36150">
+<control type="radiobutton" id="36151">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(couchpotato)</visible>
+<visible>skin.hasSetting(lirc)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36151">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(couchpotato)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -1789,7 +1769,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(couchpotato)</visible>
+<visible>skin.hasSetting(lirc)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36153">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(lirc)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1799,22 +1794,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36154">
+<control type="label" id="36155">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(ssh)</visible>
+<visible>skin.hasSetting(ntp)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Ssh</label>
+<label>Ntp</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36155">
+<control type="button" id="36156">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(ssh)</visible>
+<visible>skin.hasSetting(ntp)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1824,27 +1819,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36156">
+<control type="radiobutton" id="36157">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(ssh)</visible>
+<visible>skin.hasSetting(ntp)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36157">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(ssh)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -1858,7 +1838,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(ssh)</visible>
+<visible>skin.hasSetting(ntp)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36159">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(ntp)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1868,22 +1863,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36160">
+<control type="label" id="36161">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(sickbeard)</visible>
+<visible>skin.hasSetting(openbsd-inetd)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Sickbeard</label>
+<label>Openbsd-Inetd</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36161">
+<control type="button" id="36162">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(sickbeard)</visible>
+<visible>skin.hasSetting(openbsd-inetd)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1893,27 +1888,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36162">
+<control type="radiobutton" id="36163">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(sickbeard)</visible>
+<visible>skin.hasSetting(openbsd-inetd)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36163">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(sickbeard)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -1927,7 +1907,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(sickbeard)</visible>
+<visible>skin.hasSetting(openbsd-inetd)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36165">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(openbsd-inetd)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1937,22 +1932,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36166">
+<control type="label" id="36167">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(headphones)</visible>
+<visible>skin.hasSetting(restore-home)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Headphones</label>
+<label>Restore-Home</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36167">
+<control type="button" id="36168">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(headphones)</visible>
+<visible>skin.hasSetting(restore-home)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -1962,27 +1957,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36168">
+<control type="radiobutton" id="36169">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(headphones)</visible>
+<visible>skin.hasSetting(restore-home)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36169">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(headphones)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -1996,7 +1976,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(headphones)</visible>
+<visible>skin.hasSetting(restore-home)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36171">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(restore-home)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2006,22 +2001,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36172">
+<control type="label" id="36173">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(wd_keepalive)</visible>
+<visible>skin.hasSetting(samba)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Wd_Keepalive</label>
+<label>Samba</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36173">
+<control type="button" id="36174">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(wd_keepalive)</visible>
+<visible>skin.hasSetting(samba)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2031,27 +2026,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36174">
+<control type="radiobutton" id="36175">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(wd_keepalive)</visible>
+<visible>skin.hasSetting(samba)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36175">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(wd_keepalive)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -2065,7 +2045,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(wd_keepalive)</visible>
+<visible>skin.hasSetting(samba)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36177">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(samba)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2075,22 +2070,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36178">
+<control type="label" id="36179">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(transmission)</visible>
+<visible>skin.hasSetting(ssh)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Transmission</label>
+<label>Ssh</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36179">
+<control type="button" id="36180">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(transmission)</visible>
+<visible>skin.hasSetting(ssh)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2100,27 +2095,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36180">
+<control type="radiobutton" id="36181">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(transmission)</visible>
+<visible>skin.hasSetting(ssh)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36181">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(transmission)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -2134,7 +2114,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(transmission)</visible>
+<visible>skin.hasSetting(ssh)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36183">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(ssh)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2144,22 +2139,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36184">
+<control type="label" id="36185">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(sysklogd)</visible>
+<visible>skin.hasSetting(statd)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Sysklogd</label>
+<label>Statd</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36185">
+<control type="button" id="36186">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(sysklogd)</visible>
+<visible>skin.hasSetting(statd)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2169,27 +2164,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36186">
+<control type="radiobutton" id="36187">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(sysklogd)</visible>
+<visible>skin.hasSetting(statd)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36187">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(sysklogd)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -2203,7 +2183,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(sysklogd)</visible>
+<visible>skin.hasSetting(statd)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36189">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(statd)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2213,22 +2208,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36190">
+<control type="label" id="36191">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(custom0)</visible>
+<visible>skin.hasSetting(sysklogd)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Custom0</label>
+<label>Sysklogd</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36191">
+<control type="button" id="36192">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(custom0)</visible>
+<visible>skin.hasSetting(sysklogd)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2238,27 +2233,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36192">
+<control type="radiobutton" id="36193">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(custom0)</visible>
+<visible>skin.hasSetting(sysklogd)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36193">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(custom0)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -2272,7 +2252,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(custom0)</visible>
+<visible>skin.hasSetting(sysklogd)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36195">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(sysklogd)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2282,22 +2277,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36196">
+<control type="label" id="36197">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(custom1)</visible>
+<visible>skin.hasSetting(vnc-server)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Custom1</label>
+<label>Vnc-Server</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36197">
+<control type="button" id="36198">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(custom1)</visible>
+<visible>skin.hasSetting(vnc-server)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2307,27 +2302,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36198">
+<control type="radiobutton" id="36199">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(custom1)</visible>
+<visible>skin.hasSetting(vnc-server)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36199">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(custom1)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -2341,7 +2321,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(custom1)</visible>
+<visible>skin.hasSetting(vnc-server)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36201">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(vnc-server)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2351,22 +2346,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36202">
+<control type="label" id="36203">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(custom2)</visible>
+<visible>skin.hasSetting(xbian-xbmc-bridge)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Custom2</label>
+<label>Xbian-Xbmc-Bridge</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36203">
+<control type="button" id="36204">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(custom2)</visible>
+<visible>skin.hasSetting(xbian-xbmc-bridge)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2376,27 +2371,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36204">
+<control type="radiobutton" id="36205">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(custom2)</visible>
+<visible>skin.hasSetting(xbian-xbmc-bridge)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36205">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(custom2)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -2410,7 +2390,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(custom2)</visible>
+<visible>skin.hasSetting(xbian-xbmc-bridge)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36207">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(xbian-xbmc-bridge)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2420,22 +2415,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36208">
+<control type="label" id="36209">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(custom3)</visible>
+<visible>skin.hasSetting(xbmc)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Custom3</label>
+<label>Xbmc</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36209">
+<control type="button" id="36210">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(custom3)</visible>
+<visible>skin.hasSetting(xbmc)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2445,27 +2440,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36210">
+<control type="radiobutton" id="36211">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(custom3)</visible>
+<visible>skin.hasSetting(xbmc)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36211">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(custom3)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -2479,7 +2459,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(custom3)</visible>
+<visible>skin.hasSetting(xbmc)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36213">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(xbmc)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2489,22 +2484,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36214">
+<control type="label" id="36215">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(custom4)</visible>
+<visible>skin.hasSetting(zram-swap)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Custom4</label>
+<label>Zram-Swap</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36215">
+<control type="button" id="36216">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(custom4)</visible>
+<visible>skin.hasSetting(zram-swap)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2514,27 +2509,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36216">
+<control type="radiobutton" id="36217">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(custom4)</visible>
+<visible>skin.hasSetting(zram-swap)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36217">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(custom4)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -2548,7 +2528,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(custom4)</visible>
+<visible>skin.hasSetting(zram-swap)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36219">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(zram-swap)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2558,22 +2553,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36220">
+<control type="label" id="36221">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(custom5)</visible>
+<visible>skin.hasSetting(custom0)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Custom5</label>
+<label>Custom0</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36221">
+<control type="button" id="36222">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(custom5)</visible>
+<visible>skin.hasSetting(custom0)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2583,27 +2578,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36222">
+<control type="radiobutton" id="36223">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(custom5)</visible>
+<visible>skin.hasSetting(custom0)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36223">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(custom5)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -2617,7 +2597,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(custom5)</visible>
+<visible>skin.hasSetting(custom0)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36225">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(custom0)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2627,22 +2622,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36226">
+<control type="label" id="36227">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(custom6)</visible>
+<visible>skin.hasSetting(custom1)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Custom6</label>
+<label>Custom1</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36227">
+<control type="button" id="36228">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(custom6)</visible>
+<visible>skin.hasSetting(custom1)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2652,27 +2647,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36228">
+<control type="radiobutton" id="36229">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(custom6)</visible>
+<visible>skin.hasSetting(custom1)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36229">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(custom6)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -2686,7 +2666,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(custom6)</visible>
+<visible>skin.hasSetting(custom1)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36231">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(custom1)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2696,22 +2691,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36232">
+<control type="label" id="36233">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(custom7)</visible>
+<visible>skin.hasSetting(custom2)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Custom7</label>
+<label>Custom2</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36233">
+<control type="button" id="36234">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(custom7)</visible>
+<visible>skin.hasSetting(custom2)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2721,27 +2716,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36234">
+<control type="radiobutton" id="36235">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(custom7)</visible>
+<visible>skin.hasSetting(custom2)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36235">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(custom7)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -2755,7 +2735,22 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(custom7)</visible>
+<visible>skin.hasSetting(custom2)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36237">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(custom2)</visible>
 <label>Delete service</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2765,22 +2760,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36238">
+<control type="label" id="36239">
 <textcolor>blue</textcolor>
-<visible>skin.hasSetting(custom8)</visible>
+<visible>skin.hasSetting(custom3)</visible>
 <align>left</align>
 <aligny>center</aligny>
-<label>Custom8</label>
+<label>Custom3</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36239">
+<control type="button" id="36240">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(custom8)</visible>
+<visible>skin.hasSetting(custom3)</visible>
 <label>Status</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -2790,27 +2785,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36240">
+<control type="radiobutton" id="36241">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(custom8)</visible>
+<visible>skin.hasSetting(custom3)</visible>
 <label>Autostart</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36241">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<visible>skin.hasSetting(custom8)</visible>
-<label>Daemon</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -2824,6 +2804,366 @@
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(custom3)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36243">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(custom3)</visible>
+<label>Delete service</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36245">
+<textcolor>blue</textcolor>
+<visible>skin.hasSetting(custom4)</visible>
+<align>left</align>
+<aligny>center</aligny>
+<label>Custom4</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36246">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(custom4)</visible>
+<label>Status</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36247">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(custom4)</visible>
+<label>Autostart</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36248">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(custom4)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36249">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(custom4)</visible>
+<label>Delete service</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36251">
+<textcolor>blue</textcolor>
+<visible>skin.hasSetting(custom5)</visible>
+<align>left</align>
+<aligny>center</aligny>
+<label>Custom5</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36252">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(custom5)</visible>
+<label>Status</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36253">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(custom5)</visible>
+<label>Autostart</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36254">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(custom5)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36255">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(custom5)</visible>
+<label>Delete service</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36257">
+<textcolor>blue</textcolor>
+<visible>skin.hasSetting(custom6)</visible>
+<align>left</align>
+<aligny>center</aligny>
+<label>Custom6</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36258">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(custom6)</visible>
+<label>Status</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36259">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(custom6)</visible>
+<label>Autostart</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36260">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(custom6)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36261">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(custom6)</visible>
+<label>Delete service</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36263">
+<textcolor>blue</textcolor>
+<visible>skin.hasSetting(custom7)</visible>
+<align>left</align>
+<aligny>center</aligny>
+<label>Custom7</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36264">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(custom7)</visible>
+<label>Status</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36265">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(custom7)</visible>
+<label>Autostart</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36266">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(custom7)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36267">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(custom7)</visible>
+<label>Delete service</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36269">
+<textcolor>blue</textcolor>
+<visible>skin.hasSetting(custom8)</visible>
+<align>left</align>
+<aligny>center</aligny>
+<label>Custom8</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36270">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(custom8)</visible>
+<label>Status</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36271">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(custom8)</visible>
+<label>Autostart</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36272">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<visible>skin.hasSetting(custom8)</visible>
+<label>Daemon</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36273">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
 <visible>skin.hasSetting(custom8)</visible>
 <label>Delete service</label>
 <height>40</height>
@@ -2834,7 +3174,7 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36244">
+<control type="label" id="36275">
 <textcolor>blue</textcolor>
 <visible>skin.hasSetting(custom9)</visible>
 <align>left</align>
@@ -2845,7 +3185,7 @@
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36245">
+<control type="button" id="36276">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
@@ -2859,7 +3199,7 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36246">
+<control type="radiobutton" id="36277">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
@@ -2873,7 +3213,7 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36247">
+<control type="button" id="36278">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
@@ -2888,7 +3228,7 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36248">
+<control type="button" id="36279">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
@@ -2903,7 +3243,7 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36250">
+<control type="label" id="36281">
 <textcolor>blue</textcolor>
 <visible>skin.hasSetting(advancedmode)</visible>
 <align>left</align>
@@ -2914,7 +3254,7 @@
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36251">
+<control type="button" id="36282">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
@@ -2929,22 +3269,22 @@
 <font>font13</font>
 </control>
 </control>
-<control type="grouplist" id="36293">
+<control type="grouplist" id="36338">
 <itemgap>-1</itemgap>
 <onleft>9000</onleft>
 <onright>9000</onright>
-<visible>Container(9000).HasFocus(36292)</visible>
-<control type="label" id="36255">
+<visible>Container(9000).HasFocus(36337)</visible>
+<control type="label" id="36286">
 <textcolor>blue</textcolor>
 <align>left</align>
 <aligny>center</aligny>
-<label>Kernel [COLOR lightblue](1/1)[/COLOR]</label>
+<label>Kernel [COLOR lightblue](2/4)[/COLOR]</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36256">
+<control type="button" id="36287">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
@@ -2958,337 +3298,11 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36257">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(morekernel)</visible>
-<label>Get more...</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="label" id="36259">
-<textcolor>blue</textcolor>
-<align>left</align>
-<aligny>center</aligny>
-<label>Web [COLOR lightblue](1/2)[/COLOR]</label>
-<height>45</height>
-<width>750</width>
-<shadowcolor>black</shadowcolor>
-<font>font13_title</font>
-</control>
-<control type="button" id="36260">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(web0)</visible>
-<label>temp</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36261">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(web1)</visible>
-<label>temp</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36262">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(moreweb)</visible>
-<label>Get more...</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="label" id="36264">
-<textcolor>blue</textcolor>
-<align>left</align>
-<aligny>center</aligny>
-<label>Utils [COLOR lightblue](4/4)[/COLOR]</label>
-<height>45</height>
-<width>750</width>
-<shadowcolor>black</shadowcolor>
-<font>font13_title</font>
-</control>
-<control type="button" id="36265">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(utils0)</visible>
-<label>temp</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36266">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(utils1)</visible>
-<label>temp</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36267">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(utils2)</visible>
-<label>temp</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36268">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(utils3)</visible>
-<label>temp</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36269">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(moreutils)</visible>
-<label>Get more...</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="label" id="36271">
-<textcolor>blue</textcolor>
-<align>left</align>
-<aligny>center</aligny>
-<label>Firmware [COLOR lightblue](1/1)[/COLOR]</label>
-<height>45</height>
-<width>750</width>
-<shadowcolor>black</shadowcolor>
-<font>font13_title</font>
-</control>
-<control type="button" id="36272">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(firmware0)</visible>
-<label>temp</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36273">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(morefirmware)</visible>
-<label>Get more...</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="label" id="36275">
-<textcolor>blue</textcolor>
-<align>left</align>
-<aligny>center</aligny>
-<label>Devel [COLOR lightblue](0/1)[/COLOR]</label>
-<height>45</height>
-<width>750</width>
-<shadowcolor>black</shadowcolor>
-<font>font13_title</font>
-</control>
-<control type="button" id="36276">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(devel0)</visible>
-<label>temp</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36277">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(moredevel)</visible>
-<label>Get more...</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="label" id="36279">
-<textcolor>blue</textcolor>
-<align>left</align>
-<aligny>center</aligny>
-<label>Video [COLOR lightblue](1/1)[/COLOR]</label>
-<height>45</height>
-<width>750</width>
-<shadowcolor>black</shadowcolor>
-<font>font13_title</font>
-</control>
-<control type="button" id="36280">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(video0)</visible>
-<label>temp</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36281">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(morevideo)</visible>
-<label>Get more...</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="label" id="36283">
-<textcolor>blue</textcolor>
-<align>left</align>
-<aligny>center</aligny>
-<label>Net [COLOR lightblue](5/7)[/COLOR]</label>
-<height>45</height>
-<width>750</width>
-<shadowcolor>black</shadowcolor>
-<font>font13_title</font>
-</control>
-<control type="button" id="36284">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(net0)</visible>
-<label>temp</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36285">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(net1)</visible>
-<label>temp</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36286">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(net2)</visible>
-<label>temp</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36287">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(net3)</visible>
-<label>temp</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
 <control type="button" id="36288">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(net4)</visible>
+<visible>skin.hasSetting(kernel1)</visible>
 <label>temp</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -3302,7 +3316,7 @@
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(net5)</visible>
+<visible>skin.hasSetting(kernel2)</visible>
 <label>temp</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -3316,7 +3330,7 @@
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(net6)</visible>
+<visible>skin.hasSetting(kernel3)</visible>
 <label>temp</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -3330,7 +3344,7 @@
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(morenet)</visible>
+<visible>skin.hasSetting(morekernel)</visible>
 <label>Get more...</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -3340,27 +3354,50 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-</control>
-<control type="grouplist" id="36328">
-<itemgap>-1</itemgap>
-<onleft>9000</onleft>
-<onright>9000</onright>
-<visible>Container(9000).HasFocus(36327)</visible>
-<control type="label" id="36294">
+<control type="label" id="36293">
 <textcolor>blue</textcolor>
 <align>left</align>
 <aligny>center</aligny>
-<label>XBian</label>
+<label>Web [COLOR lightblue](0/2)[/COLOR]</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
+<control type="button" id="36294">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(web0)</visible>
+<label>temp</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36295">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(web1)</visible>
+<label>temp</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
 <control type="button" id="36296">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(kjeiyg0)</visible>
+<visible>skin.hasSetting(moreweb)</visible>
+<label>Get more...</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -3369,37 +3406,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36297">
-<texturefocus>MenuItemFO.png</texturefocus>
+<control type="label" id="36298">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>Utils [COLOR lightblue](7/7)[/COLOR]</label>
+<height>45</height>
 <width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(kjeiyg1)</visible>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36298">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(kjeiyg2)</visible>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
 </control>
 <control type="button" id="36299">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(kjeiyg3)</visible>
+<visible>skin.hasSetting(utils0)</visible>
+<label>temp</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -3412,7 +3434,8 @@
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(kjeiyg4)</visible>
+<visible>skin.hasSetting(utils1)</visible>
+<label>temp</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -3425,7 +3448,8 @@
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(kjeiyg5)</visible>
+<visible>skin.hasSetting(utils2)</visible>
+<label>temp</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -3438,7 +3462,8 @@
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(kjeiyg6)</visible>
+<visible>skin.hasSetting(utils3)</visible>
+<label>temp</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -3451,7 +3476,8 @@
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(kjeiyg7)</visible>
+<visible>skin.hasSetting(utils4)</visible>
+<label>temp</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -3464,7 +3490,8 @@
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(kjeiyg8)</visible>
+<visible>skin.hasSetting(utils5)</visible>
+<label>temp</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -3477,7 +3504,8 @@
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(kjeiyg9)</visible>
+<visible>skin.hasSetting(utils6)</visible>
+<label>temp</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -3490,22 +3518,8 @@
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(kjeiygall)</visible>
-<label>Update all</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36307">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>!Control.IsVisible(36296) + !Control.IsVisible(36297) + !Control.IsVisible(36298) + !Control.IsVisible(36299) + !Control.IsVisible(36300) + !Control.IsVisible(36301) + !Control.IsVisible(36302) + !Control.IsVisible(36303) + !Control.IsVisible(36304) + !Control.IsVisible(36305)</visible>
-<label>Up-to-date</label>
+<visible>skin.hasSetting(moreutils)</visible>
+<label>Get more...</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -3518,17 +3532,32 @@
 <textcolor>blue</textcolor>
 <align>left</align>
 <aligny>center</aligny>
-<label>Packages</label>
+<label>Firmware [COLOR lightblue](1/1)[/COLOR]</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
+<control type="button" id="36309">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(firmware0)</visible>
+<label>temp</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
 <control type="button" id="36310">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(epzdyf0)</visible>
+<visible>skin.hasSetting(morefirmware)</visible>
+<label>Get more...</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -3537,37 +3566,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36311">
-<texturefocus>MenuItemFO.png</texturefocus>
+<control type="label" id="36312">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>Devel [COLOR lightblue](0/1)[/COLOR]</label>
+<height>45</height>
 <width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(epzdyf1)</visible>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36312">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(epzdyf2)</visible>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
 </control>
 <control type="button" id="36313">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(epzdyf3)</visible>
+<visible>skin.hasSetting(devel0)</visible>
+<label>temp</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -3580,7 +3594,8 @@
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(epzdyf4)</visible>
+<visible>skin.hasSetting(moredevel)</visible>
+<label>Get more...</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -3589,37 +3604,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36315">
-<texturefocus>MenuItemFO.png</texturefocus>
+<control type="label" id="36316">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>Base [COLOR lightblue](1/1)[/COLOR]</label>
+<height>45</height>
 <width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(epzdyf5)</visible>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36316">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(epzdyf6)</visible>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
 </control>
 <control type="button" id="36317">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(epzdyf7)</visible>
+<visible>skin.hasSetting(base0)</visible>
+<label>temp</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -3632,7 +3632,8 @@
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(epzdyf8)</visible>
+<visible>skin.hasSetting(morebase)</visible>
+<label>Get more...</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -3641,11 +3642,22 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36319">
+<control type="label" id="36320">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>Video [COLOR lightblue](1/1)[/COLOR]</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36321">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(epzdyf9)</visible>
+<visible>skin.hasSetting(video0)</visible>
+<label>temp</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -3654,11 +3666,396 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36320">
+<control type="button" id="36322">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(epzdyfall)</visible>
+<visible>skin.hasSetting(morevideo)</visible>
+<label>Get more...</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36324">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>Net [COLOR lightblue](1/8)[/COLOR]</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36325">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(net0)</visible>
+<label>temp</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36326">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(net1)</visible>
+<label>temp</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36327">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(net2)</visible>
+<label>temp</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36328">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(net3)</visible>
+<label>temp</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36329">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(net4)</visible>
+<label>temp</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36330">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(net5)</visible>
+<label>temp</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36331">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(net6)</visible>
+<label>temp</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36332">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(net7)</visible>
+<label>temp</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36333">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(morenet)</visible>
+<label>Get more...</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36335">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>Non-Free/Utils [COLOR lightblue](0/0)[/COLOR]</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36336">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(morenon-free/utils)</visible>
+<label>Get more...</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+</control>
+<control type="grouplist" id="36408">
+<itemgap>-1</itemgap>
+<onleft>9000</onleft>
+<onright>9000</onright>
+<visible>Container(9000).HasFocus(36407)</visible>
+<control type="label" id="36339">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>XBian</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36341">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(kgtjui0)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36342">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(kgtjui1)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36343">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(kgtjui2)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36344">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(kgtjui3)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36345">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(kgtjui4)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36346">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(kgtjui5)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36347">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(kgtjui6)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36348">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(kgtjui7)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36349">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(kgtjui8)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36350">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(kgtjui9)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36351">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(kgtjui10)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36352">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(kgtjui11)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36353">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(kgtjui12)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36354">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(kgtjui13)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36355">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(kgtjui14)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36356">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(kgtjuiall)</visible>
 <label>Update all</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -3668,11 +4065,11 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36321">
+<control type="button" id="36357">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>!Control.IsVisible(36310) + !Control.IsVisible(36311) + !Control.IsVisible(36312) + !Control.IsVisible(36313) + !Control.IsVisible(36314) + !Control.IsVisible(36315) + !Control.IsVisible(36316) + !Control.IsVisible(36317) + !Control.IsVisible(36318) + !Control.IsVisible(36319)</visible>
+<visible>!Control.IsVisible(36341) + !Control.IsVisible(36342) + !Control.IsVisible(36343) + !Control.IsVisible(36344) + !Control.IsVisible(36345) + !Control.IsVisible(36346) + !Control.IsVisible(36347) + !Control.IsVisible(36348) + !Control.IsVisible(36349) + !Control.IsVisible(36350) + !Control.IsVisible(36351) + !Control.IsVisible(36352) + !Control.IsVisible(36353) + !Control.IsVisible(36354) + !Control.IsVisible(36355)</visible>
 <label>Up-to-date</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -3682,33 +4079,364 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-</control>
-<control type="grouplist" id="36355">
-<itemgap>-1</itemgap>
-<onleft>9000</onleft>
-<onright>9000</onright>
-<visible>Container(9000).HasFocus(36337)</visible>
-<control type="label" id="36322">
+<control type="label" id="36358">
 <textcolor>blue</textcolor>
 <align>left</align>
 <aligny>center</aligny>
-<label>Xbmc</label>
+<label>Packages</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36324">
+<control type="button" id="36360">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(dkovcm0)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36361">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(dkovcm1)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36362">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(dkovcm2)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36363">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(dkovcm3)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36364">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(dkovcm4)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36365">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(dkovcm5)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36366">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(dkovcm6)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36367">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(dkovcm7)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36368">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(dkovcm8)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36369">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(dkovcm9)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36370">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(dkovcm10)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36371">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(dkovcm11)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36372">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(dkovcm12)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36373">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(dkovcm13)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36374">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(dkovcm14)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36375">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(dkovcmall)</visible>
+<label>Update all</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36376">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>!Control.IsVisible(36360) + !Control.IsVisible(36361) + !Control.IsVisible(36362) + !Control.IsVisible(36363) + !Control.IsVisible(36364) + !Control.IsVisible(36365) + !Control.IsVisible(36366) + !Control.IsVisible(36367) + !Control.IsVisible(36368) + !Control.IsVisible(36369) + !Control.IsVisible(36370) + !Control.IsVisible(36371) + !Control.IsVisible(36372) + !Control.IsVisible(36373) + !Control.IsVisible(36374)</visible>
+<label>Up-to-date</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36377">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>Automatic updates</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="radiobutton" id="36402">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<label>Auto update package inventory</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36404">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>SubString(Control.GetLabel(36402),*)</visible>
+<label>        - interval (days)</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36378">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<label>Auto install available updates</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36379">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<label>Do a snapshot with APT-GET transaction</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36380">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label></label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="label" id="36381">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>Backup complete system to .img file or to a device / XBian system clone</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="radiobutton" id="36383">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<label>Auto image / clone generation</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36385">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>SubString(Control.GetLabel(36383),*)</visible>
+<visible>skin.hasSetting(advancedmode)</visible>
+<label>        - File name or block device</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36387">
 <visible>false</visible>
 <description>hidden button to scroll up the list</description>
 </control>
-<control type="group" id="36326">
+<control type="group" id="36389">
 <width>750</width>
+<visible>SubString(Control.GetLabel(36383),*)</visible>
+<visible>skin.hasSetting(advancedmode)</visible>
 <height>40</height>
-<control type="spincontrol" id="36329">
-<onup>36324</onup>
+<control type="spincontrol" id="36390">
+<onup>36387</onup>
 <textcolor>grey2</textcolor>
-<ondown>36325</ondown>
+<ondown>36388</ondown>
 <disabledcolor>grey3</disabledcolor>
 <enable>false</enable>
 <pulseonselect>false</pulseonselect>
@@ -3720,14 +4448,14 @@
 <onright>9000</onright>
 <textoffsetx>5000</textoffsetx>
 </control>
-<control type="button" id="36330">
-<onup>36324</onup>
+<control type="button" id="36391">
+<onup>36387</onup>
 <texturefocus>MenuItemFO.png</texturefocus>
-<ondown>36325</ondown>
+<ondown>36388</ondown>
 <width>750</width>
 <disabledcolor>white</disabledcolor>
-<visible>Control.HasFocus(36329) + Control.IsEnabled(36329) + control.IsVisible(36329)</visible>
-<label>XBMC GUI resolution</label>
+<visible>Control.HasFocus(36390) + Control.IsEnabled(36390) + control.IsVisible(36390)</visible>
+<label>        - type</label>
 <height>40</height>
 <posx>0</posx>
 <pulseonselect>false</pulseonselect>
@@ -3738,14 +4466,14 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36331">
-<onup>36324</onup>
+<control type="button" id="36392">
+<onup>36387</onup>
 <texturefocus>MenuItemFO.png</texturefocus>
-<ondown>36325</ondown>
+<ondown>36388</ondown>
 <width>750</width>
 <disabledcolor>grey2</disabledcolor>
-<visible>!Control.HasFocus(36329) + Control.IsEnabled(36329) + control.IsVisible(36329)</visible>
-<label>XBMC GUI resolution</label>
+<visible>!Control.HasFocus(36390) + Control.IsEnabled(36390) + control.IsVisible(36390)</visible>
+<label>        - type</label>
 <height>40</height>
 <posx>0</posx>
 <pulseonselect>false</pulseonselect>
@@ -3756,14 +4484,14 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36332">
-<onup>36324</onup>
+<control type="button" id="36393">
+<onup>36387</onup>
 <texturefocus>MenuItemFO.png</texturefocus>
-<ondown>36325</ondown>
+<ondown>36388</ondown>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>!Control.IsEnabled(36329) + control.IsVisible(36329)</visible>
-<label>XBMC GUI resolution</label>
+<visible>!Control.IsEnabled(36390) + control.IsVisible(36390)</visible>
+<label>        - type</label>
 <height>40</height>
 <posx>0</posx>
 <pulseonselect>false</pulseonselect>
@@ -3774,23 +4502,23 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="wraplist" id="36333">
-<onup>36324</onup>
+<control type="wraplist" id="36394">
+<onup>36387</onup>
 <enable>false</enable>
-<ondown>36325</ondown>
+<ondown>36388</ondown>
 <width>225</width>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <scrolltime>0</scrolltime>
 <posx>450</posx>
 <posy>0</posy>
-<pagecontrol>36329</pagecontrol>
+<pagecontrol>36390</pagecontrol>
 <itemlayout width="225" height="40">
 </itemlayout>
 <focusedlayout width="225" height="40">
-<control type="label" id="36334">
+<control type="label" id="36395">
 <textcolor>grey3</textcolor>
-<visible>!Control.IsEnabled(36329)</visible>
+<visible>!Control.IsEnabled(36390)</visible>
 <align>right</align>
 <label>$INFO[ListItem.Label]</label>
 <height>40</height>
@@ -3800,9 +4528,9 @@
 <posy>0</posy>
 <font>font13</font>
 </control>
-<control type="label" id="36335">
+<control type="label" id="36396">
 <textcolor>white</textcolor>
-<visible>Control.HasFocus(36329) + Control.IsEnabled(36329)</visible>
+<visible>Control.HasFocus(36390) + Control.IsEnabled(36390)</visible>
 <align>right</align>
 <label>$INFO[ListItem.Label]</label>
 <height>40</height>
@@ -3812,9 +4540,9 @@
 <posy>0</posy>
 <font>font13</font>
 </control>
-<control type="label" id="36336">
+<control type="label" id="36397">
 <textcolor>grey2</textcolor>
-<visible>!Control.HasFocus(36329) + Control.IsEnabled(36329)</visible>
+<visible>!Control.HasFocus(36390) + Control.IsEnabled(36390)</visible>
 <align>right</align>
 <label>$INFO[ListItem.Label]</label>
 <height>40</height>
@@ -3826,36 +4554,332 @@
 </control>
 </focusedlayout>
 <content>
-<item id="36351">
+<item id="36398">
+<onclick>-</onclick>
+<label>Daily</label>
+</item>
+<item id="36399">
+<onclick>-</onclick>
+<label>Weekly</label>
+</item>
+<item id="36400">
+<onclick>-</onclick>
+<label>Monthly</label>
+</item>
+</content>
+</control>
+</control>
+<control type="button" id="36388">
+<visible>false</visible>
+<description>hidden button to scroll down the list</description>
+</control>
+</control>
+<control type="grouplist" id="36452">
+<itemgap>-1</itemgap>
+<onleft>9000</onleft>
+<onright>9000</onright>
+<visible>Container(9000).HasFocus(36437)</visible>
+<control type="label" id="36405">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>Xbmc</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36409">
+<visible>false</visible>
+<description>hidden button to scroll up the list</description>
+</control>
+<control type="group" id="36411">
+<width>750</width>
+<height>40</height>
+<control type="spincontrol" id="36412">
+<onup>36409</onup>
+<textcolor>grey2</textcolor>
+<ondown>36410</ondown>
+<disabledcolor>grey3</disabledcolor>
+<enable>false</enable>
+<pulseonselect>false</pulseonselect>
+<subtype>page</subtype>
+<posx>670</posx>
+<posy>8</posy>
+<onleft>9000</onleft>
+<font>font13</font>
+<onright>9000</onright>
+<textoffsetx>5000</textoffsetx>
+</control>
+<control type="button" id="36413">
+<onup>36409</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36410</ondown>
+<width>750</width>
+<disabledcolor>white</disabledcolor>
+<visible>Control.HasFocus(36412) + Control.IsEnabled(36412) + control.IsVisible(36412)</visible>
+<label>XBMC GUI resolution</label>
+<height>40</height>
+<posx>0</posx>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemFO.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36414">
+<onup>36409</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36410</ondown>
+<width>750</width>
+<disabledcolor>grey2</disabledcolor>
+<visible>!Control.HasFocus(36412) + Control.IsEnabled(36412) + control.IsVisible(36412)</visible>
+<label>XBMC GUI resolution</label>
+<height>40</height>
+<posx>0</posx>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36415">
+<onup>36409</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36410</ondown>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>!Control.IsEnabled(36412) + control.IsVisible(36412)</visible>
+<label>XBMC GUI resolution</label>
+<height>40</height>
+<posx>0</posx>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="wraplist" id="36416">
+<onup>36409</onup>
+<enable>false</enable>
+<ondown>36410</ondown>
+<width>225</width>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<scrolltime>0</scrolltime>
+<posx>450</posx>
+<posy>0</posy>
+<pagecontrol>36412</pagecontrol>
+<itemlayout width="225" height="40">
+</itemlayout>
+<focusedlayout width="225" height="40">
+<control type="label" id="36417">
+<textcolor>grey3</textcolor>
+<visible>!Control.IsEnabled(36412)</visible>
+<align>right</align>
+<label>$INFO[ListItem.Label]</label>
+<height>40</height>
+<width>225</width>
+<aligny>center</aligny>
+<posx>215</posx>
+<posy>0</posy>
+<font>font13</font>
+</control>
+<control type="label" id="36418">
+<textcolor>white</textcolor>
+<visible>Control.HasFocus(36412) + Control.IsEnabled(36412)</visible>
+<align>right</align>
+<label>$INFO[ListItem.Label]</label>
+<height>40</height>
+<width>225</width>
+<aligny>center</aligny>
+<posx>215</posx>
+<posy>0</posy>
+<font>font13</font>
+</control>
+<control type="label" id="36419">
+<textcolor>grey2</textcolor>
+<visible>!Control.HasFocus(36412) + Control.IsEnabled(36412)</visible>
+<align>right</align>
+<label>$INFO[ListItem.Label]</label>
+<height>40</height>
+<width>225</width>
+<aligny>center</aligny>
+<posx>215</posx>
+<posy>0</posy>
+<font>font13</font>
+</control>
+</focusedlayout>
+<content>
+<item id="36448">
 <onclick>-</onclick>
 <label>480p</label>
 </item>
-<item id="36352">
+<item id="36449">
 <onclick>-</onclick>
 <label>540p</label>
 </item>
-<item id="36353">
+<item id="36450">
 <onclick>-</onclick>
 <label>720p</label>
 </item>
-<item id="36354">
+<item id="36451">
 <onclick>-</onclick>
 <label>1080p</label>
 </item>
 </content>
 </control>
 </control>
-<control type="button" id="36325">
+<control type="button" id="36410">
 <visible>false</visible>
 <description>hidden button to scroll down the list</description>
 </control>
+<control type="radiobutton" id="36420">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<label>Turn CEC capable TV off with screensaver</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
 </control>
-<control type="grouplist" id="36349">
+<control type="radiobutton" id="36426">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>skin.hasSetting(advancedmode)</visible>
+<label>XBMC Dynamic Priority</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36428">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>SubString(Control.GetLabel(36426),*)</visible>
+<visible>skin.hasSetting(advancedmode)</visible>
+<label>        - Xbmc low priority</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36429">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>SubString(Control.GetLabel(36426),*)</visible>
+<visible>skin.hasSetting(advancedmode)</visible>
+<label>        - Xbmc high priority</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36421">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>USB HotPlug</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="radiobutton" id="36422">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<label>Enable USB disk automounting</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36423">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<label>Make automounted disks available via SMB</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36424">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<label>Include partition UUID in mnt folder name</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36431">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<label>Spin down HDD</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36433">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>SubString(Control.GetLabel(36431),*)</visible>
+<label>        - delay (min)</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+</control>
+<control type="grouplist" id="36446">
 <itemgap>-1</itemgap>
 <onleft>9000</onleft>
 <onright>9000</onright>
-<visible>Container(9000).HasFocus(36348)</visible>
-<control type="label" id="36338">
+<visible>Container(9000).HasFocus(36445)</visible>
+<control type="label" id="36434">
 <textcolor>blue</textcolor>
 <align>left</align>
 <aligny>center</aligny>
@@ -3865,7 +4889,7 @@
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="radiobutton" id="36339">
+<control type="radiobutton" id="36435">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
@@ -3878,7 +4902,7 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36340">
+<control type="label" id="36436">
 <textcolor>blue</textcolor>
 <align>left</align>
 <aligny>center</aligny>
@@ -3888,7 +4912,7 @@
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="radiobutton" id="36343">
+<control type="radiobutton" id="36440">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
@@ -3901,7 +4925,7 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36341">
+<control type="radiobutton" id="36438">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
@@ -3914,7 +4938,7 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36342">
+<control type="radiobutton" id="36439">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
