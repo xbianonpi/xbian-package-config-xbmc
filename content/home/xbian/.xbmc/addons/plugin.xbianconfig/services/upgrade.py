@@ -1,6 +1,7 @@
 import os
 import time
 import xbmc
+import xbmcgui
 from xbmcaddon import Addon
 from resources.lib.service import service
 from resources.lib.xbianconfig import xbianConfig
@@ -15,14 +16,17 @@ class upgrade(service):
         self.StopRequested = False
         self.xbianUpdate = False
         self.packageUpdate = False
-        print 'upgrade service started'
+        self.rebootNeeded = False
+        self.rebootNoCheck = False
+        print 'XBian : upgrade service started'
     
     def onAbortRequested(self):
+        os.system('sudo kill $(cat /run/lock/xbian-config) &>/dev/null')
         self.StopRequested = True
         
     def onScreensaverActivated(self):
-        print 'screensaver activated'                
-        if not xbmc.Player().isPlaying() and (getSetting('lastupdatecheck') == None  or getSetting('lastupdatecheck') < datetime.now() - timedelta(days=1)):			
+        print 'XBian : screensaver activated'
+        if not xbmc.Player().isPlaying() and (getSetting('lastupdatecheck') == None  or getSetting('lastupdatecheck') < datetime.now() - timedelta(days=1)):
             print 'XBian : Checking for update'
             #check if new upgrade avalaible
             rc =xbianConfig('updates','list','upgrades')
@@ -38,33 +42,39 @@ class upgrade(service):
            
            #check if new update package avalaible
             rc =xbianConfig('updates','list','packages')
-            if rc and rc[0] == '-3' :
-                rctmp = xbianConfig('updates','updatedb')
-                if rctmp and rctmp[0] == '1' :
-                     rc =xbianConfig('updates','list','packages')
-                else :
-                    rc[0]= '0'
             if rc and rc[0] not in ('0','-2') :
                 self.packageUpdate = True
             setSetting('lastupdatecheck',datetime.now())
 
-    
-    def onScreensaverDeactivated(self):
-        print 'screensaver Deactivated'
-        rebootneeded = xbianConfig('reboot')
-        progress.close()
-        if rebootneeded and rebootneeded[0] == '1' :
-            if xbmcgui.Dialog().yesno('XBian-config','A reboot is needed','Do you want to reboot now?') :
-                #reboot
-                xbmc.executebuiltin('Reboot')
+    def onIdle(self):
+        if self.rebootNoCheck:
+            return
 
-        if self.xbianUpdate :
-            xbmc.executebuiltin("Notification(XBian Upgrade,A new version (%s) of XBian is out)"%(self.xbianUpdate))            
-            self.xbianUpdate = False            
-        if self.packageUpdate :
-            xbmc.executebuiltin("Notification(Packages Update,Some XBian package can be updated)")
-            self.packageUpdate = False
-            
+        rebootneeded = xbianConfig('reboot')
+
+        if rebootneeded and rebootneeded[0] == '1' :
+            rebootneeded = xbianConfig('updates','progress')
+            if rebootneeded and rebootneeded[0] == '0' :
+                if xbmcgui.Dialog().yesno('XBian-config','A reboot is needed','Do you want to reboot now?') :
+                    #reboot
+                    os.system('sudo reboot')
+                    xbmc.executebuiltin("XBMC.Quit()")
+                    self.rebootNeeded = True
+                else:
+                    self.rebootNoCheck = True
+
+    def onScreensaverDeactivated(self):
+        self.onIdle()
+        if self.rebootNeeded:
+            return
+        else:
+            if self.xbianUpdate :
+                xbmc.executebuiltin("Notification(XBian Upgrade,A new version (%s) of XBian is out)"%(self.xbianUpdate))            
+                self.xbianUpdate = False            
+            if self.packageUpdate :
+                xbmc.executebuiltin("Notification(Packages Update,Some XBian package can be updated)")
+                self.packageUpdate = False
+
     def onStart(self):
         #check if Xbian is upgrading
         if os.path.isfile('/var/lock/.upgrades') :
@@ -91,30 +101,17 @@ class upgrade(service):
                     return              
             xbmc.executebuiltin("Notification(%s,%s)"%('Package Update','Package was updated successfully'))
             os.remove('/var/lock/.packages')
+
         #for those one who deactivate its screensaver, force check every 10 days
         if getSetting('lastupdatecheck') != None and getSetting('lastupdatecheck') < datetime.now() - timedelta(days=10):
 			self.onScreensaverActivated()
 			self.onScreensaverDeactivated()
-        while not self.StopRequested: #End if XBMC closes
-            xbmc.sleep(1000) #Repeat (ms) 
+        while not self.StopRequested and not self.rebootNeeded: #End if XBMC closes
+            self.onIdle()
+            self.x = 0
+            while not self.rebootNeeded and not self.StopRequested and self.x < 600:
+                xbmc.sleep(500) #Repeat (ms) 
+                self.x = self.x + 1
 
+        print 'XBian : upgrade service finished'
 
-class checkreboot(service):
-    def onInit(self):
-        self.StopRequested = False
-        print 'reboot checker started'
-
-    def onAbortRequested(self):
-        self.StopRequested = True
-
-    def onStart(self):
-        print 'reboot checker started'
-        while not self.StopRequested: #End if XBMC closes
-            print 'checking if reboot needed'
-            rebootneeded = xbianConfig('reboot')
-            progress.close()
-            if rebootneeded and rebootneeded[0] == '1' :
-                if xbmcgui.Dialog().yesno('XBian-config','A reboot is needed','Do you want to reboot now?') :
-                    #reboot
-                    xbmc.executebuiltin('Reboot')
-            xbmc.sleep(300000) #Repeat (ms) 

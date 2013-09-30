@@ -99,9 +99,11 @@ class xbian_config_python :
                     rebootneeded = xbianConfig('reboot')
                     progress.close()
                     if rebootneeded and rebootneeded[0] == '1' :
-                        if xbmcgui.Dialog().yesno('XBian-config','A reboot is needed','Do you want to reboot now?') :
-                            #reboot
-                            xbmc.executebuiltin('Reboot')
+                        rebootneeded = xbianConfig('updates','progress')
+                        if rebootneeded and rebootneeded[0] == '0' :
+                            if xbmcgui.Dialog().yesno('XBian-config','A reboot is needed','Do you want to reboot now?') :
+                                #reboot
+                                xbmc.executebuiltin('Reboot')
             except :
                 self.window.stopRequested = True            
                 xbmcgui.Dialog().ok('XBian-config','Something went wrong while creating the window','Please contact us on www.xbian.org for further support')
@@ -116,7 +118,7 @@ class xbian_config_python :
             self.stop = True
             self.wait.close()
         else :
-            perc = int((float(self.finished)/(self.total*2)) * 100)            
+            perc = int((float(self.finished)/(self.total)) * 100)            
             self.wait.update(perc)
         
     def threadInitCategory(self,modulename) :        
