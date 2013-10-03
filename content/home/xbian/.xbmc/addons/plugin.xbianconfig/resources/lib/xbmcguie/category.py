@@ -16,11 +16,13 @@ dialog = xbmcgui.Dialog()
 #bass Class for all categories
 
 class Category():
-    def __init__(self,queue) :
+    def __init__(self,queue,cbProgress=None) :
         self.setTitle(self.TITLE)
         self.queue = queue
         self.settings = []
-        for setting in self.SETTINGS :
+        for i,setting in enumerate(self.SETTINGS) :
+            if cbProgress :
+                cbProgress(self.TITLE,setting.DIALOGHEADER,int(float(100/len(self.SETTINGS))*i))
             self.settings.append(setting())
         #self.scrollbar = scrollbarControl(Tag('onright',9000),Tag('posx',1060),Tag('posy',60),Tag('width',25),Tag('height',530),Tag('visible','Container(9000).HasFocus(%d)'%self.Menucategory.getId()),Tag('showonepage','false'))
         self.category  = GroupListControl(Tag('onleft',9000),Tag('onright',9000),Tag('itemgap',-1),Tag('visible','Container(9000).HasFocus(%d)'%self.Menucategory.getId()),defaultSKin = False)

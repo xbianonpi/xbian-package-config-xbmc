@@ -11,7 +11,7 @@ from resources.lib.xbmcguie.category import Category,Setting
 
 from resources.lib.xbianconfig import xbianConfig
 from resources.lib.utils import *
-import xbmcgui,xbmc
+import xbmc
 from xbmcaddon import Addon
 
 __addonID__      = "plugin.xbianconfig"
@@ -23,7 +23,6 @@ BASE_RESOURCE_PATH = os.path.join( ROOTDIR, "resources" )
 
 #if i add integer, xbmc diplay as Translation String
 BACKUP_PROFILE = ['Daily','Weekly','Monthly']
-dialog=xbmcgui.Dialog()
 
 
 class updateControl(MultiSettingControl):
@@ -41,13 +40,13 @@ class updateControl(MultiSettingControl):
         
         keynoupdate = ''
         for i,update in enumerate(self.updates) :                        
-            xbmc.executebuiltin('Skin.Reset(%s%d)'%(self.key,i))
+            #xbmc.executebuiltin('Skin.Reset(%s%d)'%(self.key,i))
             update['name'] = ButtonControl(Tag('visible','skin.hasSetting(%s%d)'%(self.key,i)))
             update['name'].onClick = lambda update : self.onUpdateClick(self.getCurrentUpdate(update))
             self.addControl(update['name'])
             keynoupdate+='!Control.IsVisible(%d) + '%update['name'].getId()
         keynoupdate = keynoupdate[:-3]
-        xbmc.executebuiltin('Skin.Reset(%s)'%(self.keyupdateall))
+        #xbmc.executebuiltin('Skin.Reset(%s)'%(self.keyupdateall))
         self.udpateAll = ButtonControl(Tag('label','Update all'),Tag('visible','skin.hasSetting(%s)'%(self.keyupdateall)))
         self.udpateAll.onClick = lambda updateall : self.onUpdateAll()
         self.addControl(self.udpateAll)
@@ -68,15 +67,17 @@ class updateControl(MultiSettingControl):
         xbmc.executebuiltin('Skin.SetBool(%s%d)'%(self.key,int(values[0])-1))
         self.nbcanbeupdate += 1
         if self.nbcanbeupdate == 2 :
-			xbmc.executebuiltin('Skin.SetBool(%s)'%self.keyupdateall)
+            xbmc.executebuiltin('Skin.SetBool(%s)'%self.keyupdateall)
+        elif self.nbcanbeupdate == 1 :
+            xbmc.executebuiltin('Skin.Reset(%s)'%self.keyupdateall)
     
     def removeUpdate(self,update)  :   
         values = update.split(';')
         xbmc.executebuiltin('Skin.Reset(%s%d)'%(self.key,int(values[0])-1))
         self.nbcanbeupdate -= 1
         if self.nbcanbeupdate == 1 :
-			xbmc.executebuiltin('Skin.Reset(%s)'%self.keyupdateall)
-			
+            xbmc.executebuiltin('Skin.Reset(%s)'%self.keyupdateall)
+            
     def onUpdateClick(self,updateId) :
         pass
             
@@ -106,41 +107,41 @@ class packageUpdate(Setting) :
         open(lockfile,'w').close()
         updateId = str(updateId)        
         if self.askConfirmation(True) :
-			dlg = dialogWait('Xbian Update','Please wait while updating')
-			dlg.show()			
-			rc =xbianConfig('updates','install',self.key,updateId)
-			if rc and rc[0] == '1' :
-				#wait upgrade
-				while not xbmc.abortRequested and xbianConfig('updates','progress')[0] == '1':
-					time.sleep(2)
-				if xbmc.abortRequested :
-					return None
-				else :
-					os.remove(lockfile) 
-					#refresh gui
-					#remove settings from gui
-					for update in self.xbianValue :						
-						self.control.removeUpdate(update)
-					#reload value
-					self.xbianValue = self.getXbianValue()					
-					dlg.close()
-					self.notifyOnSuccess()
-			else :
-				if rc and rc[0] == '2' :
-					self.ERRORTEXT = 'These packages are already updated'           
-				elif rc and rc[0] == '3' :
-					self.ERRORTEXT = 'Packages not found in apt repository'
-				elif rc and rc[0] == '4' :
-					self.ERRORTEXT = 'Packages not found in apt repository'
-				elif rc and rc[0] == '5' :
-					self.ERRORTEXT = 'There is a size mismatch for the remote packages'
-				elif rc and rc[0] == '6' :
-					self.ERRORTEXT = 'The packages itselves got a internal error'
-				else :
-					self.ERRORTEXT = 'Unexpected error'
-				os.remove(lockfile)
-				dlg.close()
-				self.notifyOnError()    
+            dlg = dialogWait('Xbian Update','Please wait while updating')
+            dlg.show()          
+            rc =xbianConfig('updates','install',self.key,updateId)
+            if rc and rc[0] == '1' :
+                #wait upgrade
+                while not xbmc.abortRequested and xbianConfig('updates','progress')[0] == '1':
+                    time.sleep(2)
+                if xbmc.abortRequested :
+                    return None
+                else :
+                    os.remove(lockfile) 
+                    #refresh gui
+                    #remove settings from gui
+                    for update in self.xbianValue :                     
+                        self.control.removeUpdate(update)
+                    #reload value
+                    self.xbianValue = self.getXbianValue()                  
+                    dlg.close()
+                    self.notifyOnSuccess()
+            else :
+                if rc and rc[0] == '2' :
+                    self.ERRORTEXT = 'These packages are already updated'           
+                elif rc and rc[0] == '3' :
+                    self.ERRORTEXT = 'Packages not found in apt repository'
+                elif rc and rc[0] == '4' :
+                    self.ERRORTEXT = 'Packages not found in apt repository'
+                elif rc and rc[0] == '5' :
+                    self.ERRORTEXT = 'There is a size mismatch for the remote packages'
+                elif rc and rc[0] == '6' :
+                    self.ERRORTEXT = 'The packages itselves got a internal error'
+                else :
+                    self.ERRORTEXT = 'Unexpected error'
+                os.remove(lockfile)
+                dlg.close()
+                self.notifyOnError()    
             
     def onUpdateAll(self) :
         updates = ''
@@ -158,7 +159,6 @@ class packageUpdate(Setting) :
 class updatePackageLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label','Available updates'))      
 
-dialog=xbmcgui.Dialog()
 
 
 class UpdateLabel(Setting) :

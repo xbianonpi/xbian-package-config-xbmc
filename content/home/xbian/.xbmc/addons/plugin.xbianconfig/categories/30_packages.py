@@ -18,7 +18,6 @@ ADDON_DIR = ADDON.getAddonInfo( "path" )
 ROOTDIR            = ADDON_DIR
 BASE_RESOURCE_PATH = os.path.join( ROOTDIR, "resources" )
 
-dialog = xbmcgui.Dialog()
 
 
 class PackagesControl(MultiSettingControl):
@@ -49,7 +48,7 @@ class PackagesControl(MultiSettingControl):
             self.packages[key]['set'] = []           
             self.packages[key]['list'] = []
             for i in range(self.packages[key]['available']) :
-                xbmc.executebuiltin('Skin.Reset(%s%d)'%(key,i))
+                #xbmc.executebuiltin('Skin.Reset(%s%d)'%(key,i))
                 package = ButtonControl(Tag('label','temp'),Tag('visible','skin.hasSetting(%s%d)'%(key,i)))
                 package.onClick = lambda select : self.selectClick(self.getCurrentCat(select),select.getLabel())
                 self.packages[key]['list'].append(package)
@@ -58,7 +57,7 @@ class PackagesControl(MultiSettingControl):
                 
             
             #add Get more Button
-            xbmc.executebuiltin('Skin.SetBool(more%s)'%key)
+            #xbmc.executebuiltin('Skin.SetBool(more%s)'%key)
             self.packages[key]['getmore'] = ButtonControl(Tag('label','Get more...'),Tag('visible','skin.hasSetting(more%s)'%key))
             self.packages[key]['getmore'].onClick = lambda getmore : self.getmoreClick(self.getCurrentCat(getmore))
             self.packages[key]['group'].addControl(self.packages[key]['getmore'])
@@ -118,7 +117,8 @@ class packagesManager(Setting) :
     def onInit(self) :   
         pass    
         self.control.getmoreClick = self.onGetMore
-        self.control.selectClick = self.onSelect        
+        self.control.selectClick = self.onSelect
+        self.dialog = xbmcgui.Dialog()        
         
     def showInfo(self,package) :
         progress = dialogWait('Loading','Please wait while loading the information for %s'%package)
@@ -129,7 +129,7 @@ class packagesManager(Setting) :
             PackageInfo(package,rc[0].partition(' ')[2],rc[1].partition(' ')[2],rc[2].partition(' ')[2],rc[3].partition(' ')[2],rc[4].partition(' ')[2],rc[5].partition(' ')[2],rc[6].partition(' ')[2])
     def onSelect(self,cat,package) :
         choice = ['Informations','Remove Package']
-        select = dialog.select('Select',choice)
+        select = self.dialog.select('Select',choice)
         if select == 0 :
             #display info dialog
             self.showInfo(package)
@@ -197,10 +197,10 @@ class packagesManager(Setting) :
              packageTmp = packag.split(',')
              if packageTmp[1] == '0' :
                 package.append(packageTmp[0])
-           select =dialog.select('Select Package',package)
+           select =self.dialog.select('Select Package',package)
            if select != -1 :
                 choice = ['Informations','Install Package']
-                sel = dialog.select('Select',choice)
+                sel = self.dialog.select('Select',choice)
                 if sel == 0 :
                     #display info dialog
                     self.showInfo(package[select])

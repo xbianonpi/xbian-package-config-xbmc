@@ -1,7 +1,3 @@
-import os
-import subprocess
-import time
-
 from resources.lib.xbmcguie.xbmcContainer import *
 from resources.lib.xbmcguie.xbmcControl import *
 from resources.lib.xbmcguie.tag import Tag
@@ -9,14 +5,11 @@ from resources.lib.xbmcguie.category import Category,Setting
 
 from resources.lib.xbianconfig import xbianConfig
 from resources.lib.utils import *
-import xbmcgui,xbmc
-from xbmcaddon import Addon
 
-__addonID__      = "plugin.xbianconfig"
-ADDON     = Addon( __addonID__ )
-ADDON_DIR = ADDON.getAddonInfo( "path" )
-ROOTDIR            = ADDON_DIR
-BASE_RESOURCE_PATH = os.path.join( ROOTDIR, "resources" )
+
+import xbmc,xbmcgui
+import os
+import base64
 
 dialog = xbmcgui.Dialog()
 
@@ -42,7 +35,7 @@ class ServicesControl(MultiSettingControl):
             self.serviceList.append('custom%d'%i)
         for service in self.serviceList :
             self.services[service] = {}
-            xbmc.executebuiltin('Skin.Reset(%s)'%service)
+            #xbmc.executebuiltin('Skin.Reset(%s)'%service)
             self.services[service]['group'] = MultiSettingControl(Tag('visible','skin.hasSetting(%s)'%service))
             self.services[service]['label'] = CategoryLabelControl(Tag('label',service.title()))
             self.services[service]['group'].addControl(self.services[service]['label'])
@@ -88,7 +81,7 @@ class ServicesControl(MultiSettingControl):
                 self.services['custom']['addcustom'].setEnabled(False)
         
     def setVisible(self,service,state):
-        for serv in self.serviceList :		
+        for serv in self.serviceList :      
             if self.services.has_key(service) and self.services[serv] == self.services[service] :
                 if state :
                     xbmc.executebuiltin('Skin.SetBool(%s)'%serv)
@@ -138,15 +131,13 @@ class servicesManager(Setting) :
 
     def onInit(self) :
         self.serviceInstalled = xbianConfig('services','list')
-        for service in self.serviceInstalled :
-            self.control.setVisible(service,True)
-            #xbmc.executebuiltin('Skin.SetBool(%s)'%service)
         self.control.onStatusClick = self.onStatus
         self.control.onAutostartClick = self.onAutoStart
         self.control.onDaemonClick = self.onDaemon
         self.control.onDeleteClick = self.onDelete       
         self.control.onAddCustomClick = self.onAddCustom
         self.publicMethod['refresh'] = self.refresh
+        pass
     
     def refresh(self) :
         services = xbianConfig('services','list')
@@ -326,6 +317,8 @@ class servicesManager(Setting) :
             return value
                 
     def getXbianValue(self):
+        for service in self.serviceInstalled :
+            self.control.setVisible(service,True)                  
         serviceStatus = xbianConfig('services','status')
         services = {}
         for service in serviceStatus :
@@ -359,7 +352,6 @@ class servicesManager(Setting) :
 
 class services(Category) :
     TITLE = 'Services'
-    SETTINGS = [servicesManager]
-
+    SETTINGS = [servicesManager]    
 
 
