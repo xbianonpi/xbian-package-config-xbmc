@@ -20,27 +20,28 @@ class XbianWindow(WindowSkinXml):
                 for key in public :
                     self.publicMethod[category.getTitle()][key] = public[key]
         #set the windows instance in all xbmc control
-        for category in self.categories :
-			if self.stopRequested :
-				break
-			initthread  = threading.Thread(None,self.onInitThread, None, (category,))
-			initthread.start()
-        
-    def onInitThread(self,category):                                
-            #set default value to gui
-            for setting in category.getSettings():                
+        initthread  = threading.Thread(None,self.onInitThread, None)
+        initthread.start()
+            
+		
+    def onInitThread(self):                                
+            for category in self.categories :
                 if self.stopRequested :
-					break
-                try :                                                   
-                    setting.updateFromXbian()
-                    setting.setPublicMethod(self.publicMethod)                                                               
-                except :
-                    #don't enable control if error
-                    print 'Exception in updateFromXbian for setting'
-                    print sys.exc_info()                      
-                else :
-                    setting.getControl().setEnabled(True)
-    
+                    break       
+                #set default value to gui
+                for setting in category.getSettings():                
+                    if self.stopRequested :
+                        break
+                    try :                                                   
+                        setting.updateFromXbian()
+                        setting.setPublicMethod(self.publicMethod)                                                               
+                    except :
+                        #don't enable control if error
+                        print 'Exception in updateFromXbian for setting'
+                        print sys.exc_info()                      
+                    else :
+                        setting.getControl().setEnabled(True)
+        
     def addCategory(self,category):        
         self.categories.append(category)
         self.addControl(category.getCategory())
