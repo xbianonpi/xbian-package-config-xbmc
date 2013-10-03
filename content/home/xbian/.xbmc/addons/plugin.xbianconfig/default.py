@@ -78,7 +78,7 @@ class xbian_config_python :
                 
                 for i,module in enumerate(self.category_list) :
                     if self.wait.iscanceled():
-						self.stop = True
+                        self.stop = True
                     if not self.stop :
                         print 'Load %s'%module
                         self.globalProgress =  int((float(self.finished)/(self.total)) * 100)
