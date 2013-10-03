@@ -1,5 +1,4 @@
 import os
-import time
 import xbmc
 import xbmcgui
 from xbmcaddon import Addon

@@ -3,10 +3,6 @@ from resources.lib.xbmcguie.xbmcControl import *
 from resources.lib.xbmcguie.tag import Tag
 from resources.lib.xbmcguie.category import Category,Setting
 
-import os
-
-from resources.lib.xbianconfig import xbianConfig
-
 import xbmcgui
 
 dialog=xbmcgui.Dialog()

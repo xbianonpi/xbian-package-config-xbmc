@@ -1,7 +1,6 @@
 import xbmc,xbmcgui
 from xbianconfig import xbianConfig
 import time
-import threading
 import os
 from xbmcaddon import Addon
 import pickle

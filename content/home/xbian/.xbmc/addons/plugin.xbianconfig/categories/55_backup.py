@@ -1,8 +1,4 @@
 import os
-import subprocess
-import time
-import random
-import string
 
 from resources.lib.xbmcguie.xbmcContainer import *
 from resources.lib.xbmcguie.xbmcControl import *
@@ -11,7 +7,6 @@ from resources.lib.xbmcguie.category import Category,Setting
 
 from resources.lib.xbianconfig import xbianConfig
 from resources.lib.utils import *
-import xbmcgui,xbmc
 from xbmcaddon import Addon
 
 __addonID__      = "plugin.xbianconfig"

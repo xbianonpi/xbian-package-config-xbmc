@@ -1,5 +1,3 @@
-import xbmc
-import xbmcgui
 import os
 
 onRun = os.path.join('/','tmp','.xbian_config_python')

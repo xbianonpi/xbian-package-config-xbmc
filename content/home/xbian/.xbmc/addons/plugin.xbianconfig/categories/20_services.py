@@ -8,8 +8,6 @@ from resources.lib.utils import *
 
 
 import xbmc,xbmcgui
-import os
-import base64
 
 dialog = xbmcgui.Dialog()
 

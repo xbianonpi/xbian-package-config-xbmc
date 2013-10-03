@@ -1,6 +1,5 @@
-import os,sys
+import sys
 from xbmcguie.window import WindowSkinXml
-import xbmcgui
 import threading
 
 class XbianWindow(WindowSkinXml):   

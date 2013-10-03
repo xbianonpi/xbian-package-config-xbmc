@@ -12,17 +12,12 @@ __version__      = "0.0.1"
 
 import os
 import sys
-import itertools
-import fnmatch
-import shutil
-#import threading
 import Queue
-import subprocess
+
 
 # xbmc modules
 import xbmc
 import xbmcgui
-import xbmcplugin
 from xbmcaddon import Addon
 
 #xbmcguie
@@ -79,8 +74,7 @@ class xbian_config_python :
                 for i,module in enumerate(self.category_list) :
                     if self.wait.iscanceled():
                         self.stop = True
-                    if not self.stop :
-                        print 'Load %s'%module
+                    if not self.stop :                        
                         self.globalProgress =  int((float(self.finished)/(self.total)) * 100)
                         self.update_progress(module.split('_')[1],'   initialise',0)                        
                         catmodule = __import__('%s.%s'%(CATEGORY_PATH,module), globals(), locals(), [module])                        
@@ -126,8 +120,7 @@ class xbian_config_python :
         
         
     def update_progress(self,categoryname,settingName,perc) :                
-        perc = self.globalProgress + int(perc/self.total)  
-        print 'Progress %s %s : %d'%(categoryname,settingName,perc)          
+        perc = self.globalProgress + int(perc/self.total)          
         self.wait.update(perc,'Loading %s...'%categoryname,'   %s'%settingName)        
                          
 xbian_config_python()
