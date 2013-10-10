@@ -37,7 +37,7 @@ class Category():
         
     def setTitle(self,Title) :
         self.Title = Title
-        self.Menucategory = Content(Tag('label',self.Title))
+        self.Menucategory = Content(Tag('label',self.Title),Tag('label2','$INFO[Skin.String(%sloadingvalue)]'%self.Title))        
     
     def getTitle(self) :
         return self.Title
