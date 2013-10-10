@@ -13,6 +13,7 @@ class XbianWindow(WindowSkinXml):
         self.publicMethod = {}
         self.stopRequested = False
         self.menuhasfocus = True
+        self.loadingCat = {}
         
     def onInit(self):
         WindowSkinXml.onInit(self)
@@ -37,9 +38,12 @@ class XbianWindow(WindowSkinXml):
             selectCat =  xbmc.getInfoLabel('Container(9000).ListItem(0).Label')
             for category in self.categories :
 				if category.getTitle() == selectCat :
-					#load/refresh category value
-					initthread  = threading.Thread(None,self.onInitThread,None, (category,))
-					initthread.start()
+					if not self.loadingCat.has_key(selectCat) or not self.loadingCat[selectCat] :
+						#load/refresh category value
+						self.loadingCat[selectCat] = True
+						print 'XBian : xbian-config : Loading/refresh categorie %s'%selectCat
+						initthread  = threading.Thread(None,self.onInitThread,None, (category,))
+						initthread.start()
 					break                                
     
     def onInitThread(self,category):                                
@@ -55,6 +59,7 @@ class XbianWindow(WindowSkinXml):
                  print sys.exc_info()                      
              else :
                  setting.getControl().setEnabled(True)
+         self.loadingCat[category.getTitle()] = False
         
     def addCategory(self,category):        
         self.categories.append(category)
