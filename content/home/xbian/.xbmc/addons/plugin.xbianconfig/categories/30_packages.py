@@ -82,6 +82,9 @@ class PackagesControl(MultiSettingControl):
         if self.packages[category]['visible'] == self.packages[category]['available'] :
             #hide get More button
             xbmc.executebuiltin('Skin.Reset(more%s)'%category)
+        else :
+			#show get More button
+			xbmc.executebuiltin('Skin.SetBool(more%s)'%category)
     
     def removePackage(self,category,package)  :
         for i,pack in enumerate(self.packages[category]['list']) :
@@ -258,8 +261,8 @@ class packagesManager(Setting) :
                         
             
     def getXbianValue(self):
-        packages = self.control.packages
-        for key in packages :
+        packages = self.control.packages        
+        for key in packages :            
             if packages[key]['installed'] > 0 :
                 tmp = xbianConfig('packages','list',key)
                 if tmp[0]!= '-2' and tmp[0]!= '-3' :
