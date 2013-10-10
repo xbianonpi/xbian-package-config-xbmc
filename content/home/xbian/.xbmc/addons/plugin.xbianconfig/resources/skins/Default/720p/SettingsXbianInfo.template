@@ -86,13 +86,24 @@
                     <control type="label" id="95">
                         <description>Menu Label no focus</description>
                         <posx>250</posx>
-                        <posy>15</posy>
+                        <posy>10</posy>
                         <height>60</height>
                         <width>241</width>
                         <align>right</align>
                         <font>font13_title</font>
                         <textcolor>grey2</textcolor>
                         <label>$INFO[ListItem.Label]</label>
+                    </control>
+                    <control type="label" id="98">
+                        <description>click to load Label focus</description>
+                        <posx>250</posx>
+                        <posy>35</posy>
+                        <height>20</height>
+                        <width>241</width>
+                        <align>right</align>
+                        <font>font10</font>
+                        <textcolor>grey2</textcolor>
+                        <label>Click to load</label>
                     </control>
                 </itemlayout>
                 <focusedlayout height="60" width="260">
@@ -106,7 +117,7 @@
                     <control type="label" id="96">
                         <description>Menu Label focus</description>
                         <posx>250</posx>
-                        <posy>15</posy>
+                        <posy>10</posy>
                         <height>60</height>
                         <width>241</width>
                         <align>right</align>
@@ -114,6 +125,17 @@
                         <textcolor>white</textcolor>
                         <label>$INFO[ListItem.Label]</label>
                     </control>
+                    <control type="label" id="97">
+                        <description>click to load Label focus</description>
+                        <posx>250</posx>
+                        <posy>35</posy>
+                        <height>20</height>
+                        <width>241</width>
+                        <align>right</align>
+                        <font>font10</font>
+                        <textcolor>white</textcolor>
+                        <label>Click to load</label>
+                    </control>                     
                 </focusedlayout>
                 <content>
                     <control type="xbian" value="Menucategories"/>

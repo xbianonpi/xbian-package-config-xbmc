@@ -1,14 +1,19 @@
 import sys
 from xbmcguie.window import WindowSkinXml
 import threading
+import xbmc
 
-class XbianWindow(WindowSkinXml):   
-    def __init__(self,strXMLname, strFallbackPath, strDefaultName=False, forceFallback=False) :
-        WindowSkinXml.__init__(self,strXMLname, strFallbackPath, strDefaultName=False, forceFallback=False)
+ACTION_SELECT_ITEM = 7
+
+selectAction = [ACTION_SELECT_ITEM]
+
+class XbianWindow(WindowSkinXml):       
+    def init(self) :
         self.categories = []
         self.publicMethod = {}
         self.stopRequested = False
-    
+        self.menuhasfocus = True
+        
     def onInit(self):
         WindowSkinXml.onInit(self)
         #first, get all public method
@@ -18,28 +23,38 @@ class XbianWindow(WindowSkinXml):
                 public = setting.getPublicMethod()
                 for key in public :
                     self.publicMethod[category.getTitle()][key] = public[key]
-        #set the windows instance in all xbmc control
-        initthread  = threading.Thread(None,self.onInitThread, None)
-        initthread.start()
             
-		
-    def onInitThread(self):                                
+    def onHeritFocus(self,controlId) :
+        print 'xbianwindow - onFocus %d'%controlId      
+        #handle listitem menu click for dynamic load value
+        if controlId == 9000 :
+            self.menuhasfocus = True
+        else :
+            self.menuhasfocus = False
+        
+    def onHeritAction(self,action) :        
+        if self.menuhasfocus and action==ACTION_SELECT_ITEM:            
+            selectCat =  xbmc.getInfoLabel('Container(9000).ListItem(0).Label')
             for category in self.categories :
-                if self.stopRequested :
-                    break       
-                #set default value to gui
-                for setting in category.getSettings():                
-                    if self.stopRequested :
-                        break
-                    try :                                                   
-                        setting.updateFromXbian()
-                        setting.setPublicMethod(self.publicMethod)                                                               
-                    except :
-                        #don't enable control if error
-                        print 'Exception in updateFromXbian for setting'
-                        print sys.exc_info()                      
-                    else :
-                        setting.getControl().setEnabled(True)
+				if category.getTitle() == selectCat :
+					#load/refresh category value
+					initthread  = threading.Thread(None,self.onInitThread,None, (category,))
+					initthread.start()
+					break                                
+    
+    def onInitThread(self,category):                                
+         for setting in category.getSettings():                
+             if self.stopRequested :
+                 break
+             try :                                                   
+                 setting.updateFromXbian()
+                 setting.setPublicMethod(self.publicMethod)                                                               
+             except :
+                 #don't enable control if error
+                 print 'Exception in updateFromXbian for setting'
+                 print sys.exc_info()                      
+             else :
+                 setting.getControl().setEnabled(True)
         
     def addCategory(self,category):        
         self.categories.append(category)

@@ -11,15 +11,19 @@ ROOTDIR            = ADDON_DIR
 
 SKIN_DIR = xbmc.getSkinDir()
 
+ACTION_PREVIOUS_MENU = 10
+
 try:
    with open(os.path.join(ROOTDIR,'resources','skins',SKIN_DIR,'720p','SettingsXbianInfo.template')): pass
 except IOError:
    SKIN_DIR = 'Default'
 
+
 class WindowSkinXml(xbmcgui.WindowXML):   
     def __init__(self,strXMLname, strFallbackPath, strDefaultName=False, forceFallback=False):
         self.xmlfile = os.path.join(strFallbackPath,'resources','skins',SKIN_DIR,'720p',strXMLname)
         self.controls = []
+        self.init()
     
     def onInit(self):
         #set the windows instance in all xbmc control
@@ -34,17 +38,26 @@ class WindowSkinXml(xbmcgui.WindowXML):
     def addControl(self,control):        
         self.controls.append(control)
         
-    def onClick(self, controlID):
+    def onClick(self, controlID):        
         for control in self.controls :
             control.click(controlID)
  
-    def onFocus(self, controlID):
+    def onFocus(self, controlID):        
         for control in self.controls :
             control.focus(controlID)
+        self.onHeritFocus(controlID)
     
-    def close(self):
-		#seem don't work
-		#check after, have to call unFocus(0) when close
-		self.onFocus(0)
-		xbmcgui.WindowXML.close(self)
-
+    def onAction(self,Action) :
+		if Action == ACTION_PREVIOUS_MENU:
+			self.close()
+		self.onHeritAction(Action)
+		
+    def onHeritAction(self,Action) :
+		print 'super onheritaction%s'%str(Action)
+		#could be herit on real window
+		pass
+    
+    def onHeritFocus(self,controlID) :
+		#could be herit on real window
+		pass
+        
