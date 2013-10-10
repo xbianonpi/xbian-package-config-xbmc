@@ -25,8 +25,7 @@ class XbianWindow(WindowSkinXml):
                 for key in public :
                     self.publicMethod[category.getTitle()][key] = public[key]
             
-    def onHeritFocus(self,controlId) :
-        print 'xbianwindow - onFocus %d'%controlId      
+    def onHeritFocus(self,controlId) :        
         #handle listitem menu click for dynamic load value
         if controlId == 9000 :
             self.menuhasfocus = True
@@ -59,7 +58,8 @@ class XbianWindow(WindowSkinXml):
                  print sys.exc_info()                      
              else :
                  setting.getControl().setEnabled(True)
-         self.loadingCat[category.getTitle()] = False
+         #not allow refresh now, problem with service that add 2 times
+         #self.loadingCat[category.getTitle()] = False
         
     def addCategory(self,category):        
         self.categories.append(category)
