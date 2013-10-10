@@ -651,4 +651,4 @@ class sshroot(Setting) :
 #CATEGORY CLASS
 class system(Category) :
     TITLE = 'System'
-    SETTINGS = [SytemLabel,hostname,timezone,kernel,overclocking,AccountLabel,rootpwd,xbianpwd,sshroot,NewtorkLabel,NetworkSetting,connectivityLabel,videooutput,LicenceLabel,mpeg2License,vc1License]
+    SETTINGS = [NewtorkLabel,NetworkSetting,LicenceLabel,mpeg2License,vc1License,SytemLabel,hostname,timezone,kernel,overclocking,AccountLabel,rootpwd,xbianpwd,sshroot,connectivityLabel,videooutput]
