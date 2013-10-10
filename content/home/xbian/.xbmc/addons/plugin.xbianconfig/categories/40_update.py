@@ -50,7 +50,7 @@ class updateControl(MultiSettingControl):
         self.udpateAll.onClick = lambda updateall : self.onUpdateAll()
         self.addControl(self.udpateAll)
         
-        self.udpateNo = ButtonControl(Tag('label','Up-to-date'),Tag('visible','%s'%keynoupdate))
+        self.udpateNo = ButtonControl(Tag('label','Not checked'),Tag('visible','%s'%keynoupdate))
         self.addControl(self.udpateNo)
                 
         
@@ -153,6 +153,8 @@ class packageUpdate(Setting) :
         if rc and rc[0] not in ('0','-2') : 
             for update in rc[:15] :
                 self.control.addUpdate(update)
+        else :
+			self.control.udpateNo.setLabel('Up-to-date')
         return rc
 
 class updatePackageLabel(Setting) :
