@@ -23,11 +23,8 @@ class ServicesControl(MultiSettingControl):
 
     def onInit(self) :
         self.nbCustom = 10
-        self.serviceStatus = xbianConfig('services','status')
-        self.customId = 0
-        self.serviceList = []
-        for service in self.serviceStatus :
-            self.serviceList.append(service.split(' ')[0])
+        self.serviceList = xbianConfig('services','list')
+        self.customId = 0        
         self.services = {}
         for i in range(self.nbCustom) :
             self.serviceList.append('custom%d'%i)
@@ -117,8 +114,8 @@ class ServicesControl(MultiSettingControl):
 
     def getValue(self) :
         pass
-            
-       
+    
+        
 
 class servicesManager(Setting) :
     CONTROL = ServicesControl()
@@ -128,7 +125,7 @@ class servicesManager(Setting) :
     APPLYTEXT = "Apply"
 
     def onInit(self) :
-        self.serviceInstalled = xbianConfig('services','list')
+        self.serviceInstalled = self.control.serviceList[:] #deep copy
         self.control.onStatusClick = self.onStatus
         self.control.onAutostartClick = self.onAutoStart
         self.control.onDaemonClick = self.onDaemon
@@ -314,7 +311,7 @@ class servicesManager(Setting) :
             self.notifyOnError()
             return value
                 
-    def getXbianValue(self):
+    def getXbianValue(self):        
         for service in self.serviceInstalled :
             self.control.setVisible(service,True)                  
         serviceStatus = xbianConfig('services','status')
@@ -339,7 +336,7 @@ class servicesManager(Setting) :
 
             daemon = False
 
-            services[status[0]] = [running,autostart,daemon]
+            services[status[0]] = [running,autostart,daemon]        
         return services            
         
     
