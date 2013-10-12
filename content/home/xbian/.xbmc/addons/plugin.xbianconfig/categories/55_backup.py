@@ -1,4 +1,4 @@
-import os
+import os,subprocess
 
 from resources.lib.xbmcguie.xbmcContainer import *
 from resources.lib.xbmcguie.xbmcControl import *
@@ -16,10 +16,10 @@ DEVICE = 'Device'
 FILE  = 'File'
 
 class homeBackupLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','Home (Not Yet Implemented)'))
+    CONTROL = CategoryLabelControl(Tag('label','Home'))
 
 class systemBackupLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','System (Not Yet Implemented)'))
+    CONTROL = CategoryLabelControl(Tag('label','System'))
 
 class systemBackup(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
@@ -104,34 +104,59 @@ class AutoBackupGui(Setting) :
         self.control.startManualBackup = self.startManualBackup
 
     def startManualBackup(self):
+        src = '/dev/root'       
         dialog = xbmcgui.Dialog()
         value = self.control.getValue()
         if value[1] == 'File' :
-            value[2] = 'file://' + value[2]
-        
-        wait = dialogWait('Backing up System','Backup system to %s'%value[2])       
-        wait.show()     
-        #TODO
-        #test code
-        #do real backup here
-        i = 0
-        while True :
-            i += 1
-            time.sleep(1)
-            if i > 6 :
-                break
-        #end test code
-        wait.close()
-        xbmc.executebuiltin("Notification(%s,%s)"%('Backup System','Backup System is finished'))
-            
-            
+            rc = True
+            value[2] = 'file:' + value[2]
+        else :
+            rc = dialog.yesno('***   WARNING   *** ','This action will ERASE ALL DATA on %s'%value[2],'If you don\'t know what you are doing, you shoud click No','                                       CONTINUE?')
+        if rc :
+            rc = xbianConfig('xbiancopy',src,value[2])
+            wait = dialogWait('Backing up System','Backup system to %s'%value[2])
+            wait.show()
+            cont = True
+            while cont  :
+                rc = xbianConfig('xbiancopy','status')
+                if rc :
+                    rc = rc[0]
+                    if rc == '0' :
+                        #backup in progress
+                        xbmc.sleep(1000)
+                    elif rc == '1' :
+                        #backup is finished
+                        cont = False
+                        msg ='Backup system is finished'
+                    elif rc == '-1' :
+                        cont = False
+                        msg ='Something was wrong during copy'
+                    elif rc == '-2' :
+                        #shouldn't see this error
+                        cont = False
+                        msg ='backup not started'
+                    else :
+                        cont = False
+                        msg ='Unexpected Error'
+                else :
+                    cont = False
+                    msg ='Unexpected Error'             
+            wait.close()
+            xbmc.executebuiltin("Notification(%s,%s)"%(self.DIALOGHEADER,msg))
+            wait.close()
+            xbmc.executebuiltin("Notification(%s,%s)"%('Backup System',msg))
+        return ''
 
-    def getDevice(self) :       
+
+    def getDevice(self) :
         dialog = xbmcgui.Dialog()
-        #TODO
         #get a list of uuid here (maybe with size to prevent error)
-        #will be a protection to not erase usb HDD with media?
-        uuid_list = ['fake UUID1','fake UUID2','fake UUID3','fake UUID4']
+        #Need a protection to not erase usb HDD with media?        
+        uuid_list = subprocess.check_output(['udisks','--enumerate'])
+        uuid_list  = filter(lambda x: len(x)>0, uuid_list.split('\n'))
+        uuid_list  = map(lambda x: x.split('/')[-1], uuid_list)
+        uuid_list  = filter(lambda x: x[:4] not in ('zram','mmcb'),uuid_list)
+        uuid_list  = map(lambda x: '/dev/' + x, uuid_list)
         rc = dialog.select('Select Device',uuid_list)
         if rc == -1 :
            return self.xbianValue[2] #defaut device value in case of cancel
@@ -140,23 +165,23 @@ class AutoBackupGui(Setting) :
 
     def getUserValue(self):
         return self.control.getValue()
-        
+
     def getXbianValue(self):
-        #value = [        
+        #value = [
         #  1/0,   #auto backup enable
         #  'Device'/'File',   #system destination type - if change need to be modif on content
         #  'UUID'/'backup_dir', #system Path
         #  BACKUP_PROFILE[x]#system backup delta
         # ]
-        
+
         #TODO
         #read default Value from file here
-        #value is like [1,'File','/home/belese/','Daily']        
+        #value is like [1,'File','/home/belese/','Daily']
         return [1,'Device','FAKEUUID',BACKUP_PROFILE[0]]
 
     def setXbianValue(self,value):
         #value is like [1,'File','/home/belese/', 'Daily']
-        # or [1,'Device','UUID','Daily']        
+        # or [1,'Device','UUID','Daily']
         #TODO
         #save xbian autobackup values here
         #return True if ok, False either
@@ -174,20 +199,36 @@ class homeBackup(Setting) :
 
     def getUserValue(self):
         dialog = xbmcgui.Dialog()
-        wait = dialogWait('Backing up Home','Home backup will be available on your samba share or ???')        
-        wait.show()     
-        #test code
-        #TODO
-        #do real backup here
-        i = 0
-        while True :
-            i += 1
-            time.sleep(1)
-            if i > 6 :
-                break
-        #end test code
+        wait = dialogWait('Backing up Home','Home backup will be available on your samba share')
+        wait.show()
+        pid = xbianConfig('backuphome','start')        
+        cont = True
+        while cont  :
+            rc = xbianConfig('backuphome','status')
+            if rc :
+                rc = rc[0]
+                if rc == '0' :
+                    #backup in progress
+                    xbmc.sleep(1000)
+                elif rc == '1' :
+                    #backup is finished
+                    cont = False
+                    msg ='Backup Home is finished'
+                elif rc == '-1' :
+                    cont = False
+                    msg ='Something was wrong during copy'
+                elif rc == '-2' :
+                    #shouldn't see this error
+                    cont = False
+                    msg ='backup not started'
+                else :
+                    cont = False
+                    msg ='Unexpected Error'
+            else :
+                cont = False
+                msg ='Unexpected Error'             
         wait.close()
-        xbmc.executebuiltin("Notification(%s,%s)"%('Backup Home','Backup Home is finished'))
+        xbmc.executebuiltin("Notification(%s,%s)"%(self.DIALOGHEADER,msg))
         return ''
 
     def getXbianValue(self):
