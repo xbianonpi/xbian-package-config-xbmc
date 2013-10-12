@@ -340,7 +340,8 @@ class videooutput(Setting) :
     OKTEXT = "Update ok"
                     
     def onInit(self) :
-        self.listvalue = xbianConfig('videoflags','list')
+        #self.listvalue = xbianConfig('videoflags','list')
+        self.listvalue = self.control.videooutputlist
         self.value = {}
         
     def getUserValue(self):
