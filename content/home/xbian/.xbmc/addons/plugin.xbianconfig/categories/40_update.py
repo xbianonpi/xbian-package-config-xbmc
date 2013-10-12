@@ -143,9 +143,7 @@ class packageUpdate(Setting) :
                 self.notifyOnError()    
             
     def onUpdateAll(self) :
-        updates = ''
-        for update in self.xbianValue :         
-            updates += '%s '%(update.split(';')[0])
+        updates = '-'        
         self.onUpdate(updates)
         
     def getXbianValue(self):
