@@ -278,8 +278,34 @@ class SpinDownHddGui(Setting) :
         else :
             return False
 
+class xbmcUSBsync(Setting) :
+    CONTROL = RadioButtonControl(Tag('label','Mount with sync option'))
+    DIALOGHEADER = "USB sync"
+    ERRORTEXT = "Error on updating"
+    OKTEXT = "Update ok"
+
+    def getUserValue(self):
+        return str(self.getControlValue())
+
+    def setControlValue(self,value) :
+        if value == '1' :
+            value = True
+        else :
+            value = False
+        self.control.setValue(value)
+
+    def getXbianValue(self):
+        rc =xbianConfig('xbmc','usbsync')
+        return rc[0]
+
+    def setXbianValue(self,value):
+        rc =xbianConfig('xbmc','usbsync',str(value))
+        if rc and rc[0] == '1' :
+            return True
+        else :
+            return False
 
 #CATEGORY CLASS
 class xbmc(Category) :
     TITLE = 'XBMC'
-    SETTINGS = [xbmcLabel,xbmcGui,xbmcTvOffGui,DynamicPriorityGui,xbmcUSBLabel,xbmcUSBmount,xbmcUSBsmb,xbmcUSBsmbrw,xbmcUSBuuidname,SpinDownHddGui]
+    SETTINGS = [xbmcLabel,xbmcGui,xbmcTvOffGui,DynamicPriorityGui,xbmcUSBLabel,xbmcUSBmount,xbmcUSBsync,xbmcUSBsmb,xbmcUSBsmbrw,xbmcUSBuuidname,SpinDownHddGui]
