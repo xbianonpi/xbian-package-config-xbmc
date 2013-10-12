@@ -113,7 +113,7 @@ class AutoBackupGui(Setting) :
         else :
             rc = dialog.yesno('***   WARNING   *** ','This action will ERASE ALL DATA on %s'%value[2],'If you don\'t know what you are doing, you shoud click No','                                       CONTINUE?')
         if rc :
-            rc = xbianConfig('xbiancopy',src,value[2])
+            rc = xbianConfig('xbiancopy','start',src,value[2])
             wait = dialogWait('Backing up System','Backup system to %s'%value[2])
             wait.show()
             cont = True
