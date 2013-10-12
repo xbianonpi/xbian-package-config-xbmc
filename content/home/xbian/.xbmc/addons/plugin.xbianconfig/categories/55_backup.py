@@ -177,7 +177,7 @@ class AutoBackupGui(Setting) :
         #TODO
         #read default Value from file here
         #value is like [1,'File','/home/belese/','Daily']
-        return [1,'Device','FAKEUUID',BACKUP_PROFILE[0]]
+        return [0,'File','',BACKUP_PROFILE[0]]
 
     def setXbianValue(self,value):
         #value is like [1,'File','/home/belese/', 'Daily']
