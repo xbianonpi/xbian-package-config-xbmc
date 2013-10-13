@@ -180,14 +180,8 @@ class AutoBackupGui(Setting) :
         if dest :
             dest = dest[0]
         else :
-            dest = ''
-
-        if delta != 'none' :
-            autoimg = 1 
-        else :
-            autoimg = 0
-
-        return [autoimg,imgtype,dest,delta]
+            dest = ''   
+        return [0,imgtype,dest,delta]
 
     def setXbianValue(self,value):
         #value is like [1,'File','/home/belese/', 'Daily']
