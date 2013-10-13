@@ -43,6 +43,12 @@ CATEGORY_PATH = 'categories'
 
 SKIN_DIR = xbmc.getSkinDir()
 
+
+#TODO
+#Workaround, don't know why service isen't reset setting.
+if xbianConfig('updates','progress')[0] != '1':
+   xbmc.executebuiltin('Skin.Reset(aptrunning)')
+
 try:
    with open(os.path.join(ROOTDIR,'resources','skins',SKIN_DIR,'720p','SettingsXbianInfo.template')): pass
 except IOError:
@@ -125,3 +131,4 @@ class xbian_config_python :
         self.wait.update(perc,'Loading %s...'%categoryname,'   %s'%settingName)
 
 xbian_config_python()
+
