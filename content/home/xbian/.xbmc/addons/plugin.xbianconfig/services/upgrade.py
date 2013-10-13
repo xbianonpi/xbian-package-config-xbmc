@@ -85,7 +85,7 @@ class upgrade(service):
                 dlg.close()
                 if self.StopRequested :
                     return              
-            xbmc.executebuiltin('Skin.Reset(aptrunning)')
+        
             xbmc.executebuiltin("Notification(%s,%s)"%('XBian Upgrade','XBian was updated successfully'))
             os.remove('/var/lock/.upgrades')
         
@@ -101,11 +101,12 @@ class upgrade(service):
                     return              
             xbmc.executebuiltin("Notification(%s,%s)"%('Package Update','Package was updated successfully'))
             os.remove('/var/lock/.packages')
-
+        if xbianConfig('updates','progress')[0] != '1':
+            xbmc.executebuiltin('Skin.Reset(aptrunning)')
         #for those one who deactivate its screensaver, force check every 10 days
         if getSetting('lastupdatecheck') != None and getSetting('lastupdatecheck') < datetime.now() - timedelta(days=10):
-			self.onScreensaverActivated()
-			self.onScreensaverDeactivated()
+            self.onScreensaverActivated()
+            self.onScreensaverDeactivated()
         while not self.StopRequested and not self.rebootNeeded: #End if XBMC closes
             self.onIdle()
             self.x = 0
