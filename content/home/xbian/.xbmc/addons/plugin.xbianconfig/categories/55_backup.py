@@ -11,7 +11,7 @@ from resources.lib.utils import *
 
 import xbmcgui,xbmc
 
-BACKUP_PROFILE = ['Daily','Weekly']
+BACKUP_PROFILE = ['daily','weekly','monthly']
 
 DEVICE = 'Device'
 FILE  = 'File'
@@ -113,9 +113,9 @@ class AutoBackupGui(Setting) :
         if self.rc == '1' :
              #backup is finished        
              msg ='Backup system is finished'
-        elif rc == '-1' :                        
+        elif self.rc == '-1' :                        
              msg ='Something was wrong during copy'
-        elif rc == '-2' :
+        elif self.rc == '-2' :
              #shouldn't see this error                       
              msg ='backup not started'
         else :
@@ -133,9 +133,8 @@ class AutoBackupGui(Setting) :
             rc = dialog.yesno('***   WARNING   *** ','This action will ERASE ALL DATA on %s'%value[2],'If you don\'t know what you are doing, you shoud click No','                                       CONTINUE?')
         if rc :
             rc = xbianConfig('xbiancopy','start',src,value[2])
-            if rc and rc[0] == '1' :                
-                dlg = dialogWaitBackground('Xbian Copy',['Your system is currently backep up','Depending to you system partition size','It can take up to few hours'],self.checkcopyFinish,skinvar='systembackuprunning',onFinishedCB=self.oncopyFinished)
-                dlg.show()                         
+            dlg = dialogWaitBackground('Xbian Copy',['Your system is currently backep up','Depending to your system partition size','It can take up to few hours'],self.checkcopyFinish,skinvar='systembackuprunning',onFinishedCB=self.oncopyFinished)
+            dlg.show()                         
         return ''
 
 
@@ -168,7 +167,21 @@ class AutoBackupGui(Setting) :
         #TODO
         #read default Value from file here
         #value is like [1,'File','/home/belese/','Daily']
-        return [0,'File','',BACKUP_PROFILE[0]]
+        if xbianConfig('backuphome','imgtype')[0] == 'file' :
+           imgtype = 'File'
+        else :
+           imgtype = 'Device'       
+        delta = xbianConfig('backuphome','imgplan')
+        if delta :
+            delta = delta[0]
+        else :
+            delta = BACKUP_PROFILE[0]  
+        dest = xbianConfig('backuphome','imgdest')
+        if dest :
+            dest = dest[0]
+        else :
+            dest = ''   
+        return [0,imgtype,dest,delta]
 
     def setXbianValue(self,value):
         #value is like [1,'File','/home/belese/', 'Daily']
@@ -176,7 +189,14 @@ class AutoBackupGui(Setting) :
         #TODO
         #save xbian autobackup values here
         #return True if ok, False either
-        print 'Save xbian :%s'%value
+        if value[1] == 'File' : value[1] = 'file'
+        if value[1] == 'Device' : value[1] = 'block'
+        if xbianConfig('backuphome','imgtype',value[1])[0] != '1' :
+            return False
+        if xbianConfig('backuphome','imgplan',value[3])[0] != '1' :
+            return False
+        if xbianConfig('backuphome','imgdest',value[2])[0] != '1' :
+            return False        
         return True
 
 class homeBackup(Setting) :
