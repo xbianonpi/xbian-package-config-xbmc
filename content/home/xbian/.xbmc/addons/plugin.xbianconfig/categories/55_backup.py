@@ -1,4 +1,5 @@
 import os,subprocess
+import datetime
 
 from resources.lib.xbmcguie.xbmcContainer import *
 from resources.lib.xbmcguie.xbmcControl import *
@@ -46,8 +47,8 @@ class systemBackup(MultiSettingControl):
         self.systemdevicePath = ButtonControl(Tag('label',' -Block device'),Tag('visible','Container(%d).HasFocus(%d)'%(self.systemBackupDestType.getWrapListId(),contentSD.getId())))
         self.systemdevicePath.onClick = lambda devicePath: self.systemdevicePath.setValue(self.getDevice())
         self.addControl(self.systemdevicePath)
-        self.systemfilePath = ButtonControl(Tag('label',' -Dest folder'),Tag('visible','Container(%d).HasFocus(%d)'%(self.systemBackupDestType.getWrapListId(),contentSF.getId())))
-        self.systemfilePath.onClick = lambda backupPath: self.systemfilePath.setValue(getFile('Backup Path',self.systemfilePath.getValue()))
+        self.systemfilePath = ButtonControl(Tag('label',' -Destination '),Tag('visible','Container(%d).HasFocus(%d)'%(self.systemBackupDestType.getWrapListId(),contentSF.getId())))
+        self.systemfilePath.onClick = lambda backupPath: self.systemfilePath.setValue(getFile('Backup Path',self.systemfilePath.getValue())+getText('FileName','XBianImage.%s.img'%(datetime.datetime.now().strftime("%d-%m-%y"))))
         self.addControl(self.systemfilePath)
         self.ManualBackup = ButtonControl(Tag('label','Start backup now'))
         self.ManualBackup.onClick = lambda manualback : self.startManualBackup()
