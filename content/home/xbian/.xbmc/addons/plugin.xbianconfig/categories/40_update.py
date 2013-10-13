@@ -19,6 +19,9 @@ ADDON_DIR = ADDON.getAddonInfo( "path" )
 ROOTDIR            = ADDON_DIR
 BASE_RESOURCE_PATH = os.path.join( ROOTDIR, "resources" )
 
+APTLOGFILE = '/tmp/aptstatus'
+#disable settings that need apt while installing/updating
+SKINVARAPTRUNNIG = 'aptrunning'
 
 #if i add integer, xbmc diplay as Translation String
 BACKUP_PROFILE = ['Daily','Weekly','Monthly']
@@ -40,13 +43,13 @@ class updateControl(MultiSettingControl):
         keynoupdate = ''
         for i,update in enumerate(self.updates) :                        
             #xbmc.executebuiltin('Skin.Reset(%s%d)'%(self.key,i))
-            update['name'] = ButtonControl(Tag('visible','skin.hasSetting(%s%d)'%(self.key,i)))
+            update['name'] = ButtonControl(Tag('visible','skin.hasSetting(%s%d)'%(self.key,i)),Tag('enable','!skin.hasSetting(%s)'%SKINVARAPTRUNNIG))
             update['name'].onClick = lambda update : self.onUpdateClick(self.getCurrentUpdate(update))
             self.addControl(update['name'])
             keynoupdate+='!Control.IsVisible(%d) + '%update['name'].getId()
         keynoupdate = keynoupdate[:-3]
         #xbmc.executebuiltin('Skin.Reset(%s)'%(self.keyupdateall))
-        self.udpateAll = ButtonControl(Tag('label','Update all'),Tag('visible','skin.hasSetting(%s)'%(self.keyupdateall)))
+        self.udpateAll = ButtonControl(Tag('label','Update all'),Tag('visible','skin.hasSetting(%s)'%(self.keyupdateall)),Tag('enable','!skin.hasSetting(%s)'%SKINVARAPTRUNNIG))
         self.udpateAll.onClick = lambda updateall : self.onUpdateAll()
         self.addControl(self.udpateAll)
         
@@ -100,31 +103,29 @@ class packageUpdate(Setting) :
     
     def keyword(self) :
         self.key = 'packages'
-                    
-    def onUpdate(self,updateId):
-        lockfile = '/var/lock/.%s'%self.key
-        open(lockfile,'w').close()
+                           
+    def checkUpdateFinish(self) :        
+        return xbianConfig('updates','progress')[0] != '1'
+        
+    def onUpdateFinished(self) :
+        os.remove(self.lockfile) 
+        #refresh gui
+        #remove settings from gui
+        for update in self.xbianValue :                     
+              self.control.removeUpdate(update)
+        #reload value
+        self.xbianValue = self.getXbianValue()                  
+        self.notifyOnSuccess()
+    
+    def onUpdate(self,updateId):        
+        self.lockfile = '/var/lock/.%s'%self.key
+        open(self.lockfile,'w').close()
         updateId = str(updateId)        
         if self.askConfirmation(True) :
-            dlg = dialogWait('Xbian Update','Please wait while updating')
-            dlg.show()          
             rc =xbianConfig('updates','install',self.key,updateId)
-            if rc and rc[0] == '1' :
-                #wait upgrade
-                while not xbmc.abortRequested and xbianConfig('updates','progress')[0] == '1':
-                    time.sleep(2)
-                if xbmc.abortRequested :
-                    return None
-                else :
-                    os.remove(lockfile) 
-                    #refresh gui
-                    #remove settings from gui
-                    for update in self.xbianValue :                     
-                        self.control.removeUpdate(update)
-                    #reload value
-                    self.xbianValue = self.getXbianValue()                  
-                    dlg.close()
-                    self.notifyOnSuccess()
+            if rc and rc[0] == '1' :                
+                dlg = dialogWaitBackground('Xbian Update',[],self.checkUpdateFinish,APTLOGFILE,skinvar=SKINVARAPTRUNNIG,onFinishedCB=self.onUpdateFinished)
+                dlg.show()              
             else :
                 if rc and rc[0] == '2' :
                     self.ERRORTEXT = 'These packages are already updated'           
@@ -138,8 +139,7 @@ class packageUpdate(Setting) :
                     self.ERRORTEXT = 'The packages itselves got a internal error'
                 else :
                     self.ERRORTEXT = 'Unexpected error'
-                os.remove(lockfile)
-                dlg.close()
+                os.remove(self.lockfile)                
                 self.notifyOnError()    
             
     def onUpdateAll(self) :
@@ -152,7 +152,7 @@ class packageUpdate(Setting) :
             for update in rc[:15] :
                 self.control.addUpdate(update)
         else :
-			self.control.udpateNo.setLabel('Up-to-date')
+            self.control.udpateNo.setLabel('Up-to-date')
         return rc
 
 class updatePackageLabel(Setting) :

@@ -17,6 +17,9 @@ ADDON_DIR = ADDON.getAddonInfo( "path" )
 ROOTDIR            = ADDON_DIR
 BASE_RESOURCE_PATH = os.path.join( ROOTDIR, "resources" )
 
+APTLOGFILE = '/tmp/aptstatus'
+#disable settings that need apt while installing/updating
+SKINVARAPTRUNNIG = 'aptrunning'
 
 
 class PackagesControl(MultiSettingControl):
@@ -46,9 +49,10 @@ class PackagesControl(MultiSettingControl):
             self.packages[key]['visible'] = 0
             self.packages[key]['set'] = []
             self.packages[key]['list'] = []
-            for i in range(self.packages[key]['available']) :
-                #xbmc.executebuiltin('Skin.Reset(%s%d)'%(key,i))
-                package = ButtonControl(Tag('label','Not Loaded'),Tag('visible','skin.hasSetting(%s%d)'%(key,i)))
+            for i in range(self.packages[key]['available']) :  
+                #bug in xbmc progress dialog don't update if we call this
+                #xbmc.executebuiltin('Skin.Reset(%s%d)'%(key,i))              
+                package = ButtonControl(Tag('label','Loading'),Tag('visible','skin.hasSetting(%s%d) + skin.hasSetting(packageloaded)'%(key,i)))
                 package.onClick = lambda select : self.selectClick(self.getCurrentCat(select),select.getLabel())
                 self.packages[key]['list'].append(package)
                 self.packages[key]['group'].addControl(package)
@@ -57,7 +61,7 @@ class PackagesControl(MultiSettingControl):
 
             #add Get more Button
             #xbmc.executebuiltin('Skin.SetBool(more%s)'%key)
-            self.packages[key]['getmore'] = ButtonControl(Tag('label','Get more...'),Tag('visible','skin.hasSetting(more%s)'%key))
+            self.packages[key]['getmore'] = ButtonControl(Tag('label','Get more...'),Tag('visible','skin.hasSetting(more%s)'%key),Tag('enable','!skin.hasSetting(%s)'%SKINVARAPTRUNNIG))
             self.packages[key]['getmore'].onClick = lambda getmore : self.getmoreClick(self.getCurrentCat(getmore))
             self.packages[key]['group'].addControl(self.packages[key]['getmore'])
             self.addControl(self.packages[key]['group'])
@@ -142,36 +146,16 @@ class packagesManager(Setting) :
             #remove package
             self.APPLYTEXT = 'Do you want to remove the %s package?'%package
             if self.askConfirmation(True) :
-                progressDlg = dialogWait('Removing','Please wait while uninstalling %s ...'%package)
+                self.tmppack = (cat,package)
+                progressDlg = dialogWait('Removing','Please wait...')
                 progressDlg.show()
-                rc = xbianConfig('packages','removetest',package)
-                if rc and rc[0] == '3' :
-                   rc = xbianConfig('packages','updatedb')
-                   if rc and rc[0] == '1' :
-                      rc = xbianConfig('packages','removetest',package)
+                rc = xbianConfig('packages','removetest',package)                
                 if rc and rc[0] == '1' :
                    rc = xbianConfig('packages','remove',package)
-                if rc and rc[0] == '1' :
-                    #remove package
-                    waitRemove = True
-                    progress = 1
-                    status = 1
-                    while waitRemove :
-                            if progress != 0 :
-                                progress = int(xbianConfig('packages','progress')[0])
-                            if status != 0 :
-                                status = int(xbianConfig('packages','status',package)[0])
-                            if progress != 1 and status != 1 :
-                                waitRemove = False
-                            else :
-                                time.sleep(5)
-                        #refresh service list
-                    progressDlg.close()
-                    self.control.removePackage(cat,package)
-                    self.globalMethod['Services']['refresh']()
-                    self.OKTEXT = 'Package %s successfully removed'%package
-                    self.notifyOnSuccess()
-
+                   if rc and rc[0] == '1' :                    
+                       progressDlg.close()
+                       dlg = dialogWaitBackground('Xbian Package Manager',[],self.checkInstallFinish,APTLOGFILE,skinvar=SKINVARAPTRUNNIG,onFinishedCB=self.onRemoveFinished)
+                       dlg.show()                                                                                                                                 
                 else :
                     if rc and rc[0] == '2' :
                          #normally never pass here
@@ -185,6 +169,23 @@ class packagesManager(Setting) :
                     self.notifyOnError()
 
 
+    def checkInstallFinish(self) :      
+        return xbianConfig('packages','progress')[0] != '1'
+                                    
+    def onInstallFinished(self) :
+        time.sleep(0.5)
+        self.control.addPackage(self.tmppack[0],self.tmppack[1])
+        self.globalMethod['Services']['refresh']()
+        self.OKTEXT = 'Package %s successfully installed'%self.tmppack[1]
+        self.notifyOnSuccess()
+    
+    def onRemoveFinished(self) :
+        time.sleep(0.5)
+        self.control.removePackage(self.tmppack[0],self.tmppack[1])
+        self.globalMethod['Services']['refresh']()
+        self.OKTEXT = 'Package %s successfully removed'%self.tmppack[1]
+        self.notifyOnSuccess()
+    
     def onGetMore(self,cat) :
         progress = dialogWait('Loading','Please wait while loading packages for %s'%cat)
         progress.show()
@@ -209,40 +210,19 @@ class packagesManager(Setting) :
                 if sel == 0 :
                     #display info dialog
                     self.showInfo(package[select])
-                elif sel == 1 :
+                elif sel == 1 :                 
                     self.APPLYTEXT = 'Do you want to install the package: %s?'%package[select]
                     if self.askConfirmation(True) :
-                        progressDlg = dialogWait('Installing','Please wait while installing %s ...'%package[select])
+                        self.tmppack = (cat,package[select])
+                        progressDlg = dialogWait('Installing','Please wait, installing %s ...'%package[select])
                         progressDlg.show()
-                        rc = xbianConfig('packages','installtest',package[select])
-                        if rc and rc[0] in ('3','4') :
-                            rc = xbianConfig('packages','updatedb')
-                            if rc and rc[0] == '1' :
-                                rc = xbianConfig('packages','installtest',package[select])
+                        rc = xbianConfig('packages','installtest',package[select])                        
                         if rc and rc[0] == '1' :
                              rc = xbianConfig('packages','install',package[select])
                         if rc and rc[0] == '1' :
-                            waitInstall = True
-                            progress = 1
-                            status = 0
-                            while waitInstall :
-                                if progress != 0 :
-                                    progress = int(xbianConfig('packages','progress')[0])
-                                if status != 1 :
-                                    status = int(xbianConfig('packages','status',package[select])[0])
-
-                                if progress !=1 and status != 0 :
-                                    waitInstall = False
-                                else :
-                                    time.sleep(5)
-
-
-                            progressDlg.close()
-                            time.sleep(0.5)
-                            self.control.addPackage(cat,package[select])
-                            self.globalMethod['Services']['refresh']()
-                            self.OKTEXT = 'Package %s successfully installed'%package[select]
-                            self.notifyOnSuccess()
+                             progressDlg.close()
+                             dlg = dialogWaitBackground('Xbian Package Manager',[],self.checkInstallFinish,APTLOGFILE,skinvar=SKINVARAPTRUNNIG,onFinishedCB=self.onInstallFinished)
+                             dlg.show()                                                                                     
                         else :
                             if rc and rc[0] == '2' :
                                 self.ERRORTEXT = 'Package %s is already installed'%package[select]
@@ -264,9 +244,14 @@ class packagesManager(Setting) :
 
 
     def getXbianValue(self):
-        packages = self.control.packages
+        packages = self.control.packages        
         for key in packages :
-            #show get More button
+            for i in range(self.control.packages[key]['available']) :
+                #reset skin variable                
+                xbmc.executebuiltin('Skin.Reset(%s%d)'%(key,i))
+            #show Package
+            xbmc.executebuiltin('Skin.SetBool(packageloaded)')            
+            #show get More button            
             xbmc.executebuiltin('Skin.SetBool(more%s)'%key)
             if packages[key]['installed'] > 0 :
                 tmp = xbianConfig('packages','list',key)

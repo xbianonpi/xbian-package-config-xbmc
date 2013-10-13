@@ -85,6 +85,7 @@ class upgrade(service):
                 dlg.close()
                 if self.StopRequested :
                     return              
+            xbmc.executebuiltin('Skin.Reset(aptrunning)')
             xbmc.executebuiltin("Notification(%s,%s)"%('XBian Upgrade','XBian was updated successfully'))
             os.remove('/var/lock/.upgrades')
         
