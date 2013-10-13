@@ -167,16 +167,16 @@ class AutoBackupGui(Setting) :
         #TODO
         #read default Value from file here
         #value is like [1,'File','/home/belese/','Daily']
-        if xbianConfig('backuphome','imgtype')[0] == 'file' :
+        if xbianConfig('xbiancopy','imgtype')[0] == 'file' :
            imgtype = 'File'
         else :
            imgtype = 'Device'       
-        delta = xbianConfig('backuphome','imgplan')
+        delta = xbianConfig('xbiancopy','imgplan')
         if delta :
             delta = delta[0]
         else :
             delta = BACKUP_PROFILE[0]  
-        dest = xbianConfig('backuphome','imgdest')
+        dest = xbianConfig('xbiancopy','imgdest')
         if dest :
             dest = dest[0]
         else :
@@ -191,11 +191,11 @@ class AutoBackupGui(Setting) :
         #return True if ok, False either
         if value[1] == 'File' : value[1] = 'file'
         if value[1] == 'Device' : value[1] = 'block'
-        if xbianConfig('backuphome','imgtype',value[1])[0] != '1' :
+        if xbianConfig('xbiancopy','imgtype',value[1])[0] != '1' :
             return False
-        if xbianConfig('backuphome','imgplan',value[3])[0] != '1' :
+        if xbianConfig('xbiancopy','imgplan',value[3])[0] != '1' :
             return False
-        if xbianConfig('backuphome','imgdest',value[2])[0] != '1' :
+        if xbianConfig('xbiancopy','imgdest',value[2])[0] != '1' :
             return False        
         return True
 
@@ -217,7 +217,7 @@ class homeBackup(Setting) :
              #backup is finished        
              msg ='Backup home is finished'
         elif rc == '-1' :                        
-             msg ='Something was wrong during copy'
+             msg ='Something went wrong during copy'
         elif rc == '-2' :
              #shouldn't see this error                       
              msg ='backup not started'
