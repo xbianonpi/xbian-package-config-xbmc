@@ -12,6 +12,7 @@ ROOTDIR            = ADDON_DIR
 SKIN_DIR = xbmc.getSkinDir()
 
 ACTION_PREVIOUS_MENU = 10
+ACTION_BACK = 92
 
 try:
    with open(os.path.join(ROOTDIR,'resources','skins',SKIN_DIR,'720p','SettingsXbianInfo.template')): pass
@@ -48,7 +49,7 @@ class WindowSkinXml(xbmcgui.WindowXML):
         self.onHeritFocus(controlID)
     
     def onAction(self,Action) :
-		if Action == ACTION_PREVIOUS_MENU:
+		if Action in (ACTION_PREVIOUS_MENU,ACTION_BACK) :
 			self.close()
 		self.onHeritAction(Action)
 		
