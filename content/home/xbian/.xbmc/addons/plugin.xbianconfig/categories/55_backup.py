@@ -172,16 +172,18 @@ class AutoBackupGui(Setting) :
         else :
            imgtype = 'Device'       
         delta = xbianConfig('xbiancopy','imgplan')
-        if delta :
+        if delta and delta[0] in BACKUP_PROFILE :
             delta = delta[0]
+            actif = 1
         else :
             delta = BACKUP_PROFILE[0]  
+            actif = 0
         dest = xbianConfig('xbiancopy','imgdest')
         if dest :
             dest = dest[0]
         else :
             dest = ''   
-        return [0,imgtype,dest,delta]
+        return [actif,imgtype,dest,delta]
 
     def setXbianValue(self,value):
         #value is like [1,'File','/home/belese/', 'Daily']
@@ -191,10 +193,11 @@ class AutoBackupGui(Setting) :
         #return True if ok, False either
         if value[1] == 'File' : value[1] = 'file'
         if value[1] == 'Device' : value[1] = 'block'
-        if xbianConfig('xbiancopy','imgtype',value[1])[0] != '1' :
-            return False
+        if value[0] == 0 : value[3] = 'none'
         if xbianConfig('xbiancopy','imgplan',value[3])[0] != '1' :
             return False
+        if xbianConfig('xbiancopy','imgtype',value[1])[0] != '1' :
+            return False        
         if xbianConfig('xbiancopy','imgdest',value[2])[0] != '1' :
             return False        
         return True
