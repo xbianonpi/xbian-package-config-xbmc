@@ -142,11 +142,8 @@ class AutoBackupGui(Setting) :
         dialog = xbmcgui.Dialog()
         #get a list of uuid here (maybe with size to prevent error)
         #Need a protection to not erase usb HDD with media?        
-        uuid_list = subprocess.check_output(['udisks','--enumerate'])
-        uuid_list  = filter(lambda x: len(x)>0, uuid_list.split('\n'))
-        uuid_list  = map(lambda x: x.split('/')[-1], uuid_list)
-        uuid_list  = filter(lambda x: x[:4] not in ('zram','mmcb'),uuid_list)
-        uuid_list  = map(lambda x: '/dev/' + x, uuid_list)
+        uuid_list = xbianConfig('xbiancopy','getpart')
+        uuid_list  = filter(lambda x: len(x)>0, uuid_list[0].split(';'))
         rc = dialog.select('Select Device',uuid_list)
         if rc == -1 :
            return self.xbianValue[2] #defaut device value in case of cancel
