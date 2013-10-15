@@ -1,0 +1,54 @@
+<window>
+	<defaultcontrol always="true">10</defaultcontrol>
+	<coordinates>
+		<system>1</system>
+		<posx>335</posx>
+		<posy>200</posy>
+	</coordinates>
+	<include>OpenClose</include>
+	<controls>
+		<control type="image">
+			<posx>0</posx>
+			<posy>0</posy>
+			<width>610</width>
+			<height>440</height>
+			<texture border="40">dialogs/DialogBG.png</texture>
+		</control>
+		<control type="label">
+			<description>header label</description>
+			<posx>40</posx>
+			<posy>20</posy>
+			<width>530</width>
+			<height>30</height>
+		    <label>Welcome to XBian</label>
+			<align>center</align>
+			<aligny>center</aligny>
+			<textcolor>Orange</textcolor>
+		</control>
+		<control type="textbox" id="2">
+			  <description>My first text box control</description>
+			  <posx>80</posx>
+			  <posy>60</posy>
+			  <width>450</width>
+			  <height>300</height>			  			  
+			  <label>XBian is a free, Open Source media center distribution for the Raspberry Pi, which can be downloaded at http://www.xbian.org. Our slogan is "XBMC on Raspberry Pi, bleeding edge" as our main focus is delivering the fastest mediacenter solution for the Raspberry Pi. We believe that everyone can help make XBian better. Please visit our website for support and if you have suggestions, wishes or contributions, please share them with us![CR]To configure your XBian system, please go to "Settings -> XBMC -> XBian-config"</label>
+			  <font>font13</font>
+		</control>
+		<control type="button" id="10">
+			<description>OK button</description>
+			<posx>205</posx>
+			<posy>360</posy>
+			<width>200</width>
+			<height>40</height>
+			<label>186</label>
+			<onclick>PreviousMenu</onclick>
+			<align>center</align>
+			<onleft>10</onleft>
+			<onright>10</onright>
+			<onup>10</onup>
+			<ondown>10</ondown>
+		</control>
+	</controls>
+</window>
+
+

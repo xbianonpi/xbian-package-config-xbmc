@@ -1,0 +1,132 @@
+<window>
+        <include>special://skin/media/Textures.xbt</include>
+	<defaultcontrol always="true">9000</defaultcontrol>
+	<allowoverlay>no</allowoverlay>
+	<controls>
+		<control type="image">
+			<posx>0</posx>
+			<posy>0</posy>
+			<width>1280</width>
+			<height>720</height>
+			<texture>special://skin/backgrounds/System.jpg</texture>
+			<animation effect="slide" start="0,10" end="0,0" time="200" condition="Window.Previous(Home)">WindowOpen</animation>
+			<animation effect="slide" start="0,0" end="0,10" time="200" condition="Window.Next(Home)">WindowClose</animation>
+		</control>
+		<control type="group">
+			<posx>0</posx>
+			<posy>0</posy>
+			<animation type="WindowOpen" reversible="false">
+				<effect type="zoom" start="80" end="100" center="640,360" easing="out" tween="back" time="300" />
+				<effect type="fade" start="0" end="100" time="300" />
+			</animation>
+			<animation type="WindowClose" reversible="false">
+				<effect type="zoom" start="100" end="80" center="640,360" easing="in" tween="back" time="300" />
+				<effect type="fade" start="100" end="0" time="300" />
+			</animation>
+			<control type="image">
+				<posx>24</posx>
+				<posy>36</posy>
+				<width>1232</width>
+				<height>672</height>
+				<texture>dialogs/AddonSettingsBG.png</texture>
+			</control>
+			<control type="list" id="9000">
+				<posx>43</posx>
+				<posy>140</posy>
+				<width>216</width>
+				<height>520</height>
+				<itemgap>0</itemgap>
+				<onup>9000</onup>
+				<ondown>9000</ondown>
+				<onleft>9001</onleft>
+				<onright>9001</onright>
+				<pagecontrol>-</pagecontrol>
+				<scrolltime>180</scrolltime>
+				<itemlayout height="40" width="216">
+				<control type="image">
+						<posx>0</posx>
+						<posy>0</posy>
+						<width>216</width>
+						<height>40</height>
+						<texture flipy="true" border="3">list/ListNF.png</texture>
+				</control>
+				<control type="label" id="95">
+					<description>Menu Label no focus</description>
+					<posx>7</posx>
+					<posy>0</posy>
+					<height>50</height>
+					<width>201</width>
+					<textcolor>Grey2</textcolor>
+					<label>$INFO[ListItem.Label]</label>
+				</control>
+				</itemlayout>
+				<focusedlayout height="40" width="216">
+					<control type="image">
+						<posx>0</posx>
+						<posy>0</posy>
+						<width>216</width>
+						<height>40</height>
+						<texture>list/ListFO.png</texture>
+				</control>
+					<control type="label" id="96">
+					<description>Menu Label focus</description>
+					<posx>7</posx>
+					<posy>0</posy>
+					<height>40</height>
+					<width>201</width>
+					<textcolor>Orange</textcolor>
+					<label>$INFO[ListItem.Label]</label>
+					</control>
+				</focusedlayout>
+				<content>
+					<control type="xbian" value="Menucategories"/>
+				</content>
+			</control>
+			<control type="label" id="40">
+				<description>header label</description>
+				<posx>300</posx>
+				<posy>20</posy>
+				<width>740</width>
+				<height>30</height>
+				<font>font16</font>
+				<label>-</label>
+				<align>left</align>
+				<aligny>center</aligny>
+				<textcolor>white</textcolor>
+				<shadowcolor>black</shadowcolor>
+			</control>
+			<control type="group" id="9001">	
+				<posx>265</posx>
+				<posy>140</posy>
+				<width>755</width>
+				<height>333</height>	
+				<control type="xbian" value="categories"/>
+			</control>
+		</control>
+		<include>CommonNowPlaying</include>
+		<include>MainWindowMouseButtons</include>
+		<control type="image">
+			<description>Section header image</description>
+			<posx>20</posx>
+			<posy>3</posy>
+			<width>35</width>
+			<height>35</height>
+			<aspectratio>keep</aspectratio>
+			<texture>icon_system.png</texture>
+		</control>
+		<control type="grouplist">
+			<posx>65</posx>
+			<posy>5</posy>
+			<width>1000</width>
+			<height>30</height>
+			<orientation>horizontal</orientation>
+			<align>left</align>
+			<itemgap>5</itemgap>
+			<control type="label">
+				<include>WindowTitleCommons</include>
+				<label>Settings - XBian</label>
+			</control>
+		</control>
+		<include>Clock</include>
+	</controls>
+</window>

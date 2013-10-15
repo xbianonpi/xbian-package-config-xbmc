@@ -49,6 +49,9 @@ class upgrade(service):
         if self.rebootNoCheck:
             return
 
+        if os.path.isfile('/tmp/.xbian_config_python'):
+            return 
+
         rebootneeded = xbianConfig('reboot')
 
         if rebootneeded and rebootneeded[0] == '1' :
