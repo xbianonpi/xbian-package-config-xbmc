@@ -270,9 +270,6 @@ def wifiConnect(interface):
                     progress.close()
                     dialog.ok("Wireless",'%s : cannot connect to %s (%s)'%(interface,networks[selectedNetwork][SSID],rc))
                     return False
-    progress.close()
-    if not canceled :
-        dialog.ok("Wireless",'%s : cannot connect to %s (%s)'%(interface,networks[selectedNetwork][SSID],rc))
     return False
 
 
