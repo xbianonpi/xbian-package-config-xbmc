@@ -105,12 +105,12 @@ class dialogWaitBackground :
         self.polltime = polltime
         self.logFile = logfile
         self.skinvar = skinvar
-        self.onFinishedCB = onFinishedCB        
-        self.state = FOREGROUND        
+        self.onFinishedCB = onFinishedCB
+        self.state = FOREGROUND
         self.dlgForeground = xbmcgui.WindowXMLDialog('DialogWaitBackground.xml',ROOTDIR)
         self.finished = False
         xbmc.executebuiltin('Skin.SetString(backgrounddialogheader,%s)'%self.header)
-        
+
     def show(self):
         #display foreground dialog
         if self.skinvar :
@@ -120,14 +120,14 @@ class dialogWaitBackground :
                 self.logFile = open(self.logFile,'r')
             except :
                 print 'Cant open logfile'
-                self.logFile = None             
-        
+                self.logFile = None
+
         self.backgroundThread  = threading.Thread(None,self._pollLoop,None)
-        self.backgroundThread.start()                        
-        self.dlgForeground.doModal()        
-        if not self.finished :        
+        self.backgroundThread.start()
+        self.dlgForeground.doModal()
+        if not self.finished :
             self.onBackground()
-        
+
     def lineProgress(self,lineNb,message) :
         self.lines[lineNb] = message
         self._updateGui()
@@ -143,15 +143,15 @@ class dialogWaitBackground :
 
     def close(self):
         if self.state == FOREGROUND :
-            self.dlgForeground.getControl(self.BUTTONCONTROL).setLabel('Close')        
+            self.dlgForeground.getControl(self.BUTTONCONTROL).setLabel('Close')
         if self.logFile :
             self.logFile.close()
             self.logFile = None
-            
+
     def onBackground(self) :
         self.state == BACKGROUND
         self.close()
-                
+
     def onFinished(self) :
         if self.onFinishedCB :
             self.onFinishedCB()
@@ -159,20 +159,20 @@ class dialogWaitBackground :
             xbmc.executebuiltin('Skin.Reset(%s)'%self.skinvar)
         self.finished = True
         self.close()
-        
+
     def _checkNewLog(self) :
-        #check if new log(s) in file        
+        #check if new log(s) in file
         while self.logFile :
             try :
                 line = self.logFile.readline().strip()
             except :
                 print 'Cant read logfile'
                 line = None
-            if not line:                    
+            if not line:
                 break
             else:
                 self.circularProgress(line)
-    
+
     def _pollLoop(self) :
         xbmc.sleep(1000)
         self.guiLineControl = []
@@ -184,17 +184,17 @@ class dialogWaitBackground :
                 self._poll()
             self.onFinished()
 
-    def _poll(self) :       
-        #poll log file every second        
-        for i in xrange(0,self.polltime,1000) :                                 
+    def _poll(self) :
+        #poll log file every second
+        for i in xrange(0,self.polltime,1000) :
             if self.logFile and self.state == FOREGROUND :
                 self._checkNewLog()
             xbmc.sleep(1000)
-        if i < self.polltime:               
+        if i < self.polltime:
             if self.logFile and self.state == FOREGROUND :
                 self._checkNewLog()
-            xbmc.sleep(self.polltime - i)                                   
-        
+            xbmc.sleep(self.polltime - i)
+
 
 SSID = 0
 SECURITYTYPE = 1
@@ -241,35 +241,35 @@ def wifiConnect(interface):
                    continue
            else :
                key = ""
-       progress = dialogWait('Connecting','Connecting %s to %s'%(interface,networks[selectedNetwork][SSID]))
-       progress.show()
-       retry = 2
-       current_try = 1
-       connected = False
-       while not connected and current_try <= retry :
-           rc = xbianConfig('network','credentials',interface,networks[selectedNetwork][SECURITYTYPE],base64.b64encode(networks[selectedNetwork][SSID]),base64.b64encode(key))
-           if rc and rc[0] == '1' :
-                 restart = xbianConfig('network','restart',interface)
-                 if restart and restart[0] == '1' :
-                     rc = '2'
-                     while rc == '2' or rc == '-12' :
-                         tmp = xbianConfig('network','progress',interface)
-                         if tmp :
-                            rc = tmp[0]
-                         time.sleep(1)
-                     if rc == '1' :
-                         progress.close()
-                         return True
+           progress = dialogWait('Connecting','Connecting %s to %s'%(interface,networks[selectedNetwork][SSID]))
+           progress.show()
+           retry = 2
+           current_try = 1
+           connected = False
+           while not connected and current_try <= retry :
+               rc = xbianConfig('network','credentials',interface,networks[selectedNetwork][SECURITYTYPE],base64.b64encode(networks[selectedNetwork][SSID]),base64.b64encode(key))
+               if rc and rc[0] == '1' :
+                     restart = xbianConfig('network','restart',interface)
+                     if restart and restart[0] == '1' :
+                         rc = '2'
+                         while rc == '2' or rc == '-12' :
+                             tmp = xbianConfig('network','progress',interface)
+                             if tmp :
+                                rc = tmp[0]
+                             time.sleep(1)
+                         if rc == '1' :
+                             progress.close()
+                             return True
+                         else :
+                            current_try += 1
                      else :
-                        current_try += 1
-                 else :
-                     progress.close()
-                     dialog.ok("Wireless Error",'Cannot restart %s'%interface)
-                     return False
-           else :
-                progress.close()
-                dialog.ok("Wireless",'%s : cannot connect to %s (%s)'%(interface,networks[selectedNetwork][SSID],rc))
-                return False
+                         progress.close()
+                         dialog.ok("Wireless Error",'Cannot restart %s'%interface)
+                         return False
+               else :
+                    progress.close()
+                    dialog.ok("Wireless",'%s : cannot connect to %s (%s)'%(interface,networks[selectedNetwork][SSID],rc))
+                    return False
     progress.close()
     dialog.ok("Wireless",'%s : cannot connect to %s (%s)'%(interface,networks[selectedNetwork][SSID],rc))
     return False
