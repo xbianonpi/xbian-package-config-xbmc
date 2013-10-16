@@ -19,12 +19,16 @@ class upgrade(service):
         self.rebootNoCheck = False
         self.inScreenSaver = False
         print 'XBian : upgrade service started'
-    
+
     def onAbortRequested(self):
         print 'XBian : abort requested'
-        os.system('sudo kill $(cat /run/lock/xbian-config) &>/dev/null')
         self.StopRequested = True
-        
+
+        try:
+            os.system('sudo kill $(cat /run/lock/xbian-config) &>/dev/null')
+        except:
+            pass
+
     def onScreensaverActivated(self):
         self.inScreenSaver = True
 
@@ -33,25 +37,26 @@ class upgrade(service):
             return
 
         print 'XBian : screensaver activated'
-        if not xbmc.Player().isPlaying() and (getSetting('lastupdatecheck') == None  or getSetting('lastupdatecheck') < datetime.now() - timedelta(days=1)):
-            print 'XBian : Checking for update'
-            #check if new upgrade avalaible
-            rc =xbianConfig('updates','list','upgrades')
+        #if not xbmc.Player().isPlaying() and (getSetting('lastupdatecheck') == None  or getSetting('lastupdatecheck') < datetime.now() - timedelta(days=1)):
+        if not xbmc.Player().isPlaying() :
+            print 'XBian : checking available package updates'
+            #check if new upgrades avalaible
+            rc =xbianConfig('updates','list','packages')
             if rc and rc[0] == '-3' :
+                print 'XBian : refreshing apt inventory'
                 rctmp = xbianConfig('updates','updatedb')
                 if rctmp and rctmp[0] == '1' :
-                     rc =xbianConfig('updates','list','upgrades')
+                    rc =xbianConfig('updates','list','packages')
                 else :
                     rc[0]= '0'
-            if rc and rc[0] not in ('0','-2') :
-                retval = rc[0].split(';') 
-                self.xbianUpdate = retval[3]            
-           
-           #check if new update package avalaible
-            rc =xbianConfig('updates','list','packages')
-            if rc and rc[0] not in ('0','-2') :
+
+            if rc and rc[0] == '1' : 
                 self.packageUpdate = True
+                print 'XBian : new updates available'
+
             setSetting('lastupdatecheck',datetime.now())
+
+        print 'XBian : screensaver tasks finished'
 
     def showRebootDialog(self):
         if self.inScreenSaver or os.path.isfile('/tmp/.xbian_config_python'):
@@ -81,28 +86,11 @@ class upgrade(service):
             self.showRebootDialog()
 
         else:
-            if self.xbianUpdate :
-                xbmc.executebuiltin("Notification(XBian Upgrade,A new version (%s) of XBian is out)"%(self.xbianUpdate))            
-                self.xbianUpdate = False            
             if self.packageUpdate :
                 xbmc.executebuiltin("Notification(Packages Update,Some XBian package can be updated)")
                 self.packageUpdate = False
 
     def onStart(self):
-        #check if Xbian is upgrading
-        if os.path.isfile('/var/lock/.upgrades') :
-            if xbianConfig('updates','progress')[0] == '1':
-                dlg = dialogWait('XBian Update','Please wait while updating')
-                dlg.show()
-                while not self.StopRequested and xbianConfig('updates','progress')[0] == '1':
-                    xbmc.sleep(1000)
-                dlg.close()
-                if self.StopRequested :
-                    return              
-        
-            xbmc.executebuiltin("Notification(%s,%s)"%('XBian Upgrade','XBian was updated successfully'))
-            os.remove('/var/lock/.upgrades')
-        
         #check is packages is updating
         if os.path.isfile('/var/lock/.packages') :
             if xbianConfig('updates','progress')[0] == '1':
@@ -113,14 +101,19 @@ class upgrade(service):
                 dlg.close()
                 if self.StopRequested :
                     return
-            xbmc.executebuiltin("Notification(%s,%s)"%('Package Update','Package was updated successfully'))
+            xbmc.executebuiltin("Notification(%s,%s)"%('Package Update','Updates installed successfully'))
             os.remove('/var/lock/.packages')
+
         if xbianConfig('updates','progress')[0] != '1':
             xbmc.executebuiltin('Skin.Reset(aptrunning)')
+
         #for those one who deactivate its screensaver, force check every 10 days
-        if getSetting('lastupdatecheck') != None and getSetting('lastupdatecheck') < datetime.now() - timedelta(days=10):
+        rc =xbianConfig('updates','updates','enableauto')
+        if getSetting('lastupdatecheck') != None and getSetting('lastupdatecheck') < datetime.now() - timedelta(days=10) and rc and rc[0] == '0' :
+            print 'XBian : screensaver is disabled, running internal updates'
             self.onScreensaverActivated()
             self.onScreensaverDeactivated()
+
         while not self.StopRequested: #End if XBMC closes
             self.onIdle()
             self.x = 0
