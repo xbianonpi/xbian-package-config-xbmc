@@ -22,6 +22,7 @@ BASE_RESOURCE_PATH = os.path.join( ROOTDIR, "resources" )
 APTLOGFILE = '/tmp/aptstatus'
 #disable settings that need apt while installing/updating
 SKINVARAPTRUNNIG = 'aptrunning'
+KEYFORCECHECK = 'enableForce'
 
 #if i add integer, xbmc diplay as Translation String
 BACKUP_PROFILE = ['Daily','Weekly','Monthly']
@@ -52,11 +53,15 @@ class updateControl(MultiSettingControl):
         self.udpateAll = ButtonControl(Tag('label','Update all'),Tag('visible','skin.hasSetting(%s)'%(self.keyupdateall)),Tag('enable','!skin.hasSetting(%s)'%SKINVARAPTRUNNIG))
         self.udpateAll.onClick = lambda updateall : self.onUpdateAll()
         self.addControl(self.udpateAll)
-        
+
+        xbmc.executebuiltin('Skin.Reset(%s)'%KEYFORCECHECK)
+        self.forceCheck = ButtonControl(Tag('label','Force re-check for updates'),Tag('visible','skin.hasSetting(%s)'%KEYFORCECHECK),Tag('enable','!skin.hasSetting(%s)'%SKINVARAPTRUNNIG))
+        self.forceCheck.onClick = lambda forcecheck : self.onForceCheck()
+        self.addControl(self.forceCheck)
+
         self.udpateNo = ButtonControl(Tag('label','Not checked'),Tag('visible','%s'%keynoupdate))
         self.addControl(self.udpateNo)
-                
-        
+
     def getCurrentUpdate(self,control):
         for i,update in enumerate(self.updates) :
             if update['name'] == control :
@@ -79,11 +84,14 @@ class updateControl(MultiSettingControl):
         self.nbcanbeupdate -= 1
         if self.nbcanbeupdate == 1 :
             xbmc.executebuiltin('Skin.Reset(%s)'%self.keyupdateall)
-            
+
     def onUpdateClick(self,updateId) :
         pass
-            
+
     def onUpdateAll(self) :
+        pass
+
+    def onForceCheck(self) :
         pass
         
 class upgradeXbianLabel(Setting) :
@@ -91,14 +99,15 @@ class upgradeXbianLabel(Setting) :
 
 class packageUpdate(Setting) :
     CONTROL = updateControl()
-    DIALOGHEADER = "Update Packages"
+    DIALOGHEADER = "XBian Updates"
     ERRORTEXT = "Error while installing this package."
-    OKTEXT = "Package is successfully updated"
-    APPLYTEXT = "Do you want to update this package?"
+    OKTEXT = "Finished successfully"
+    APPLYTEXT = "Do you want install this update?"
 
     def onInit(self) :
         self.control.onUpdateClick = self.onUpdate       
         self.control.onUpdateAll = self.onUpdateAll
+        self.control.onForceCheck = self.onForceCheck
         self.keyword()
     
     def keyword(self) :
@@ -142,6 +151,20 @@ class packageUpdate(Setting) :
                 os.remove(self.lockfile)                
                 self.notifyOnError()    
             
+    def onForceCheck(self) :
+        xbmc.executebuiltin('Skin.SetBool(%s)'%SKINVARAPTRUNNIG)
+        self.lockfile = '/var/lock/.%s'%self.key
+        open(self.lockfile,'w').close()
+
+        progress = dialogWait('Please Wait','Checking for updates')
+        progress.show()
+        rc = xbianConfig('updates','updatedb')
+        progress.close()
+
+        if rc and rc[0] == '1' :
+            self.onUpdateFinished()
+        xbmc.executebuiltin('Skin.Reset(%s)'%SKINVARAPTRUNNIG)
+
     def onUpdateAll(self) :
         updates = '-'        
         self.onUpdate(updates)
@@ -153,12 +176,12 @@ class packageUpdate(Setting) :
                 self.control.addUpdate(update)
         else :
             self.control.udpateNo.setLabel('Up-to-date')
+
+        xbmc.executebuiltin('Skin.SetBool(%s)'%KEYFORCECHECK)
         return rc
 
 class updatePackageLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label','Available updates'))      
-
-
 
 class UpdateLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label','Automatic updates'))
@@ -255,6 +278,9 @@ class InventoryIntGui(Setting) :
             return True
         else :
             return False
+
+class emptyLabel(Setting) :
+    CONTROL = CategoryLabelControl(Tag('label',''))
 
 class update(Category) :
     TITLE = 'Update'
