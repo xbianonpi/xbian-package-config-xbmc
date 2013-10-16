@@ -27,6 +27,11 @@ class upgrade(service):
         
     def onScreensaverActivated(self):
         self.inScreenSaver = True
+
+        rc =xbianConfig('updates','updates','enableauto')
+        if rc and rc[0] == '1' :
+            return
+
         print 'XBian : screensaver activated'
         if not xbmc.Player().isPlaying() and (getSetting('lastupdatecheck') == None  or getSetting('lastupdatecheck') < datetime.now() - timedelta(days=1)):
             print 'XBian : Checking for update'
