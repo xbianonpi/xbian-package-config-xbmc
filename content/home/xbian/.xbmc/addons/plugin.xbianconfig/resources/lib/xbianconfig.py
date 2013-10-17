@@ -6,8 +6,7 @@ def sh_escape(s):
 
 def xbianConfig(*args,**kwargs) :
         cmd = kwargs.get('cmd',['sudo','/usr/local/sbin/xbian-config'])
-        for arg in args :
-           print arg
+        for arg in args :           
            cmd.append(sh_escape(arg))
         rc= subprocess.check_output(cmd)
         rcs = rc.split('\n')

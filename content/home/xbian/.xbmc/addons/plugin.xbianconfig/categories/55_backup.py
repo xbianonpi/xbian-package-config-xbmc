@@ -26,7 +26,7 @@ class systemBackupLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label','System'))
 
 class snapshotLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','System'))
+    CONTROL = CategoryLabelControl(Tag('label','Snapshot'))
 
 class systemBackup(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
@@ -294,8 +294,103 @@ class homeRestoreBackup(Setting) :
     def setXbianValue(self,value):
         return ok
 
+class snapshotmount(Setting) :
+    CONTROL = ButtonControl(Tag('label','Mount a snapshot'))
+    DIALOGHEADER = "Btrfs snapshot"
+    ERRORTEXT = "Cannot Mount btrfs snapshot"
+    OKTEXT = "btrfs snapshot is mount"
+    BLAKLISTVOLUME = ['modules']
+
+    def getUserValue(self):
+        volumeList = xbianConfig('listvol',cmd=['sudo','btrfs-auto-snapshot'])
+        print ' volume list %s'%str(volumeList)
+        volumeList = list(set(volumeList)-set(self.BLAKLISTVOLUME))
+        have_to_stop = False
+        dialog = xbmcgui.Dialog()
+        while not have_to_stop :
+            volId = dialog.select('Volume',volumeList)
+            if volId == -1 :
+               have_to_stop = True
+            else :
+                snapshotList = xbianConfig('list',volumeList[volId],cmd=['sudo','btrfs-auto-snapshot'])
+                snapshotList = filter(lambda x : x.split('@')[1],snapshotList)
+                snapId = dialog.select('Snapshot',map(lambda x : x.split('@')[1],snapshotList))
+                if snapId != -1 :
+                    try :
+                        self.runCmd(volumeList[volId],snapshotList[snapId])
+                    except :
+                        print 'error running btrfs-auto-spashot command %s %s'%(volumeList[volId],snapshotList[snapId])
+                    finally :
+                        have_to_stop = True
+        return ''
+
+    def runCmd(self,volume,snapshot) :
+         #TODO check command
+         print xbianConfig('mount',volume,snapshot,cmd=['sudo','btrfs-auto-snapshot'])
+
+    def getXbianValue(self) :
+        return ''
+
+class snapshotRollback(snapshotmount) :
+    CONTROL = ButtonControl(Tag('label','Rollback to a snapshot'))
+    ERRORTEXT = "Cannot rollback btrfs snapshot"
+    OKTEXT = "rollback is done."
+
+    def runCmd(self,volume,snapshot) :
+         print xbianConfig('rollback',snapshot,cmd=['sudo','btrfs-auto-snapshot'])
+         dialog = xbmcgui.Dialog().yesno('Reboot','A reboot is needed to complete rollback', 'Do you want to reboot now?')
+         if dialog :
+            xbmc.executebuiltin('Reboot')
+
+class snapshotDestroy(snapshotmount) :
+    CONTROL = ButtonControl(Tag('label','Delete a snapshot'))
+    ERRORTEXT = "Cannot delete btrfs snapshot"
+    OKTEXT = "Snapshot is deleted."
+
+    def runCmd(self,volume,snapshot) :
+         dialog = xbmcgui.Dialog()
+         if dialog.yesno(self.DIALOGHEADER,'Are you sure to destroy',snapshot) :
+             print xbianConfig('rollback',snapshot,cmd=['sudo','btrfs-auto-snapshot'])
+             if dialog.yesno('Reboot','A reboot is needed to complete rollback', 'Do you want to reboot now?') :
+                xbmc.executebuiltin('Reboot')
+
+class snapshotCreate(Setting) :
+    CONTROL = ButtonControl(Tag('label','Create a snapshot'))
+    DIALOGHEADER = "Btrfs snapshot"
+    ERRORTEXT = "Cannot create btrfs snapshot"
+    OKTEXT = "btrfs snapshot is create"
+    BLAKLISTVOLUME = ['modules']
+
+    def getUserValue(self):
+        volumeList = xbianConfig('listvol',cmd=['sudo','btrfs-auto-snapshot'])
+        print ' volume list %s'%str(volumeList)
+        volumeList = list(set(volumeList)-set(self.BLAKLISTVOLUME))
+        have_to_stop = False
+        dialog = xbmcgui.Dialog()
+        while not have_to_stop :
+            volId = dialog.select('Volume',volumeList)
+            if volId == -1 :
+               have_to_stop = True
+            else :
+                snapshot = getText('Snapshot name','btrfs-user-snap-%s'%datetime.datetime.now().strftime("%Y-%m-%d-%H%M"))
+                try :
+                    self.runCmd(volumeList[volId],snapshot)
+                except :
+                    print 'error running btrfs-auto-spashot command %s %s'%(volumeList[volId],snapshotList[snapId])
+                finally :
+                    have_to_stop = True
+        return ''
+
+    def runCmd(self,volume,snapshot) :
+         #TODO check command
+         print xbianConfig('create','%s/@%s'%(volume,snapshot),cmd=['sudo','btrfs-auto-snapshot'])
+
+    def getXbianValue(self) :
+        return ''
+
+
 
 class backup(Category) :
     TITLE = 'Backup'
-    SETTINGS = [homeBackupLabel,homeBackup,homeRestoreBackup,systemBackupLabel,AutoBackupGui]
+    SETTINGS = [homeBackupLabel,homeBackup,homeRestoreBackup,systemBackupLabel,AutoBackupGui,snapshotLabel,snapshotmount,snapshotRollback,snapshotDestroy,snapshotCreate]
 
