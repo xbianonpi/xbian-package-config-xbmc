@@ -49,7 +49,7 @@ def getIp(header,default=None):
     dialog = xbmcgui.Dialog()
     return dialog.numeric(3,header,default)
 
-def getFile(header,default=None) :
+def getFile(header,default=None,files=False,) :
     dialog = xbmcgui.Dialog()
     return dialog.browse(3,header,'files')
 

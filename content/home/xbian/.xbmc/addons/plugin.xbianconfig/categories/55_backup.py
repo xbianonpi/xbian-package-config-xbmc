@@ -1,5 +1,6 @@
 import os,subprocess
 import datetime
+import threading
 
 from resources.lib.xbmcguie.xbmcContainer import *
 from resources.lib.xbmcguie.xbmcControl import *
@@ -16,10 +17,15 @@ BACKUP_PROFILE = ['daily','weekly','monthly']
 DEVICE = 'Device'
 FILE  = 'File'
 
+DESTINATION_HOME_RESTORE = '/xbmc-backup/put_here_to_restore/'
+
 class homeBackupLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label','Home'))
 
 class systemBackupLabel(Setting) :
+    CONTROL = CategoryLabelControl(Tag('label','System'))
+
+class snapshotLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label','System'))
 
 class systemBackup(MultiSettingControl):
@@ -108,22 +114,22 @@ class AutoBackupGui(Setting) :
     def checkcopyFinish(self) :
         self.rc = xbianConfig('xbiancopy','status')[0]
         return self.rc != '0'
-        
+
     def oncopyFinished(self) :
         if self.rc == '1' :
-             #backup is finished        
+             #backup is finished
              msg ='Backup system is finished'
-        elif self.rc == '-1' :                        
+        elif self.rc == '-1' :
              msg ='Something was wrong during copy'
         elif self.rc == '-2' :
-             #shouldn't see this error                       
+             #shouldn't see this error
              msg ='backup not started'
         else :
              msg ='Unexpected Error'
         xbmc.executebuiltin("Notification(%s,%s)"%(self.DIALOGHEADER,msg))
-             
+
     def startManualBackup(self):
-        src = '/dev/root'       
+        src = '/dev/root'
         dialog = xbmcgui.Dialog()
         value = self.control.getValue()
         if value[1] == 'File' :
@@ -134,14 +140,14 @@ class AutoBackupGui(Setting) :
         if rc :
             rc = xbianConfig('xbiancopy','start',src,value[2])
             dlg = dialogWaitBackground('Xbian Copy',['Your system is currently backep up','Depending to your system partition size','It can take up to few hours'],self.checkcopyFinish,skinvar='systembackuprunning',onFinishedCB=self.oncopyFinished)
-            dlg.show()                         
+            dlg.show()
         return ''
 
 
     def getDevice(self) :
         dialog = xbmcgui.Dialog()
         #get a list of uuid here (maybe with size to prevent error)
-        #Need a protection to not erase usb HDD with media?        
+        #Need a protection to not erase usb HDD with media?
         uuid_list = xbianConfig('xbiancopy','getpart')
         uuid_list  = filter(lambda x: len(x)>0, uuid_list[0].split(';'))
         rc = dialog.select('Select Device',uuid_list)
@@ -167,19 +173,19 @@ class AutoBackupGui(Setting) :
         if xbianConfig('xbiancopy','imgtype')[0] == 'file' :
            imgtype = 'File'
         else :
-           imgtype = 'Device'       
+           imgtype = 'Device'
         delta = xbianConfig('xbiancopy','imgplan')
         if delta and delta[0] in BACKUP_PROFILE :
             delta = delta[0]
             actif = 1
         else :
-            delta = BACKUP_PROFILE[0]  
+            delta = BACKUP_PROFILE[0]
             actif = 0
         dest = xbianConfig('xbiancopy','imgdest')
         if dest :
             dest = dest[0]
         else :
-            dest = ''   
+            dest = ''
         return [actif,imgtype,dest,delta]
 
     def setXbianValue(self,value):
@@ -194,9 +200,9 @@ class AutoBackupGui(Setting) :
         if xbianConfig('xbiancopy','imgplan',value[3])[0] != '1' :
             return False
         if xbianConfig('xbiancopy','imgtype',value[1])[0] != '1' :
-            return False        
+            return False
         if xbianConfig('xbiancopy','imgdest',value[2])[0] != '1' :
-            return False        
+            return False
         return True
 
 class homeBackup(Setting) :
@@ -211,31 +217,77 @@ class homeBackup(Setting) :
     def checkcopyFinish(self) :
         self.rc = xbianConfig('backuphome','status')[0]
         return self.rc != '0'
-        
+
     def oncopyFinished(self) :
         if self.rc == '1' :
-             #backup is finished        
+             #backup is finished
              msg ='Backup home is finished'
-        elif rc == '-1' :                        
+        elif rc == '-1' :
              msg ='Something went wrong during copy'
         elif rc == '-2' :
-             #shouldn't see this error                       
+             #shouldn't see this error
              msg ='backup not started'
         else :
              msg ='Unexpected Error'
         xbmc.executebuiltin("Notification(%s,%s)"%(self.DIALOGHEADER,msg))
-        
-    def getUserValue(self):        
-        pid = xbianConfig('backuphome','start')         
+
+    def getUserValue(self):
+        pid = xbianConfig('backuphome','start')
         msg= [
         'It can take several minutes depending on size of your /home/xbian directory.',
         'File will be created under /xbian-backup, which is also accessible through smb share".',
         'Until finished, there will be just temp folder. Once ready, .img file will appear.',
         'You can copy the file directly to you computer (the file will be deleted during reboots!)',
-        'To restore your XBMC, just copy .img file to /xbian-backup/put_to_restore folder.']               
+        'To restore your XBMC, just copy .img file to /xbian-backup/put_to_restore folder.']
         dlg = dialogWaitBackground('Backupe Home',msg,self.checkcopyFinish,skinvar='homebackuprunning',onFinishedCB=self.oncopyFinished)
         dlg.show()
-        
+
+    def getXbianValue(self):
+        return ''
+
+    def setXbianValue(self,value):
+        return ok
+
+class homeRestoreBackup(Setting) :
+    CONTROL = ButtonControl(Tag('label','Restore backup'),Tag('enable','!skin.hasSetting(homebackuprunning)'))
+    DIALOGHEADER = "Restore Home Backup"
+    ERRORTEXT = "Error during restoring home"
+    OKTEXT = "Home Backup is restored"
+
+    def setControlValue(self,value) :
+        pass
+
+    def checkcopyFinish(self) :
+        return self.copyFileStatus != 0
+
+    def oncopyFinished(self) :
+        if self.copyFileStatus == -1 :
+            xbmc.executebuiltin("Notification(%s,%s)"%(self.DIALOGHEADER,self.ERRORTEXT))
+            print 'XBIAN_CONFIG : error during restore home : cannot copy file to restore folder'
+            return
+        dialog = xbmcgui.Dialog().yesno('Reboot','A reboot is needed to complete home restore', 'Do you want to reboot now?')
+        if dialog :
+            xbmc.executebuiltin('Reboot')
+
+    def copyThread(self,src,dest) :
+        import xbmcvfs
+        #copy is blocking, run in a thread for background dialog
+        self.copyFileStatus = 0
+        if xbmcvfs.copy(src,dest) :
+           self.copyFileStatus = 1
+        else :
+           self.copyFileStatus = -1
+
+    def getUserValue(self):
+        src = xbmcgui.Dialog().browse(1,'Select Home Image', 'files', '.img.gz')
+        if src :
+            #start thread copy
+            copyT = threading.Thread(target=self.copyThread, args=(src,DESTINATION_HOME_RESTORE + '/xbianconfigrestore.img.gz'))
+            copyT.start()
+            msg= ['It can take several minutes depending on size of your backup image.']
+            dlg = dialogWaitBackground('Restore Home',msg,self.checkcopyFinish,skinvar='homebackuprunning',onFinishedCB=self.oncopyFinished)
+            dlg.show()
+
     def getXbianValue(self):
         return ''
 
@@ -245,5 +297,5 @@ class homeBackup(Setting) :
 
 class backup(Category) :
     TITLE = 'Backup'
-    SETTINGS = [homeBackupLabel,homeBackup,systemBackupLabel,AutoBackupGui]
+    SETTINGS = [homeBackupLabel,homeBackup,homeRestoreBackup,systemBackupLabel,AutoBackupGui]
 
