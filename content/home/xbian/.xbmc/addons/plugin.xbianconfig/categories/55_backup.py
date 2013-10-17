@@ -222,9 +222,9 @@ class homeBackup(Setting) :
         if self.rc == '1' :
              #backup is finished
              msg ='Backup home is finished'
-        elif rc == '-1' :
+        elif self.rc == '-1' :
              msg ='Something went wrong during copy'
-        elif rc == '-2' :
+        elif self.rc == '-2' :
              #shouldn't see this error
              msg ='backup not started'
         else :
