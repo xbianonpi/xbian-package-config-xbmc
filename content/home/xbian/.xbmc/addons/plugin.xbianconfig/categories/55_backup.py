@@ -19,6 +19,9 @@ FILE  = 'File'
 
 DESTINATION_HOME_RESTORE = '/xbmc-backup/put_here_to_restore/'
 
+class separator(Setting) :
+    CONTROL = CategoryLabelControl(Tag('label','Manage snapshot'))
+
 class homeBackupLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label','Home'))
 
@@ -26,7 +29,31 @@ class systemBackupLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label','System'))
 
 class snapshotLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','Snapshot'))
+    CONTROL = CategoryLabelControl(Tag('label','Auto snapshot'))
+
+
+class autodailysnapshot(MultiSettingControl):
+    LABEL = 'Enable daily snapshot'
+
+    def onInit(self) :
+        self.autodaily = RadioButtonControl(Tag('label',self.LABEL))
+        self.addControl(self.autodaily)
+        self.multiDelta = MultiSettingControl(Tag('visible','SubString(Control.GetLabel(%d),*)'%self.autodaily.getId()))
+        self.countdaily = ButtonControl(Tag('label','     -Number of snapshot to keep'))
+        self.countdaily.onClick = lambda count: self.countdaily.setValue(getNumeric('Last snapshot to keep',self.countdaily.getValue(),1,1000))
+        self.multiDelta.addControl(self.countdaily)
+        self.addControl(self.multiDelta)
+
+    def getValue(self) :
+        return [self.autodaily.getValue(),int(self.countdaily.getValue())]
+
+    def setValue(self,value) :
+        self.autodaily.setValue(value[0])
+        self.countdaily.setValue(value[1])
+
+class autoweeklysnapshot(autodailysnapshot):
+    LABEL = 'Enable weekly snapshot'
+
 
 class systemBackup(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
@@ -38,7 +65,7 @@ class systemBackup(MultiSettingControl):
         self.systemAutoBackup = RadioButtonControl(Tag('label','Auto image'))
         self.addControl(self.systemAutoBackup)
         self.multiDelta = MultiSettingControl(Tag('visible','SubString(Control.GetLabel(%d),*)'%self.systemAutoBackup.getId()))
-        self.systemdeltaControl = SpinControlex(Tag('label',' -type'))
+        self.systemdeltaControl = SpinControlex(Tag('label','     -type'))
         for number in BACKUP_PROFILE :
             self.systemdeltaControl.addContent(Content(Tag('label',number),defaultSKin=False))
         self.multiDelta.addControl(self.systemdeltaControl)
@@ -50,10 +77,10 @@ class systemBackup(MultiSettingControl):
         self.systemBackupDestType.addContent(contentSD)
         contentSF = Content(Tag('label',FILE),defaultSKin=False)
         self.systemBackupDestType.addContent(contentSF)
-        self.systemdevicePath = ButtonControl(Tag('label',' -Block device'),Tag('visible','Container(%d).HasFocus(%d)'%(self.systemBackupDestType.getWrapListId(),contentSD.getId())))
+        self.systemdevicePath = ButtonControl(Tag('label','     -Block device'),Tag('visible','Container(%d).HasFocus(%d)'%(self.systemBackupDestType.getWrapListId(),contentSD.getId())))
         self.systemdevicePath.onClick = lambda devicePath: self.systemdevicePath.setValue(self.getDevice())
         self.addControl(self.systemdevicePath)
-        self.systemfilePath = ButtonControl(Tag('label',' -Destination '),Tag('visible','Container(%d).HasFocus(%d)'%(self.systemBackupDestType.getWrapListId(),contentSF.getId())))
+        self.systemfilePath = ButtonControl(Tag('label','     -Destination '),Tag('visible','Container(%d).HasFocus(%d)'%(self.systemBackupDestType.getWrapListId(),contentSF.getId())))
         self.systemfilePath.onClick = lambda backupPath: self.systemfilePath.setValue(getFile('Backup Path',self.systemfilePath.getValue())+getText('FileName','XBianImage.%s.img'%(datetime.datetime.now().strftime("%d-%m-%y"))))
         self.addControl(self.systemfilePath)
         self.ManualBackup = ButtonControl(Tag('label','Start backup now'))
@@ -301,7 +328,7 @@ class snapshotmount(Setting) :
     OKTEXT = "btrfs snapshot is mount"
     PROGRESSTEXT = 'Please wait while mounting'
     BLAKLISTVOLUME = ['modules']
-    
+
 
     def getUserValue(self):
         dlg = dialogWait(self.DIALOGHEADER,'Loading volumes')
@@ -327,9 +354,10 @@ class snapshotmount(Setting) :
                     try :
                         dlg = dialogWait(self.DIALOGHEADER,self.PROGRESSTEXT)
                         dlg.show()
-                        self.runCmd(volumeList[volId],snapshotList[snapId])                        
+                        self.runCmd(volumeList[volId],snapshotList[snapId])
                     except :
-                        print 'error running btrfs-auto-spashot command %s %s'%(volumeList[volId],snapshotList[snapId])
+                        xbmc.executebuiltin("Notification(%s,%s)"%(self.DIALOGHEADER,'error running btrfs-auto-spashot'))
+                        print 'XBian-Config Error : error running btrfs-auto-spashot command %s %s'%(volumeList[volId],snapshotList[snapId])
                     finally :
                         have_to_stop = True
                         dlg.close()
@@ -356,7 +384,7 @@ class snapshotRollback(snapshotmount) :
     ERRORTEXT = "Cannot rollback btrfs snapshot"
     OKTEXT = "rollback is done."
     PROGRESSTEXT = 'Please wait while rollback'
-    
+
     def runCmd(self,volume,snapshot) :
          print xbianConfig('rollback',snapshot,cmd=['sudo','btrfs-auto-snapshot'])
          dialog = xbmcgui.Dialog().yesno('Reboot','A reboot is needed to complete rollback', 'Do you want to reboot now?')
@@ -367,12 +395,12 @@ class snapshotDestroy(snapshotmount) :
     CONTROL = ButtonControl(Tag('label','Delete a snapshot'))
     ERRORTEXT = "Cannot delete btrfs snapshot"
     OKTEXT = "Snapshot is deleted."
-    PROGRESSTEXT = 'Please wait while remove' 
-    
+    PROGRESSTEXT = 'Please wait while remove'
+
     def runCmd(self,volume,snapshot) :
          dialog = xbmcgui.Dialog()
          if dialog.yesno(self.DIALOGHEADER,'Are you sure to destroy',snapshot) :
-             print xbianConfig('destroy',snapshot,cmd=['sudo','btrfs-auto-snapshot'])             
+             print xbianConfig('destroy',snapshot,cmd=['sudo','btrfs-auto-snapshot'])
 
 class snapshotCreate(Setting) :
     CONTROL = ButtonControl(Tag('label','Create a snapshot'))
@@ -381,7 +409,7 @@ class snapshotCreate(Setting) :
     OKTEXT = "btrfs snapshot is create"
     BLAKLISTVOLUME = ['modules']
     PROGRESSTEXT = 'Please wait while create snapshot'
-    
+
     def getUserValue(self):
         dlg = dialogWait(self.DIALOGHEADER,'Loading volumes')
         dlg.show()
@@ -402,7 +430,8 @@ class snapshotCreate(Setting) :
                     dlg.show()
                     self.runCmd(volumeList[volId],snapshot)
                 except :
-                    print 'error running btrfs-auto-spashot command %s %s'%(volumeList[volId],snapshot)
+                    xbmc.executebuiltin("Notification(%s,%s)"%(self.DIALOGHEADER,'error running btrfs-auto-snapshot'))
+                    print 'XBian-Config Error : running btrfs-auto-spashot command %s %s'%(volumeList[volId],snapshot)
                 finally :
                     have_to_stop = True
                     dlg.close()
@@ -415,9 +444,46 @@ class snapshotCreate(Setting) :
     def getXbianValue(self) :
         return ''
 
+class dailySnapshotGui(Setting) :
+    CONTROL = autodailysnapshot()
+    DIALOGHEADER = "Daily Snapshot"
+    ERRORTEXT = "Error on updating"
+    OKTEXT = "Update ok"
+    SAVEMODE = Setting.ONUNFOCUS
+
+    def onInit(self) :
+        self.key = 'dodaily'
+
+    def getUserValue(self):
+        return self.control.getValue()
+
+    def getXbianValue(self):
+        rc= xbianConfig('xbiancopy',self.key)
+        if rc :
+            rc =rc[0].split(' ')
+        if rc[0]=='0': rc.append(10)
+        return map(int,rc)
+
+    def setXbianValue(self,value):
+        if value[0] == 1 :
+           value = value[1]
+        else :
+           value = 0
+        rc= xbianConfig('xbiancopy',self.key,str(value))
+        if rc and rc[0] == '0' :
+            return False
+        else:
+            return True
+
+class weeklySnapshotGui(dailySnapshotGui) :
+    CONTROL = autoweeklysnapshot()
+    DIALOGHEADER = "Weekly Snapshot"
+
+    def onInit(self) :
+        self.key = 'doweekly'
 
 
 class backup(Category) :
     TITLE = 'Backup'
-    SETTINGS = [homeBackupLabel,homeBackup,homeRestoreBackup,systemBackupLabel,AutoBackupGui,snapshotLabel,snapshotmount,snapshotRollback,snapshotDestroy,snapshotCreate]
+    SETTINGS = [homeBackupLabel,homeBackup,homeRestoreBackup,systemBackupLabel,AutoBackupGui,snapshotLabel,dailySnapshotGui,weeklySnapshotGui,separator,snapshotmount,snapshotRollback,snapshotDestroy,snapshotCreate]
 
