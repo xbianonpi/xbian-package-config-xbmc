@@ -299,34 +299,54 @@ class snapshotmount(Setting) :
     DIALOGHEADER = "Btrfs snapshot"
     ERRORTEXT = "Cannot Mount btrfs snapshot"
     OKTEXT = "btrfs snapshot is mount"
+    PROGRESSTEXT = 'Please wait while mounting'
     BLAKLISTVOLUME = ['modules']
+    
 
     def getUserValue(self):
+        dlg = dialogWait(self.DIALOGHEADER,'Loading volumes')
+        dlg.show()
         volumeList = xbianConfig('listvol',cmd=['sudo','btrfs-auto-snapshot'])
         print ' volume list %s'%str(volumeList)
         volumeList = list(set(volumeList)-set(self.BLAKLISTVOLUME))
         have_to_stop = False
+        dlg.close()
         dialog = xbmcgui.Dialog()
         while not have_to_stop :
             volId = dialog.select('Volume',volumeList)
             if volId == -1 :
                have_to_stop = True
             else :
+                dlg = dialogWait(self.DIALOGHEADER,'Loading snapshots for %s'%volumeList[volId])
+                dlg.show()
                 snapshotList = xbianConfig('list',volumeList[volId],cmd=['sudo','btrfs-auto-snapshot'])
                 snapshotList = filter(lambda x : x.split('@')[1],snapshotList)
+                dlg.close()
                 snapId = dialog.select('Snapshot',map(lambda x : x.split('@')[1],snapshotList))
                 if snapId != -1 :
                     try :
-                        self.runCmd(volumeList[volId],snapshotList[snapId])
+                        dlg = dialogWait(self.DIALOGHEADER,self.PROGRESSTEXT)
+                        dlg.show()
+                        self.runCmd(volumeList[volId],snapshotList[snapId])                        
                     except :
                         print 'error running btrfs-auto-spashot command %s %s'%(volumeList[volId],snapshotList[snapId])
                     finally :
                         have_to_stop = True
+                        dlg.close()
         return ''
 
     def runCmd(self,volume,snapshot) :
          #TODO check command
-         print xbianConfig('mount',volume,snapshot,cmd=['sudo','btrfs-auto-snapshot'])
+         mountdir = '/tmp/' + os.snapshot.split('@')[1]
+         if os.path_isdir(mountdir) :
+             try :
+                os.mkdir(mountdir)
+             except :
+                print 'XBian-Config : Cannot create mount dir : %s'%mountdir
+         #TODO
+         #to be check don't work
+         #need also mount is sudoers
+         print xbianConfig('-t','btrfs','-o','subvol=%s'%snapshot,mountdir,cmd=['sudo','mount'])
 
     def getXbianValue(self) :
         return ''
@@ -335,7 +355,8 @@ class snapshotRollback(snapshotmount) :
     CONTROL = ButtonControl(Tag('label','Rollback to a snapshot'))
     ERRORTEXT = "Cannot rollback btrfs snapshot"
     OKTEXT = "rollback is done."
-
+    PROGRESSTEXT = 'Please wait while rollback'
+    
     def runCmd(self,volume,snapshot) :
          print xbianConfig('rollback',snapshot,cmd=['sudo','btrfs-auto-snapshot'])
          dialog = xbmcgui.Dialog().yesno('Reboot','A reboot is needed to complete rollback', 'Do you want to reboot now?')
@@ -346,13 +367,12 @@ class snapshotDestroy(snapshotmount) :
     CONTROL = ButtonControl(Tag('label','Delete a snapshot'))
     ERRORTEXT = "Cannot delete btrfs snapshot"
     OKTEXT = "Snapshot is deleted."
-
+    PROGRESSTEXT = 'Please wait while remove' 
+    
     def runCmd(self,volume,snapshot) :
          dialog = xbmcgui.Dialog()
          if dialog.yesno(self.DIALOGHEADER,'Are you sure to destroy',snapshot) :
-             print xbianConfig('rollback',snapshot,cmd=['sudo','btrfs-auto-snapshot'])
-             if dialog.yesno('Reboot','A reboot is needed to complete rollback', 'Do you want to reboot now?') :
-                xbmc.executebuiltin('Reboot')
+             print xbianConfig('destroy',snapshot,cmd=['sudo','btrfs-auto-snapshot'])             
 
 class snapshotCreate(Setting) :
     CONTROL = ButtonControl(Tag('label','Create a snapshot'))
@@ -360,13 +380,17 @@ class snapshotCreate(Setting) :
     ERRORTEXT = "Cannot create btrfs snapshot"
     OKTEXT = "btrfs snapshot is create"
     BLAKLISTVOLUME = ['modules']
-
+    PROGRESSTEXT = 'Please wait while create snapshot'
+    
     def getUserValue(self):
+        dlg = dialogWait(self.DIALOGHEADER,'Loading volumes')
+        dlg.show()
         volumeList = xbianConfig('listvol',cmd=['sudo','btrfs-auto-snapshot'])
         print ' volume list %s'%str(volumeList)
         volumeList = list(set(volumeList)-set(self.BLAKLISTVOLUME))
         have_to_stop = False
         dialog = xbmcgui.Dialog()
+        dlg.close()
         while not have_to_stop :
             volId = dialog.select('Volume',volumeList)
             if volId == -1 :
@@ -374,16 +398,19 @@ class snapshotCreate(Setting) :
             else :
                 snapshot = getText('Snapshot name','btrfs-user-snap-%s'%datetime.datetime.now().strftime("%Y-%m-%d-%H%M"))
                 try :
+                    dlg = dialogWait(self.DIALOGHEADER,self.PROGRESSTEXT)
+                    dlg.show()
                     self.runCmd(volumeList[volId],snapshot)
                 except :
-                    print 'error running btrfs-auto-spashot command %s %s'%(volumeList[volId],snapshotList[snapId])
+                    print 'error running btrfs-auto-spashot command %s %s'%(volumeList[volId],snapshot)
                 finally :
                     have_to_stop = True
+                    dlg.close()
         return ''
 
     def runCmd(self,volume,snapshot) :
          #TODO check command
-         print xbianConfig('create','%s/@%s'%(volume,snapshot),cmd=['sudo','btrfs-auto-snapshot'])
+         print xbianConfig('snapshot','--name',snapshot,volume,cmd=['sudo','btrfs-auto-snapshot'])
 
     def getXbianValue(self) :
         return ''
