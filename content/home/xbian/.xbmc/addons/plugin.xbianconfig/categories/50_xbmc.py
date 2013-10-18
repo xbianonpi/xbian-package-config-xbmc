@@ -170,7 +170,7 @@ class xbmcUSBsmbrw(Setting) :
 
 
 class xbmcUSBuuidname(Setting) :
-    CONTROL = RadioButtonControl(Tag('label','Include partition UUID in mnt folder name'))
+    CONTROL = RadioButtonControl(Tag('label','Include partition UUID in mnt folder name'),Tag('visible','skin.hasSetting(advancedmode)'))
     DIALOGHEADER = "UUID in folder name"
     ERRORTEXT = "Error on updating"
     OKTEXT = "Update ok"
@@ -279,7 +279,7 @@ class SpinDownHddGui(Setting) :
             return False
 
 class xbmcUSBsync(Setting) :
-    CONTROL = RadioButtonControl(Tag('label','Mount with sync option'))
+    CONTROL = RadioButtonControl(Tag('label','Mount with sync option'),Tag('visible','skin.hasSetting(advancedmode)'))
     DIALOGHEADER = "USB sync"
     ERRORTEXT = "Error on updating"
     OKTEXT = "Update ok"

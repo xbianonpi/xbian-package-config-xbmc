@@ -62,9 +62,9 @@ class systemBackup(MultiSettingControl):
         #create the system settings
         #container with visibility condition
         #autoimage
-        self.systemAutoBackup = RadioButtonControl(Tag('label','Auto image'))
+        self.systemAutoBackup = RadioButtonControl(Tag('label','Auto image'),Tag('visible','skin.hasSetting(advancedmode)'))
         self.addControl(self.systemAutoBackup)
-        self.multiDelta = MultiSettingControl(Tag('visible','SubString(Control.GetLabel(%d),*)'%self.systemAutoBackup.getId()))
+        self.multiDelta = MultiSettingControl(Tag('visible','skin.hasSetting(advancedmode)'),Tag('visible','SubString(Control.GetLabel(%d),*)'%self.systemAutoBackup.getId()))
         self.systemdeltaControl = SpinControlex(Tag('label','     -type'))
         for number in BACKUP_PROFILE :
             self.systemdeltaControl.addContent(Content(Tag('label',number),defaultSKin=False))
@@ -126,7 +126,7 @@ class systemBackup(MultiSettingControl):
 
 
 class AutoBackupGui(Setting) :
-    CONTROL = systemBackup(Tag('visible','skin.hasSetting(advancedmode)'))
+    CONTROL = systemBackup()
     DIALOGHEADER = "System Backup"
     ERRORTEXT = "Error during updating"
     OKTEXT = "Update ok"
@@ -322,7 +322,7 @@ class homeRestoreBackup(Setting) :
         return ok
 
 class snapshotmount(Setting) :
-    CONTROL = ButtonControl(Tag('label','Mount a snapshot'))
+    CONTROL = ButtonControl(Tag('label','Mount a snapshot'),Tag('visible','skin.hasSetting(advancedmode)'))
     DIALOGHEADER = "Btrfs snapshot"
     ERRORTEXT = "Cannot Mount btrfs snapshot"
     OKTEXT = "btrfs snapshot is mount"
@@ -392,7 +392,7 @@ class snapshotRollback(snapshotmount) :
             xbmc.executebuiltin('Reboot')
 
 class snapshotDestroy(snapshotmount) :
-    CONTROL = ButtonControl(Tag('label','Delete a snapshot'))
+    CONTROL = ButtonControl(Tag('label','Delete a snapshot'),Tag('visible','skin.hasSetting(advancedmode)'))
     ERRORTEXT = "Cannot delete btrfs snapshot"
     OKTEXT = "Snapshot is deleted."
     PROGRESSTEXT = 'Please wait while remove'
