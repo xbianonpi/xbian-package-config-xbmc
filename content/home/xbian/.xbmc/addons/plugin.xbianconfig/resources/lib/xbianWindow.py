@@ -1,14 +1,18 @@
-import sys
+import traceback
 from xbmcguie.window import WindowSkinXml
 import threading
 import xbmc
 
-ACTION_SELECT_ITEM = 7
 
-selectAction = [ACTION_SELECT_ITEM]
+ACTION_SELECT_ITEM = 7
+ACTION_MOUSE_LEFT_CLICK = 100
+
+#Action that trigger category loading.
+selectAction = [ACTION_SELECT_ITEM,ACTION_MOUSE_LEFT_CLICK]
 
 class XbianWindow(WindowSkinXml):
     def init(self) :
+        xbmc.log('XBian-config : Init XbianWindow',xbmc.LOGDEBUG)
         self.categories = []
         self.publicMethod = {}
         self.stopRequested = False
@@ -16,15 +20,19 @@ class XbianWindow(WindowSkinXml):
         self.loadingCat = {}
 
     def onInit(self):
+        xbmc.log('XBian-config : Show(onInit) XbianWindow',xbmc.LOGDEBUG)
         WindowSkinXml.onInit(self)
         #first, get all public method
         for category in self.categories :
-            xbmc.executebuiltin('Skin.SetString(%sloadingvalue,%s)'%(category.getTitle(),'Click to Load'))
-            self.publicMethod[category.getTitle()] = {}
+            title = category.getTitle()
+            xbmc.executebuiltin('Skin.SetString(%sloadingvalue,%s)'%(title,'Click to Load'))
+            self.publicMethod[title] = {}
+            self.loadingCat[title] = False
             for setting in category.getSettings():
                 public = setting.getPublicMethod()
                 for key in public :
                     self.publicMethod[category.getTitle()][key] = public[key]
+        xbmc.log('XBian-config : End Show(onInit) XbianWindow',xbmc.LOGDEBUG) 
 
     def onHeritFocus(self,controlId) :
         #handle listitem menu click for dynamic load value
@@ -34,42 +42,46 @@ class XbianWindow(WindowSkinXml):
             self.menuhasfocus = False
 
     def onHeritAction(self,action) :
-        if self.menuhasfocus and action==ACTION_SELECT_ITEM:
-            selectCat =  xbmc.getInfoLabel('Container(9000).ListItem(0).Label')
-            for category in self.categories :
-                if category.getTitle() == selectCat :
-                    if not self.loadingCat.has_key(selectCat) or not self.loadingCat[selectCat] :
-                        #load/refresh category value
-                        xbmc.executebuiltin('Skin.SetString(%sloadingvalue,%s)'%(category.getTitle(),'Loading...'))                        
-                        self.loadingCat[selectCat] = True
-                        print 'XBian : xbian-config : Loading/refresh categorie %s'%selectCat
-                        initthread  = threading.Thread(None,self.onInitThread,None, (category,))
-                        initthread.start()
-                    break
-
+        if self.menuhasfocus and action in selectAction:
+            selectCat =  xbmc.getInfoLabel('Container(9000).ListItem(0).Label')            
+            category =  filter(lambda x : x.getTitle() == selectCat,self.categories)[0]
+            if not self.loadingCat[selectCat] :            
+               xbmc.log('XBian-config : Loading value for  %s'%category.getTitle(),xbmc.LOGDEBUG)
+               #load category value
+               xbmc.executebuiltin('Skin.SetString(%sloadingvalue,%s)'%(category.getTitle(),'Loading...'))                        
+               self.loadingCat[selectCat] = True               
+               initthread  = threading.Thread(None,self.onInitThread,None, (category,))
+               initthread.start()               
+               xbmc.log('XBian-config : Loading value thread started for  %s'%category.getTitle(),xbmc.LOGDEBUG)
+               
     def onInitThread(self,category):
+         xbmc.log('XBian-config : inthread : Loading value for  %s'%category.getTitle(),xbmc.LOGDEBUG)
          for setting in category.getSettings():
              if self.stopRequested :
+                 xbmc.log('XBian-config : Load value Thread stop : user cancel loading',xbmc.LOGDEBUG)
                  break
              try :
+                 xbmc.log('XBian-config : inthread : Start Loading setting value for  %s -> %s'%(category.getTitle(),setting.DIALOGHEADER),xbmc.LOGDEBUG)
                  setting.updateFromXbian()
+                 xbmc.log('XBian-config : inthread : Stop Loading setting value for  %s -> %s'%(category.getTitle(),setting.DIALOGHEADER),xbmc.LOGDEBUG)
                  setting.setPublicMethod(self.publicMethod)
              except :
                  #don't enable control if error
-                 print 'Exception in updateFromXbian for setting'
-                 print sys.exc_info()
+                 #xbmc.log('XBian-config : Not catched exception in %s (Get xbianValue) : %s - Settings will stay disabled'%(category.getTitle(),traceback.format_exc().split('\n')[-2]),xbmc.LOGERROR)                                  
+                 xbmc.log('XBian-config : Not catched exception in %s (Get xbianValue) : %s - Settings will stay disabled'%(category.getTitle(),traceback.format_exc()),xbmc.LOGERROR)                                  
              else :
                  setting.getControl().setEnabled(True)
          xbmc.executebuiltin('Skin.SetString(%sloadingvalue,%s)'%(category.getTitle(),''))
-         #not allow refresh now, problem with package that are add 2 times
-         #self.loadingCat[category.getTitle()] = False
-
+         xbmc.log('XBian-config : End inthread : Loading value for  %s'%category.getTitle(),xbmc.LOGDEBUG)
+        
     def addCategory(self,category):
         self.categories.append(category)
+        xbmc.log('XBian-config : Initialise category %s'%category.TITLE,xbmc.LOGDEBUG)
         self.addControl(category.getCategory())
-
+        xbmc.log('XBian-config : End Initialise category %s'%category.TITLE,xbmc.LOGDEBUG)
 
     def doXml(self,template) :
+        xbmc.log('XBian-config : Generate windows xml from template : %s to %s'%(template,self.xmlfile),xbmc.LOGDEBUG)
         xmltemplate = open(template)
         xmlout = open(self.xmlfile,'w')
         for line in xmltemplate.readlines() :
@@ -84,3 +96,4 @@ class XbianWindow(WindowSkinXml):
                 xmlout.write(line)
         xmltemplate.close()
         xmlout.close()
+        xbmc.log('XBian-config : End Generate windows xml',xbmc.LOGDEBUG)
