@@ -126,7 +126,6 @@ class Package :
         self.control = ButtonControl(Tag('label',self.label),Tag('visible','skin.hasSetting(%s)'%self.visiblekey),Tag('enable','!skin.hasSetting(%s)'%SKINVARAPTRUNNIG))
         self.control.onClick = self._onClick
 
-
     def getName(self) :
         return self.label
 
