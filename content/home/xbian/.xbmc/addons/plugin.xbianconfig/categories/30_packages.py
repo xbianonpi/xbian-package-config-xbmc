@@ -1,3 +1,4 @@
+import uuid
 import os
 import time
 
@@ -11,107 +12,177 @@ from resources.lib.utils import *
 import xbmcgui,xbmc
 from xbmcaddon import Addon
 
-__addonID__      = "plugin.xbianconfig"
-ADDON     = Addon( __addonID__ )
-ADDON_DIR = ADDON.getAddonInfo( "path" )
-ROOTDIR            = ADDON_DIR
-BASE_RESOURCE_PATH = os.path.join( ROOTDIR, "resources" )
-
+#apt log file (will be displayed in backgroung progress)
 APTLOGFILE = '/tmp/aptstatus'
-#disable settings that need apt while installing/updating
+
+#XBMC SKIN VAR
+#apt running lock
 SKINVARAPTRUNNIG = 'aptrunning'
 
+#HELPER CLASS
+class PackageCategory :
+    def __init__(self,packagesInfo,onPackageCB,onGetMoreCB) :
+        tmp = packagesInfo.split(',')
+        self.name = tmp[0]
+        xbmc.log('XBian-config : initalisie new package category : %s'%self.name,xbmc.LOGDEBUG)
+        self.available = int(tmp[1])
+        self.preinstalled = int(tmp[2])
+        self.onPackageCB = onPackageCB
+        self.onGetMoreCB = onGetMoreCB
+        self.installed = 0
+        self.initialiseIndex = 0
+        self.flagRemove = False
+        self.packageList = []
+        self.control = MultiSettingControl()
+        self._createControl()
+        self.getMoreState = False
 
+
+    def hasInstalledPackage(self) :
+        xbmc.log('XBian-config : %s hasInstalledPackage '%(self.name),xbmc.LOGDEBUG)
+        print self.preinstalled
+        return self.preinstalled > 0
+
+    def getName(self) :
+        return self.name
+
+    def getAvailable(self) :
+        return self.available
+
+    def getInstalled(self) :
+        return self.installed
+
+    def addPackage(self,package) :
+        xbmc.log('XBian-config : Add package %s to category %s'%(package,self.name),xbmc.LOGDEBUG)
+        idx = self.initialiseIndex
+        find = False
+        if self.flagRemove :
+            for i,pack in enumerate(self.packageList) :
+               if pack.getName() == package :
+                   find = True
+                   break
+            if find :
+                idx = i
+
+        if not find : self.initialiseIndex += 1
+
+        self.packageList[idx].enable(package)
+        self.installed += 1
+        self.LabelPackageControl.setLabel('%s [COLOR lightblue](%d/%d)[/COLOR]'%(self.name,self.installed,self.available))
+        if self.installed == self.available :
+            #hide get more button
+            xbmc.executebuiltin('Skin.Reset(%s)'%self.visiblegetmorekey)
+            self.getMoreState = False
+        elif not self.getMoreState :
+            #as we can't call during progress (xbmc bug), nasty workaround and set here
+            xbmc.executebuiltin('Skin.SetBool(%s)'%self.visiblegetmorekey)
+            self.getMoreState = True
+
+    def removePackage(self,package) :
+        xbmc.log('XBian-config : Remove package %s from category %s'%(package,self.name),xbmc.LOGDEBUG)
+        filter(lambda x : x.getName() == package,self.packageList[:self.initialiseIndex])[0].disable()       
+        self.flagRemove = True
+        self.installed -= 1
+        #refresh category label
+        self.LabelPackageControl.setLabel('%s [COLOR lightblue](%d/%d)[/COLOR]'%(self.name,self.installed,self.available))
+        if not self.getMoreState :
+            self.enableGetMore()
+
+    def getControl(self) :
+        return self.control
+
+    def enableGetMore(self) :
+        xbmc.executebuiltin('Skin.SetBool(%s)'%self.visiblegetmorekey)
+        self.getMoreState = True
+
+    def clean(self) :
+        #clean xbmc skin var
+        xbmc.executebuiltin('Skin.Reset(%s)'%self.visiblegetmorekey)
+        map(lambda x : x.clean(),self.packageList)
+
+    def _createControl(self) :
+        self.LabelPackageControl = CategoryLabelControl(Tag('label','%s [COLOR lightblue](%d/%d)[/COLOR]'%(self.name,self.preinstalled,self.available)))
+        self.control.addControl(self.LabelPackageControl)
+        for i in xrange(self.available) :
+            self.packageList.append(Package(self._onPackageCLick))
+            self.control.addControl(self.packageList[-1].getControl())
+        self.visiblegetmorekey = uuid.uuid4()
+        self.getMoreControl = ButtonControl(Tag('label','Get more...'),Tag('visible','skin.hasSetting(%s)'%self.visiblegetmorekey),Tag('enable','!skin.hasSetting(%s)'%SKINVARAPTRUNNIG))
+        self.getMoreControl.onClick = self._ongetMoreClick
+        self.control.addControl(self.getMoreControl)
+
+    def _ongetMoreClick(self,ctrl) :
+        self.onGetMoreCB(self.name)
+
+    def _onPackageCLick(self,package):
+        xbmc.log('XBian-config : on PackageGroupCLickCB %s click package %s: '%(self.name,package),xbmc.LOGDEBUG)
+        self.onPackageCB(self.name,package)
+
+class Package :
+    def __init__(self,onPackageCB) :
+        self.onPackageCB = onPackageCB
+        self.visiblekey = uuid.uuid4()
+        self.label = 'Not Loaded'
+        self.control = ButtonControl(Tag('label',self.label),Tag('visible','skin.hasSetting(%s)'%self.visiblekey),Tag('enable','!skin.hasSetting(%s)'%SKINVARAPTRUNNIG))
+        self.control.onClick = self._onClick
+
+
+    def getName(self) :
+        return self.label
+
+    def disable(self) :
+        xbmc.log('XBian-config : Disable package %s'%self.label,xbmc.LOGDEBUG)
+        xbmc.executebuiltin('Skin.Reset(%s)'%self.visiblekey)
+        self.control.setLabel('Not Loaded')
+
+    def enable(self,package) :
+        xbmc.log('XBian-config : Enable package %s'%package,xbmc.LOGDEBUG)
+        self.label = package
+        self.control.setLabel(self.label)
+        self.control.setEnabled(True)
+        xbmc.executebuiltin('Skin.SetBool(%s)'%self.visiblekey)
+
+    def getControl(self) :
+        return self.control
+
+    def clean(self) :
+        xbmc.executebuiltin('Skin.Reset(%s)'%self.visiblekey)
+
+    def _onClick(self,ctrl) :
+        xbmc.log('XBian-config : on Package %s click '%self.label,xbmc.LOGDEBUG)
+        self.onPackageCB(self.label)
+
+#XBIAN GUI CONTROL
 class PackagesControl(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
 
-
     def onInit(self) :
-        tmp = xbianConfig('packages','list')
-        self.packages = {}
-        if tmp and tmp[0] == '-3' :
-            rc = xbianConfig('packages','updatedb')
-            if rc[0] == '1' :
-                tmp = xbianConfig('packages','list')
-            else :
-                tmp = []
-        for cat in tmp :
-            t = cat.split(',')
-            tmp_cat = {}
-            self.packages[t[0]] = {}
-            self.packages[t[0]]['available'] = int(t[1])
-            self.packages[t[0]]['installed'] = int(t[2])
+        self.packages = []
+        self.onGetMore=None
+        self.onPackage=None
+        for package in xbianConfig('packages','list') :
+            self.packages.append(PackageCategory(package,self._onPackage,self._onGetMore))
+            self.addControl(self.packages[-1].getControl())
 
-        for key in self.packages :
-            self.packages[key]['group'] = MultiSettingControl()
-            self.packages[key]['label'] = CategoryLabelControl(Tag('label','%s [COLOR lightblue](%d/%d)[/COLOR]'%(key.title(),self.packages[key]['installed'],self.packages[key]['available'])))
-            self.packages[key]['group'].addControl(self.packages[key]['label'])
-            self.packages[key]['visible'] = 0
-            self.packages[key]['set'] = []
-            self.packages[key]['list'] = []
-            for i in range(self.packages[key]['available']) :  
-                #bug in xbmc progress dialog don't update if we call this
-                #xbmc.executebuiltin('Skin.Reset(%s%d)'%(key,i))              
-                package = ButtonControl(Tag('label','Loading'),Tag('visible','skin.hasSetting(%s%d) + skin.hasSetting(packageloaded)'%(key,i)))
-                package.onClick = lambda select : self.selectClick(self.getCurrentCat(select),select.getLabel())
-                self.packages[key]['list'].append(package)
-                self.packages[key]['group'].addControl(package)
-                self.packages[key]['set'].append(False)
+    def setCallback(self,onGetMore=None,onPackage=None):
+       self.onGetMore=onGetMore
+       self.onPackage=onPackage
+    
+    def addPackage(self,group,package) :
+		filter(lambda x : x.getName() == group,self.packages)[0].addPackage(package)
 
+    def removePackage(self,group,package) :
+		a =filter(lambda x : x.getName() == group,self.packages)
+		print a
+		a[0].removePackage(package)
+    
+    def _onPackage(self,package,value):
+        if self.onPackage :
+           self.onPackage(package,value)
 
-            #add Get more Button
-            #xbmc.executebuiltin('Skin.SetBool(more%s)'%key)
-            self.packages[key]['getmore'] = ButtonControl(Tag('label','Get more...'),Tag('visible','skin.hasSetting(more%s)'%key),Tag('enable','!skin.hasSetting(%s)'%SKINVARAPTRUNNIG))
-            self.packages[key]['getmore'].onClick = lambda getmore : self.getmoreClick(self.getCurrentCat(getmore))
-            self.packages[key]['group'].addControl(self.packages[key]['getmore'])
-            self.addControl(self.packages[key]['group'])
-
-    def getCurrentCat(self,control) :
-        for key in self.packages :
-            if self.packages[key]['getmore'] == control :
-                return key
-            for ctrl in self.packages[key]['list'] :
-                if control == ctrl :
-                    return key
-
-    def addPackage(self,category,package) :
-        for i,tmp in enumerate(self.packages[category]['set']) :
-            if not tmp :
-                break
-        self.packages[category]['set'][i] = True
-        self.packages[category]['list'][i].setLabel(package)
-        xbmc.executebuiltin('Skin.SetBool(%s%d)'%(category,i))
-        self.packages[category]['visible'] += 1
-        self.packages[category]['label'].setLabel('%s [COLOR lightblue](%d/%d)[/COLOR]'%(category.title(),self.packages[category]['visible'],self.packages[category]['available']))
-        if self.packages[category]['visible'] == self.packages[category]['available'] :
-            #hide get More button
-            xbmc.executebuiltin('Skin.Reset(more%s)'%category)
-
-    def removePackage(self,category,package)  :
-        for i,pack in enumerate(self.packages[category]['list']) :
-            if package == pack.getLabel() :
-                break
-        self.packages[category]['set'][i] = False
-        self.packages[category]['visible'] -= 1
-        self.packages[category]['label'].setLabel('%s [COLOR lightblue](%d/%d)[/COLOR]'%(category.title(),self.packages[category]['visible'],self.packages[category]['available']))
-        xbmc.executebuiltin('Skin.Reset(%s%d)'%(category,i))
-        if self.packages[category]['visible'] < self.packages[category]['available'] :
-            #hide get More button
-            xbmc.executebuiltin('Skin.SetBool(more%s)'%category)
-
-
-    def selectClick(self,package,value):
-        pass
-
-    def getmoreClick(self,package) :
-        pass
-
-    def __del__(self) :
-        #clean skin settings for next run
-        for key in self.packages :
-            for i in range(self.packages[key]['available']) :                
-                xbmc.executebuiltin('Skin.Reset(%s%d)'%(key,i))
-
+    def _onGetMore(self,package) :
+        if self.onGetMore :
+           self.onGetMore(package)
 
 class packagesManager(Setting) :
     CONTROL = PackagesControl()
@@ -124,19 +195,18 @@ class packagesManager(Setting) :
     NOTINSTALLED = 'Not installed'
 
     def onInit(self) :
-        pass
-        self.control.getmoreClick = self.onGetMore
-        self.control.selectClick = self.onSelect
-        self.dialog = xbmcgui.Dialog()
+        self.control.setCallback(self.onGetMore,self.onSelect)
+        self.dialog = xbmcgui.Dialog()        
 
     def showInfo(self,package) :
-        progress = dialogWait('Loading','Please wait while loading the information for %s'%package)
+        progress = dialogWait('Loading','Please wait while loading informations for package %s'%package)
         progress.show()
         rc = xbianConfig('packages','info',package)
         progress.close()
         if rc :
             PackageInfo(package,rc[0].partition(' ')[2],rc[1].partition(' ')[2],rc[2].partition(' ')[2],rc[3].partition(' ')[2],rc[4].partition(' ')[2],rc[5].partition(' ')[2],rc[6].partition(' ')[2])
-    def onSelect(self,cat,package) :
+
+    def onSelect(self,cat,package) :        
         choice = ['Informations','Remove Package']
         select = self.dialog.select('Select',choice)
         if select == 0 :
@@ -147,15 +217,15 @@ class packagesManager(Setting) :
             self.APPLYTEXT = 'Do you want to remove the %s package?'%package
             if self.askConfirmation(True) :
                 self.tmppack = (cat,package)
-                progressDlg = dialogWait('Removing','Please wait...')
+                progressDlg = dialogWait('Removing','Sanity checking system')
                 progressDlg.show()
-                rc = xbianConfig('packages','removetest',package)                
+                rc = xbianConfig('packages','removetest',package)
                 if rc and rc[0] == '1' :
                    rc = xbianConfig('packages','remove',package)
-                   if rc and rc[0] == '1' :                    
+                   if rc and rc[0] == '1' :
                        progressDlg.close()
                        dlg = dialogWaitBackground('Xbian Package Manager',[],self.checkInstallFinish,APTLOGFILE,skinvar=SKINVARAPTRUNNIG,onFinishedCB=self.onRemoveFinished)
-                       dlg.show()                                                                                                                                 
+                       dlg.show()
                 else :
                     if rc and rc[0] == '2' :
                          #normally never pass here
@@ -169,25 +239,26 @@ class packagesManager(Setting) :
                     self.notifyOnError()
 
 
-    def checkInstallFinish(self) :      
+    def checkInstallFinish(self) :
         return xbianConfig('packages','progress')[0] != '1'
-                                    
+
     def onInstallFinished(self) :
         time.sleep(0.5)
         self.control.addPackage(self.tmppack[0],self.tmppack[1])
         self.globalMethod['Services']['refresh']()
         self.OKTEXT = 'Package %s successfully installed'%self.tmppack[1]
         self.notifyOnSuccess()
-    
+
     def onRemoveFinished(self) :
         time.sleep(0.5)
+        print self.tmppack
         self.control.removePackage(self.tmppack[0],self.tmppack[1])
         self.globalMethod['Services']['refresh']()
         self.OKTEXT = 'Package %s successfully removed'%self.tmppack[1]
         self.notifyOnSuccess()
-    
+
     def onGetMore(self,cat) :
-        progress = dialogWait('Loading','Please wait while loading packages for %s'%cat)
+        progress = dialogWait('Loading','Refreshing packages list for %s'%cat)
         progress.show()
         tmp = xbianConfig('packages','list',cat)
         if tmp and tmp[0] == '-3' :
@@ -210,19 +281,19 @@ class packagesManager(Setting) :
                 if sel == 0 :
                     #display info dialog
                     self.showInfo(package[select])
-                elif sel == 1 :                 
+                elif sel == 1 :
                     self.APPLYTEXT = 'Do you want to install the package: %s?'%package[select]
                     if self.askConfirmation(True) :
                         self.tmppack = (cat,package[select])
-                        progressDlg = dialogWait('Installing','Please wait, installing %s ...'%package[select])
+                        progressDlg = dialogWait('Installing %s...'%package[select],'Sanity checking system ...')
                         progressDlg.show()
-                        rc = xbianConfig('packages','installtest',package[select])                        
+                        rc = xbianConfig('packages','installtest',package[select])
                         if rc and rc[0] == '1' :
                              rc = xbianConfig('packages','install',package[select])
                         if rc and rc[0] == '1' :
                              progressDlg.close()
                              dlg = dialogWaitBackground('Xbian Package Manager',[],self.checkInstallFinish,APTLOGFILE,skinvar=SKINVARAPTRUNNIG,onFinishedCB=self.onInstallFinished)
-                             dlg.show()                                                                                     
+                             dlg.show()
                         else :
                             if rc and rc[0] == '2' :
                                 self.ERRORTEXT = 'Package %s is already installed'%package[select]
@@ -244,22 +315,15 @@ class packagesManager(Setting) :
 
 
     def getXbianValue(self):
-        packages = self.control.packages        
-        for key in packages :
-            for i in range(self.control.packages[key]['available']) :
-                #reset skin variable                
-                xbmc.executebuiltin('Skin.Reset(%s%d)'%(key,i))
-            #show Package
-            xbmc.executebuiltin('Skin.SetBool(packageloaded)')            
-            #show get More button            
-            xbmc.executebuiltin('Skin.SetBool(more%s)'%key)
-            if packages[key]['installed'] > 0 :
-                tmp = xbianConfig('packages','list',key)
+        packagesGroup = self.control.packages
+        for group in packagesGroup :
+            if group.hasInstalledPackage() :
+                tmp = xbianConfig('packages','list',group.getName())
                 if tmp[0]!= '-2' and tmp[0]!= '-3' :
-                    for packag in tmp :
-                        packageTmp = packag.split(',')
-                        if packageTmp[1] == '1' :
-                            self.control.addPackage(key,packageTmp[0])
+                    for package in filter(lambda x : int(x[1]),map(lambda x : x.split(','),tmp)) :
+                       group.addPackage(package[0])
+            else :
+                group.enableGetMore()
 
 class packages(Category) :
     TITLE = 'Packages'
