@@ -18,7 +18,8 @@ DEVICE = 'Device'
 FILE  = 'File'
 
 DESTINATION_HOME_RESTORE = '/xbmc-backup/put_here_to_restore/'
-
+class separator(Setting) :
+    CONTROL = CategoryLabelControl(Tag('label','Manage snapshot'))
 class homeBackupLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label','Home'))
 
@@ -28,6 +29,31 @@ class systemBackupLabel(Setting) :
 class snapshotLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label','Snapshot'))
 
+class snapshotLabel(Setting) :
+    CONTROL = CategoryLabelControl(Tag('label','Auto snapshot'))
+
+
+class autodailysnapshot(MultiSettingControl):
+    LABEL = 'Enable daily snapshot'
+
+    def onInit(self) :
+        self.autodaily = RadioButtonControl(Tag('label',self.LABEL))
+        self.addControl(self.autodaily)
+        self.multiDelta = MultiSettingControl(Tag('visible','SubString(Control.GetLabel(%d),*)'%self.autodaily.getId()))
+        self.countdaily = ButtonControl(Tag('label','     -Number of snapshot to keep'))
+        self.countdaily.onClick = lambda count: self.countdaily.setValue(getNumeric('Last snapshot to keep',self.countdaily.getValue(),1,1000))
+        self.multiDelta.addControl(self.countdaily)
+        self.addControl(self.multiDelta)
+
+    def getValue(self) :
+        return [self.autodaily.getValue(),int(self.countdaily.getValue())]
+
+    def setValue(self,value) :
+        self.autodaily.setValue(value[0])
+        self.countdaily.setValue(value[1])
+
+class autoweeklysnapshot(autodailysnapshot):
+    LABEL = 'Enable weekly snapshot'
 class systemBackup(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
 
@@ -421,9 +447,45 @@ class snapshotCreate(Setting) :
     def getXbianValue(self) :
         return ''
 
+class dailySnapshotGui(Setting) :
+    CONTROL = autodailysnapshot()
+    DIALOGHEADER = "Daily Snapshot"
+    ERRORTEXT = "Error on updating"
+    OKTEXT = "Update ok"
+    SAVEMODE = Setting.ONUNFOCUS
 
+    def onInit(self) :
+        self.key = 'dodaily'
+
+    def getUserValue(self):
+        return self.control.getValue()
+
+    def getXbianValue(self):
+        rc= xbianConfig('xbiancopy',self.key)
+        if rc :
+            rc =rc[0].split(' ')
+        if rc[0]=='0': rc.append(10)
+        return map(int,rc)
+
+    def setXbianValue(self,value):
+        if value[0] == 1 :
+           value = value[1]
+        else :
+           value = 0
+        rc= xbianConfig('xbiancopy',self.key,str(value))
+        if rc and rc[0] == '0' :
+            return False
+        else:
+            return True
+
+class weeklySnapshotGui(dailySnapshotGui) :
+    CONTROL = autoweeklysnapshot()
+    DIALOGHEADER = "Weekly Snapshot"
+
+    def onInit(self) :
+        self.key = 'doweekly'
 
 class backup(Category) :
     TITLE = 'Backup'
-    SETTINGS = [homeBackupLabel,homeBackup,homeRestoreBackup,systemBackupLabel,AutoBackupGui,snapshotLabel,snapshotmount,snapshotRollback,snapshotDestroy,snapshotCreate]
+    SETTINGS = [homeBackupLabel,homeBackup,homeRestoreBackup,systemBackupLabel,AutoBackupGui,snapshotLabel,dailySnapshotGui,weeklySnapshotGui,separator,snapshotmount,snapshotRollback,snapshotDestroy,snapshotCreate]
 
