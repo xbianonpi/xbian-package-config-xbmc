@@ -36,10 +36,7 @@ class upgrade(service):
         if rc and rc[0] == '1' :
             return
 
-        print 'XBian : screensaver activated'
-        #if not xbmc.Player().isPlaying() and (getSetting('lastupdatecheck') == None  or getSetting('lastupdatecheck') < datetime.now() - timedelta(days=1)):
         if not xbmc.Player().isPlaying() :
-            print 'XBian : checking available package updates'
             #check if new upgrades avalaible
             rc =xbianConfig('updates','list','packages')
             if rc and rc[0] == '-3' :
@@ -56,17 +53,17 @@ class upgrade(service):
 
             setSetting('lastupdatecheck',datetime.now())
 
-        print 'XBian : screensaver tasks finished'
-
     def showRebootDialog(self):
         if self.inScreenSaver or os.path.isfile('/tmp/.xbian_config_python'):
             return
+
         stillrunning = xbianConfig('updates','progress')
         if stillrunning and stillrunning[0] == '1' :
             return
+
         self.rebootNeeded = False
+
         if xbmcgui.Dialog().yesno('XBian-config','A reboot is needed','Do you want to reboot now?') :
-            #reboot
             os.system('sudo reboot')
             xbmc.executebuiltin("XBMC.Quit()")
         else:
@@ -74,7 +71,8 @@ class upgrade(service):
 
     def onIdle(self):
         if self.rebootNoCheck or os.path.isfile('/tmp/.xbian_config_python') or self.rebootNeeded:
-            return 
+            return
+
         rebootneeded = xbianConfig('reboot')
         if rebootneeded and rebootneeded[0] == '1' :
             self.rebootNeeded = True
