@@ -50,7 +50,7 @@ class updateControl(MultiSettingControl):
             keynoupdate+='!Control.IsVisible(%d) + '%update['name'].getId()
         keynoupdate = keynoupdate[:-3]
         #xbmc.executebuiltin('Skin.Reset(%s)'%(self.keyupdateall))
-        self.udpateAll = ButtonControl(Tag('label','Update all'),Tag('visible','skin.hasSetting(%s)'%(self.keyupdateall)),Tag('enable','!skin.hasSetting(%s)'%SKINVARAPTRUNNIG))
+        self.udpateAll = ButtonControl(Tag('label','Update all'),Tag('visible','skin.hasSetting(%s)'%self.keyupdateall),Tag('enable','!skin.hasSetting(%s)'%SKINVARAPTRUNNIG))
         self.udpateAll.onClick = lambda updateall : self.onUpdateAll()
         self.addControl(self.udpateAll)
 

@@ -371,13 +371,14 @@ class snapshotmount(Setting) :
 
     def runCmd(self,volume,snapshot) :
          #TODO check command
-         mountdir = '/tmp/' + os.snapshot.split('@')[1]
-         if os.path_isdir(mountdir) :
-             try :
+         mountdir = '/tmp/' + snapshot.split('/@')[0] + '@' + snapshot.split('/@')[1]
+         if not os.path.isdir(mountdir):
+            try :
                 os.mkdir(mountdir)
-             except :
+            except :
                 print 'XBian-Config : Cannot create mount dir : %s'%mountdir
-         print xbianConfig('-t','btrfs','-o','subvol=%s'%snapshot,mountdir,cmd=['sudo','mount'])
+
+         print xbianConfig('-t','btrfs','-o','subvol=%s'%snapshot,'/dev/root',mountdir,cmd=['sudo','/bin/mount'])
 
     def getXbianValue(self) :
         return ''
@@ -428,7 +429,7 @@ class snapshotCreate(Setting) :
                have_to_stop = True
             else :
                 snapshot = getText('Snapshot name','btrfs-user-snap-%s'%datetime.datetime.now().strftime("%Y-%m-%d-%H%M"))
-                if snasphot and self.askConfirmation() :
+                if snapshot and self.askConfirmation() :
                     try :
                         dlg = dialogWait(self.DIALOGHEADER,self.PROGRESSTEXT)
                         dlg.show()

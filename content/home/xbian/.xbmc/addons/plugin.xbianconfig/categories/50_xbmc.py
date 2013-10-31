@@ -49,7 +49,7 @@ class xbmcTvOff(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
 
     def onInit(self) :
-        self.tvOffEnable = RadioButtonControl(Tag('label','Turn CEC capable TV off with screensaver'))
+        self.tvOffEnable = RadioButtonControl(Tag('label','Turn CEC capable TV OFF with screensaver'))
         self.addControl(self.tvOffEnable)
         self.tvOffProperty = MultiSettingControl(Tag('visible','SubString(Control.GetLabel(%d),*)'%self.tvOffEnable.getId()))
         self.delay =  ButtonControl(Tag('label','        - delay (min)'))
@@ -85,7 +85,7 @@ class xbmcTvOffGui(Setting) :
             return False
 
 class xbmcTvOn(Setting) :
-    CONTROL = RadioButtonControl(Tag('label','Turn CEC capable TV on with XBMC exit'))
+    CONTROL = RadioButtonControl(Tag('label','Turn CEC capable TV ON when XBMC exit'))
     DIALOGHEADER = "TV ON exit"
     ERRORTEXT = "Error on updating"
     OKTEXT = "Update ok"
