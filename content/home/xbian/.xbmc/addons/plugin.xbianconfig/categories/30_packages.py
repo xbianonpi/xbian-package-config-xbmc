@@ -159,7 +159,11 @@ class PackagesControl(MultiSettingControl):
         self.packages = []
         self.onGetMore=None
         self.onPackage=None
-        for package in xbianConfig('packages','list') :
+        packagelist = xbianConfig('packages','list')
+        if packagelist[0] == '-3':
+			xbianConfig('packages','updatedb')
+			packagelist = xbianConfig('packages','list')
+        for package in packagelist :
             self.packages.append(PackageCategory(package,self._onPackage,self._onGetMore))
             self.addControl(self.packages[-1].getControl())
 
