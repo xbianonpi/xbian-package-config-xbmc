@@ -22,9 +22,10 @@ class XbianDialog(DialogSkinXml):
             self.addControl(setting.getControl())        
         DialogSkinXml.onInit(self)
         #set title
-        self.getControl(20).setLabel(self.title)        
+        self.getControl(20).setLabel(self.title.title() + ' Loading...')
         for setting in self.settings :       
             self._loadSettingValue(setting)
+        self.getControl(20).setLabel(self.title.title())
         xbmc.log('XBian-config : End Show(onInit) XbianDialog',xbmc.LOGDEBUG) 
                
     def _loadSettingValue(self,setting):                  
