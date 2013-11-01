@@ -13,6 +13,8 @@ __version__      = "0.0.1"
 import os
 import sys
 import Queue
+import traceback
+import urllib
 
 
 # xbmc modules
@@ -20,13 +22,6 @@ import xbmc
 import xbmcgui
 from xbmcaddon import Addon
 
-#xbmcguie
-from resources.lib.xbianWindow import XbianWindow
-from resources.lib.updateworker import Updater
-from resources.lib.xbianconfig import xbianConfig
-from resources.lib.utils import dialogWait
-
-import categories
 
 #addon module
 ADDON     = Addon( __addonID__ )
@@ -42,93 +37,204 @@ ADDON_DATA  = xbmc.translatePath( "special://profile/addon_data/%s/" % __addonID
 CATEGORY_PATH = 'categories'
 
 SKIN_DIR = xbmc.getSkinDir()
+LOCK_FILE = os.path.join('/','tmp','.xbian_config_python')
 
 
-#TODO
-#Workaround, don't know why service isen't reset setting.
-if xbianConfig('updates','progress')[0] != '1':
-   xbmc.executebuiltin('Skin.Reset(aptrunning)')
 
-try:
-   with open(os.path.join(ROOTDIR,'resources','skins',SKIN_DIR,'720p','SettingsXbianInfo.template')): pass
-except IOError:
-   SKIN_DIR = 'Default'
-
-class xbian_config_python :
+class xbianSettingCommon :
     def __init__(self) :
-        xbmc.log('XBian : XBian-config-python started')
-        self.onRun = os.path.join('/','tmp','.xbian_config_python')
-        if os.path.isfile(self.onRun) :
-            xbmcgui.Dialog().ok('XBian-config','XBian-config is still running','Please wait...')
+        xbmc.log('XBian : XBian-config started')
+        from resources.lib.updateworker import Updater
+        from resources.lib.xbianconfig import xbianConfig
+        if xbianConfig('updates','progress')[0] != '1':
+            xbmc.executebuiltin('Skin.Reset(aptrunning)')
         else :
-            open(self.onRun,'w').close()
-            try :
-                self.CmdQueue = Queue.Queue()
-                self.updateThread = Updater(self.CmdQueue)
-                self.window = XbianWindow('SettingsXbianInfo.xml',ROOTDIR)
-                self.category_list = categories.__all__
-                self.category_list_instance = []
-                self.finished = 0
-                self.globalProgress = 0
-                self.stop = False
-                self.wait = xbmcgui.DialogProgress()
-                self.wait.create('Loading Settings','Inititalisation')
-                self.wait.update(0)
+            xbmc.executebuiltin('Skin.SetBool(aptrunning)')
+        self.checkReboot = False
+        self.CmdQueue = Queue.Queue()
+        self.updateThread = Updater(self.CmdQueue)
+        self.updateThread.start()
+        self.onInit()
+        
+    def onInit(self):
+        pass
 
-                self.total = len(self.category_list)
+    def onClean(self):
+        pass
 
-                for i,module in enumerate(self.category_list) :
-                    if self.wait.iscanceled():
-                        self.stop = True
-                    if not self.stop :
-                        self.globalProgress =  int((float(self.finished)/(self.total)) * 100)
-                        self.update_progress(module.split('_')[1],'   initialise',0)
-                        catmodule = __import__('%s.%s'%(CATEGORY_PATH,module), globals(), locals(), [module])
-                        modu = getattr(catmodule,module.split('_')[1])
-                        catinstance = modu(self.CmdQueue,self.update_progress)
-                        self.finished += 1
-                        try :
-                           self.window.addCategory(catinstance)
-                        except:
-                           xbmc.log('XBian : Cannot add category: %s \n%s'%(str(module),str(sys.exc_info())))
+    def onShown(self):
+        pass
 
-                if not self.stop :
-                    #self.wait.update(90,'Generate Windows')
-                    self.window.doXml(os.path.join(ROOTDIR,'resources','skins',SKIN_DIR,'720p','SettingsXbianInfo.template'))
-                    self.wait.close()
-                    self.updateThread.start()
-                    self.window.doModal()
-                    xbmc.log('XBian : XBian-config-python closed')
-                    self.window.stopRequested = True
-                    progress = dialogWait('XBian config','Checking if reboot is needed...')
-                    progress.show()
-                    self.window
-                    rebootneeded = xbianConfig('reboot')
-                    progress.close()
-                    if rebootneeded and rebootneeded[0] == '1' :
-                        rebootneeded = xbianConfig('updates','progress')
-                        if rebootneeded and rebootneeded[0] == '0' :
-                            if xbmcgui.Dialog().yesno('XBian-config','A reboot is needed','Do you want to reboot now?') :
-                                #reboot
-                                xbmc.executebuiltin('Reboot')
-            except :
-                self.window.stopRequested = True
-                try :
-                    #close wait dialog if something was wrong
-                    self.wait.close()
-                except :
-                    pass
-                xbmcgui.Dialog().ok('XBian-config','Something went wrong while creating the window','Please contact us on www.xbian.org for further support')
-                xbmc.log('XBian : Cannot create Main window: %s'%(str(sys.exc_info())))
-            finally :
-                self.updateThread.stop()
-                os.remove(self.onRun)
-                del(self.window)
+    def _checkIsRunning(self) :
+        if os.path.isfile(LOCK_FILE) :
+            xbmcgui.Dialog().ok('XBian-config','XBian-config is still running','Please wait...')
+            return False
+        open(LOCK_FILE,'w').close()
+        return True
 
+    def clean(self) :
+        self.updateThread.stop()
+        self.onClean()
+        if os.path.isfile(LOCK_FILE) :
+            os.remove(LOCK_FILE)
+        if self.checkReboot :
+            from resources.lib.xbianconfig import xbianConfig            
+            rebootneeded = xbianConfig('reboot')
+            updateinprogress = xbianConfig('updates','progress')
+            if rebootneeded and rebootneeded[0] == '1' and updateinprogress[0] == '0' and xbmcgui.Dialog().yesno('XBian-config','A reboot is needed','Do you want to reboot now?'):
+                xbmc.executebuiltin('Reboot')
+                
+    def show(self) :        
+        if self._checkIsRunning() :
+            self.onShow()                       
+        self.clean()
+
+class xbianSettingWindow(xbianSettingCommon) :
+    def onInit(self) :
+        from resources.lib.xbianWindow import XbianWindow
+        import categories        
+        self.window = None
+        self.category_list = categories.__all__
+        self.total = len(self.category_list)
+        self.category_list_instance = []
+        self.finished = 0
+        self.globalProgress = 0
+        self.stop = False
+        self.checkReboot = True
+        self.wait = xbmcgui.DialogProgress()
+        self.wait.create('Loading Settings','Inititalisation')
+        self.wait.update(0)
+        self.window = XbianWindow('SettingsXbianInfo.xml',ROOTDIR)
+
+    def onClean(self) :
+        if self.wait :
+            self.wait.close()
+
+    def onShow(self) :        
+        for i,module in enumerate(self.category_list) :
+             if self.wait.iscanceled():
+                self.stop = True
+                break
+             self.globalProgress =  int((float(self.finished)/(self.total)) * 100)
+             self.update_progress(module.split('_')[1],'   initialise',0)
+             catmodule = __import__('%s.%s'%(CATEGORY_PATH,module), globals(), locals(), [module])
+             modu = getattr(catmodule,module.split('_')[1])
+             catinstance = modu(self.CmdQueue,self.update_progress)
+             self.finished += 1
+             try :
+                 self.window.addCategory(catinstance)
+             except:
+                 xbmc.log('XBian : Cannot add category: %s \n%s'%(str(module),str(sys.exc_info())))
+
+        if not self.stop :
+            #really don't know why, all others are ok, but skindir have to be global???
+            global SKIN_DIR            
+            if not os.path.isfile(os.path.join(ROOTDIR,'resources','skins',SKIN_DIR,'720p','SettingsXbianInfo.template')) :
+                SKIN_DIR = 'Default'                
+            self.window.doXml(os.path.join(ROOTDIR,'resources','skins',SKIN_DIR,'720p','SettingsXbianInfo.template'))
+            self.wait.close()
+            self.wait = None
+            self.window.doModal()
+            xbmc.log('XBian : XBian-config-python closed')
 
     def update_progress(self,categoryname,settingName,perc) :
         perc = self.globalProgress + int(perc/self.total)
         self.wait.update(perc,'Loading %s...'%categoryname,'   %s'%settingName)
 
-xbian_config_python()
+class xbianSettingDialog(xbianSettingCommon) :
+    def onInit(self) :        
+        from resources.lib.utils import dialogWait
+        self.wait = dialogWait('Loading Settings','Please Wait')
+        self.wait.show()
+        from resources.lib.xbianDialog import XbianDialog
+        self.title = ''
+        self.settings = []                
+        self.window = XbianDialog('SettingsXbianDialog.xml',ROOTDIR)
+
+    def createDialog(self,title,settings,checkReboot=False) :
+        self.title = title
+        self.settings = settings
+        self.checkReboot = checkReboot
+
+    def onClean(self) :
+        if self.wait :
+            self.wait.close()
+
+    def onShow(self) :
+         self.window.initialise(self.title,self.CmdQueue)
+         for setting in self.settings :
+             self.window.addSetting(self._import_class(setting))                         
+         global SKIN_DIR
+         if not os.path.isfile(os.path.join(ROOTDIR,'resources','skins',SKIN_DIR,'720p','SettingsXbianDialog.template')) :
+                SKIN_DIR = 'Default'                
+         self.window.doXml(os.path.join(ROOTDIR,'resources','skins',SKIN_DIR,'720p','SettingsXbianDialog.template'))
+         self.wait.close()
+         self.wait = None
+         self.window.doModal()
+         
+
+    def _import_class(self,className) :
+        name = className.split('.')
+        settingmodule = __import__(".".join(name[:-1]), globals(), locals(),[name[-2]])
+        return getattr(settingmodule,name[-1])
+
+class xbianSettingWizzard :
+    def show(self):
+        from resources.lib.xbianWizardDialog import wizardDialog
+        wizardDialog('WizzardDialog.xml',ROOTDIR).doModal()        
+
+def get_params():
+        param=[]
+        if len(sys.argv)>=1:
+           params=sys.argv[1]
+           cleanedparams=params.replace('?','')
+           if (params[len(params)-1]=='/'):
+                params=params[0:len(params)-2]
+           pairsofparams=cleanedparams.split('&')
+           param={}
+           for i in range(len(pairsofparams)):
+                  splitparams={}
+                  splitparams=pairsofparams[i].split('=')
+                  if (len(splitparams))==2:
+                         param[splitparams[0]]=splitparams[1]
+        return param
+
+
+
+################MAIN##################
+try :
+    params=get_params()
+    mode=int(params["mode"])
+except :
+    mode = None
+
+if mode==None or mode==0 :
+    #full settings windows mode
+    try :
+        win = xbianSettingWindow()
+        win.show()
+    except :
+        win.clean()
+        xbmc.log('Exception in xbianSettingWindow %s'%str(traceback.print_exc()),xbmc.LOGERROR)
+elif mode==1 :
+    #show dialog settings
+    #plugin.xbianconfig?mode=1&title=foo&settings=categories.system.network,categories.vc1license,... (url_quoted text)
+    try :
+        print params
+        win = xbianSettingDialog()
+        win.createDialog(urllib.unquote_plus(params["title"]),urllib.unquote_plus(params["settings"]).split(','))
+        win.show()
+    except :
+        win.clean()
+        xbmc.log('Exception in xbianSettingDialog %s'%str(traceback.print_exc()),xbmc.LOGERROR)
+elif mode==2 :
+    #show wizard dialog
+    #plugin.xbianconfig?mode=2
+    try :
+        win = xbianSettingWizzard()
+        win.show()
+    except :
+        xbmc.log('Exception in xbianSettingWizard %s'%str(traceback.print_exc()),xbmc.LOGERROR)
+else :
+    xbmc.log('XBian-config : Unknown mode : %d'%mode,xbmc.LOGERROR)
 
