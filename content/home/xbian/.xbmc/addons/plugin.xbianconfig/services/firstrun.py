@@ -19,13 +19,12 @@ class firstrun(service):
         if not os.path.isfile(firstlock) :
         	        if not os.path.exists(ADDON_DATA):
                             os.mkdir(ADDON_DATA)
+			#set default preference:
 			setSetting('advancedmode','0')
 			setSetting('notifyonerror','1')
 			setSetting('notifyonsuccess','1')
-			setSetting('confirmationonchange','1')
-        	#set default preference:			
-			self.dlg = xbmcgui.WindowXMLDialog('welcomeDialog.xml',ROOTDIR)
-			self.dlg.doModal()
+			setSetting('confirmationonchange','1')        	
+			xbmc.executebuiltin('XBMC.RunScript(plugin.xbianconfig,mode=2)')
 			
 			#xbmcgui.Dialog().ok('Welcome to XBian','Thanks to have chosen XBian','You can configure it, go to','System -> XBian')
 			open(firstlock,'w').close()			
