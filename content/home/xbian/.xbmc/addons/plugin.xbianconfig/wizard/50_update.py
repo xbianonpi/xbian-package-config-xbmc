@@ -1,6 +1,6 @@
 DATA={
 "title" : "Update XBian",
 "smalltitle" : "update",
-"description" : 'You can now choose how xbian will be updated and check if new update is available,[CR]by default XBian will not be autoupdated, you will be notice when a update is available, you can go to system->XBian->update to install new update available[CR]If you want XBian autoupdate, you can enable it now[CR][CR][CR][CR]For advanced user, XBian could also be updated with apt like debian',
+"description" : 'You can now choose how Xbian will be updated and how often to check for updates.[CR][CR]By default, Xbian will not be updated automatically, but you will be advised when a new update is available.[CR][CR]To update :Go System -> Xbian -> Update and select the packages to upgrade.[CR][CR]If you wish Xbian to be updated automatically, you can set it now.',
 "action" : ['categories.40_update.UpdateLabel','categories.40_update.InventoryIntGui','categories.40_update.updateAuto','categories.40_update.snapAPT','categories.40_update.updatePackageLabel','categories.40_update.packageUpdate']
 }

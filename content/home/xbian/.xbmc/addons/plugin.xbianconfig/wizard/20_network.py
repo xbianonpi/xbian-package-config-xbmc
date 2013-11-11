@@ -1,6 +1,6 @@
 DATA={
 "title" : "Configure your network",
 "smalltitle" : "Network",
-"description" : 'Configuring your wired or wireless connection in XBian is really easy[CR]XBian can run without net access but XBian and XBMC have a better user experience with web[CR][CR]To configure your network, just click on "Manage Network" Button',
+"description" : 'Configuring your wired or wireless connection in Xbian is really easy. Xbian can run without internet access but you will have a better experience with it.',
 "action" : ['categories.10_system.NetworkSetting']
 }
