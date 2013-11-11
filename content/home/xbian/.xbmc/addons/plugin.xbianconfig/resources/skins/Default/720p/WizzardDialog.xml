@@ -235,7 +235,8 @@
 				<align>center</align>
 				<aligny>center</aligny>
 				<font>font12_title</font>
-				<label>Previous</label>
+				<label>Previous</label>				
+				<visible>!Container(50000).Position(0)</visible>
 				<onclick>Control.Move(50000,-1)</onclick>
 				<onleft>110</onleft>
 				<onright>112</onright>
@@ -251,8 +252,26 @@
 				<align>center</align>
 				<aligny>center</aligny>
 				<font>font12_title</font>
+				<visible>Container(50000).HasNext</visible>
 				<label>Next</label>
 				<onclick>Control.Move(50000,1)</onclick>
+				<onleft>111</onleft>
+				<onright>110</onright>
+				<onup>100</onup>
+				<ondown>50000</ondown>
+			</control>
+			<control type="button" id="112">
+				<description>Finish</description>
+				<posx>630</posx>
+				<posy>0</posy>
+				<width>200</width>
+				<height>40</height>
+				<align>center</align>
+				<aligny>center</aligny>
+				<font>font12_title</font>
+				<visible>!Container(50000).HasNext</visible>
+				<label>Finish</label>
+				<onclick>PreviousMenu</onclick>
 				<onleft>111</onleft>
 				<onright>110</onright>
 				<onup>100</onup>
