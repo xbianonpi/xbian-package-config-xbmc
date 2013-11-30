@@ -85,7 +85,7 @@ class xbmcTvOffGui(Setting) :
             return False
 
 class xbmcTvOn(Setting) :
-    CONTROL = RadioButtonControl(Tag('label','Turn CEC capable TV ON when XBMC exit'))
+    CONTROL = RadioButtonControl(Tag('label','Turn CEC capable TV ON when XBMC exits'))
     DIALOGHEADER = "TV ON exit"
     ERRORTEXT = "Error on updating"
     OKTEXT = "Update ok"
