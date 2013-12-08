@@ -1,6 +1,6 @@
 Origin: XBian
 Package: xbian-package-config-xbmc
-Version: 1.1.4-3a
+Version: 1.1.4-3b
 Section: utils
 Essential: No
 Priority: optional
