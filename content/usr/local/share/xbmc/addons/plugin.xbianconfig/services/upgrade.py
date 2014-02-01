@@ -22,12 +22,13 @@ class upgrade(service):
 
     def onAbortRequested(self):
         print 'XBian : abort requested'
-        self.StopRequested = True
 
         try:
-            os.system('sudo kill $(cat /run/lock/xbian-config) &>/dev/null')
+            os.system('/bin/kill $(cat /run/lock/xbian-config) >/dev/null 2>&1 && sudo /bin/kill $(cat /run/lock/xbian-config) >/dev/null 2>&1 || :')
         except:
             pass
+
+        self.StopRequested = True
 
     def onScreensaverActivated(self):
         self.inScreenSaver = True
@@ -64,7 +65,7 @@ class upgrade(service):
         self.rebootNeeded = False
 
         if xbmcgui.Dialog().yesno('XBian-config','A reboot is needed','Do you want to reboot now?') :
-            os.system('sudo reboot')
+            os.system('sudo /sbin/reboot')
             xbmc.executebuiltin("XBMC.Quit()")
         else:
             self.rebootNoCheck = True

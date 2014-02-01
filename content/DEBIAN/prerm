@@ -1,9 +1,10 @@
 #!/bin/bash
 
-if [ $1 == "remove" ]; then
+if [ $1 == "purge" -o $1 ]; then
 	
-	if [ -d /home/xbian/.xbmc/addons/plugin.xbianconfig ]; then
-		rm -r /home/xbian/.xbmc/addons/plugin.xbianconfig;
-	fi
+ :
 
 fi
+
+exit 0
+

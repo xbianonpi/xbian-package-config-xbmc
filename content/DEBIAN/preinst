@@ -1,5 +1,20 @@
 #!/bin/bash
 
 if [ $1 == "install" -o $1 == "upgrade" ]; then
-    true
+:
 fi
+
+if [ $1 = upgrade ]; then
+
+    if [ -d /usr/local/share/xbmc/addons/plugin.xbianconfig ]; then
+	find /usr/local/share/xbmc/addons/plugin.xbianconfig -iname SettingsXbianInfo.xml | xargs rm -f 2
+	find /usr/local/share/xbmc/addons/plugin.xbianconfig -iname \*.pyc | xargs rm -f 2
+    fi
+    if [ -d /home/xbian/.xbmc/addons/plugin.xbianconfig ]; then
+	find /home/xbian/.xbmc/addons/plugin.xbianconfig -iname SettingsXbianInfo.xml | xargs rm -f
+	find /home/xbian/.xbmc/addons/plugin.xbianconfig -iname \*.pyc  | xargs rm -f
+    fi
+
+fi
+
+exit 0

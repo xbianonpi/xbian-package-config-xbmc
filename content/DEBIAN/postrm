@@ -1,1 +1,10 @@
 #!/bin/bash
+
+if [ $1 = purge ]; then
+
+    rm -fr /home/xbian/.xbmc/userdata/addon_data/plugin.xbianconfig
+    rm -fr /usr/local/share/xbmc/addons/plugin.xbianconfig/
+    
+fi
+
+exit 0
