@@ -24,15 +24,16 @@ class NetworkControl(MultiSettingControl):
         self.interface = SpinControlex(Tag('label','Interface'))
         self.addControl(self.interface)
         self.interfacelist = xbianConfig('network','list')
-        self.interfaceValue = {}
-
+        self.interfaceValue = {}        
+        
         for interface in self.interfacelist :
              self.interfaceValue[interface] = {}
              self.interfaceValue[interface]['content'] = Content(Tag('label',interface),defaultSKin=False)
              self.interface.addContent(self.interfaceValue[interface]['content'])
              
-             #create the interface group
-             self.interfaceValue[interface]['group'] = MultiSettingControl(Tag('visible','Container(%d).HasFocus(%d)'%(self.interface.getWrapListId(),self.interfaceValue[interface]['content'].getId())))
+             #create the interface group             
+             self.interfaceValue[interface]['group'] = MultiSettingControl(Tag('visible','StringCompare(Skin.String(%s),%s)'%(self.interface.getKey(),interface)))
+             #self.interfaceValue[interface]['group'] = MultiSettingControl()
              self.addControl(self.interfaceValue[interface]['group'])
              
              #add status control
@@ -57,7 +58,8 @@ class NetworkControl(MultiSettingControl):
              self.interfaceValue[interface]['group'].addControl(self.interfaceValue[interface]['mode'])
              
              #add Static Group
-             self.interfaceValue[interface]['staticgroup'] = MultiSettingControl(Tag('visible','Container(%d).HasFocus(%d)'%(self.interfaceValue[interface]['mode'].getWrapListId(),static.getId())))
+             self.interfaceValue[interface]['staticgroup'] = MultiSettingControl(Tag('visible','StringCompare(Skin.String(%s),%s)'%(self.interfaceValue[interface]['mode'].getKey(),self.STATIC)))
+             #self.interfaceValue[interface]['staticgroup'] = MultiSettingControl()
              self.interfaceValue[interface]['ipadress'] = ButtonControl(Tag('label','  -Address'))
              self.interfaceValue[interface]['ipadress'].onClick = lambda ipadress: ipadress.setValue(getIp('Ip adress',ipadress.getValue()))
              self.interfaceValue[interface]['subnet'] = ButtonControl(Tag('label','  -Subnet'))
@@ -78,7 +80,7 @@ class NetworkControl(MultiSettingControl):
                 
     def setValue(self,values):        
         default = values[0]
-        #self.interface.setValue(default)
+        self.interface.setValue(default)
         networkValue = values[1]
         for key in networkValue :
             value = networkValue[key]           
@@ -448,7 +450,7 @@ class OverclockControl(MultiSettingControl):
              content = Content(Tag('label',mode),defaultSKin=False)
              self.overclockMode.addContent(content)
              if mode == 'Custom' :
-                 self.customOverclock = MultiSettingControl(Tag('visible','Container(%d).HasFocus(%d)'%(self.overclockMode.getWrapListId(),content.getId())))
+                 self.customOverclock = MultiSettingControl(Tag('visible','StringCompare(Skin.String(%s),%s)'%(self.overclockMode.getKey(),mode)))
                  self.Arm = ButtonControl(Tag('label',' -Arm'))
                  self.Core = ButtonControl(Tag('label',' -Core'))
                  self.Sdram = ButtonControl(Tag('label',' -SDram'))
@@ -653,3 +655,6 @@ class sshroot(Setting) :
 class system(Category) :
     TITLE = 'System'
     SETTINGS = [NewtorkLabel,NetworkSetting,LicenceLabel,mpeg2License,vc1License,SytemLabel,hostname,timezone,kernel,overclocking,AccountLabel,rootpwd,xbianpwd,sshroot,connectivityLabel,videooutput]
+    #SETTINGS = [kernel]
+    #,NetworkSetting,LicenceLabel,mpeg2License,vc1License,SytemLabel,hostname,timezone,kernel,overclocking,AccountLabel,rootpwd,xbianpwd,sshroot,connectivityLabel,videooutput]
+    

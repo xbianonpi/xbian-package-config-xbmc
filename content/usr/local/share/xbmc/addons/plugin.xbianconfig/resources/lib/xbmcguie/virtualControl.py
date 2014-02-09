@@ -56,6 +56,9 @@ class xbmcxml :
    def getId(self) :
        return self.id
    
+   def getIds(self) :
+	   return ()
+   
    def onFocus(self,ctrl) :
         pass
     
@@ -112,10 +115,11 @@ class ControlXml(xbmcxml):
     XBMCDEFAULTCONTROL = False
       
     def setWindowInstance(self,instance):
-        self.Windowsinstance = instance
+        self.Windowsinstance = instance        
         self.Controlinstance = self.Windowsinstance.getControl(self.getId())
         
     def click(self,controlId):
+       print 'click'
        if controlId == self.getId() :
            self.onClick(self) 
     
@@ -174,6 +178,7 @@ class ContainerXml(xbmcxml):
                 ids.extend(control.getIds())
             else :
                 ids.append(control.getId())
+                ids.extend(control.getIds())
         return ids
     
     def setWindowInstance(self,instance):

@@ -112,7 +112,10 @@ class LabelControl(ControlXml) :
     XBMCDEFAULTCONTROL = 'label'
     additional_tag = ('align','aligny','scroll','label','info','number','angle','haspath','font','textcolor','shadowcolor','wrapmultiline','scrollspeed','scrollsuffix')
 
-
+    def setLabel(self,value):
+        if hasattr(self,'Controlinstance') :
+            self.Controlinstance.setLabel(label=str(value),label2=self.Controlinstance.getLabel2())
+            
 class RadioButtonControl(ControlXml) :
     FOCUSABLE = True
     ACTION = True
@@ -132,10 +135,14 @@ class SpinControlex(ControlXml) :
     FOCUSABLE = True
     ACTION = False
     XBMCDEFAULTCONTROL = None
-    additional_tag = SpinControl.additional_tag + ButtonControl.additional_tag
+    additional_tag = ButtonControl.additional_tag
 
     def onInit(self):
         self.controls = {}
+        self.values = []
+        self.idx = 0
+        self.value = None
+        
         
         if not self.hasTag('onup') :
             #create a fake button to allow scroll up
@@ -150,38 +157,43 @@ class SpinControlex(ControlXml) :
             ControlXml.setTag(self,Tag('ondown',self.controls['FakebtnDown'].getId()))
 
         #print self.tags
-        #create the groupControl
+        #create the groupControl        
         self.controls['groupControl'] = GroupControl(*self.getArrayTags())
-
-
-        #create the spin control
-        self.controls['SpinControlButton'] = SpinControl(*self.getArrayTags())
-        self.controls['SpinControlButton'].setTag(Tag('posx',self.controls['groupControl'].getTag('width').getValue()['value'] - 80))
-        self.controls['SpinControlButton'].setTag(Tag('posy',8))
-        self.controls['SpinControlButton'].setTag(Tag('height',None))
-        self.controls['SpinControlButton'].setTag(Tag('width',None))
-        self.controls['SpinControlButton'].setTag(Tag('subtype','page'))
-        self.controls['SpinControlButton'].setTag(Tag('textoffsetx',5000))
+        
+        self.controls['buttondown'] = ButtonControl()
+        self.controls['buttondown'].setTag(Tag('posx',680))
+        self.controls['buttondown'].setTag(Tag('posy',9))
+        self.controls['buttondown'].setTag(Tag('width',33))
+        self.controls['buttondown'].setTag(Tag('height',22))        
+        self.controls['buttondown'].setTag(Tag('texturefocus','scroll-down-focus-2.png'))
+        self.controls['buttondown'].setTag(Tag('texturenofocus','scroll-down-2.png'))        
+        self.controls['buttondown'].setTag(Tag('onup',self.controls['FakebtnUp'].getId()))
+        self.controls['buttondown'].setTag(Tag('ondown',self.controls['FakebtnDown'].getId()))        
         if not self.hasTag('onleft')  :
             #hardcode on left value - don't find how to do
-            self.controls['SpinControlButton'].setTag(Tag('onleft',9000))
-        if not self.hasTag('onright')  :
-            #hardcode on right value - don't find how to do
-            #maybe do a group list, but have to change all the control
-            self.controls['SpinControlButton'].setTag(Tag('onright',9000))
-            
-            
-        self.controls['groupControl'].addControl(self.controls['SpinControlButton'])
-
-        #create 3 fake button control for checking focus+enabled and have label
-        #MainControl visible conditon
+            self.controls['buttondown'].setTag(Tag('onleft',9000))        
         
+        self.controls['buttonup'] = ButtonControl()
+        self.controls['buttonup'].setTag(Tag('posx',713))
+        self.controls['buttonup'].setTag(Tag('posy',9))
+        self.controls['buttonup'].setTag(Tag('width',33))
+        self.controls['buttonup'].setTag(Tag('height',22))
+        self.controls['buttonup'].setTag(Tag('texturefocus','scroll-up-focus-2.png'))
+        self.controls['buttonup'].setTag(Tag('texturenofocus','scroll-up-2.png'))
+        self.controls['buttonup'].setTag(Tag('onleft',self.controls['buttondown'].getId()))
+        self.controls['buttonup'].setTag(Tag('onup',self.controls['FakebtnUp'].getId()))
+        self.controls['buttonup'].setTag(Tag('ondown',self.controls['FakebtnDown'].getId()))        
+        self.controls['buttondown'].setTag(Tag('onright',self.controls['buttonup'].getId()))
+        if not self.hasTag('onright')  :
+            #hardcode on left value - don't find how to do
+            self.controls['buttonup'].setTag(Tag('onright',9000))        
+                
         self.controls['FakebtnLabelFocus'] = ButtonControl(*self.getArrayTags())
         self.controls['FakebtnLabelFocus'].setTag(Tag('enable',"false"))
         self.controls['FakebtnLabelFocus'].setTag(Tag('posx',0))
-        self.controls['FakebtnLabelFocus'].setTag(Tag('posy',0))
+        self.controls['FakebtnLabelFocus'].setTag(Tag('posy',0))        
         self.controls['FakebtnLabelFocus'].setTag(Tag('disabledcolor',self.getTag('focusedcolor').getValue()['value']))
-        self.controls['FakebtnLabelFocus'].setTag(Tag('visible','Control.HasFocus(%d) + Control.IsEnabled(%d) + control.IsVisible(%d)'%(self.controls['SpinControlButton'].getId(),self.controls['SpinControlButton'].getId(),self.controls['SpinControlButton'].getId())))
+        self.controls['FakebtnLabelFocus'].setTag(Tag('visible','Control.HasFocus(%d) | Control.HasFocus(%d)'%(self.controls['buttonup'].getId(),self.controls['buttondown'].getId())))
         self.controls['FakebtnLabelFocus'].setTag(Tag('texturenofocus',self.controls['FakebtnLabelFocus'].getTag('texturefocus').getValue()['value']))
         self.controls['groupControl'].addControl(self.controls['FakebtnLabelFocus'])
 
@@ -189,83 +201,87 @@ class SpinControlex(ControlXml) :
         self.controls['FakebtnLabelNoFocus'].setTag(Tag('enable',"false"))
         self.controls['FakebtnLabelNoFocus'].setTag(Tag('disabledcolor',self.getTag('textcolor').getValue()['value']))
         self.controls['FakebtnLabelNoFocus'].setTag(Tag('posx',0))
-        self.controls['FakebtnLabelNoFocus'].setTag(Tag('posy',0))
-        
-        self.controls['FakebtnLabelNoFocus'].setTag(Tag('visible','!Control.HasFocus(%d) + Control.IsEnabled(%d) + control.IsVisible(%d)'%(self.controls['SpinControlButton'].getId(),self.controls['SpinControlButton'].getId(),self.controls['SpinControlButton'].getId())))
+        self.controls['FakebtnLabelNoFocus'].setTag(Tag('posy',0))           
+        self.controls['FakebtnLabelNoFocus'].setTag(Tag('visible','!(Control.HasFocus(%d) | Control.HasFocus(%d)) + Control.IsEnabled(%d)'%(self.controls['buttonup'].getId(),self.controls['buttondown'].getId(),self.controls['buttonup'].getId())))
         self.controls['FakebtnLabelNoFocus'].setTag(Tag('texturefocus',self.controls['FakebtnLabelFocus'].getTag('texturenofocus').getValue()['value']))
         self.controls['groupControl'].addControl(self.controls['FakebtnLabelNoFocus'])
 
         self.controls['FakebtnLabelDisabled'] = ButtonControl(*self.getArrayTags())
         self.controls['FakebtnLabelDisabled'].setTag(Tag('enable',"false"))
         self.controls['FakebtnLabelDisabled'].setTag(Tag('posx',0))
-        self.controls['FakebtnLabelDisabled'].setTag(Tag('posy',0))
-        self.controls['FakebtnLabelDisabled'].setTag(Tag('visible','!Control.IsEnabled(%d) + control.IsVisible(%d)'%(self.controls['SpinControlButton'].getId(),self.controls['SpinControlButton'].getId())))
+        self.controls['FakebtnLabelDisabled'].setTag(Tag('posy',0))        
+        self.controls['FakebtnLabelDisabled'].setTag(Tag('visible','!Control.IsEnabled(%d) + control.IsVisible(%d)'%(self.controls['buttondown'].getId(),self.controls['buttondown'].getId())))
         self.controls['groupControl'].addControl(self.controls['FakebtnLabelDisabled'])
 
-        #create the wraplist Control (contain different choice)
-        self.controls['wraplistControl'] = WrapListControl(*self.getArrayTags())
-        self.controls['wraplistControl'].setTag(Tag('width',225))
-        self.controls['wraplistControl'].setTag(Tag('height',40))
-        self.controls['wraplistControl'].setTag(Tag('enable','false'))
-        self.controls['wraplistControl'].setTag(Tag('posy',0))
-        self.controls['wraplistControl'].setTag(Tag('posx',450))
-        self.controls['wraplistControl'].setTag(Tag('pagecontrol',self.controls['SpinControlButton'].getId()))
-        self.controls['wraplistControl'].setTag(Tag('scrolltime',0))
+        self.controls['groupControl'].addControl(self.controls['buttondown'])
 
-        #create 3 label (focus,nofocus,disable) to handle different text color
-        self.controls['labelbtndisable']  = LabelControl(*self.getArrayTags())
-        self.controls['labelbtndisable'].setTag(Tag('posx',215))
-        self.controls['labelbtndisable'].setTag(Tag('posy',0))
-        self.controls['labelbtndisable'].setTag(Tag('posy',0))
-        self.controls['labelbtndisable'].setTag(Tag('width',225))
-        self.controls['labelbtndisable'].setTag(Tag('align','right'))
-        self.controls['labelbtndisable'].setTag(Tag('aligny','center'))
-        self.controls['labelbtndisable'].setTag(Tag('textcolor',self.getTag('disabledcolor').getValue()['value']))
-        self.controls['labelbtndisable'].setTag(Tag('label','$INFO[ListItem.Label]'))
-        self.controls['labelbtndisable'].setTag(Tag('visible','!Control.IsEnabled(%d)'%self.controls['SpinControlButton'].getId()))
-        self.controls['wraplistControl'].addFocusedLayout(self.controls['labelbtndisable'])
-
-        self.controls['labelbtnfocus']  = LabelControl(*self.getArrayTags())
-        self.controls['labelbtnfocus'].setTag(Tag('posx',215))
-        self.controls['labelbtnfocus'].setTag(Tag('posy',0))
-        self.controls['labelbtnfocus'].setTag(Tag('posy',0))
-        self.controls['labelbtnfocus'].setTag(Tag('width',225))
-        self.controls['labelbtnfocus'].setTag(Tag('align','right'))
-        self.controls['labelbtnfocus'].setTag(Tag('aligny','center'))
-        self.controls['labelbtnfocus'].setTag(Tag('textcolor',self.getTag('focusedcolor').getValue()['value']))
-        self.controls['labelbtnfocus'].setTag(Tag('label','$INFO[ListItem.Label]'))
-        self.controls['labelbtnfocus'].setTag(Tag('visible','Control.HasFocus(%d) + Control.IsEnabled(%d)'%(self.controls['SpinControlButton'].getId(),self.controls['SpinControlButton'].getId())))
-        self.controls['wraplistControl'].addFocusedLayout(self.controls['labelbtnfocus'])
-
-        self.controls['labelbtnnofocus']  = LabelControl(*self.getArrayTags())
-        self.controls['labelbtnnofocus'].setTag(Tag('posx',215))
-        self.controls['labelbtnnofocus'].setTag(Tag('posy',0))
-        self.controls['labelbtnnofocus'].setTag(Tag('posy',0))
-        self.controls['labelbtnnofocus'].setTag(Tag('width',225))
-        self.controls['labelbtnnofocus'].setTag(Tag('align','right'))
-        self.controls['labelbtnnofocus'].setTag(Tag('aligny','center'))
-        self.controls['labelbtnnofocus'].setTag(Tag('textcolor',self.getTag('textcolor').getValue()['value']))
-        self.controls['labelbtnnofocus'].setTag(Tag('label','$INFO[ListItem.Label]'))
-        self.controls['labelbtnnofocus'].setTag(Tag('visible','!Control.HasFocus(%d) + Control.IsEnabled(%d)'%(self.controls['SpinControlButton'].getId(),self.controls['SpinControlButton'].getId())))
-        self.controls['wraplistControl'].addFocusedLayout(self.controls['labelbtnnofocus'])
-
-
-        self.controls['groupControl'].addControl(self.controls['wraplistControl'])
-
+        self.controls['groupControl'].addControl(self.controls['buttonup'])
+        
+        self.key = 'spincontrol%d'%self.getId()
+    
+    def click(self,controlId):
+       if controlId == self.controls['buttonup'].getId() :
+           self.nextvalue()      
+           self.onClick(self)
+       elif controlId == self.controls['buttondown'].getId() :
+           self.previousvalue()      
+           self.onClick(self)
+    
+    
+    def previousvalue(self) :           
+        self.idx -= 1
+        if self.idx < -len(self.values) :
+            self.idx=-1     
+        self.setValue(self.values[self.idx])
+    
+    def nextvalue(self) :        
+        self.idx += 1
+        if self.idx >= len(self.values) :
+            self.idx=0
+        self.setValue(self.values[self.idx])
+            
     def getId(self) :
-        return self.controls['SpinControlButton'].getId()
+        return self.controls['buttonup'].getId()
+    
+    def getIds(self) :
+        return (self.controls['buttonup'].getId(),self.controls['buttondown'].getId())
 
+    def setWindowInstance(self,instance):
+        self.Windowsinstance = instance
+        self.controls['buttonup'].setWindowInstance(instance)
+        self.controls['buttondown'].setWindowInstance(instance)
+        self.controls['FakebtnLabelFocus'].setWindowInstance(instance)
+        self.controls['FakebtnLabelNoFocus'].setWindowInstance(instance)
+        self.controls['FakebtnLabelDisabled'].setWindowInstance(instance)
+        self.Controlinstance = self.Windowsinstance.getControl(self.getId())
+    
+    
+    def setEnabled(self,value):        
+        self.controls['buttonup'].setEnabled(value)
+        self.controls['buttondown'].setEnabled(value)
+    
+    def setVisible(self,value):
+        self.controls['buttonup'].setVisible(value)
+        self.controls['buttondown'].setVisible(value)        
+    
     def setTag(self,tag,append=False) :
         if tag.getKey() in self.common_tag :
             self.controls['groupControl'].setTag(tag)
         if tag.getKey() in self.focusable_tag :
-            self.controls['SpinControlButton'].setTag(tag)
+            self.controls['buttonup'].setTag(tag)
+            self.controls['buttondown'].setTag(tag)
 
-    def addContent(self,content):		
-        self.controls['wraplistControl'].addContent(content)
+    def addContent(self,content): 
+        val = content.getTag('label').getValue()['value']      
+        self.values.append(val)
+        if self.value == None :
+            self.value = val
 
+    def getKey(self):
+		return self.key
+    
     def getWrapListId(self):
-        return self.controls['wraplistControl'].getId()
+        return self.controls['FakebtnLabelFocus'].getId()
 
     def getOnUpId(self):
         return self.controls['FakebtnDown'].getId()
@@ -274,20 +290,16 @@ class SpinControlex(ControlXml) :
         return self.controls['FakebtnUp'].getId()
     
     def getValue(self):
-        return xbmc.getInfoLabel('Container(%d).ListItem.Label'%self.controls['wraplistControl'].getId())
+        return self.value
     
     def setValue(self,value):
-        nbItem = xbmc.getInfoLabel('Container(%d).NumItems'%self.controls['wraplistControl'].getId())        
-        find = False
-        for i in range(int(nbItem)):
-            if value == xbmc.getInfoLabel('Container(%d).ListItem(%d).Label'%(self.controls['wraplistControl'].getId(),i)) :
-                find = True
-                break
-        if find :
-            xbmc.executebuiltin('Control.Move(%d,%d)'%(self.controls['wraplistControl'].getId(),i))
+        self.value = value
+        value = str(value) + 15 *' '        
+        xbmc.executebuiltin('Skin.SetString(%s,%s)'%(self.key,self.value))
+        self.controls['FakebtnLabelFocus'].setValue(value)            
+        self.controls['FakebtnLabelNoFocus'].setValue(value)
+        self.controls['FakebtnLabelDisabled'].setValue(value)
         
-    
- 
     def toXml(self):
         xml = ''
         if self.controls.has_key('FakebtnUp') :
