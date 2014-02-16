@@ -10,7 +10,6 @@ DEFAULT_LANGUAGES = ['en']
 languages = []
 
 lc = xbianConfig('locales','select')[0].split('.')[0]
-lc = 'nl_NL'
 if lc:
     languages = [lc]
 print lc
