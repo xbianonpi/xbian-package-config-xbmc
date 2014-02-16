@@ -118,8 +118,7 @@ class ControlXml(xbmcxml):
         self.Windowsinstance = instance        
         self.Controlinstance = self.Windowsinstance.getControl(self.getId())
         
-    def click(self,controlId):
-       print 'click'
+    def click(self,controlId):       
        if controlId == self.getId() :
            self.onClick(self) 
     

@@ -3,6 +3,8 @@ from xbmcguie.window import WindowSkinXml
 import threading
 import xbmc
 
+from resources.lib.utils import setvisiblecondition,getSetting
+
 import resources.lib.translation
 _ = resources.lib.translation.language.ugettext
 
@@ -38,7 +40,7 @@ class XbianWindow(WindowSkinXml):
                 for key in public :
                     self.publicMethod[category.getTitle()][key] = public[key]
         xbmc.log('XBian-config : End Show(onInit) XbianWindow',xbmc.LOGDEBUG) 
-
+        setvisiblecondition('advancedmode',getSetting('advancedmode')=='1')
     def onHeritFocus(self,controlId) :
         #handle listitem menu click for dynamic load value
         if controlId == 9000 :

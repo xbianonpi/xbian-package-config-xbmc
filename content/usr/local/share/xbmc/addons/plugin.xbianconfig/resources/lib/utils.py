@@ -7,7 +7,7 @@ import pickle
 import base64
 import collections
 import threading
-
+from resources.lib.xbmcguie.tag import Tag
 import resources.lib.translation
 _ = resources.lib.translation.language.ugettext
 
@@ -118,7 +118,7 @@ class dialogWaitBackground :
     def show(self):
         #display foreground dialog
         if self.skinvar :
-            xbmc.executebuiltin('Skin.SetBool(%s)'%self.skinvar)
+			setvisiblecondition(self.skinvar,True)            
         if self.logFile :
             try :
                 self.logFile = open(self.logFile,'r')
@@ -160,7 +160,7 @@ class dialogWaitBackground :
         if self.onFinishedCB :
             self.onFinishedCB()
         if self.skinvar :
-            xbmc.executebuiltin('Skin.Reset(%s)'%self.skinvar)
+            setvisiblecondition(self.skinvar,False)
         self.finished = True
         self.close()
 
@@ -277,3 +277,13 @@ def wifiConnect(interface):
     return False
 
 
+def visiblecondition(key) :
+	return 'Stringcompare(Window.Property(%s),1)'%key
+
+def setvisiblecondition(key,value) :
+	if value  :
+		valuel = 1
+	else : value = 0
+	xbmc.executebuiltin('SetProperty(%s,%d)'%(key,value))
+
+ADVANCED = Tag('visible',visiblecondition('advancedmode'))

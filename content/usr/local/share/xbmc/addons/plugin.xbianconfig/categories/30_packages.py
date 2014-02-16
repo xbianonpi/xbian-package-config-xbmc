@@ -1,6 +1,7 @@
 import uuid
 import os
 import time
+import cPickle as pickle
 
 from resources.lib.xbmcguie.xbmcContainer import *
 from resources.lib.xbmcguie.xbmcControl import *
@@ -17,6 +18,9 @@ _ = resources.lib.translation.language.ugettext
 import xbmcgui,xbmc
 from xbmcaddon import Addon
 
+__addonID__      = "plugin.xbianconfig"
+
+ADDON_DATA  = xbmc.translatePath( "special://profile/addon_data/%s/" % __addonID__ )
 #apt log file (will be displayed in backgroung progress)
 APTLOGFILE = '/tmp/aptstatus'
 
@@ -75,12 +79,12 @@ class PackageCategory :
         self.installed += 1
         self.LabelPackageControl.setLabel('%s [COLOR lightblue](%d/%d)[/COLOR]'%(self.name,self.installed,self.available))
         if self.installed == self.available :
-            #hide get more button
-            xbmc.executebuiltin('Skin.Reset(%s)'%self.visiblegetmorekey)
+            #hide get more button            
+            setvisiblecondition(self.visiblegetmorekey,False)
             self.getMoreState = False
         elif not self.getMoreState :
             #as we can't call during progress (xbmc bug), nasty workaround and set here
-            xbmc.executebuiltin('Skin.SetBool(%s)'%self.visiblegetmorekey)
+            setvisiblecondition(self.visiblegetmorekey,True)
             self.getMoreState = True
 
     def removePackage(self,package) :
@@ -97,12 +101,12 @@ class PackageCategory :
         return self.control
 
     def enableGetMore(self) :
-        xbmc.executebuiltin('Skin.SetBool(%s)'%self.visiblegetmorekey)
+        setvisiblecondition(self.visiblegetmorekey,True)
         self.getMoreState = True
 
     def clean(self) :
         #clean xbmc skin var
-        xbmc.executebuiltin('Skin.Reset(%s)'%self.visiblegetmorekey)
+        setvisiblecondition(self.visiblegetmorekey,False)
         map(lambda x : x.clean(),self.packageList)
 
     def _createControl(self) :
@@ -112,7 +116,7 @@ class PackageCategory :
             self.packageList.append(Package(self._onPackageCLick))
             self.control.addControl(self.packageList[-1].getControl())
         self.visiblegetmorekey = uuid.uuid4()
-        self.getMoreControl = ButtonControl(Tag('label',_('xbian-config.packages.label.get_more')),Tag('visible','skin.hasSetting(%s)'%self.visiblegetmorekey),Tag('enable','!skin.hasSetting(%s)'%SKINVARAPTRUNNIG))
+        self.getMoreControl = ButtonControl(Tag('label',_('xbian-config.packages.label.get_more')),Tag('visible',visiblecondition(self.visiblegetmorekey)),Tag('enable','!%s'%visiblecondition(SKINVARAPTRUNNIG)))
         self.getMoreControl.onClick = self._ongetMoreClick
         self.control.addControl(self.getMoreControl)
 
@@ -128,7 +132,7 @@ class Package :
         self.onPackageCB = onPackageCB
         self.visiblekey = uuid.uuid4()
         self.label = 'Not Loaded'
-        self.control = ButtonControl(Tag('label',self.label),Tag('visible','skin.hasSetting(%s)'%self.visiblekey),Tag('enable','!skin.hasSetting(%s)'%SKINVARAPTRUNNIG))
+        self.control = ButtonControl(Tag('label',self.label),Tag('visible',visiblecondition(self.visiblekey)),Tag('enable','!skin.hasSetting(%s)'%SKINVARAPTRUNNIG))
         self.control.onClick = self._onClick
 
     def getName(self) :
@@ -136,21 +140,21 @@ class Package :
 
     def disable(self) :
         xbmc.log('XBian-config : Disable package %s'%self.label,xbmc.LOGDEBUG)
-        xbmc.executebuiltin('Skin.Reset(%s)'%self.visiblekey)
+        setvisiblecondition(self.visiblekey,False)        
         self.control.setLabel('')
 
     def enable(self,package) :
         xbmc.log('XBian-config : Enable package %s'%package,xbmc.LOGDEBUG)
         self.label = package
         self.control.setLabel(self.label)
-        self.control.setEnabled(True)
-        xbmc.executebuiltin('Skin.SetBool(%s)'%self.visiblekey)
+        self.control.setEnabled(True)        
+        setvisiblecondition(self.visiblekey,True)        
 
     def getControl(self) :
         return self.control
 
     def clean(self) :
-        xbmc.executebuiltin('Skin.Reset(%s)'%self.visiblekey)
+        setvisiblecondition(self.visiblekey,False)
 
     def _onClick(self,ctrl) :
         xbmc.log('XBian-config : on Package %s click '%self.label,xbmc.LOGDEBUG)
@@ -164,10 +168,12 @@ class PackagesControl(MultiSettingControl):
         self.packages = []
         self.onGetMore=None
         self.onPackage=None
-        packagelist = xbianConfig('packages','list')
+        
+        
+        packagelist = xbianConfig('packages','list',cache=True)
         if packagelist[0] == '-3':
-			xbianConfig('packages','updatedb')
-			packagelist = xbianConfig('packages','list')
+            xbianConfig('packages','updatedb')
+            packagelist = xbianConfig('packages','list',cache=True)        
         for package in packagelist :
             self.packages.append(PackageCategory(package,self._onPackage,self._onGetMore))
             self.addControl(self.packages[-1].getControl())
@@ -177,12 +183,12 @@ class PackagesControl(MultiSettingControl):
        self.onPackage=onPackage
     
     def addPackage(self,group,package) :
-		filter(lambda x : x.getName() == group,self.packages)[0].addPackage(package)
+        filter(lambda x : x.getName() == group,self.packages)[0].addPackage(package)
 
     def removePackage(self,group,package) :
-		a =filter(lambda x : x.getName() == group,self.packages)
-		print a
-		a[0].removePackage(package)
+        a =filter(lambda x : x.getName() == group,self.packages)
+        print a
+        a[0].removePackage(package)
     
     def _onPackage(self,package,value):
         if self.onPackage :
@@ -322,13 +328,14 @@ class packagesManager(Setting) :
     def getXbianValue(self):
         packagesGroup = self.control.packages
         for group in packagesGroup :
-            if group.hasInstalledPackage() :
-                tmp = xbianConfig('packages','list',group.getName())
+            if group.hasInstalledPackage() :                
+                tmp = xbianConfig('packages','list',group.getName(),cache=True)                                    
                 if tmp[0]!= '-2' and tmp[0]!= '-3' :
                     for package in filter(lambda x : int(x[1]),map(lambda x : x.split(','),tmp)) :
                        group.addPackage(package[0])
             else :
                 group.enableGetMore()
+        print 'Finish xbian part'
 
 class packages(Category) :
     TITLE = _('xbian-config.packages.name')

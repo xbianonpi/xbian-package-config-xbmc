@@ -47,7 +47,7 @@ class NetworkControl(MultiSettingControl):
              
              #check if Wifi
              self.interfaceValue[interface]['wifi'] = False
-             if xbianConfig('network','type',interface)[0] == '1':
+             if xbianConfig('network','type',interface,cache=True)[0] == '1':
                  self.interfaceValue[interface]['wifi'] = True
                  self.interfaceValue[interface]['ssid'] = ButtonControl(Tag('label',' -%s'%_('xbian-config.network.label.ssid')))
                  self.interfaceValue[interface]['ssid'].onClick = lambda wifi : self.wifi(interface) 
@@ -310,13 +310,13 @@ class vc1License(mpeg2License) :
         self.xbiankey = 'licensevc1'
     
 class connectivityLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.connectivity.name')),Tag('visible','skin.hasSetting(advancedmode)'))
+    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.connectivity.name')),ADVANCED)
 
 class videooutputControl(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
     
     def onInit(self) :
-        self.videooutputlist = xbianConfig('videoflags','list')
+        self.videooutputlist = xbianConfig('videoflags','list',cache=True)
         self.videooutputcontrol = {}
         for videooutput in self.videooutputlist :            
             self.videooutputcontrol[videooutput] = RadioButtonControl(Tag('label',_('xbian-config.videoflags.%s'%videooutput)))
@@ -341,7 +341,7 @@ class videooutputControl(MultiSettingControl):
             
 
 class videooutput(Setting) :
-    CONTROL = videooutputControl(Tag('visible','skin.hasSetting(advancedmode)'))
+    CONTROL = videooutputControl(ADVANCED)
     DIALOGHEADER = _('xbian-config.connectivity.name')
                     
     def onInit(self) :
@@ -371,11 +371,11 @@ class videooutput(Setting) :
             return False
 
 class SytemLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.system.name')),Tag('visible','skin.hasSetting(advancedmode)'))
+    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.system.name')),ADVANCED)
             
     
 class hostname(Setting) :
-    CONTROL = ButtonControl(Tag('label',_('xbian-config.hostname.name')),Tag('visible','skin.hasSetting(advancedmode)'))
+    CONTROL = ButtonControl(Tag('label',_('xbian-config.hostname.name')),ADVANCED)
     DIALOGHEADER = _('xbian-config.hostname.name')    
     OKTEXT = _('xbian-config.hostname.changed')
     #BADUSERENTRYTEXT = "You used invalid characters in the new hostname"
@@ -403,7 +403,7 @@ class hostname(Setting) :
         return ok       
 
 class kernel(Setting) :
-    CONTROL = SpinControlex(Tag('label',_('xbian-config.kernel.name')),Tag('visible','skin.hasSetting(advancedmode)'))
+    CONTROL = SpinControlex(Tag('label',_('xbian-config.kernel.name')),ADVANCED)
     DIALOGHEADER = '%s %s'%(_('xbian-config.kernel.name'),_('xbian-config.kernel.label.version'))  
     OKTEXT = _('xbian-config.kernel.switch_success')
     SAVEMODE = Setting.ONUNFOCUS
@@ -443,7 +443,7 @@ class OverclockControl(MultiSettingControl):
     def onInit(self) :
         self.overclockMode = SpinControlex(Tag('label',_('xbian-config.overclocking.name')))
         self.addControl(self.overclockMode)
-        self.overclockinglist = xbianConfig('overclocking','list')
+        self.overclockinglist = xbianConfig('overclocking','list',cache=True)
 
         for mode in self.overclockinglist :
              content = Content(Tag('label',mode),defaultSKin=False)
@@ -477,7 +477,7 @@ class OverclockControl(MultiSettingControl):
             self.Overvoltage.onClick = lambda overvolt: self.Overvoltage.setValue(getNumeric('Arm Overclocking',value[4],0,12))
 
 class overclocking(Setting) :
-    CONTROL = OverclockControl(Tag('visible','skin.hasSetting(advancedmode)'))
+    CONTROL = OverclockControl(ADVANCED)
     DIALOGHEADER = _('xbian-config.overclocking.name')    
     OKTEXT = _('xbian-config.overclocking.changed')
     SAVEMODE = Setting.ONUNFOCUS
@@ -519,7 +519,7 @@ class overclocking(Setting) :
 
 
 class timezone(Setting) :
-    CONTROL = ButtonControl(Tag('label',_('xbian-config.timezone.name')),Tag('visible','skin.hasSetting(advancedmode)'))
+    CONTROL = ButtonControl(Tag('label',_('xbian-config.timezone.name')),ADVANCED)
     DIALOGHEADER = _('xbian-config.timezone.name')    
     
     def setControlValue(self,value) :
@@ -560,7 +560,7 @@ class timezone(Setting) :
         return ok
 
 class AccountLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.accounts.name')),Tag('visible','skin.hasSetting(advancedmode)'))
+    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.accounts.name')),ADVANCED)
     
     def onInit(self):
         #check if advanced mode is set
@@ -569,12 +569,12 @@ class AccountLabel(Setting) :
         key = 'advancedmode'
         rc = self.getSetting(key)
         if rc == '1' :
-            xbmc.executebuiltin('Skin.SetBool(%s)'%key)
+            setvisiblecondition(key,True)            
         else :
-            xbmc.executebuiltin('Skin.Reset((%s)'%key)
+            setvisiblecondition(key,False)
     
 class rootpwd(Setting) :
-    CONTROL = ButtonControl(Tag('label',_('xbian-config.rootpass.name')),Tag('visible','skin.hasSetting(advancedmode)'))
+    CONTROL = ButtonControl(Tag('label',_('xbian-config.rootpass.name')),ADVANCED)
     DIALOGHEADER = _('xbian-config.rootpass.label.password')        
     OKTEXT = _('xbian-config.rootpass.changed')
     BADUSERENTRYTEXT = _('xbian-config.rootpass.no_match')
@@ -604,7 +604,7 @@ class rootpwd(Setting) :
         return ok       
 
 class xbianpwd(rootpwd) :
-    CONTROL = ButtonControl(Tag('label',_('xbian-config.xbianpass.name')),Tag('visible','skin.hasSetting(advancedmode)'))
+    CONTROL = ButtonControl(Tag('label',_('xbian-config.xbianpass.name')),ADVANCED)
     OKTEXT = _('xbian-config.xbianpass.changed')
     
     def onInit(self):
@@ -613,7 +613,7 @@ class xbianpwd(rootpwd) :
         self.key = 'xbianpass'
     
 class sshroot(Setting) :
-    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.sshroot.name')),Tag('visible','skin.hasSetting(advancedmode)'))
+    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.sshroot.name')),ADVANCED)
     DIALOGHEADER = _('xbian-config.sshroot.name')
                     
     def getUserValue(self):

@@ -44,17 +44,17 @@ class updateControl(MultiSettingControl):
         
         keynoupdate = ''
         for i,update in enumerate(self.updates) :                                    
-            update['name'] = ButtonControl(Tag('visible','skin.hasSetting(%s%d)'%(self.key,i)),Tag('enable','!skin.hasSetting(%s)'%SKINVARAPTRUNNIG))
+            update['name'] = ButtonControl(Tag('visible',visiblecondition('%s%d'%(self.key,i))),Tag('enable','!%s'%visiblecondition(SKINVARAPTRUNNIG)))
             update['name'].onClick = lambda update : self.onUpdateClick(self.getCurrentUpdate(update))
             self.addControl(update['name'])
             keynoupdate+='!Control.IsVisible(%d) + '%update['name'].getId()
         keynoupdate = keynoupdate[:-3]        
-        self.udpateAll = ButtonControl(Tag('label','Update all'),Tag('visible','skin.hasSetting(%s)'%self.keyupdateall),Tag('enable','!skin.hasSetting(%s)'%SKINVARAPTRUNNIG))
+        self.udpateAll = ButtonControl(Tag('label','Update all'),Tag('visible',visiblecondition(self.keyupdateall)),Tag('enable','!%s'%visiblecondition(SKINVARAPTRUNNIG)))
         self.udpateAll.onClick = lambda updateall : self.onUpdateAll()
         self.addControl(self.udpateAll)
 
-        xbmc.executebuiltin('Skin.Reset(%s)'%KEYFORCECHECK)
-        self.forceCheck = ButtonControl(Tag('label',_('xbian-config.updatemenu.description')),Tag('visible','skin.hasSetting(%s)'%KEYFORCECHECK),Tag('enable','!skin.hasSetting(%s)'%SKINVARAPTRUNNIG))
+        setvisiblecondition(KEYFORCECHECK,False)
+        self.forceCheck = ButtonControl(Tag('label',_('xbian-config.updatemenu.description')),Tag('visible',visiblecondition(KEYFORCECHECK)),Tag('enable','!%s'%visiblecondition(SKINVARAPTRUNNIG)))
         self.forceCheck.onClick = lambda forcecheck : self.onForceCheck()
         self.addControl(self.forceCheck)
 
@@ -70,19 +70,19 @@ class updateControl(MultiSettingControl):
         values = update.split(';')        
         self.updates[int(values[0])-1]['name'].setLabel(values[1])
         self.updates[int(values[0])-1]['name'].setValue(values[3])
-        xbmc.executebuiltin('Skin.SetBool(%s%d)'%(self.key,int(values[0])-1))
+        setvisiblecondition('%s%d'%(self.key,int(values[0])-1),True)
         self.nbcanbeupdate += 1
         if self.nbcanbeupdate == 2 :
-            xbmc.executebuiltin('Skin.SetBool(%s)'%self.keyupdateall)
+            setvisiblecondition(self.keyupdateall,True)            
         elif self.nbcanbeupdate == 1 :
-            xbmc.executebuiltin('Skin.Reset(%s)'%self.keyupdateall)
+            setvisiblecondition(self.keyupdateall,False)
     
     def removeUpdate(self,update)  :   
         values = update.split(';')
-        xbmc.executebuiltin('Skin.Reset(%s%d)'%(self.key,int(values[0])-1))
+        setvisiblecondition('%s%d'%(self.key,int(values[0])-1),False)        
         self.nbcanbeupdate -= 1
         if self.nbcanbeupdate == 1 :
-            xbmc.executebuiltin('Skin.Reset(%s)'%self.keyupdateall)
+            setvisiblecondition(self.keyupdateall,False)            
 
     def onUpdateClick(self,updateId) :
         pass
@@ -107,6 +107,7 @@ class packageUpdate(Setting) :
         self.control.onUpdateClick = self.onUpdate       
         self.control.onUpdateAll = self.onUpdateAll
         self.control.onForceCheck = self.onForceCheck
+        self.needrefreshing = False
         self.keyword()
     
     def keyword(self) :
@@ -132,6 +133,7 @@ class packageUpdate(Setting) :
         if self.askConfirmation(True) :
             rc =xbianConfig('updates','install',self.key,updateId)
             if rc and rc[0] == '1' :                
+                self.needrefreshing = True
                 dlg = dialogWaitBackground(self.DIALOGHEADER,[],self.checkUpdateFinish,APTLOGFILE,skinvar=SKINVARAPTRUNNIG,onFinishedCB=self.onUpdateFinished)
                 dlg.show()              
             else :
@@ -151,32 +153,33 @@ class packageUpdate(Setting) :
                 self.notifyOnError()    
             
     def onForceCheck(self) :
-        xbmc.executebuiltin('Skin.SetBool(%s)'%SKINVARAPTRUNNIG)
+        setvisiblecondition(SKINVARAPTRUNNIG,True)        
         self.lockfile = '/var/lock/.%s'%self.key
         open(self.lockfile,'w').close()
 
         progress = dialogWait(_('xbian-config.common.pleasewait'),_('xbian-config.updates.list.download'))
         progress.show()
         rc = xbianConfig('updates','updatedb')
-        progress.close()
-
+        progress.close()        
         if rc and rc[0] == '1' :
+            self.needrefreshing = True
             self.onUpdateFinished()
-        xbmc.executebuiltin('Skin.Reset(%s)'%SKINVARAPTRUNNIG)
+        setvisiblecondition(SKINVARAPTRUNNIG,False)        
 
     def onUpdateAll(self) :
         updates = '-'        
         self.onUpdate(updates)
         
-    def getXbianValue(self):
-        rc =xbianConfig('updates','list',self.key)
-        if rc and rc[0] not in ('0','-2') : 
+    def getXbianValue(self):                
+        rc =xbianConfig('updates','list',self.key,cache=True,forcerefresh=self.needrefreshing)
+        if rc and rc[0] not in ('0','-2') :			 
             for update in rc[:15] :
                 self.control.addUpdate(update)
         else :
             self.control.udpateNo.setLabel(_('xbian-config.updates.label.update_to_date'))
+        self.needrefreshing = False
 
-        xbmc.executebuiltin('Skin.SetBool(%s)'%KEYFORCECHECK)
+        setvisiblecondition(KEYFORCECHECK,True)        
         return rc
 
 class updatePackageLabel(Setting) :

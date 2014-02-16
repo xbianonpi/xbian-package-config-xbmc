@@ -28,13 +28,13 @@ class homeBackupLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.backup.category.home')))
 
 class systemBackupLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.backup.category.system')))
+    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.backup.category.system')),ADVANCED)
 
 class snapshotLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.backup.category.snapshot')))
 
 class snapshotLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.backup.category.autosnapshot')))
+    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.backup.category.autosnapshot')),ADVANCED)
 
 
 class autodailysnapshot(MultiSettingControl):
@@ -127,7 +127,7 @@ class systemBackup(MultiSettingControl):
 
 
 class AutoBackupGui(Setting) :
-    CONTROL = systemBackup(Tag('visible','skin.hasSetting(advancedmode)'))
+    CONTROL = systemBackup(ADVANCED)
     DIALOGHEADER = _('xbian-config.backup.category.system')
         
     SAVEMODE = Setting.ONUNFOCUS
@@ -238,7 +238,7 @@ class AutoBackupGui(Setting) :
         return True
 
 class homeBackup(Setting) :
-    CONTROL = ButtonControl(Tag('label',_('xbian-config.backup.start')),Tag('enable','!skin.hasSetting(homebackuprunning)'))
+    CONTROL = ButtonControl(Tag('label',_('xbian-config.backup.start')),Tag('enable','!%s'%visiblecondition('homebackuprunning')))
     DIALOGHEADER = _('xbian-config.backup.category.home')
     
     def setControlValue(self,value) :
@@ -284,7 +284,7 @@ class homeBackup(Setting) :
         return ok
 
 class homeRestoreBackup(Setting) :
-    CONTROL = ButtonControl(Tag('label',_('xbian-config.backuphome.restore')),Tag('enable','!skin.hasSetting(homebackuprunning)'))
+    CONTROL = ButtonControl(Tag('label',_('xbian-config.backuphome.restore')),Tag('enable','!%s'%visiblecondition('homebackuprunning')))
     DIALOGHEADER = _('xbian-config.backuphome.restore')
     
     def setControlValue(self,value) :
@@ -328,7 +328,7 @@ class homeRestoreBackup(Setting) :
         return ok
 
 class snapshotmount(Setting) :
-    CONTROL = ButtonControl(Tag('label',_('xbian-config.snapshot.mountsnap')))
+    CONTROL = ButtonControl(Tag('label',_('xbian-config.snapshot.mountsnap')),ADVANCED)
     DIALOGHEADER = _('xbian-config.backup.category.snapshot')        
     PROGRESSTEXT = _('xbian-config.common.pleasewait')
     BLAKLISTVOLUME = ['modules']
@@ -390,7 +390,7 @@ class snapshotRollback(snapshotmount) :
             xbmc.executebuiltin('Reboot')
 
 class snapshotDestroy(snapshotmount) :
-    CONTROL = ButtonControl(Tag('label',_('xbian-config.snapshot.delete_snasphot')))
+    CONTROL = ButtonControl(Tag('label',_('xbian-config.snapshot.delete_snasphot')),ADVANCED)
     PROGRESSTEXT = _('xbian-config.common.pleasewait')        
     
     def runCmd(self,volume,snapshot) :
@@ -436,7 +436,7 @@ class snapshotCreate(Setting) :
         return ''
 
 class dailySnapshotGui(Setting) :
-    CONTROL = autodailysnapshot()
+    CONTROL = autodailysnapshot(ADVANCED)
     DIALOGHEADER = "Daily Snapshot"    
     SAVEMODE = Setting.ONUNFOCUS
 
@@ -465,7 +465,7 @@ class dailySnapshotGui(Setting) :
             return True
 
 class weeklySnapshotGui(dailySnapshotGui) :
-    CONTROL = autoweeklysnapshot()
+    CONTROL = autoweeklysnapshot(ADVANCED)
     DIALOGHEADER = "Weekly Snapshot"
 
     def onInit(self) :
@@ -473,7 +473,5 @@ class weeklySnapshotGui(dailySnapshotGui) :
 
 class backup(Category) :
     TITLE = _('xbian-config.snapshot.backup')
-    SETTINGS = [homeBackupLabel,homeBackup,homeRestoreBackup,systemBackupLabel,AutoBackupGui]
-    #,snapshotLabel,dailySnapshotGui]
-    #,weeklySnapshotGui,separator,snapshotmount,snapshotRollback,snapshotDestroy,snapshotCreate]
+    SETTINGS = [homeBackupLabel,homeBackup,homeRestoreBackup,systemBackupLabel,AutoBackupGui,snapshotLabel,dailySnapshotGui,weeklySnapshotGui,separator,snapshotmount,snapshotRollback,snapshotDestroy,snapshotCreate]
 

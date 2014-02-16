@@ -4,7 +4,7 @@ import xbmcgui
 from xbmcaddon import Addon
 from resources.lib.service import service
 from resources.lib.xbianconfig import xbianConfig
-from resources.lib.utils import dialogWait,setSetting,getSetting
+from resources.lib.utils import *
 from datetime import datetime, timedelta
 
 __addonID__      = "plugin.xbianconfig"
@@ -18,6 +18,15 @@ class upgrade(service):
         self.rebootNeeded = False
         self.rebootNoCheck = False
         self.inScreenSaver = False
+        rc = xbianConfig('updates','enableauto')
+        if rc and rc[0]=='1' :
+            self.enableauto = True
+        else :
+            self.enableauto = False
+        try :
+            self.deltaCheck = int(xbianConfig('updates','autoinventory')[0].split(' ')[1])
+        except :
+            self.deltaCheck = 100
         print 'XBian : upgrade service started'
 
     def onAbortRequested(self):
@@ -30,25 +39,28 @@ class upgrade(service):
 
         self.StopRequested = True
 
-    def onScreensaverActivated(self):
+    def onScreensaverActivated(self):        
         self.inScreenSaver = True
 
-        rc =xbianConfig('updates','updates','enableauto')
-        if rc and rc[0] == '1' :
+        rc =xbianConfig('updates','enableauto')
+        if self.enableauto  :
             return
 
-        if not xbmc.Player().isPlaying() :
-            #check if new upgrades avalaible
-            rc =xbianConfig('updates','list','packages')
-            if rc and rc[0] == '-3' :
-                print 'XBian : refreshing apt inventory'
+        if not xbmc.Player().isPlaying()  and (getSetting('lastupdatecheck')==None or getSetting('lastupdatecheck') < (datetime.now() - timedelta(days=self.deltaCheck))):
+            #check if new upgrades avalaible           
+            rc =xbianConfig('updates','list','packages',forcerefresh=True)
+            if rc and rc[0] == '-3' :                
                 rctmp = xbianConfig('updates','updatedb')
                 if rctmp and rctmp[0] == '1' :
-                    rc =xbianConfig('updates','list','packages')
+                    rc =xbianConfig('updates','list','packages',forcerefresh=True)
+                    #refresh also package cache
+                    pkglist = xbianConfig('packages','list',forcerefresh=True)
+                    for pkg in pkglist :
+                        xbianConfig('packages','list',pkg.split(',')[0],forcerefresh=True)
                 else :
                     rc[0]= '0'
-
-            if rc and rc[0] == '1' : 
+            
+            if rc and rc[0] and len(rc[0])>2  : 
                 self.packageUpdate = True
                 print 'XBian : new updates available'
 
@@ -64,7 +76,7 @@ class upgrade(service):
 
         self.rebootNeeded = False
 
-        if xbmcgui.Dialog().yesno('XBian-config','A reboot is needed','Do you want to reboot now?') :
+        if xbmcgui.Dialog().yesno('XBian-config',_('xbian-config.main.reboot_question')):
             os.system('sudo /sbin/reboot')
             xbmc.executebuiltin("XBMC.Quit()")
         else:
@@ -104,11 +116,12 @@ class upgrade(service):
             os.remove('/var/lock/.packages')
 
         if xbianConfig('updates','progress')[0] != '1':
-            xbmc.executebuiltin('Skin.Reset(aptrunning)')
+            setvisiblecondition('aptrunning',False)            
 
-        #for those one who deactivate its screensaver, force check every 10 days
-        rc =xbianConfig('updates','updates','enableauto')
-        if getSetting('lastupdatecheck') != None and getSetting('lastupdatecheck') < datetime.now() - timedelta(days=10) and rc and rc[0] == '0' :
+        #for those one who deactivate its screensaver, force check every deltaCheck days
+        
+        
+        if not self.enableauto and getSetting('lastupdatecheck') != None and getSetting('lastupdatecheck') < datetime.now() - timedelta(days=self.deltaCheck):
             print 'XBian : screensaver is disabled, running internal updates'
             self.onScreensaverActivated()
             self.onScreensaverDeactivated()
@@ -119,6 +132,5 @@ class upgrade(service):
             while not self.StopRequested and self.x < 600:
                 xbmc.sleep(500) #Repeat (ms) 
                 self.x = self.x + 1
-
         print 'XBian : upgrade service finished'
 

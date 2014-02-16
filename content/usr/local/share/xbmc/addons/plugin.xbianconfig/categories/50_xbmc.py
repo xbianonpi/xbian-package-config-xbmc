@@ -86,7 +86,7 @@ class xbmcTvOffGui(Setting) :
             return False
 
 class xbmcTvOn(Setting) :
-    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.tvon_exit')))
+    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.tvon_exit')),ADVANCED)
     DIALOGHEADER = _('xbian-config.xbmc.label.tvon_exit')
     
     def getUserValue(self):
@@ -139,7 +139,7 @@ class xbmcUSBLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.xbmc.label.usbhotplug')))
 
 class xbmcUSBmount(Setting) :
-    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.automount')))
+    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.automount')),ADVANCED)
     DIALOGHEADER = _('xbian-config.xbmc.label.automount')
     
     def getUserValue(self):
@@ -215,7 +215,7 @@ class xbmcUSBsmbrw(Setting) :
 
 
 class xbmcUSBuuidname(Setting) :
-    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.uuid')),Tag('visible','skin.hasSetting(advancedmode)'))
+    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.uuid')),ADVANCED)
     DIALOGHEADER = _('xbian-config.xbmc.label.uuid')
     
     def getUserValue(self):
@@ -276,7 +276,7 @@ class DynamicPriority(MultiSettingControl):
         self.highPriority.setValue(value[2])
 
 class DynamicPriorityGui(Setting) :
-    CONTROL = DynamicPriority(Tag('visible','skin.hasSetting(advancedmode)'))
+    CONTROL = DynamicPriority(ADVANCED)
     DIALOGHEADER = _('xbian-config.xbmc.label.dyn_priority')    
     SAVEMODE = Setting.ONUNFOCUS
 
@@ -318,7 +318,7 @@ class SpinDownHddGui(Setting) :
             return False
 
 class xbmcUSBsync(Setting) :
-    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.sync')),Tag('visible','skin.hasSetting(advancedmode)'))
+    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.sync')),ADVANCED)
     DIALOGHEADER = _('xbian-config.xbmc.label.sync')
     
     def getUserValue(self):

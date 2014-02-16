@@ -2,6 +2,7 @@ from resources.lib.xbmcguie.xbmcContainer import *
 from resources.lib.xbmcguie.xbmcControl import *
 from resources.lib.xbmcguie.tag import Tag
 from resources.lib.xbmcguie.category import Category,Setting
+from resources.lib.utils import *
 
 import resources.lib.translation
 _ = resources.lib.translation.language.ugettext
@@ -33,14 +34,15 @@ class advancedMode(Setting) :
     def getXbianValue(self):
         rc = self.getSetting(self.key)
         if rc == '1' :              
-              xbmc.executebuiltin('Skin.SetBool(%s)'%self.key)
+              setvisiblecondition(self.key,True)
         else :              
-              xbmc.executebuiltin('Skin.Reset(%s)'%self.key)
+              setvisiblecondition(self.key,False)
         return rc
         
     def setXbianValue(self,value):
         self.setSetting(self.key,str(value))
-        xbmc.executebuiltin('Skin.ToggleSetting(%s)'%self.key)
+        #xbmc.executebuiltin('Skin.ToggleSetting(%s)'%self.key)
+        setvisiblecondition(self.key,value=='1')
         return True
 
 class notificationLabel(Setting) :

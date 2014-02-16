@@ -23,7 +23,7 @@ class Service :
         self.onServiceCB = onServiceCB
         self.visiblekey = uuid.uuid4()
         self.label = ''
-        self.control = ButtonControl(Tag('label',self.label),Tag('visible','skin.hasSetting(%s)'%self.visiblekey))
+        self.control = ButtonControl(Tag('label',self.label),Tag('visible',visiblecondition(self.visiblekey)))
         self.control.onClick = self._onClick
 
     def getName(self) :
@@ -31,7 +31,7 @@ class Service :
 
     def disable(self) :
         xbmc.log('XBian-config : Disable service %s'%self.label,xbmc.LOGDEBUG)
-        xbmc.executebuiltin('Skin.Reset(%s)'%self.visiblekey)
+        setvisiblecondition(self.visiblekey,False)
         self.control.setLabel('')
 
     def enable(self,service,status) :
@@ -40,13 +40,13 @@ class Service :
         self.control.setLabel(self.label)
         self.control.setValue(status)
         self.control.setEnabled(True)
-        xbmc.executebuiltin('Skin.SetBool(%s)'%self.visiblekey)
+        setvisiblecondition(self.visiblekey,True)
 
     def getControl(self) :
         return self.control
 
     def clean(self) :
-        xbmc.executebuiltin('Skin.Reset(%s)'%self.visiblekey)
+        setvisiblecondition(self.visiblekey,False)
 
     def _onClick(self,ctrl) :
         xbmc.log('XBian-config : on Service %s click '%self.label,xbmc.LOGDEBUG)
@@ -65,8 +65,8 @@ class ServicesControl(MultiSettingControl):
         for i in xrange(MAXGUISERVICE) :
             self.services.append(Service(self._onService))
             self.addControl(self.services[-1].getControl())
-        self.addControl(CategoryLabelControl(Tag('label',_('xbian-config.services.label.edit'))))
-        self.addCustomBtn = ButtonControl(Tag('label',_('xbian-config.services.label.add_custom')))
+        self.addControl(CategoryLabelControl(Tag('label',_('xbian-config.services.label.edit')),ADVANCED))
+        self.addCustomBtn = ButtonControl(Tag('label',_('xbian-config.services.label.add_custom')),ADVANCED)
         self.addCustomBtn.onClick = self._onCustom
         self.addControl(self.addCustomBtn)
         
@@ -119,12 +119,12 @@ class servicesManager(Setting) :
         
     def refresh(self) :
         if self.guiloaded :
-			xbmc.log('XBian-config : Refresh services status',xbmc.LOGDEBUG)
-			tmp = self.control.flagRemove
-			self.control.flagRemove = True
-			self.getXbianValue()
-			self.control.flagRemove = tmp
-									
+            xbmc.log('XBian-config : Refresh services status',xbmc.LOGDEBUG)
+            tmp = self.control.flagRemove
+            self.control.flagRemove = True
+            self.getXbianValue()
+            self.control.flagRemove = tmp
+                                    
     def onService(self,service):
         action = []
         choice = []                
@@ -151,13 +151,14 @@ class servicesManager(Setting) :
         
         self.APPLYTEXT = '%s %s?'%(_('xbian-config.common.doyouwanto')%choice[select],service)
         if self.askConfirmation() :
-			#TODO
+            #TODO
             #not clean to use translation in test
             #have to be rewrited
-            if choice[select] == _('xbian-config.services.refresh') :
+            if choice[select] == _('xbian-config.services.refresh_gui') :
                 self.refresh()
                 rc = ['1']
             else :
+                print action,select
                 rc = xbianConfig(*action[select])
             if not rc or rc[0] == '0' :
                 self.ERRORTEXT = 'Cant %s %s'%(choice[select],service)

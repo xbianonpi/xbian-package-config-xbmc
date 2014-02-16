@@ -15,6 +15,7 @@ import sys
 import Queue
 import traceback
 import urllib
+from resources.lib.utils import *
 import resources.lib.translation
 _ = resources.lib.translation.language.ugettext
 
@@ -51,9 +52,9 @@ class xbianSettingCommon :
         from resources.lib.updateworker import Updater
         from resources.lib.xbianconfig import xbianConfig
         if xbianConfig('updates','progress')[0] != '1':
-            xbmc.executebuiltin('Skin.Reset(aptrunning)')
+            setvisiblecondition('aptrunning',False)            
         else :
-            xbmc.executebuiltin('Skin.SetBool(aptrunning)')
+            setvisiblecondition('aptrunning',True)
         self.checkReboot = False
         self.CmdQueue = Queue.Queue()
         self.updateThread = Updater(self.CmdQueue)
@@ -108,13 +109,13 @@ class xbianSettingWindow(xbianSettingCommon) :
         self.wait = xbmcgui.DialogProgress()
         self.wait.create('%s %s'%(_("distribution"),_('xbian-config.main.title')),_('xbian-config.common.pleasewait'))
         self.wait.update(0)        
-        self.window = XbianWindow('SettingsXbianInfo.xml',ROOTDIR)
+        self.window = XbianWindow('SettingsXbianInfo.xml',ROOTDIR)        
 
     def onClean(self) :
         if self.wait :
             self.wait.close()
 
-    def onShow(self) :        
+    def onShow(self) :        		
         for i,module in enumerate(self.category_list) :
              if self.wait.iscanceled():
                 self.stop = True
