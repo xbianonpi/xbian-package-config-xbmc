@@ -26,6 +26,7 @@ class WindowSkinXml(xbmcgui.WindowXML):
     def onInit(self):
         #set the windows instance in all xbmc control
         for control in self.controls :
+            print control
             control.setWindowInstance(self)
     
     def doXml(self,template) :

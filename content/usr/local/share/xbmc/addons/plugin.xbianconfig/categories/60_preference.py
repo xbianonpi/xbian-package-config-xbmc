@@ -3,18 +3,19 @@ from resources.lib.xbmcguie.xbmcControl import *
 from resources.lib.xbmcguie.tag import Tag
 from resources.lib.xbmcguie.category import Category,Setting
 
+import resources.lib.translation
+_ = resources.lib.translation.language.ugettext
+
 import xbmcgui
 
 dialog=xbmcgui.Dialog()
 
 class advancedLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','Advanced'))
+    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.preferences.label.advanced')))
 
 class advancedMode(Setting) :
-    CONTROL = RadioButtonControl(Tag('label','Advanced mode'))
-    DIALOGHEADER = "Advanced Mode"
-    ERRORTEXT = "Error on updating"
-    OKTEXT = "Update ok"
+    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.preferences.label.advanced_mode')))
+    DIALOGHEADER = _('xbian-config.preferences.label.advanced_mode')
     
     def onInit(self) :
         self.key = 'advancedmode'
@@ -43,47 +44,27 @@ class advancedMode(Setting) :
         return True
 
 class notificationLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','Notification'))
+    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.preferences.label.notify')))
 
 class notifyonError(advancedMode) :
-    CONTROL = RadioButtonControl(Tag('label','Notify on error'))
-    DIALOGHEADER = "Notification on Error"
+    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.preferences.notify.on_error')))
+    DIALOGHEADER = _('xbian-config.preferences.notify.on_error')
     def onInit(self) :
         self.key = 'notifyonerror'
     
 class notifyonSuccess(advancedMode) :
-    CONTROL = RadioButtonControl(Tag('label','Notify on success'))
-    DIALOGHEADER = "Notification on Success"
+    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.preferences.notify.on_success')))
+    DIALOGHEADER = _('xbian-config.preferences.notify.on_success')
     def onInit(self) :
         self.key = 'notifyonsuccess'
 
 class confirmonChange(advancedMode) :
-    CONTROL = RadioButtonControl(Tag('label','Ask confirmation before saving'))
-    DIALOGHEADER = "Confirm Modification"
+    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.preferences.ask_confirmation')))
+    DIALOGHEADER = _('xbian-config.preferences.ask_confirmation')
     
     def onInit(self) :
         self.key = 'confirmationonchange'
 
-class UpdateLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','XBian updates'))
-
-class updateonBoot(advancedMode) :
-    CONTROL = RadioButtonControl(Tag('label','Check update on boot'))
-    DIALOGHEADER = "Check Update on Boot"
-    def onInit(self) :
-        self.key = 'updateonboot'
-
-class updateTimer(advancedMode) :
-    CONTROL = RadioButtonControl(Tag('label','Check update every'))
-    DIALOGHEADER = "Check Update Every"
-    def onInit(self) :
-        self.key = 'notifyonerror'
-
-class updateAuto(advancedMode) :
-    CONTROL = RadioButtonControl(Tag('label','Automatic update'))
-    DIALOGHEADER = "Automatic Update"
-    def onInit(self) :
-        self.key = 'updateauto'
 
 #CATEGORY CLASS
 class preference(Category) :

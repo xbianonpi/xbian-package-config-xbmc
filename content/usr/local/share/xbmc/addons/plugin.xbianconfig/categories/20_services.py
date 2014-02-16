@@ -6,6 +6,9 @@ from resources.lib.xbmcguie.category import Category,Setting
 from resources.lib.xbianconfig import xbianConfig
 from resources.lib.utils import *
 
+import resources.lib.translation
+_ = resources.lib.translation.language.ugettext
+
 import xbmc,xbmcgui
 
 import uuid
@@ -19,7 +22,7 @@ class Service :
     def __init__(self,onServiceCB) :
         self.onServiceCB = onServiceCB
         self.visiblekey = uuid.uuid4()
-        self.label = 'Not Loaded'
+        self.label = ''
         self.control = ButtonControl(Tag('label',self.label),Tag('visible','skin.hasSetting(%s)'%self.visiblekey))
         self.control.onClick = self._onClick
 
@@ -29,7 +32,7 @@ class Service :
     def disable(self) :
         xbmc.log('XBian-config : Disable service %s'%self.label,xbmc.LOGDEBUG)
         xbmc.executebuiltin('Skin.Reset(%s)'%self.visiblekey)
-        self.control.setLabel('Not Loaded')
+        self.control.setLabel('')
 
     def enable(self,service,status) :
         xbmc.log('XBian-config : Enable service %s to %s'%(service,status),xbmc.LOGDEBUG)
@@ -62,8 +65,8 @@ class ServicesControl(MultiSettingControl):
         for i in xrange(MAXGUISERVICE) :
             self.services.append(Service(self._onService))
             self.addControl(self.services[-1].getControl())
-        self.addControl(CategoryLabelControl(Tag('label','Others')))
-        self.addCustomBtn = ButtonControl(Tag('label','Add a custom service'))
+        self.addControl(CategoryLabelControl(Tag('label',_('xbian-config.services.label.edit'))))
+        self.addCustomBtn = ButtonControl(Tag('label',_('xbian-config.services.label.add_custom')))
         self.addCustomBtn.onClick = self._onCustom
         self.addControl(self.addCustomBtn)
         
@@ -73,8 +76,8 @@ class ServicesControl(MultiSettingControl):
           
     def addService(self,service,status,refresh=False) :
         xbmc.log('XBian-config : Add Service %s'%(service),xbmc.LOGDEBUG)
-        if status : status = 'Started'
-        else : status = 'Stopped'
+        if status : status = _('xbian-config.services.label.running')
+        else : status = _('xbian-config.services.label.stopped')
             
         idx = self.initialiseIndex
         find = False
@@ -101,16 +104,13 @@ class ServicesControl(MultiSettingControl):
         if self.onCustom : self.onCustom()
         
 class serviceLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','Services'))
+    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.services.label.service')))
 
 
 class servicesManager(Setting) :
     CONTROL = ServicesControl()
-    DIALOGHEADER = "Xbian Services Manager"
-    ERRORTEXT = "Error"
-    OKTEXT = "OK"
-    APPLYTEXT = "Apply"
-
+    DIALOGHEADER = _('xbian-config.services.description')
+    
     def onInit(self) :        
         self.publicMethod['refresh'] = self.refresh
         self.services = {}
@@ -129,29 +129,32 @@ class servicesManager(Setting) :
         action = []
         choice = []                
         if self.services[service][0] :
-            choice.append('Stop')
+            choice.append(_('xbian-config.services.label.stop'))
             action.append(('services','stop',service))
-            choice.append('Restart')
+            choice.append(_('xbian-config.services.label.restart'))
             action.append(('services','restart',service))
         else :
-            choice.append('Start')
+            choice.append(_('xbian-config.services.label.start'))
             action.append(('services','start',service))
         if self.services[service][1] :
-            choice.append('Disable autostart')          
+            choice.append(_('xbian-config.services.label.noautostart'))          
             action.append(('services','autostart',service,'disable'))
         else :
-            choice.append('Enable autostart')
+            choice.append(_('xbian-config.services.label.autostart'))
             action.append(('services','autostart',service,'enable'))
-        choice.append('Remove from gui') 
+        choice.append(_('xbian-config.services.label.delete')) 
         action.append(('services','delete',service))
-        choice.append('Refresh status')
+        choice.append(_('xbian-config.services.refresh_gui'))
         
         select = dialog.select(service,choice)
         if select == -1 : return
         
-        self.APPLYTEXT = '%s : Do you want to %s?'%(service,choice[select])
+        self.APPLYTEXT = '%s %s?'%(_('xbian-config.common.doyouwanto')%choice[select],service)
         if self.askConfirmation() :
-            if choice[select] == 'Refresh status' :
+			#TODO
+            #not clean to use translation in test
+            #have to be rewrited
+            if choice[select] == _('xbian-config.services.refresh') :
                 self.refresh()
                 rc = ['1']
             else :
@@ -166,15 +169,18 @@ class servicesManager(Setting) :
                     self.control.removeService(service)
                     
                 #refresh internal value
-                if choice[select] == 'Start' :
+                #TODO
+                #not clean to use translation in test
+                #have to be rewrited
+                if choice[select] == _('xbian-config.services.label.start') :
                     self.control.addService(service,True,True)
                     self.services[service][0] = True
-                elif choice[select] == 'Stop' :
+                elif choice[select] == _('xbian-config.services.label.stop') :
                     self.control.addService(service,False,True)
                     self.services[service][0] = False
-                elif choice[select] == 'Disable autostart' :                    
+                elif choice[select] == _('xbian-config.services.label.noautostart') :                    
                     self.services[service][1] = False
-                elif choice[select] == 'Enable autostart' :                    
+                elif choice[select] == _('xbian-config.services.label.autostart') :                    
                     self.services[service][1] = True
             elif rc[0] == '-3' :
                 self.ERRORTEXT = 'Service %s already running'%service
@@ -189,16 +195,16 @@ class servicesManager(Setting) :
                 self.ERRORTEXT = 'Autostart already disabled for %s'%service
                 self.notifyOnError()
             else :
-                self.ERRORTEXT = 'Unknown Error for %s'%service
+                self.ERRORTEXT = _('xbian-config.dialog.unexpected_error')
                 self.notifyOnError()
                     
     def onCustom(self):
-        name = getText('Service Name')
+        name = getText(_('xbian-config.services.label.name'))
         if not name :
             return
-        self.APPLYTEXT = 'Do you want to insert %s ?'%name
+        self.APPLYTEXT = _('xbian-config.services.label.confirminsert')%name
         if self.askConfirmation() :
-           progress = dialogWait('Inserting','Please wait while inserting %s...'%name)
+           progress = dialogWait(_('xbian-config.services.label.edit'),_('xbian-config.common.pleasewait'))
            progress.show() 
            rc = xbianConfig('services','insert',name)                                            
            if rc and rc[0] == '1' :
@@ -207,16 +213,16 @@ class servicesManager(Setting) :
                if rcs :
                    self.services[name] = self._parseStatus(int(rcs[0].split(' ')[1]))                                  
                    self.control.addService(name,self.services[name][0])
-                   self.OKTEXT = 'Service %s added successfully'%name
+                   self.OKTEXT = _('xbian-config.services.inserted')
                    self.notifyOnSuccess()
                else :
-                   self.ERRORTEXT = 'Cannot refresh status for %s'%name
+                   self.ERRORTEXT = _('xbian-config.services.refresh')
                    self.notifyOnError()  
            elif rc and rc[0] == '-2':           
-               self.ERRORTEXT = '%s is not installed, please install it first'%name
+               self.ERRORTEXT = _('xbian-config.services.not_exists')
                self.notifyOnError()
            else :
-               self.ERRORTEXT = 'Unknwown error'
+               self.ERRORTEXT = _('xbian-config.dialog.unexpected_error')
                self.notifyOnError()                            
            progress.close()         
                          
@@ -239,7 +245,7 @@ class servicesManager(Setting) :
             self.control.addService(tmp[0],self.services[tmp[0]][0])                    
             
 class services(Category) :
-    TITLE = 'Services'
+    TITLE = _('xbian-config.services.name')
     SETTINGS = [serviceLabel,servicesManager]    
 
 

@@ -3,6 +3,9 @@ from xbmcguie.window import WindowSkinXml
 import threading
 import xbmc
 
+import resources.lib.translation
+_ = resources.lib.translation.language.ugettext
+
 
 ACTION_SELECT_ITEM = 7
 ACTION_MOUSE_LEFT_CLICK = 100
@@ -20,12 +23,14 @@ class XbianWindow(WindowSkinXml):
         self.loadingCat = {}
 
     def onInit(self):
+        print 'on inint, before xbmc onInit'
         xbmc.log('XBian-config : Show(onInit) XbianWindow',xbmc.LOGDEBUG)
         WindowSkinXml.onInit(self)
+        print 'on inint, after xbmc onInit'
         #first, get all public method
         for category in self.categories :
             title = category.getTitle()
-            xbmc.executebuiltin('Skin.SetString(%sloadingvalue,%s)'%(title,'Click to Load'))
+            xbmc.executebuiltin('Skin.SetString(%sloadingvalue,%s)'%(title,_('xbian-config.common.clicktoload')))
             self.publicMethod[title] = {}
             self.loadingCat[title] = False
             for setting in category.getSettings():
@@ -87,10 +92,10 @@ class XbianWindow(WindowSkinXml):
         for line in xmltemplate.readlines() :
             if '<control type="xbian" value="Menucategories"/>' in line :
                 for category in self.categories :
-                    xmlout.write(category.getTitleContent().toXml())
+                    xmlout.write(category.getTitleContent().toXml().encode('utf-8'))
             elif '<control type="xbian" value="categories"/>' in line :
                 for category in self.categories :
-                    xmlout.write(category.getCategory().toXml())
+                    xmlout.write(category.getCategory().toXml().encode('utf-8'))
                     #xmlout.write(category.getScrollBar().toXml())
             else :
                 xmlout.write(line)

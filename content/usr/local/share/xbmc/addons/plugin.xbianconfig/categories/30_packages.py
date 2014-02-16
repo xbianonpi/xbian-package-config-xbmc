@@ -9,6 +9,11 @@ from resources.lib.xbmcguie.category import Category,Setting
 
 from resources.lib.xbianconfig import xbianConfig
 from resources.lib.utils import *
+
+import resources.lib.translation
+_ = resources.lib.translation.language.ugettext
+
+
 import xbmcgui,xbmc
 from xbmcaddon import Addon
 
@@ -107,7 +112,7 @@ class PackageCategory :
             self.packageList.append(Package(self._onPackageCLick))
             self.control.addControl(self.packageList[-1].getControl())
         self.visiblegetmorekey = uuid.uuid4()
-        self.getMoreControl = ButtonControl(Tag('label','Get more...'),Tag('visible','skin.hasSetting(%s)'%self.visiblegetmorekey),Tag('enable','!skin.hasSetting(%s)'%SKINVARAPTRUNNIG))
+        self.getMoreControl = ButtonControl(Tag('label',_('xbian-config.packages.label.get_more')),Tag('visible','skin.hasSetting(%s)'%self.visiblegetmorekey),Tag('enable','!skin.hasSetting(%s)'%SKINVARAPTRUNNIG))
         self.getMoreControl.onClick = self._ongetMoreClick
         self.control.addControl(self.getMoreControl)
 
@@ -132,7 +137,7 @@ class Package :
     def disable(self) :
         xbmc.log('XBian-config : Disable package %s'%self.label,xbmc.LOGDEBUG)
         xbmc.executebuiltin('Skin.Reset(%s)'%self.visiblekey)
-        self.control.setLabel('Not Loaded')
+        self.control.setLabel('')
 
     def enable(self,package) :
         xbmc.log('XBian-config : Enable package %s'%package,xbmc.LOGDEBUG)
@@ -189,20 +194,17 @@ class PackagesControl(MultiSettingControl):
 
 class packagesManager(Setting) :
     CONTROL = PackagesControl()
-    DIALOGHEADER = "XBian Package Manager"
-    ERRORTEXT = "Error"
-    OKTEXT = "OK"
-    APPLYTEXT = "Apply"
-
-    INSTALLED = 'Installed'
-    NOTINSTALLED = 'Not installed'
+    DIALOGHEADER = _('xbian-config.packages.description')
+    
+    INSTALLED = _('xbian-config.packages.label.installed')
+    NOTINSTALLED = _('xbian-config.packages.label.not_installed')
 
     def onInit(self) :
         self.control.setCallback(self.onGetMore,self.onSelect)
         self.dialog = xbmcgui.Dialog()        
 
     def showInfo(self,package) :
-        progress = dialogWait('Loading','Please wait while loading informations for package %s'%package)
+        progress = dialogWait(package,_('xbian-config.packages.loading'))
         progress.show()
         rc = xbianConfig('packages','info',package)
         progress.close()
@@ -217,27 +219,27 @@ class packagesManager(Setting) :
             self.showInfo(package)
         elif select == 1 :
             #remove package
-            self.APPLYTEXT = 'Do you want to remove the %s package?'%package
+            self.APPLYTEXT = _('xbian-config.packages.remove.confirm')
             if self.askConfirmation(True) :
                 self.tmppack = (cat,package)
-                progressDlg = dialogWait('Removing','Sanity checking system')
+                progressDlg = dialogWait(_('xbian-config.packages.label.remove'),_('xbian-config.common.pleasewait'))
                 progressDlg.show()
                 rc = xbianConfig('packages','removetest',package)
                 if rc and rc[0] == '1' :
                    rc = xbianConfig('packages','remove',package)
                    if rc and rc[0] == '1' :
                        progressDlg.close()
-                       dlg = dialogWaitBackground('Xbian Package Manager',[],self.checkInstallFinish,APTLOGFILE,skinvar=SKINVARAPTRUNNIG,onFinishedCB=self.onRemoveFinished)
+                       dlg = dialogWaitBackground(self.DIALOGHEADER,[],self.checkInstallFinish,APTLOGFILE,skinvar=SKINVARAPTRUNNIG,onFinishedCB=self.onRemoveFinished)
                        dlg.show()
                 else :
                     if rc and rc[0] == '2' :
                          #normally never pass here
-                         self.ERRORTEXT = 'Package %s is not installed'%package
+                         self.ERRORTEXT = _('xbian-config.packages.not_installed')
                     elif rc and rc[0] == '3' :
-                         self.ERRORTEXT = 'Package %s is an essential package and cannot be removed'%package
+                         self.ERRORTEXT = _('xbian-config.packages.essential')
                     else :
                          #normally never pass here
-                         self.ERRORTEXT = 'Unknown error while removing %s'%package
+                         self.ERRORTEXT = _('xbian-config.dialog.unexpected_error')
                     progressDlg.close()
                     self.notifyOnError()
 
@@ -249,7 +251,7 @@ class packagesManager(Setting) :
         time.sleep(0.5)
         self.control.addPackage(self.tmppack[0],self.tmppack[1])
         self.globalMethod['Services']['refresh']()
-        self.OKTEXT = 'Package %s successfully installed'%self.tmppack[1]
+        self.OKTEXT = _('xbian-config.packages.install.success')
         self.notifyOnSuccess()
 
     def onRemoveFinished(self) :
@@ -257,11 +259,11 @@ class packagesManager(Setting) :
         print self.tmppack
         self.control.removePackage(self.tmppack[0],self.tmppack[1])
         self.globalMethod['Services']['refresh']()
-        self.OKTEXT = 'Package %s successfully removed'%self.tmppack[1]
+        self.OKTEXT = _('xbian-config.packages.remove.success')
         self.notifyOnSuccess()
 
     def onGetMore(self,cat) :
-        progress = dialogWait('Loading','Refreshing packages list for %s'%cat)
+        progress = dialogWait(cat,_('xbian-config.packages.list.download'))
         progress.show()
         tmp = xbianConfig('packages','list',cat)
         if tmp and tmp[0] == '-3' :
@@ -277,42 +279,42 @@ class packagesManager(Setting) :
              packageTmp = packag.split(',')
              if packageTmp[1] == '0' :
                 package.append(packageTmp[0])
-           select =self.dialog.select('Select Package',package)
+           select =self.dialog.select(_('xbian-config.packages.name'),package)
            if select != -1 :
-                choice = ['Informations','Install Package']
+                choice = [_('xbian-config.packages.label.information'),_('xbian-config.packages.label.install')]
                 sel = self.dialog.select('Select',choice)
                 if sel == 0 :
                     #display info dialog
                     self.showInfo(package[select])
                 elif sel == 1 :
-                    self.APPLYTEXT = 'Do you want to install the package: %s?'%package[select]
+                    self.APPLYTEXT = _('xbian-config.packages.install.confirm')
                     if self.askConfirmation(True) :
                         self.tmppack = (cat,package[select])
-                        progressDlg = dialogWait('Installing %s...'%package[select],'Sanity checking system ...')
+                        progressDlg = dialogWait(package[select],'xbian-config.common.pleasewait')
                         progressDlg.show()
                         rc = xbianConfig('packages','installtest',package[select])
                         if rc and rc[0] == '1' :
                              rc = xbianConfig('packages','install',package[select])
                         if rc and rc[0] == '1' :
                              progressDlg.close()
-                             dlg = dialogWaitBackground('Xbian Package Manager',[],self.checkInstallFinish,APTLOGFILE,skinvar=SKINVARAPTRUNNIG,onFinishedCB=self.onInstallFinished)
+                             dlg = dialogWaitBackground(self.DIALOGHEADER,[],self.checkInstallFinish,APTLOGFILE,skinvar=SKINVARAPTRUNNIG,onFinishedCB=self.onInstallFinished)
                              dlg.show()
                         else :
                             if rc and rc[0] == '2' :
-                                self.ERRORTEXT = 'Package %s is already installed'%package[select]
+                                self.ERRORTEXT = _('xbian-config.packages.already_installed')
                             elif rc and rc[0] == '3' :
-                                self.ERRORTEXT = 'Package %s not found in apt-repository'%package[select]
+                                self.ERRORTEXT = _('xbian-config.packages.unavailable_version')
                             elif rc and rc[0] == '4' :
-                                self.ERRORTEXT = 'Package not found in apt repository'
+                                self.ERRORTEXT = _('xbian-config.packages.unavailable_version')
                             elif rc and rc[0] == '5' :
-                                self.ERRORTEXT = 'A newer version of this package is already installed'
+                                self.ERRORTEXT = _('xbian-config.packages.downgrade')
                             elif rc and rc[0] == '6' :
-                                self.ERRORTEXT = 'There is a size mismatch for the remote package'
+                                self.ERRORTEXT = _('xbian-config.packages.size_mismatch')
                             elif rc and rc[0] == '7' :
-                                self.ERRORTEXT = 'The package itself got an internal error'
+                                self.ERRORTEXT = _('xbian-config.packages.error')
                             else :
                                 #normally never pass here
-                                self.ERRORTEXT = 'Unknown error while installing %s'%package
+                                self.ERRORTEXT = _('xbian-config.dialog.unexpected_error')
                             progressDlg.close()
                             self.notifyOnError()
 
@@ -329,7 +331,7 @@ class packagesManager(Setting) :
                 group.enableGetMore()
 
 class packages(Category) :
-    TITLE = 'Packages'
+    TITLE = _('xbian-config.packages.name')
     SETTINGS = [packagesManager]
 
 

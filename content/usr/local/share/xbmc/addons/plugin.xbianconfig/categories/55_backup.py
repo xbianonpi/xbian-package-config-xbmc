@@ -10,6 +10,10 @@ from resources.lib.xbmcguie.category import Category,Setting
 from resources.lib.xbianconfig import xbianConfig
 from resources.lib.utils import *
 
+import resources.lib.translation
+_ = resources.lib.translation.language.ugettext
+
+
 import xbmcgui,xbmc
 
 BACKUP_PROFILE = ['daily','weekly','monthly']
@@ -19,29 +23,29 @@ FILE  = 'File'
 
 DESTINATION_HOME_RESTORE = '/xbmc-backup/put_here_to_restore/'
 class separator(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','Manage snapshot'))
+    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.backup.category.snasphot')))
 class homeBackupLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','Home'))
+    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.backup.category.home')))
 
 class systemBackupLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','System'))
+    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.backup.category.system')))
 
 class snapshotLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','Snapshot'))
+    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.backup.category.snapshot')))
 
 class snapshotLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','Auto snapshot'))
+    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.backup.category.autosnapshot')))
 
 
 class autodailysnapshot(MultiSettingControl):
-    LABEL = 'Enable daily snapshot'
+    LABEL = _('xbian-config.backup.daily_snapshot')
 
     def onInit(self) :
         self.autodaily = RadioButtonControl(Tag('label',self.LABEL))
         self.addControl(self.autodaily)
         self.multiDelta = MultiSettingControl(Tag('visible','SubString(Control.GetLabel(%d),*)'%self.autodaily.getId()))
-        self.countdaily = ButtonControl(Tag('label','     -Number of snapshot to keep'))
-        self.countdaily.onClick = lambda count: self.countdaily.setValue(getNumeric('Last snapshot to keep',self.countdaily.getValue(),1,1000))
+        self.countdaily = ButtonControl(Tag('label','     -%s'%_('xbian-config.backup.nbautosnap')))
+        self.countdaily.onClick = lambda count: self.countdaily.setValue(getNumeric(_('xbian-config.backup.nbautosnap'),self.countdaily.getValue(),1,1000))
         self.multiDelta.addControl(self.countdaily)
         self.addControl(self.multiDelta)
 
@@ -53,33 +57,34 @@ class autodailysnapshot(MultiSettingControl):
         self.countdaily.setValue(value[1])
 
 class autoweeklysnapshot(autodailysnapshot):
-    LABEL = 'Enable weekly snapshot'
+    LABEL = _('xbian-config.backup.weekly_snapshot')
+
 class systemBackup(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
 
     def onInit(self) :
-        self.systemAutoBackup = RadioButtonControl(Tag('label','Auto image'))
+        self.systemAutoBackup = RadioButtonControl(Tag('label',_('xbian-config.backup.auto_system_image')))
         self.addControl(self.systemAutoBackup)
         self.multiDelta = MultiSettingControl(Tag('visible','SubString(Control.GetLabel(%d),*)'%self.systemAutoBackup.getId()))
-        self.systemdeltaControl = SpinControlex(Tag('label',' -type'))
+        self.systemdeltaControl = SpinControlex(Tag('label',' -%s'%_('xbian-config.network.label.type')))
         for number in BACKUP_PROFILE :
             self.systemdeltaControl.addContent(Content(Tag('label',number),defaultSKin=False))
         self.multiDelta.addControl(self.systemdeltaControl)
         self.addControl(self.multiDelta)
         #Destination type (DEV/FILE) :
-        self.systemBackupDestType = SpinControlex(Tag('label','Destination type '))
+        self.systemBackupDestType = SpinControlex(Tag('label',_('xbian-config.backup.destype')))
         self.addControl(self.systemBackupDestType)
         contentSD = Content(Tag('label',DEVICE),defaultSKin=False)
         self.systemBackupDestType.addContent(contentSD)
         contentSF = Content(Tag('label',FILE),defaultSKin=False)
         self.systemBackupDestType.addContent(contentSF)
-        self.systemdevicePath = ButtonControl(Tag('label',' -Block device'),Tag('visible','StringCompare(Skin.String(%s),%s)'%(self.systemBackupDestType.getKey(),DEVICE)))
+        self.systemdevicePath = ButtonControl(Tag('label',' -%s'%_('xbian-config.backup.blockdev')),Tag('visible','StringCompare(Skin.String(%s),%s)'%(self.systemBackupDestType.getKey(),DEVICE)))
         self.systemdevicePath.onClick = lambda devicePath: self.systemdevicePath.setValue(self.getDevice())
         self.addControl(self.systemdevicePath)
-        self.systemfilePath = ButtonControl(Tag('label',' -Destination '),Tag('visible','StringCompare(Skin.String(%s),%s)'%(self.systemBackupDestType.getKey(),FILE)))
+        self.systemfilePath = ButtonControl(Tag('label',' -%s'%_('xbian-config.xbiancopy.label.dest')),Tag('visible','StringCompare(Skin.String(%s),%s)'%(self.systemBackupDestType.getKey(),FILE)))
         self.systemfilePath.onClick = lambda backupPath: self.systemfilePath.setValue(getFile('Backup Path',self.systemfilePath.getValue())+getText('FileName','XBianImage.%s.img'%(datetime.datetime.now().strftime("%d-%m-%y"))))
         self.addControl(self.systemfilePath)
-        self.ManualBackup = ButtonControl(Tag('label','Start backup now'))
+        self.ManualBackup = ButtonControl(Tag('label',_('xbian-config.backup.start')))
         self.ManualBackup.onClick = lambda manualback : self.startManualBackup()
         self.addControl(self.ManualBackup)
     def getDevice(self) :
@@ -123,9 +128,8 @@ class systemBackup(MultiSettingControl):
 
 class AutoBackupGui(Setting) :
     CONTROL = systemBackup(Tag('visible','skin.hasSetting(advancedmode)'))
-    DIALOGHEADER = "System Backup"
-    ERRORTEXT = "Error during updating"
-    OKTEXT = "Update ok"
+    DIALOGHEADER = _('xbian-config.backup.category.system')
+        
     SAVEMODE = Setting.ONUNFOCUS
 
     def onInit(self) :
@@ -145,12 +149,12 @@ class AutoBackupGui(Setting) :
              self.notifyOnSuccess()             
         else :
             if self.rc == '-1' :
-                 self.ERRORTEXT = 'Something was wrong during copy'
+                 self.ERRORTEXT = _('xbian-config.xbiancopy.dialog.preperror')
             elif self.rc == '-2' :
                  #shouldn't see this error
                  self.ERRORTEXT ='backup not started'
             else :
-                 self.ERRORTEXT ='Unexpected Error'
+                 self.ERRORTEXT =_('xbian-config.dialog.unexpected_error')
             self.notifyOnError()            
 
     def startManualBackup(self):
@@ -159,15 +163,15 @@ class AutoBackupGui(Setting) :
         value = self.control.getValue()
         if value[1] == 'File' :        
             value[2] = 'file:' + value[2]
-            self.APPLYTEXT = 'Write backup to %s?'%value[2][5:]
+            self.APPLYTEXT = _('xbian-config.backup.confirm_write')%value[2][5:]
             confirm = False
         else :
-            self.APPLYTEXT = 'This will erase ALL data on %s, continue?'%value[2]
+            self.APPLYTEXT = _('xbian-config.backup.warning_write')%value[2]
             confirm = True
                 
         if self.askConfirmation(confirm) :
             rc = xbianConfig('xbiancopy','start',src,value[2])
-            dlg = dialogWaitBackground('Xbian Copy',['Your system is currently backep up','Depending to your system partition size','It can take up to few hours'],self.checkcopyFinish,skinvar='systembackuprunning',onFinishedCB=self.oncopyFinished)
+            dlg = dialogWaitBackground('Xbian Copy',[_('xbian-config.backuphome.running')],self.checkcopyFinish,skinvar='systembackuprunning',onFinishedCB=self.oncopyFinished)
             dlg.show()
         return ''
 
@@ -178,7 +182,7 @@ class AutoBackupGui(Setting) :
         #Need a protection to not erase usb HDD with media?
         uuid_list = xbianConfig('xbiancopy','getpart')
         uuid_list  = filter(lambda x: len(x)>0, uuid_list[0].split(';'))
-        rc = dialog.select('Select Device',uuid_list)
+        rc = dialog.select(_('xbian-config.backup.selectdevice'),uuid_list)
         if rc == -1 :
            return self.xbianValue[2] #defaut device value in case of cancel
         else :
@@ -234,11 +238,9 @@ class AutoBackupGui(Setting) :
         return True
 
 class homeBackup(Setting) :
-    CONTROL = ButtonControl(Tag('label','Start Backup Now'),Tag('enable','!skin.hasSetting(homebackuprunning)'))
-    DIALOGHEADER = "Home Backup"
-    ERRORTEXT = "Error during backup home"
-    OKTEXT = "Home Backup is finished"
-
+    CONTROL = ButtonControl(Tag('label',_('xbian-config.backup.start')),Tag('enable','!skin.hasSetting(homebackuprunning)'))
+    DIALOGHEADER = _('xbian-config.backup.category.home')
+    
     def setControlValue(self,value) :
         pass
 
@@ -249,30 +251,30 @@ class homeBackup(Setting) :
     def oncopyFinished(self) :
         if self.rc == '1' :
              #backup is finished
-             self.OKTEXT = 'Backup home is finished'
+             self.OKTEXT = _('xbian-config.backuphome.done')
              self.notifyOnSuccess()             
         else :
             if self.rc == '-1' :
-                 self.ERRORTEXT = 'Something was wrong during copy'
+                 self.ERRORTEXT = _('xbian-config.backuphome.failed')
             elif self.rc == '-2' :
                  #shouldn't see this error
                  self.ERRORTEXT ='backup not started'
             else :
-                 self.ERRORTEXT ='Unexpected Error'
+                 self.ERRORTEXT = _('xbian-config.dialog.unexpected_error')
             self.notifyOnError()            
 
 
     def getUserValue(self):
-        self.APPLYTEXT = 'Do you want to backup home ?'
+        self.APPLYTEXT = _('Backup /home to file')
         if self.askConfirmation() :
             pid = xbianConfig('backuphome','start')
             msg= [
-            'It can take several minutes depending on size of your /home/xbian directory.',
-            'File will be created under /xbian-backup, which is also accessible through smb share".',
-            'Until finished, there will be just temp folder. Once ready, .img file will appear.',
-            'You can copy the file directly to you computer (the file will be deleted during reboots!)',
-            'To restore your XBMC, just copy .img file to /xbian-backup/put_to_restore folder.']
-            dlg = dialogWaitBackground('Backupe Home',msg,self.checkcopyFinish,skinvar='homebackuprunning',onFinishedCB=self.oncopyFinished)
+            _('xbian-config.backuphome.desc1'),
+            _('xbian-config.backuphome.desc2'),
+            _('xbian-config.backuphome.desc3'),
+            _('xbian-config.backuphome.desc4'),
+            _('xbian-config.backuphome.desc5')]
+            dlg = dialogWaitBackground(_('Backup /home to file'),msg,self.checkcopyFinish,skinvar='homebackuprunning',onFinishedCB=self.oncopyFinished)
             dlg.show()
 
     def getXbianValue(self):
@@ -282,11 +284,9 @@ class homeBackup(Setting) :
         return ok
 
 class homeRestoreBackup(Setting) :
-    CONTROL = ButtonControl(Tag('label','Restore backup'),Tag('enable','!skin.hasSetting(homebackuprunning)'))
-    DIALOGHEADER = "Restore Home Backup"
-    ERRORTEXT = "Error during restoring home"
-    OKTEXT = "Home Backup is restored"
-
+    CONTROL = ButtonControl(Tag('label',_('xbian-config.backuphome.restore')),Tag('enable','!skin.hasSetting(homebackuprunning)'))
+    DIALOGHEADER = _('xbian-config.backuphome.restore')
+    
     def setControlValue(self,value) :
         pass
 
@@ -295,10 +295,9 @@ class homeRestoreBackup(Setting) :
 
     def oncopyFinished(self) :
         if self.copyFileStatus == -1 :
-            self.notifyOnError()
-            print 'XBIAN_CONFIG : error during restore home : cannot copy file to restore folder'
+            self.notifyOnError()            
             return
-        dialog = xbmcgui.Dialog().yesno('Reboot','A reboot is needed to complete home restore', 'Do you want to reboot now?')
+        dialog = xbmcgui.Dialog().yesno('Reboot',_('xbian-config.main.reboot_question'))
         if dialog :
             xbmc.executebuiltin('Reboot')
 
@@ -312,14 +311,14 @@ class homeRestoreBackup(Setting) :
            self.copyFileStatus = -1
 
     def getUserValue(self):
-        src = xbmcgui.Dialog().browse(1,'Select Home Image', 'files', '.img.gz')
-        self.APPLYTEXT = '%s : Do you want to restore home from %s?'%src        
+        src = xbmcgui.Dialog().browse(1,_('xbian-config.backuphome.selectimage'), 'files', '.img.gz')
+        self.APPLYTEXT = _('xbian-config.backuphome.restore_home_confirm')%src        
         if src and self.askConfirmation() :
             #start thread copy
             copyT = threading.Thread(target=self.copyThread, args=(src,DESTINATION_HOME_RESTORE + '/xbianconfigrestore.img.gz'))
             copyT.start()
-            msg= ['It can take several minutes depending on size of your backup image.']
-            dlg = dialogWaitBackground('Restore Home',msg,self.checkcopyFinish,skinvar='homebackuprunning',onFinishedCB=self.oncopyFinished)
+            msg= [_('xbian-config.backuphome.restore_home_info')]
+            dlg = dialogWaitBackground(_('xbian-config.backuphome.restore'),msg,self.checkcopyFinish,skinvar='homebackuprunning',onFinishedCB=self.oncopyFinished)
             dlg.show()
 
     def getXbianValue(self):
@@ -329,17 +328,14 @@ class homeRestoreBackup(Setting) :
         return ok
 
 class snapshotmount(Setting) :
-    CONTROL = ButtonControl(Tag('label','Mount a snapshot'))
-    DIALOGHEADER = "Btrfs snapshot"
-    ERRORTEXT = "Cannot Mount btrfs snapshot"
-    OKTEXT = "btrfs snapshot is mount"
-    APPLYTEXT = "Do you want to mount snapshot?"
-    PROGRESSTEXT = 'Please wait while mounting'
+    CONTROL = ButtonControl(Tag('label',_('xbian-config.snapshot.mountsnap')))
+    DIALOGHEADER = _('xbian-config.backup.category.snapshot')        
+    PROGRESSTEXT = _('xbian-config.common.pleasewait')
     BLAKLISTVOLUME = ['modules']
     
 
     def getUserValue(self):
-        load = dialogWait(self.DIALOGHEADER,'Loading volumes...')
+        load = dialogWait(self.DIALOGHEADER,_('xbian-config.snapshot.loadingvolume'))
         load.show()
         volumeList = xbianConfig('listvol',cmd=['sudo','btrfs-auto-snapshot'])
         load.close()
@@ -347,11 +343,11 @@ class snapshotmount(Setting) :
         have_to_stop = False
         dialog = xbmcgui.Dialog()
         while not have_to_stop :
-            volId = dialog.select('Volume',volumeList)
+            volId = dialog.select(_('xbian-config.snapshot.volume'),volumeList)
             if volId == -1 :
                have_to_stop = True
             else :
-                load = dialogWait(self.DIALOGHEADER,'Loading snapshots...')
+                load = dialogWait(self.DIALOGHEADER,_('xbian-config.common.pleasewait'))
                 load.show()
                 snapshotList = xbianConfig('list',volumeList[volId],cmd=['sudo','btrfs-auto-snapshot'])
                 snapshotList = filter(lambda x : x.split('@')[1],snapshotList)
@@ -384,39 +380,30 @@ class snapshotmount(Setting) :
         return ''
 
 class snapshotRollback(snapshotmount) :
-    CONTROL = ButtonControl(Tag('label','Rollback to a snapshot'))
-    ERRORTEXT = "Cannot rollback btrfs snapshot"
-    OKTEXT = "rollback is done."
-    PROGRESSTEXT = 'Please wait while rollback'
-    APPLYTEXT = "Do you want to rollback snapshot?"
+    CONTROL = ButtonControl(Tag('label',_('xbian-config.snapshot.rollback')))
+    PROGRESSTEXT = _('xbian-config.common.pleasewait')    
     
     def runCmd(self,volume,snapshot) :
          print xbianConfig('rollback',snapshot,cmd=['sudo','btrfs-auto-snapshot'])
-         dialog = xbmcgui.Dialog().yesno('Reboot','A reboot is needed to complete rollback', 'Do you want to reboot now?')
+         dialog = xbmcgui.Dialog().yesno('Reboot',_('xbian-config.main.reboot_question'))
          if dialog :
             xbmc.executebuiltin('Reboot')
 
 class snapshotDestroy(snapshotmount) :
-    CONTROL = ButtonControl(Tag('label','Delete a snapshot'))
-    ERRORTEXT = "Cannot delete btrfs snapshot"
-    OKTEXT = "Snapshot is deleted."
-    PROGRESSTEXT = 'Please wait while remove' 
-    APPLYTEXT = "Do you want to destroy snapshot?"
+    CONTROL = ButtonControl(Tag('label',_('xbian-config.snapshot.delete_snasphot')))
+    PROGRESSTEXT = _('xbian-config.common.pleasewait')        
     
     def runCmd(self,volume,snapshot) :
         print xbianConfig('destroy',snapshot,cmd=['sudo','btrfs-auto-snapshot'])             
 
 class snapshotCreate(Setting) :
-    CONTROL = ButtonControl(Tag('label','Create a snapshot'))
-    DIALOGHEADER = "Btrfs snapshot"
-    ERRORTEXT = "Cannot create btrfs snapshot"
-    OKTEXT = "btrfs snapshot is create"
+    CONTROL = ButtonControl(Tag('label',_('xbian-config.snapshot.create_snapshot')))
+    DIALOGHEADER = _('xbian-config.backup.category.snapshot')        
     BLAKLISTVOLUME = ['modules']
-    PROGRESSTEXT = 'Please wait while create snapshot'
-    APPLYTEXT = "Do you want to destroy snapshot?"
+    PROGRESSTEXT = _('xbian-config.common.pleasewait')            
     
     def getUserValue(self):
-        load = dialogWait(self.DIALOGHEADER,'Loading volumes...')
+        load = dialogWait(self.DIALOGHEADER,_('xbian-config.snapshot.loadingvolume'))
         load.show()        
         volumeList = xbianConfig('listvol',cmd=['sudo','btrfs-auto-snapshot'])
         load.close()        
@@ -428,7 +415,7 @@ class snapshotCreate(Setting) :
             if volId == -1 :
                have_to_stop = True
             else :
-                snapshot = getText('Snapshot name','btrfs-user-snap-%s'%datetime.datetime.now().strftime("%Y-%m-%d-%H%M"))
+                snapshot = getText(_('xbian-config.snapshot.name_snapshot'),'btrfs-user-snap-%s'%datetime.datetime.now().strftime("%Y-%m-%d-%H%M"))
                 if snapshot and self.askConfirmation() :
                     try :
                         dlg = dialogWait(self.DIALOGHEADER,self.PROGRESSTEXT)
@@ -450,9 +437,7 @@ class snapshotCreate(Setting) :
 
 class dailySnapshotGui(Setting) :
     CONTROL = autodailysnapshot()
-    DIALOGHEADER = "Daily Snapshot"
-    ERRORTEXT = "Error on updating"
-    OKTEXT = "Update ok"
+    DIALOGHEADER = "Daily Snapshot"    
     SAVEMODE = Setting.ONUNFOCUS
 
     def onInit(self) :
@@ -487,6 +472,8 @@ class weeklySnapshotGui(dailySnapshotGui) :
         self.key = 'doweekly'
 
 class backup(Category) :
-    TITLE = 'Backup'
-    SETTINGS = [homeBackupLabel,homeBackup,homeRestoreBackup,systemBackupLabel,AutoBackupGui,snapshotLabel,dailySnapshotGui,weeklySnapshotGui,separator,snapshotmount,snapshotRollback,snapshotDestroy,snapshotCreate]
+    TITLE = _('xbian-config.snapshot.backup')
+    SETTINGS = [homeBackupLabel,homeBackup,homeRestoreBackup,systemBackupLabel,AutoBackupGui]
+    #,snapshotLabel,dailySnapshotGui]
+    #,weeklySnapshotGui,separator,snapshotmount,snapshotRollback,snapshotDestroy,snapshotCreate]
 

@@ -6,14 +6,19 @@ from resources.lib.xbmcguie.category import Category,Setting
 from resources.lib.xbianconfig import xbianConfig
 from resources.lib.utils import *
 
+import resources.lib.translation
+_ = resources.lib.translation.language.ugettext
+
 
 import xbmcgui
 import base64
 
+import pickle
+
 dialog=xbmcgui.Dialog()
 
 class NewtorkLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','Network'))
+    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.network.name')))
     
 class NetworkControl(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
@@ -21,7 +26,7 @@ class NetworkControl(MultiSettingControl):
     STATIC = 'Static'
     
     def onInit(self) :
-        self.interface = SpinControlex(Tag('label','Interface'))
+        self.interface = SpinControlex(Tag('label',_('xbian-config.network.interfaces.select')))
         self.addControl(self.interface)
         self.interfacelist = xbianConfig('network','list')
         self.interfaceValue = {}        
@@ -37,20 +42,20 @@ class NetworkControl(MultiSettingControl):
              self.addControl(self.interfaceValue[interface]['group'])
              
              #add status control
-             self.interfaceValue[interface]['status'] = ButtonControl(Tag('label',' -Status'))
+             self.interfaceValue[interface]['status'] = ButtonControl(Tag('label',' -%s'%_('xbian-config.network.label.status')))
              self.interfaceValue[interface]['group'].addControl(self.interfaceValue[interface]['status'])
              
              #check if Wifi
              self.interfaceValue[interface]['wifi'] = False
              if xbianConfig('network','type',interface)[0] == '1':
                  self.interfaceValue[interface]['wifi'] = True
-                 self.interfaceValue[interface]['ssid'] = ButtonControl(Tag('label',' -Ssid'))
+                 self.interfaceValue[interface]['ssid'] = ButtonControl(Tag('label',' -%s'%_('xbian-config.network.label.ssid')))
                  self.interfaceValue[interface]['ssid'].onClick = lambda wifi : self.wifi(interface) 
                  self.interfaceValue[interface]['group'].addControl(self.interfaceValue[interface]['ssid'])
                  
              
              #add interface mode Control (static/dhcp)
-             self.interfaceValue[interface]['mode'] = SpinControlex(Tag('label',' -Mode'))
+             self.interfaceValue[interface]['mode'] = SpinControlex(Tag('label',' -%s'%_('xbian-config.network.label.type')))
              dhcp = Content(Tag('label',self.DHCP),defaultSKin=False)
              static = Content(Tag('label',self.STATIC),defaultSKin=False)
              self.interfaceValue[interface]['mode'].addContent(dhcp)
@@ -60,16 +65,16 @@ class NetworkControl(MultiSettingControl):
              #add Static Group
              self.interfaceValue[interface]['staticgroup'] = MultiSettingControl(Tag('visible','StringCompare(Skin.String(%s),%s)'%(self.interfaceValue[interface]['mode'].getKey(),self.STATIC)))
              #self.interfaceValue[interface]['staticgroup'] = MultiSettingControl()
-             self.interfaceValue[interface]['ipadress'] = ButtonControl(Tag('label','  -Address'))
-             self.interfaceValue[interface]['ipadress'].onClick = lambda ipadress: ipadress.setValue(getIp('Ip adress',ipadress.getValue()))
-             self.interfaceValue[interface]['subnet'] = ButtonControl(Tag('label','  -Subnet'))
-             self.interfaceValue[interface]['subnet'].onClick = lambda subnet: subnet.setValue(getIp('Subnet',subnet.getValue()))
-             self.interfaceValue[interface]['gateway'] = ButtonControl(Tag('label','  -Gateway'))
-             self.interfaceValue[interface]['gateway'].onClick = lambda gateway: gateway.setValue(getIp('Gateway',gateway.getValue()))
-             self.interfaceValue[interface]['dns1'] = ButtonControl(Tag('label','  -Primary Dns'))
-             self.interfaceValue[interface]['dns1'].onClick = lambda dns1: dns1.setValue(getIp('Primary Dns',dns1.getValue()))
-             self.interfaceValue[interface]['dns2'] = ButtonControl(Tag('label','  -Secondary Dns'))
-             self.interfaceValue[interface]['dns2'].onClick = lambda dns2: dns2.setValue(getIp('Primary Dns',dns2.getValue()))
+             self.interfaceValue[interface]['ipadress'] = ButtonControl(Tag('label','  -%s'%_('xbian-config.network.label.ipaddress')))
+             self.interfaceValue[interface]['ipadress'].onClick = lambda ipadress: ipadress.setValue(getIp(_('xbian-config.network.label.ipaddress'),ipadress.getValue()))
+             self.interfaceValue[interface]['subnet'] = ButtonControl(Tag('label','  -%s'%_('xbian-config.network.label.netmask')))
+             self.interfaceValue[interface]['subnet'].onClick = lambda subnet: subnet.setValue(getIp(_('xbian-config.network.label.netmask'),subnet.getValue()))
+             self.interfaceValue[interface]['gateway'] = ButtonControl(Tag('label','  -%s'%_('xbian-config.network.label.gateway')))
+             self.interfaceValue[interface]['gateway'].onClick = lambda gateway: gateway.setValue(getIp(_('xbian-config.network.label.gateway'),gateway.getValue()))
+             self.interfaceValue[interface]['dns1'] = ButtonControl(Tag('label','  -%s 1'%_('xbian-config.network.label.nameserver')))
+             self.interfaceValue[interface]['dns1'].onClick = lambda dns1: dns1.setValue(getIp('-%s 1'%_('xbian-config.network.label.nameserver'),dns1.getValue()))
+             self.interfaceValue[interface]['dns2'] = ButtonControl(Tag('label','  -%s 2'%_('xbian-config.network.label.nameserver')))
+             self.interfaceValue[interface]['dns2'].onClick = lambda dns2: dns2.setValue(getIp('-%s 2'%_('xbian-config.network.label.nameserver'),dns2.getValue()))
              self.interfaceValue[interface]['staticgroup'].addControl(self.interfaceValue[interface]['ipadress'])
              self.interfaceValue[interface]['staticgroup'].addControl(self.interfaceValue[interface]['subnet'])
              self.interfaceValue[interface]['staticgroup'].addControl(self.interfaceValue[interface]['gateway'])
@@ -130,14 +135,11 @@ class NetworkControl(MultiSettingControl):
        return [default,networkValue]
         
 class NetworkSetting(Setting) :
-    CONTROL = NetworkControl()
-    DIALOGHEADER = "Network Settings"
-    ERRORTEXT = "Error on updating"
-    OKTEXT = "Update ok"
+    CONTROL = NetworkControl()    
+    DIALOGHEADER = _('xbian-config.network.label.name')
+    ERRORTEXT = _('xbian-config.dialog.error')
+    OKTEXT = _('xbian-config.dialog.ok')
     SAVEMODE = Setting.ONUNFOCUS
-    
-#    def setControlValue(self,value): 
-#            self.getControl().setValue(val)
     
     def onInit(self) :
         self.control.wifi = self.connectWifi
@@ -145,13 +147,13 @@ class NetworkSetting(Setting) :
     def connectWifi(self,interface) :
         self.userValue = self.getUserValue()
         if self.isModified() :
-            progress = dialogWait('Updating','Updating settings for %s'%(interface))
+            progress = dialogWait(_('xbian-config.updates.update.running'),_('xbian-config.network.label.reloading_values')%(interface))
             progress.show()              
             self.setXbianValue(self.userValue)
             progress.close()
             
         if wifiConnect(interface) :
-            progress = dialogWait('Refresh','Reloading values for %s'%(interface))
+            progress = dialogWait('Refresh',_('xbian-config.network.label.reloading_values')%(interface))
             progress.show()              
             interface_config = xbianConfig('network','status',interface)
             lanConfig = []
@@ -176,10 +178,10 @@ class NetworkSetting(Setting) :
             #sleep a bit otherwise windows is not ready, and there's a xbmc bug i think.
             time.sleep(0.6)
             self.setControlValue({interface : lanConfig})
-            self.OKTEXT = '%s successfully connected'%interface
+            self.OKTEXT = _('xbian-config.network.connection.success')%interface
             self.notifyOnSuccess()
         else :
-            self.ERRORTEXT = 'Cannot connect %s'%interface
+            self.ERRORTEXT = _('xbian-config.network.connection.failed')%interface
             self.notifyOnError()    
         
     def setControlValue(self,value) :
@@ -242,22 +244,24 @@ class NetworkSetting(Setting) :
                 rc = xbianConfig('network',*cmd)                
                 if not rc :
                     ok = False
-                    self.ERRORTEXT = "No return code from xbian-config"
+                    self.ERRORTEXT = _('xbian-config.dialog.unexpected_error')
                 elif rc[0] != '1' : 
                     ok = False
-                    self.ERRORTEXT = rc[1]
+                    try :
+                        self.ERRORTEXT = rc[1]
+                    except :
+                        self.ERRORTEXT = _('xbian-config.dialog.unexpected_error')
         return ok           
         
         
 class LicenceLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','Licenses'))
+    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.licenses.name')))
 
 class mpeg2License(Setting) :
-    CONTROL = ButtonControl(Tag('label','MPG2'))
-    DIALOGHEADER = "MPEG2 license"
-    ERRORTEXT = "Error updating"
-    OKTEXT = "Update ok"
-    BADUSERENTRYTEXT = "A license must be 9 or 10 characters long and looks like 0x00000000"
+    CONTROL = ButtonControl(Tag('label',_('xbian-config.licensempg2.name')))
+    DIALOGHEADER = _('xbian-config.licensempg2.name')    
+    OKTEXT = _('xbian-config.license.updated')%_('xbian-config.licensempg2.name')
+    BADUSERENTRYTEXT = _('xbian-config.license.invalid')%_('xbian-config.licensempg2.name')
     
     def onInit(self) :
         self.xbiankey = 'licensempg2'
@@ -297,14 +301,16 @@ class mpeg2License(Setting) :
         
     
 class vc1License(mpeg2License) :
-    CONTROL = ButtonControl(Tag('label','VC1'))
-    DIALOGHEADER = "VC1 license"
+    CONTROL = ButtonControl(Tag('label',_('xbian-config.licensevc1.name')))
+    DIALOGHEADER = _('xbian-config.licensevc1.name')    
+    OKTEXT = _('xbian-config.license.updated')%_('xbian-config.licensevc1.name')
+    BADUSERENTRYTEXT = _('xbian-config.license.invalid')%_('xbian-config.licensevc1.name')
     
     def onInit(self) :
         self.xbiankey = 'licensevc1'
     
 class connectivityLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','Connectivity'),Tag('visible','skin.hasSetting(advancedmode)'))
+    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.connectivity.name')),Tag('visible','skin.hasSetting(advancedmode)'))
 
 class videooutputControl(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
@@ -312,9 +318,8 @@ class videooutputControl(MultiSettingControl):
     def onInit(self) :
         self.videooutputlist = xbianConfig('videoflags','list')
         self.videooutputcontrol = {}
-        for videooutput in self.videooutputlist :
-            guiname = videooutput.replace('_',' ').capitalize()
-            self.videooutputcontrol[videooutput] = RadioButtonControl(Tag('label',guiname))
+        for videooutput in self.videooutputlist :            
+            self.videooutputcontrol[videooutput] = RadioButtonControl(Tag('label',_('xbian-config.videoflags.%s'%videooutput)))
             self.videooutputcontrol[videooutput].onClick = lambda forwardclick : self.onClick(self)
             self.addControl(self.videooutputcontrol[videooutput])
         
@@ -337,9 +342,7 @@ class videooutputControl(MultiSettingControl):
 
 class videooutput(Setting) :
     CONTROL = videooutputControl(Tag('visible','skin.hasSetting(advancedmode)'))
-    DIALOGHEADER = "Video output "
-    ERRORTEXT = "Error on updating"
-    OKTEXT = "Update ok"
+    DIALOGHEADER = _('xbian-config.connectivity.name')
                     
     def onInit(self) :
         #self.listvalue = xbianConfig('videoflags','list')
@@ -360,7 +363,7 @@ class videooutput(Setting) :
         for key in value :
             if value[key] != self.xbianValue[key] :
                  rc = xbianConfig('videoflags','update',key,value[key])
-                 self.DIALOGHEADER = key.replace('_',' ').title()
+                 self.DIALOGHEADER = _('xbian-config.videoflags.%s'%key)
                  break
         if rc and rc[0] == '1' :
             return True
@@ -368,15 +371,14 @@ class videooutput(Setting) :
             return False
 
 class SytemLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','System'),Tag('visible','skin.hasSetting(advancedmode)'))
+    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.system.name')),Tag('visible','skin.hasSetting(advancedmode)'))
             
     
 class hostname(Setting) :
-    CONTROL = ButtonControl(Tag('label','Hostname'),Tag('visible','skin.hasSetting(advancedmode)'))
-    DIALOGHEADER = "Hostname"
-    ERRORTEXT = "Error updating"
-    OKTEXT = "Update ok"
-    BADUSERENTRYTEXT = "You used invalid characters in the new hostname"
+    CONTROL = ButtonControl(Tag('label',_('xbian-config.hostname.name')),Tag('visible','skin.hasSetting(advancedmode)'))
+    DIALOGHEADER = _('xbian-config.hostname.name')    
+    OKTEXT = _('xbian-config.hostname.changed')
+    #BADUSERENTRYTEXT = "You used invalid characters in the new hostname"
         
     def getUserValue(self):
         return getText(self.DIALOGHEADER,self.getControlValue())
@@ -401,10 +403,9 @@ class hostname(Setting) :
         return ok       
 
 class kernel(Setting) :
-    CONTROL = SpinControlex(Tag('label','Kernel'),Tag('visible','skin.hasSetting(advancedmode)'))
-    DIALOGHEADER = "Kernel Version"
-    ERRORTEXT = "Error updating"
-    OKTEXT = "Update ok"
+    CONTROL = SpinControlex(Tag('label',_('xbian-config.kernel.name')),Tag('visible','skin.hasSetting(advancedmode)'))
+    DIALOGHEADER = '%s %s'%(_('xbian-config.kernel.name'),_('xbian-config.kernel.label.version'))  
+    OKTEXT = _('xbian-config.kernel.switch_success')
     SAVEMODE = Setting.ONUNFOCUS
     
     def onInit(self):
@@ -429,12 +430,10 @@ class kernel(Setting) :
         if not rc: 
             ok = False
         elif rc[0] != '1' :
-            if rc[0] == '-1' :
-                self.ERRORTEXT = 'Insufficient number of arguments'
+            if rc[0] in ('-1','-3') :
+                self.ERRORTEXT = _('xbian-config.dialog.unexpected_error')
             elif rc[0] == '-2' :
-                self.ERRORTEXT = 'Already running this kernel'
-            elif rc[0] == '-3' :
-                self.ERRORTEXT = "Kernel version doesn't exist"
+                self.ERRORTEXT = _('xbian-config.kernel.same_version')            
             ok = False
         return ok
 
@@ -442,7 +441,7 @@ class OverclockControl(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
     
     def onInit(self) :
-        self.overclockMode = SpinControlex(Tag('label','Overclocking'))
+        self.overclockMode = SpinControlex(Tag('label',_('xbian-config.overclocking.name')))
         self.addControl(self.overclockMode)
         self.overclockinglist = xbianConfig('overclocking','list')
 
@@ -479,9 +478,8 @@ class OverclockControl(MultiSettingControl):
 
 class overclocking(Setting) :
     CONTROL = OverclockControl(Tag('visible','skin.hasSetting(advancedmode)'))
-    DIALOGHEADER = "Overclocking"
-    ERRORTEXT = "Error updating"
-    OKTEXT = "Update ok"
+    DIALOGHEADER = _('xbian-config.overclocking.name')    
+    OKTEXT = _('xbian-config.overclocking.changed')
     SAVEMODE = Setting.ONUNFOCUS
             
     def getUserValue(self):
@@ -521,10 +519,8 @@ class overclocking(Setting) :
 
 
 class timezone(Setting) :
-    CONTROL = ButtonControl(Tag('label','Timezone'),Tag('visible','skin.hasSetting(advancedmode)'))
-    DIALOGHEADER = "Timezone"
-    ERRORTEXT = "Error updating"
-    OKTEXT = "Update ok"
+    CONTROL = ButtonControl(Tag('label',_('xbian-config.timezone.name')),Tag('visible','skin.hasSetting(advancedmode)'))
+    DIALOGHEADER = _('xbian-config.timezone.name')    
     
     def setControlValue(self,value) :
         self.control.setValue('%s / %s'%(value[0].title(),value[1].title()))
@@ -536,7 +532,7 @@ class timezone(Setting) :
         while not have_to_stop :
             for continent in continentList :
                 continentgui.append(continent.replace('_',' ').title())
-            rcr = dialog.select('Region',continentgui)
+            rcr = dialog.select(_('xbian-config.timezone.label.timezone'),continentgui)
             if rcr == -1 :
                 have_to_stop = True
             else :
@@ -544,7 +540,7 @@ class timezone(Setting) :
                 countrygui = []
                 for country in countrylist :
                     countrygui.append(country.replace('_',' ').title())
-                rcc = dialog.select('Location',countrygui)
+                rcc = dialog.select(_('xbian-config.timezone.label.location'),countrygui)
                 if rcc != -1 :
                    return [continentList[rcr],countrylist[rcc]]
         return self.xbianValue
@@ -554,7 +550,7 @@ class timezone(Setting) :
         if timezone and timezone[0] != '-1':
             return(timezone[0].split(' '))          
         else :
-            return ['Not Set','Not Set']                
+            return [_('xbian-config.timezone.notset'),_('xbian-config.timezone.notset')]                
         
     def setXbianValue(self,value):
         rc = xbianConfig('timezone','update',*value)
@@ -564,7 +560,7 @@ class timezone(Setting) :
         return ok
 
 class AccountLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','Account'),Tag('visible','skin.hasSetting(advancedmode)'))
+    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.accounts.name')),Tag('visible','skin.hasSetting(advancedmode)'))
     
     def onInit(self):
         #check if advanced mode is set
@@ -578,11 +574,10 @@ class AccountLabel(Setting) :
             xbmc.executebuiltin('Skin.Reset((%s)'%key)
     
 class rootpwd(Setting) :
-    CONTROL = ButtonControl(Tag('label','root password'),Tag('visible','skin.hasSetting(advancedmode)'))
-    DIALOGHEADER = "User root password"
-    ERRORTEXT = "Error updating"
-    OKTEXT = "Update ok"
-    BADUSERENTRYTEXT = "Passwords don't match"
+    CONTROL = ButtonControl(Tag('label',_('xbian-config.rootpass.name')),Tag('visible','skin.hasSetting(advancedmode)'))
+    DIALOGHEADER = _('xbian-config.rootpass.label.password')        
+    OKTEXT = _('xbian-config.rootpass.changed')
+    BADUSERENTRYTEXT = _('xbian-config.rootpass.no_match')
         
     def onInit(self):
         self.forceUpdate = True
@@ -593,7 +588,7 @@ class rootpwd(Setting) :
         return self.password == self.confirmpwd
     def getUserValue(self):
         self.password = getText(self.DIALOGHEADER,hidden=True)
-        self.confirmpwd = getText('Confirm ' + self.DIALOGHEADER,hidden=True)
+        self.confirmpwd = getText(self.DIALOGHEADER,hidden=True)
         return '*****'
         
     def getXbianValue(self):
@@ -609,8 +604,8 @@ class rootpwd(Setting) :
         return ok       
 
 class xbianpwd(rootpwd) :
-    CONTROL = ButtonControl(Tag('label','xbian password'),Tag('visible','skin.hasSetting(advancedmode)'))
-    DIALOGHEADER = "User xbian Password"
+    CONTROL = ButtonControl(Tag('label',_('xbian-config.xbianpass.name')),Tag('visible','skin.hasSetting(advancedmode)'))
+    OKTEXT = _('xbian-config.xbianpass.changed')
     
     def onInit(self):
         self.forceUpdate = True
@@ -618,11 +613,8 @@ class xbianpwd(rootpwd) :
         self.key = 'xbianpass'
     
 class sshroot(Setting) :
-    CONTROL = RadioButtonControl(Tag('label','Allow SSH root login'),Tag('visible','skin.hasSetting(advancedmode)'))
-    DIALOGHEADER = "SSH root"
-    ERRORTEXT = "Error on updating"
-    OKTEXT = "Update ok"
-    
+    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.sshroot.name')),Tag('visible','skin.hasSetting(advancedmode)'))
+    DIALOGHEADER = _('xbian-config.sshroot.name')
                     
     def getUserValue(self):
         return str(self.getControlValue())
@@ -653,8 +645,6 @@ class sshroot(Setting) :
 
 #CATEGORY CLASS
 class system(Category) :
-    TITLE = 'System'
+    TITLE = _('xbian-config.system.name')
     SETTINGS = [NewtorkLabel,NetworkSetting,LicenceLabel,mpeg2License,vc1License,SytemLabel,hostname,timezone,kernel,overclocking,AccountLabel,rootpwd,xbianpwd,sshroot,connectivityLabel,videooutput]
-    #SETTINGS = [kernel]
-    #,NetworkSetting,LicenceLabel,mpeg2License,vc1License,SytemLabel,hostname,timezone,kernel,overclocking,AccountLabel,rootpwd,xbianpwd,sshroot,connectivityLabel,videooutput]
     

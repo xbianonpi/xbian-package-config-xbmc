@@ -6,18 +6,21 @@ from resources.lib.xbmcguie.category import Category,Setting
 from resources.lib.xbianconfig import xbianConfig
 from resources.lib.utils import *
 
+import resources.lib.translation
+_ = resources.lib.translation.language.ugettext
+
 import xbmcgui
 
 dialog=xbmcgui.Dialog()
 
 class xbmcLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','Xbmc'))
+    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.xbmc.name')))
 
 class xbmcGui(Setting) :
-    CONTROL = SpinControlex(Tag('label','XBMC GUI resolution'))
-    DIALOGHEADER = "XBMC GUI resolution"
-    ERRORTEXT = "Error updating"
-    OKTEXT = "Update ok"
+    CONTROL = SpinControlex(Tag('label',_('xbian-config.xbmc.label.guires')))
+    DIALOGHEADER = _('xbian-config.xbmc.label.guires')
+    ERRORTEXT = _('xbian-config.xbmc.guires.failed')
+    OKTEXT = _('xbian-config.xbmc.guires.success')
     SAVEMODE = Setting.ONUNFOCUS
     
     def onInit(self):
@@ -49,11 +52,11 @@ class xbmcTvOff(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
 
     def onInit(self) :
-        self.tvOffEnable = RadioButtonControl(Tag('label','Turn CEC capable TV OFF with screensaver'))
+        self.tvOffEnable = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.tvoff_screensaver')))
         self.addControl(self.tvOffEnable)
         self.tvOffProperty = MultiSettingControl(Tag('visible','SubString(Control.GetLabel(%d),*)'%self.tvOffEnable.getId()))
-        self.delay =  ButtonControl(Tag('label','        - delay (min)'))
-        self.delay.onClick = lambda delay: self.delay.setValue(getNumeric('delay (min)',self.delay.getValue(),0,60))
+        self.delay =  ButtonControl(Tag('label','        - %s'%_('xbian-config.xbmc.label.tvoff_screensaver_delay')))
+        self.delay.onClick = lambda delay: self.delay.setValue(getNumeric(_('xbian-config.xbmc.label.tvoff_screensaver_delay'),self.delay.getValue(),0,60))
         self.tvOffProperty.addControl(self.delay)
         self.addControl(self.tvOffProperty)
 
@@ -63,9 +66,7 @@ class xbmcTvOff(MultiSettingControl):
 
 class xbmcTvOffGui(Setting) :
     CONTROL = xbmcTvOff()
-    DIALOGHEADER = "Turn off TV with screensaver"
-    ERRORTEXT = "Error updating"
-    OKTEXT = "Update ok"
+    DIALOGHEADER = _('xbian-config.xbmc.label.tvoff_screensaver')    
     SAVEMODE = Setting.ONUNFOCUS
 
     def getUserValue(self):
@@ -85,11 +86,9 @@ class xbmcTvOffGui(Setting) :
             return False
 
 class xbmcTvOn(Setting) :
-    CONTROL = RadioButtonControl(Tag('label','Turn CEC capable TV ON when XBMC exits'))
-    DIALOGHEADER = "TV ON exit"
-    ERRORTEXT = "Error on updating"
-    OKTEXT = "Update ok"
-
+    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.tvon_exit')))
+    DIALOGHEADER = _('xbian-config.xbmc.label.tvon_exit')
+    
     def getUserValue(self):
         return str(self.getControlValue())
 
@@ -112,11 +111,9 @@ class xbmcTvOn(Setting) :
             return False
 
 class xbmcTvHaltOff(Setting) :
-    CONTROL = RadioButtonControl(Tag('label','Turn CEC capable TV OFF on RPI shutdown'))
-    DIALOGHEADER = "TV OFF halt"
-    ERRORTEXT = "Error on updating"
-    OKTEXT = "Update ok"
-
+    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.tvoff_shutdown')))
+    DIALOGHEADER = _('xbian-config.xbmc.label.tvoff_shutdown')
+    
     def getUserValue(self):
         return str(self.getControlValue())
 
@@ -139,14 +136,12 @@ class xbmcTvHaltOff(Setting) :
             return False
 
 class xbmcUSBLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label','USB HotPlug'))
+    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.xbmc.label.usbhotplug')))
 
 class xbmcUSBmount(Setting) :
-    CONTROL = RadioButtonControl(Tag('label','Enable USB disk automounting'))
-    DIALOGHEADER = "USB automount"
-    ERRORTEXT = "Error on updating"
-    OKTEXT = "Update ok"
-
+    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.automount')))
+    DIALOGHEADER = _('xbian-config.xbmc.label.automount')
+    
     def getUserValue(self):
         return str(self.getControlValue())
 
@@ -169,11 +164,9 @@ class xbmcUSBmount(Setting) :
             return False
 
 class xbmcUSBsmb(Setting) :
-    CONTROL = RadioButtonControl(Tag('label','Make automounted disks available via SMB'))
-    DIALOGHEADER = "USB sharing"
-    ERRORTEXT = "Error on updating"
-    OKTEXT = "Update ok"
-
+    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.share')))
+    DIALOGHEADER = _('xbian-config.xbmc.label.share')
+    
     def getUserValue(self):
         return str(self.getControlValue())
 
@@ -196,11 +189,9 @@ class xbmcUSBsmb(Setting) :
             return False
 
 class xbmcUSBsmbrw(Setting) :
-    CONTROL = RadioButtonControl(Tag('label','Shares should be world  writable (including anonymous access)'))
-    DIALOGHEADER = "USB shares writable"
-    ERRORTEXT = "Error on updating"
-    OKTEXT = "Update ok"
-
+    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.sharerw')))
+    DIALOGHEADER = _('xbian-config.xbmc.label.sharerw')
+    
     def getUserValue(self):
         return str(self.getControlValue())
 
@@ -224,11 +215,9 @@ class xbmcUSBsmbrw(Setting) :
 
 
 class xbmcUSBuuidname(Setting) :
-    CONTROL = RadioButtonControl(Tag('label','Include partition UUID in mnt folder name'),Tag('visible','skin.hasSetting(advancedmode)'))
-    DIALOGHEADER = "UUID in folder name"
-    ERRORTEXT = "Error on updating"
-    OKTEXT = "Update ok"
-
+    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.uuid')),Tag('visible','skin.hasSetting(advancedmode)'))
+    DIALOGHEADER = _('xbian-config.xbmc.label.uuid')
+    
     def getUserValue(self):
         return str(self.getControlValue())
 
@@ -254,11 +243,11 @@ class SpinDownHdd(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
 
     def onInit(self) :
-        self.spinDownEnable = RadioButtonControl(Tag('label','Spin down HDD'))
+        self.spinDownEnable = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.spindown')))
         self.addControl(self.spinDownEnable)
         self.spinDownProperty = MultiSettingControl(Tag('visible','SubString(Control.GetLabel(%d),*)'%self.spinDownEnable.getId()))
-        self.delay =  ButtonControl(Tag('label','        - delay (min)'))
-        self.delay.onClick = lambda delay: self.delay.setValue(getNumeric('delay (min)',self.delay.getValue(),0,20))
+        self.delay =  ButtonControl(Tag('label','        - %s'%_('xbian-config.xbmc.label.tvoff_screensaver_delay')))
+        self.delay.onClick = lambda delay: self.delay.setValue(getNumeric(_('xbian-config.xbmc.label.tvoff_screensaver_delay'),self.delay.getValue(),0,20))
         self.spinDownProperty.addControl(self.delay)
         self.addControl(self.spinDownProperty)
 
@@ -270,13 +259,13 @@ class DynamicPriority(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
 
     def onInit(self) :
-        self.priorityEnable = RadioButtonControl(Tag('label','XBMC Dynamic Priority'))
+        self.priorityEnable = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.dyn_priority')))
         self.addControl(self.priorityEnable)
         self.priorityProperty = MultiSettingControl(Tag('visible','SubString(Control.GetLabel(%d),*)'%self.priorityEnable.getId()))
-        self.lowPriority =  ButtonControl(Tag('label','        - Xbmc low priority'))
-        self.lowPriority.onClick = lambda lowPriority: self.lowPriority.setValue(getNumeric('Low Nice priority',self.lowPriority.getValue(),-19,20))
-        self.highPriority =  ButtonControl(Tag('label','        - Xbmc high priority'))
-        self.highPriority.onClick = lambda highPriority: self.highPriority.setValue(getNumeric('Low Nice priority',self.highPriority.getValue(),-19,20))
+        self.lowPriority =  ButtonControl(Tag('label','        - %s'%_('xbian-config.xbmc.label.lownice')))
+        self.lowPriority.onClick = lambda lowPriority: self.lowPriority.setValue(getNumeric(_('xbian-config.xbmc.label.lownice'),self.lowPriority.getValue(),-19,20))
+        self.highPriority =  ButtonControl(Tag('label','        - %s'%_('xbian-config.xbmc.label.highnice')))
+        self.highPriority.onClick = lambda highPriority: self.highPriority.setValue(getNumeric(_('xbian-config.xbmc.label.highnice'),self.highPriority.getValue(),-19,20))
         self.priorityProperty.addControl(self.lowPriority)
         self.priorityProperty.addControl(self.highPriority)
         self.addControl(self.priorityProperty)
@@ -288,9 +277,7 @@ class DynamicPriority(MultiSettingControl):
 
 class DynamicPriorityGui(Setting) :
     CONTROL = DynamicPriority(Tag('visible','skin.hasSetting(advancedmode)'))
-    DIALOGHEADER = "Dynamic process priority"
-    ERRORTEXT = "Error updating"
-    OKTEXT = "Update ok"
+    DIALOGHEADER = _('xbian-config.xbmc.label.dyn_priority')    
     SAVEMODE = Setting.ONUNFOCUS
 
     def getUserValue(self):
@@ -311,9 +298,7 @@ class DynamicPriorityGui(Setting) :
 
 class SpinDownHddGui(Setting) :
     CONTROL = SpinDownHdd()
-    DIALOGHEADER = "Spin Down HDD"
-    ERRORTEXT = "Error updating"
-    OKTEXT = "Update ok"
+    DIALOGHEADER = _("xbian-config.xbmc.label.spindown")
     SAVEMODE = Setting.ONUNFOCUS
 
     def getUserValue(self):
@@ -333,11 +318,9 @@ class SpinDownHddGui(Setting) :
             return False
 
 class xbmcUSBsync(Setting) :
-    CONTROL = RadioButtonControl(Tag('label','Mount with sync option'),Tag('visible','skin.hasSetting(advancedmode)'))
-    DIALOGHEADER = "USB sync"
-    ERRORTEXT = "Error on updating"
-    OKTEXT = "Update ok"
-
+    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.sync')),Tag('visible','skin.hasSetting(advancedmode)'))
+    DIALOGHEADER = _('xbian-config.xbmc.label.sync')
+    
     def getUserValue(self):
         return str(self.getControlValue())
 
@@ -361,5 +344,5 @@ class xbmcUSBsync(Setting) :
 
 #CATEGORY CLASS
 class xbmc(Category) :
-    TITLE = 'XBMC'
+    TITLE = _('xbian-config.xbmc.name')
     SETTINGS = [xbmcLabel,xbmcGui,xbmcTvOffGui,xbmcTvHaltOff,xbmcTvOn,DynamicPriorityGui,xbmcUSBLabel,xbmcUSBmount,xbmcUSBsync,xbmcUSBsmb,xbmcUSBsmbrw,xbmcUSBuuidname,SpinDownHddGui]

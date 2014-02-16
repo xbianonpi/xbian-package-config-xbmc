@@ -7,6 +7,9 @@ import xbmc
 import xbmcgui
 from xbmcaddon import Addon
 
+import resources.lib.translation
+_ = resources.lib.translation.language.ugettext
+
 __addonID__      = "plugin.xbianconfig"
 
 
@@ -62,12 +65,12 @@ class Category():
         
 class Setting():
     CONTROL = None
-    DIALOGHEADER = "" #"override dialog header"
-    ERRORTEXT = "" #"Override Error Text here"
-    OKTEXT = "" #"override Ok Text"
+    DIALOGHEADER = _("distribution") #"override dialog header"
+    ERRORTEXT = _('xbian-config.common.error') #"Override Error Text here"
+    OKTEXT = _('xbian-config.common.ok') #"override Ok Text"
     SAVEMODE = 0 
-    BADUSERENTRYTEXT = ""
-    APPLYTEXT = 'Apply Change'
+    BADUSERENTRYTEXT = _('xbian-config.common.badentry')
+    APPLYTEXT = _('xbian-config.common.confirmation')
     
     
     #SAVE MODE

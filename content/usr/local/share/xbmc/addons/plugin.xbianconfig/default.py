@@ -15,6 +15,8 @@ import sys
 import Queue
 import traceback
 import urllib
+import resources.lib.translation
+_ = resources.lib.translation.language.ugettext
 
 
 # xbmc modules
@@ -25,7 +27,7 @@ from xbmcaddon import Addon
 
 #addon module
 ADDON     = Addon( __addonID__ )
-Language  = ADDON.getLocalizedString
+
 ADDON_DIR = ADDON.getAddonInfo( "path" )
 LangXBMC  = xbmc.getLocalizedString
 
@@ -38,6 +40,8 @@ CATEGORY_PATH = 'categories'
 
 SKIN_DIR = xbmc.getSkinDir()
 LOCK_FILE = os.path.join('/','tmp','.xbian_config_python')
+
+
 
 
 
@@ -81,7 +85,7 @@ class xbianSettingCommon :
             from resources.lib.xbianconfig import xbianConfig            
             rebootneeded = xbianConfig('reboot')
             updateinprogress = xbianConfig('updates','progress')
-            if rebootneeded and rebootneeded[0] == '1' and updateinprogress[0] == '0' and xbmcgui.Dialog().yesno('XBian-config','A reboot is needed','Do you want to reboot now?'):
+            if rebootneeded and rebootneeded[0] == '1' and updateinprogress[0] == '0' and xbmcgui.Dialog().yesno('XBian-config',_('xbian-config.main.reboot_question')):
                 xbmc.executebuiltin('Reboot')
                 
     def show(self) :        
@@ -102,8 +106,8 @@ class xbianSettingWindow(xbianSettingCommon) :
         self.stop = False
         self.checkReboot = True
         self.wait = xbmcgui.DialogProgress()
-        self.wait.create('Loading Settings','Inititalisation')
-        self.wait.update(0)
+        self.wait.create('%s %s'%(_("distribution"),_('xbian-config.main.title')),_('xbian-config.common.pleasewait'))
+        self.wait.update(0)        
         self.window = XbianWindow('SettingsXbianInfo.xml',ROOTDIR)
 
     def onClean(self) :
@@ -116,7 +120,7 @@ class xbianSettingWindow(xbianSettingCommon) :
                 self.stop = True
                 break
              self.globalProgress =  int((float(self.finished)/(self.total)) * 100)
-             self.update_progress(module.split('_')[1],'   initialise',0)
+             self.update_progress(module.split('_')[1],'    %s'%_('xbian-config.common.initialisation'),0)
              catmodule = __import__('%s.%s'%(CATEGORY_PATH,module), globals(), locals(), [module])
              modu = getattr(catmodule,module.split('_')[1])
              catinstance = modu(self.CmdQueue,self.update_progress)
@@ -133,18 +137,18 @@ class xbianSettingWindow(xbianSettingCommon) :
                 SKIN_DIR = 'Default'                
             self.window.doXml(os.path.join(ROOTDIR,'resources','skins',SKIN_DIR,'720p','SettingsXbianInfo.template'))
             self.wait.close()
-            self.wait = None
-            self.window.doModal()
+            self.wait = None            
+            self.window.doModal()            
             xbmc.log('XBian : XBian-config-python closed')
 
     def update_progress(self,categoryname,settingName,perc) :
         perc = self.globalProgress + int(perc/self.total)
-        self.wait.update(perc,'Loading %s...'%categoryname,'   %s'%settingName)
+        self.wait.update(perc,'%s %s...'%(_('xbian-config.common.loading'),categoryname),'   %s'%settingName)
 
 class xbianSettingDialog(xbianSettingCommon) :
     def onInit(self) :        
         from resources.lib.utils import dialogWait
-        self.wait = dialogWait('Loading Settings','Please Wait')
+        self.wait = dialogWait(_('xbian-config.common.loading'),_('xbian-config.common.pleasewait'))
         self.wait.show()
         from resources.lib.xbianDialog import XbianDialog
         self.title = ''
@@ -210,8 +214,9 @@ except :
 
 if mode==None or mode==0 :
     #full settings windows mode
+    win = xbianSettingWindow()
     try :
-        win = xbianSettingWindow()
+        #win = xbianSettingWindow()
         win.show()
     except :
         win.clean()
