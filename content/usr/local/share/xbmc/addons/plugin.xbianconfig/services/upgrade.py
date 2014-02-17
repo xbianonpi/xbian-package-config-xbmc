@@ -42,7 +42,6 @@ class upgrade(service):
     def onScreensaverActivated(self):        
         self.inScreenSaver = True
 
-        rc =xbianConfig('updates','enableauto')
         if self.enableauto  :
             return
 
