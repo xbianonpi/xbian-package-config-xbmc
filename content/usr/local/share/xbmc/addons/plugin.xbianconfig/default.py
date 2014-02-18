@@ -115,7 +115,7 @@ class xbianSettingWindow(xbianSettingCommon) :
         if self.wait :
             self.wait.close()
 
-    def onShow(self) :        		
+    def onShow(self) :              
         for i,module in enumerate(self.category_list) :
              if self.wait.iscanceled():
                 self.stop = True
@@ -123,13 +123,14 @@ class xbianSettingWindow(xbianSettingCommon) :
              self.globalProgress =  int((float(self.finished)/(self.total)) * 100)
              self.update_progress(module.split('_')[1],'    %s'%_('xbian-config.common.initialisation'),0)
              catmodule = __import__('%s.%s'%(CATEGORY_PATH,module), globals(), locals(), [module])
-             modu = getattr(catmodule,module.split('_')[1])
+             modu = getattr(catmodule,module.split('_')[-1])
              catinstance = modu(self.CmdQueue,self.update_progress)
              self.finished += 1
-             try :
-                 self.window.addCategory(catinstance)
-             except:
-                 xbmc.log('XBian : Cannot add category: %s \n%s'%(str(module),str(sys.exc_info())))
+             if catinstance.TITLE :
+                 try :
+                     self.window.addCategory(catinstance)
+                 except:
+                     xbmc.log('XBian : Cannot add category: %s \n%s'%(str(module),str(sys.exc_info())))
 
         if not self.stop :
             #really don't know why, all others are ok, but skindir have to be global???
