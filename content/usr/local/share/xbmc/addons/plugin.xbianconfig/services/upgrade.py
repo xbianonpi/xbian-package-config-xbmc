@@ -76,8 +76,7 @@ class upgrade(service):
         self.rebootNeeded = False
 
         if xbmcgui.Dialog().yesno('XBian-config',_('xbian-config.main.reboot_question')):
-            os.system('sudo /sbin/reboot')
-            xbmc.executebuiltin("XBMC.Quit()")
+            xbmc.executebuiltin("XBMC.Restart()")
         else:
             self.rebootNoCheck = True
 
