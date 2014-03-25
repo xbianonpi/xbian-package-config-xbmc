@@ -132,7 +132,8 @@ class Package :
         self.onPackageCB = onPackageCB
         self.visiblekey = uuid.uuid4()
         self.label = 'Not Loaded'
-        self.control = ButtonControl(Tag('label',self.label),Tag('visible',visiblecondition(self.visiblekey)),Tag('enable','!skin.hasSetting(%s)'%SKINVARAPTRUNNIG))
+        #Tag('enable','!skin.hasSetting(%s)'%SKINVARAPTRUNNIG)
+        self.control = ButtonControl(Tag('label',self.label),Tag('visible',visiblecondition(self.visiblekey)))
         self.control.onClick = self._onClick
 
     def getName(self) :
