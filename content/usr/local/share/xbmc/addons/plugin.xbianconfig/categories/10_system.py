@@ -47,7 +47,7 @@ class NetworkControl(MultiSettingControl):
              
              #check if Wifi
              self.interfaceValue[interface]['wifi'] = False
-             if xbianConfig('network','type',interface,cache=True)[0] == '1':
+             if xbianConfig('network','type',interface)[0] == '1':
                  self.interfaceValue[interface]['wifi'] = True
                  self.interfaceValue[interface]['ssid'] = ButtonControl(Tag('label',' -%s'%_('xbian-config.network.label.ssid')))
                  self.interfaceValue[interface]['ssid'].onClick = lambda wifi : self.wifi(interface) 
@@ -86,9 +86,9 @@ class NetworkControl(MultiSettingControl):
     def setValue(self,values):        
         default = values[0]
         self.interface.setValue(default)
-        networkValue = values[1]
-        for key in networkValue :
-            value = networkValue[key]           
+        networkValue = values[1]        
+        for key in networkValue :            
+            value = networkValue[key]                        
             if value[0] == 'static' :
                 self.interfaceValue[key]['mode'].setValue(self.STATIC)
             else:
@@ -156,27 +156,28 @@ class NetworkSetting(Setting) :
             progress = dialogWait('Refresh',_('xbian-config.network.label.reloading_values')%(interface))
             progress.show()              
             interface_config = xbianConfig('network','status',interface)
+            
             lanConfig = []
-            for config in interface_config :
-                try :            
-                    val = config.split(' ')             
-                    if val[0] == 'mode' and val[1] == 'manual':
-                        val[1] = 'dhcp'      
-                    if val[0] == 'ssid':
-                        val[1] = base64.b64decode(val[1])
-                    if val[0] == 'key':
-                        val[1] = base64.b64decode(val[1])
-                    if val[0] == 'ssid' and not val[1]:
-                        val[1] = 'Not connected'               
-                    if not val[0] in ('protection','key') :
-                        lanConfig.append(val[1])                                    
-                except :
-                    print 'XBian : Cannot refreh wifi settings'
-                    lanConfig.append(None)    
+            values = dict(map(lambda x : x.split(' '),interface_config))                        
+            guivalues = ['mode','state','ip','netmask','gateway','nameserver1','nameserver2','ssid']
+            
+            for val in guivalues :
+                value = None
+                if val == 'mode' and values['mode'] == 'manual':
+                    value = 'static'
+                elif val == 'mode':
+                    value = values.get('mode')
+                elif val == 'ssid':
+                    value = values.get('ssid')
+                    if not value :
+                        value = 'Not connected'
+                    else :
+						value = base64.b64decode(value)               
+                else :
+                    value = values.get(val)
+                lanConfig.append(value)                                                
             self.xbianValue[interface] = lanConfig 
-            progress.close()
-            #sleep a bit otherwise windows is not ready, and there's a xbmc bug i think.
-            time.sleep(0.6)
+            progress.close()            
             self.setControlValue({interface : lanConfig})
             self.OKTEXT = _('xbian-config.network.connection.success')%interface
             self.notifyOnSuccess()
@@ -213,22 +214,25 @@ class NetworkSetting(Setting) :
             interface_config = xbianConfig('network','status',interface)
             if interface_config[2] == 'UP' or not self.default :
                 self.default = interface
-            self.lanConfig[interface] = []
-            for config in interface_config :
-                try :
-                    val = config.split(' ')             
-                    if val[0] == 'mode' and val[1] == 'manual':
-                        val[1] = 'static'      
-                    if val[0] == 'ssid':
-                        val[1] = base64.b64decode(val[1])
-                    if val[0] == 'key':
-                        val[1] = base64.b64decode(val[1])
-                    if val[0] == 'ssid' and not val[1]:
-                        val[1] = 'Not connected'               
-                    if not val[0] in ('protection','key') :
-                        self.lanConfig[interface].append(val[1])                    
-                except :
-                    self.lanConfig[interface].append(None)    
+            self.lanConfig[interface] = []            
+                        
+            values = dict(map(lambda x : x.split(' '),interface_config))                        
+            guivalues = ['mode','state','ip','netmask','gateway','nameserver1','nameserver2','ssid']
+            for val in guivalues :
+                value = None
+                if val == 'mode' and values['mode'] == 'manual':
+                    value = 'static'
+                elif val == 'mode':
+                    value = values.get('mode')
+                elif val == 'ssid':
+                    value = values.get('ssid')
+                    if not value :
+                        value = 'Not connected'
+                    else :
+						value = base64.b64decode(value)               
+                else :
+                    value = values.get(val)
+                self.lanConfig[interface].append(value)            
         return self.lanConfig
     
     def setXbianValue(self,values):
