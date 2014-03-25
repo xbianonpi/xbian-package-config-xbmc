@@ -2,6 +2,8 @@ import subprocess
 import shelve
 import hashlib
 import json
+import os
+
 try :
 	import xbmc
 	XBMC = True
@@ -13,12 +15,18 @@ import threading
 if XBMC :
 	xbmc.log('XBian-config : Initialise bash sessions',xbmc.LOGDEBUG)
 
-CACHEFILE = '/home/xbian/.xbmc/userdata/addon_data/plugin.xbianconfig/cache.db'
+CACHEDIR = '/home/xbian/.xbmc/userdata/addon_data/plugin.xbianconfig'
+CACHEFILE = 'cache.db'
+
+if not os.path.isdir(CACHEDIR) :
+	os.makedirs(CACHEDIR)
+	
+cacheDB = shelve.open(os.path.join(CACHEDIR,CACHEFILE),'c',writeback=True)
 
 process = subprocess.Popen(['/bin/bash'], shell=False, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 processlock = threading.Lock()
 
-cacheDB = shelve.open(CACHEFILE,'c',writeback=True)
+
 
 def sh_escape(s):
    return s.replace("(","\\(").replace(")","\\)").replace(" ","\\ ")
@@ -33,7 +41,8 @@ def xbianConfig(*args,**kwargs) :
         
         if cache or force_refresh :			
 			key = hashlib.md5(json.dumps(cmd, sort_keys=True)).hexdigest()			
-			if cacheDB.has_key(key) and not force_refresh :						
+			if cacheDB.has_key(key) and not force_refresh :
+				xbmc.log('XBian-config : xbian-config %s : return cached value : %s'%(' '.join(cmd[2:]),str(cacheDB[key])),xbmc.LOGDEBUG)						
 				return cacheDB[key]
 			        
         processlock.acquire()        
