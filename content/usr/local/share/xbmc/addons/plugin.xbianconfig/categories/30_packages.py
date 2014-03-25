@@ -273,9 +273,9 @@ class packagesManager(Setting) :
         progress.show()
         tmp = xbianConfig('packages','list',cat)
         if tmp and tmp[0] == '-3' :
-            rc = xbianConfig('packages','updatedb')
+            rc = xbianConfig('updates','updatedb')
             if rc[0] == '1' :
-                tmp = xbianConfig('packages','list')
+                tmp = xbianConfig('packages','list',cat)
             else :
                 tmp = []
         progress.close()
