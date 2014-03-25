@@ -202,7 +202,7 @@ class SpinControlex(ControlXml) :
         self.controls['FakebtnLabelNoFocus'].setTag(Tag('disabledcolor',self.getTag('textcolor').getValue()['value']))
         self.controls['FakebtnLabelNoFocus'].setTag(Tag('posx',0))
         self.controls['FakebtnLabelNoFocus'].setTag(Tag('posy',0))           
-        self.controls['FakebtnLabelNoFocus'].setTag(Tag('visible','!(Control.HasFocus(%d) | Control.HasFocus(%d)) + Control.IsEnabled(%d)'%(self.controls['buttonup'].getId(),self.controls['buttondown'].getId(),self.controls['buttonup'].getId())))
+        self.controls['FakebtnLabelNoFocus'].setTag(Tag('visible','![Control.HasFocus(%d) | Control.HasFocus(%d)] + Control.IsEnabled(%d)'%(self.controls['buttonup'].getId(),self.controls['buttondown'].getId(),self.controls['buttonup'].getId())))
         self.controls['FakebtnLabelNoFocus'].setTag(Tag('texturefocus',self.controls['FakebtnLabelFocus'].getTag('texturenofocus').getValue()['value']))
         self.controls['groupControl'].addControl(self.controls['FakebtnLabelNoFocus'])
 
