@@ -7,6 +7,9 @@ from resources.lib.xbianconfig import xbianConfig
 from resources.lib.utils import *
 from datetime import datetime, timedelta
 
+import resources.lib.translation
+_ = resources.lib.translation.language.ugettext
+
 __addonID__      = "plugin.xbianconfig"
 ADDON     = Addon( __addonID__ )
 
