@@ -21,6 +21,8 @@ class upgrade(service):
         self.rebootNeeded = False
         self.rebootNoCheck = False
         self.inScreenSaver = False
+        self.selfCheck = False
+
         rc = xbianConfig('updates','enableauto')
         if rc and rc[0]=='1' :
             self.enableauto = True
@@ -30,45 +32,56 @@ class upgrade(service):
             self.deltaCheck = int(xbianConfig('updates','autoinventory')[0].split(' ')[1])
         except :
             self.deltaCheck = 100
+            self.selfCheck = True
+
         print 'XBian : upgrade service started'
 
     def onAbortRequested(self):
         print 'XBian : abort requested'
 
+        self.StopRequested = True
         try:
-            os.system('/bin/kill $(cat /run/lock/xbian-config) >/dev/null 2>&1 && sudo /bin/kill $(cat /run/lock/xbian-config) >/dev/null 2>&1 || :')
+            os.system('/usr/bin/sudo /bin/kill $(cat /run/lock/xbian-config) >/dev/null 2>&1 || :')
         except:
             pass
 
-        self.StopRequested = True
-
-    def onScreensaverActivated(self):        
+    def onScreensaverActivated(self):
+        print 'XBian : on saver'
         self.inScreenSaver = True
 
         if self.enableauto  :
             return
 
-        if not xbmc.Player().isPlaying()  and (getSetting('lastupdatecheck')==None or getSetting('lastupdatecheck') < (datetime.now() - timedelta(days=self.deltaCheck))):
+        if not xbmc.Player().isPlaying()  and self.selfCheck and (getSetting('lastupdatecheck')==None or getSetting('lastupdatecheck') < (datetime.now() - timedelta(days=self.deltaCheck))):
             #check if new upgrades avalaible           
-            rc =xbianConfig('updates','list','packages',forcerefresh=True)
+            rc = xbianConfig('updates','list','packages',forcerefresh=True)
             if rc and rc[0] == '-3' :                
-                rctmp = xbianConfig('updates','updatedb')
-                if rctmp and rctmp[0] == '1' :
-                    rc =xbianConfig('updates','list','packages',forcerefresh=True)
-                    #refresh also package cache
-                    pkglist = xbianConfig('packages','list',forcerefresh=True)
-                    for pkg in pkglist :
-                        xbianConfig('packages','list',pkg.split(',')[0],forcerefresh=True)
-                else :
-                    rc[0]= '0'
-            
+                rc = xbianConfig('updates','updatedb')
+                if rc and rc[0] == '1' :
+                    rc = xbianConfig('updates','list','packages',forcerefresh=True)
+
             if rc and rc[0] and len(rc[0])>2  : 
                 self.packageUpdate = True
                 print 'XBian : new updates available'
 
+            #refresh also package cache
+            pkglist = xbianConfig('packages','list',forcerefresh=True)
+            if pkglist and pkglist[0] == '-3' :
+                pkglist = xbianConfig('packages','updatedb')
+                if pkglist and pkglist[0] == '1' :
+                    pkglist = xbianConfig('packages','list',forcerefresh=True)
+
+            if pkglist and pkglist[0] != '-3' :
+                for pkg in pkglist :
+                    xbianConfig('packages','list',pkg.split(',')[0],forcerefresh=True)
+
             setSetting('lastupdatecheck',datetime.now())
 
+        print 'XBian : on saver END'
+
     def showRebootDialog(self):
+        print 'XBian : show reboot dialog'
+
         if self.inScreenSaver or os.path.isfile('/tmp/.xbian_config_python'):
             return
 
@@ -83,6 +96,8 @@ class upgrade(service):
         else:
             self.rebootNoCheck = True
 
+        print 'XBian : show reboot dialog END'
+
     def onIdle(self):
         if self.rebootNoCheck or os.path.isfile('/tmp/.xbian_config_python') or self.rebootNeeded:
             return
@@ -93,14 +108,19 @@ class upgrade(service):
             self.showRebootDialog()
 
     def onScreensaverDeactivated(self):
+        print 'XBian : on saver deactivated'
+        if self.StopRequested:
+            return
+
         self.inScreenSaver = False
         if self.rebootNeeded:
             self.showRebootDialog()
 
-        else:
-            if self.packageUpdate :
-                xbmc.executebuiltin("Notification(Packages Update,Some XBian package can be updated)")
-                self.packageUpdate = False
+        if self.packageUpdate :
+            xbmc.executebuiltin("Notification(Packages Update,Some XBian package can be updated)")
+            self.packageUpdate = False
+
+        print 'XBian : on saver deactivated END'
 
     def onStart(self):
         #check is packages is updating
@@ -120,18 +140,19 @@ class upgrade(service):
             setvisiblecondition('aptrunning',False)            
 
         #for those one who deactivate its screensaver, force check every deltaCheck days
-        
-        
-        if not self.enableauto and getSetting('lastupdatecheck') != None and getSetting('lastupdatecheck') < datetime.now() - timedelta(days=self.deltaCheck):
+        if self.selfCheck and (getSetting('lastupdatecheck') == None or getSetting('lastupdatecheck') < datetime.now() - timedelta(days=self.deltaCheck)):
             print 'XBian : screensaver is disabled, running internal updates'
             self.onScreensaverActivated()
             self.onScreensaverDeactivated()
 
         while not self.StopRequested: #End if XBMC closes
-            self.onIdle()
             self.x = 0
-            while not self.StopRequested and self.x < 600:
-                xbmc.sleep(500) #Repeat (ms) 
+            while not self.StopRequested and self.x < 1200:
+                xbmc.sleep(250) #Repeat (ms) 
                 self.x = self.x + 1
+
+            self.onIdle()
+
+
         print 'XBian : upgrade service finished'
 

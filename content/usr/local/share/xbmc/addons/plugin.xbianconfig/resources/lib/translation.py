@@ -30,4 +30,3 @@ else:
 
 
 ###print language.info()
-print language.gettext('xbian-config.main.reboot_question')

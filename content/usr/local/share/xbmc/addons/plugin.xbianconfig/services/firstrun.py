@@ -27,4 +27,4 @@ class firstrun(service):
 			xbmc.executebuiltin('XBMC.RunScript(plugin.xbianconfig,mode=2)')
 			
 			#xbmcgui.Dialog().ok('Welcome to XBian','Thanks to have chosen XBian','You can configure it, go to','System -> XBian')
-			open(firstlock,'w').close()			
+			open(firstlock,'w').close()
