@@ -173,7 +173,7 @@ class PackagesControl(MultiSettingControl):
         
         packagelist = xbianConfig('packages','list',cache=True)        
         if packagelist[0] == '-3':
-            xbianConfig('updates','updatedb')
+            xbianConfig('packages','updatedb')
             packagelist = xbianConfig('packages','list',forcerefresh=True)                    
         for package in packagelist :
             self.packages.append(PackageCategory(package,self._onPackage,self._onGetMore))
@@ -274,7 +274,7 @@ class packagesManager(Setting) :
         progress.show()
         tmp = xbianConfig('packages','list',cat)
         if tmp and tmp[0] == '-3' :
-            rc = xbianConfig('updates','updatedb')
+            rc = xbianConfig('packages','updatedb')
             if rc[0] == '1' :
                 tmp = xbianConfig('packages','list',cat)
             else :

@@ -19,14 +19,15 @@ CACHEDIR = '/home/xbian/.xbmc/userdata/addon_data/plugin.xbianconfig'
 CACHEFILE = 'cache.db'
 
 if not os.path.isdir(CACHEDIR) :
-	os.makedirs(CACHEDIR)
-	
+    try:
+        os.makedirs(CACHEDIR)
+    except:
+        exit(0)
+
 cacheDB = shelve.open(os.path.join(CACHEDIR,CACHEFILE),'c',writeback=True)
 
 process = subprocess.Popen(['/bin/bash'], shell=False, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 processlock = threading.Lock()
-
-
 
 def sh_escape(s):
    return s.replace("(","\\(").replace(")","\\)").replace(" ","\\ ")
