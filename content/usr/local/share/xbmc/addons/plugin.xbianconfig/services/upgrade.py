@@ -49,7 +49,7 @@ class upgrade(service):
         print 'XBian : on saver'
         self.inScreenSaver = True
 
-        if self.enableauto  :
+        if self.enableauto or self.StopRequested :
             return
 
         if not xbmc.Player().isPlaying()  and self.selfCheck and (getSetting('lastupdatecheck')==None or getSetting('lastupdatecheck') < (datetime.now() - timedelta(days=self.deltaCheck))):
@@ -82,7 +82,7 @@ class upgrade(service):
     def showRebootDialog(self):
         print 'XBian : show reboot dialog'
 
-        if self.inScreenSaver or os.path.isfile('/tmp/.xbian_config_python'):
+        if self.inScreenSaver or os.path.isfile('/tmp/.xbian_config_python') or self.StopRequested:
             return
 
         stillrunning = xbianConfig('updates','progress')
@@ -113,8 +113,6 @@ class upgrade(service):
             return
 
         self.inScreenSaver = False
-        if self.rebootNeeded:
-            self.showRebootDialog()
 
         if self.packageUpdate :
             xbmc.executebuiltin("Notification(Packages Update,Some XBian package can be updated)")
@@ -129,7 +127,7 @@ class upgrade(service):
                 dlg = dialogWait('XBian Update','Please wait while updating')
                 dlg.show()
                 while not self.StopRequested and xbianConfig('updates','progress')[0] == '1':
-                    xbmc.sleep(1000)
+                    xbmc.sleep(300)
                 dlg.close()
                 if self.StopRequested :
                     return
@@ -147,8 +145,8 @@ class upgrade(service):
 
         while not self.StopRequested: #End if XBMC closes
             self.x = 0
-            while not self.StopRequested and self.x < 1200:
-                xbmc.sleep(250) #Repeat (ms) 
+            while not self.StopRequested and self.x < 600:
+                xbmc.sleep(500) #Repeat (ms) 
                 self.x = self.x + 1
 
             self.onIdle()
