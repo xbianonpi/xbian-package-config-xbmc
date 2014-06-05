@@ -240,12 +240,12 @@ def wifiConnect(interface):
             canceled = True
        else :
            if networks[selectedNetwork][SECURITY] == 'on' :
-               key = getText('%s : %s'%(_(xbian-config.network.credentials.enter),networks[selectedNetwork][SSID]))
+               key = getText('%s : %s'%(_('xbian-config.network.credentials.enter'),networks[selectedNetwork][SSID]))
                if not key :
                    continue
            else :
                key = ""
-           progress = dialogWait(interface,_('xbian-config.network.connection.updating'%(networks[selectedNetwork][SSID])))
+           progress = dialogWait(interface,_('xbian-config.network.connection.updating')%(networks[selectedNetwork][SSID]))
            progress.show()
            retry = 2
            current_try = 1
@@ -272,7 +272,7 @@ def wifiConnect(interface):
                          return False
                else :
                     progress.close()
-                    dialog.ok(interface,_('xbian-config.network.connection.failed'%(networks[selectedNetwork][SSID],rc)))
+                    dialog.ok(interface,_('xbian-config.network.connection.failed')%(networks[selectedNetwork][SSID],rc))
                     return False
     return False
 
