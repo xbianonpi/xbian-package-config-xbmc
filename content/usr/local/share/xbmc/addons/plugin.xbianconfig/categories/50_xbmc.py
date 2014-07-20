@@ -16,38 +16,6 @@ dialog=xbmcgui.Dialog()
 class xbmcLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.xbmc.name')))
 
-class xbmcGui(Setting) :
-    CONTROL = SpinControlex(Tag('label',_('xbian-config.xbmc.label.guires')))
-    DIALOGHEADER = _('xbian-config.xbmc.label.guires')
-    ERRORTEXT = _('xbian-config.xbmc.guires.failed')
-    OKTEXT = _('xbian-config.xbmc.guires.success')
-    SAVEMODE = Setting.ONUNFOCUS
-    
-    def onInit(self):
-        resolutionlist =xbianConfig('xbmc','guires','list')
-        if resolutionlist :
-            for resolution in resolutionlist :
-                content = Content(Tag('label','%sp'%resolution),defaultSKin=False)
-                self.control.addContent(content)
-
-    def getUserValue(self):
-        return self.control.getValue()
-        
-    def getXbianValue(self):
-        resolution =xbianConfig('xbmc','guires','select')
-        if resolution :
-            return '%sp'%resolution[0]
-        else :
-            return ''                
-        
-    def setXbianValue(self,value):
-        value = value[:-1]
-        rc = xbianConfig('xbmc','guires','update',value)
-        if rc and rc[0] == '1' :
-            return True
-        else :
-            return False
-
 class xbmcTvOff(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
 
@@ -66,7 +34,7 @@ class xbmcTvOff(MultiSettingControl):
 
 class xbmcTvOffGui(Setting) :
     CONTROL = xbmcTvOff()
-    DIALOGHEADER = _('xbian-config.xbmc.label.tvoff_screensaver')    
+    DIALOGHEADER = _('xbian-config.xbmc.label.tvoff_screensaver')
     SAVEMODE = Setting.ONUNFOCUS
 
     def getUserValue(self):
@@ -88,7 +56,7 @@ class xbmcTvOffGui(Setting) :
 class xbmcTvOn(Setting) :
     CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.tvon_exit')),ADVANCED)
     DIALOGHEADER = _('xbian-config.xbmc.label.tvon_exit')
-    
+
     def getUserValue(self):
         return str(self.getControlValue())
 
@@ -113,7 +81,7 @@ class xbmcTvOn(Setting) :
 class xbmcTvHaltOff(Setting) :
     CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.tvoff_shutdown')))
     DIALOGHEADER = _('xbian-config.xbmc.label.tvoff_shutdown')
-    
+
     def getUserValue(self):
         return str(self.getControlValue())
 
@@ -141,7 +109,7 @@ class xbmcUSBLabel(Setting) :
 class xbmcUSBmount(Setting) :
     CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.automount')),ADVANCED)
     DIALOGHEADER = _('xbian-config.xbmc.label.automount')
-    
+
     def getUserValue(self):
         return str(self.getControlValue())
 
@@ -166,7 +134,7 @@ class xbmcUSBmount(Setting) :
 class xbmcUSBsmb(Setting) :
     CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.share')))
     DIALOGHEADER = _('xbian-config.xbmc.label.share')
-    
+
     def getUserValue(self):
         return str(self.getControlValue())
 
@@ -191,7 +159,7 @@ class xbmcUSBsmb(Setting) :
 class xbmcUSBsmbrw(Setting) :
     CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.sharerw')))
     DIALOGHEADER = _('xbian-config.xbmc.label.sharerw')
-    
+
     def getUserValue(self):
         return str(self.getControlValue())
 
@@ -217,7 +185,7 @@ class xbmcUSBsmbrw(Setting) :
 class xbmcUSBuuidname(Setting) :
     CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.uuid')),ADVANCED)
     DIALOGHEADER = _('xbian-config.xbmc.label.uuid')
-    
+
     def getUserValue(self):
         return str(self.getControlValue())
 
@@ -277,7 +245,7 @@ class DynamicPriority(MultiSettingControl):
 
 class DynamicPriorityGui(Setting) :
     CONTROL = DynamicPriority(ADVANCED)
-    DIALOGHEADER = _('xbian-config.xbmc.label.dyn_priority')    
+    DIALOGHEADER = _('xbian-config.xbmc.label.dyn_priority')
     SAVEMODE = Setting.ONUNFOCUS
 
     def getUserValue(self):
@@ -320,7 +288,7 @@ class SpinDownHddGui(Setting) :
 class xbmcUSBsync(Setting) :
     CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.sync')),ADVANCED)
     DIALOGHEADER = _('xbian-config.xbmc.label.sync')
-    
+
     def getUserValue(self):
         return str(self.getControlValue())
 
@@ -345,4 +313,4 @@ class xbmcUSBsync(Setting) :
 #CATEGORY CLASS
 class xbmc(Category) :
     TITLE = _('xbian-config.xbmc.name')
-    SETTINGS = [xbmcLabel,xbmcGui,xbmcTvOffGui,xbmcTvHaltOff,xbmcTvOn,DynamicPriorityGui,xbmcUSBLabel,xbmcUSBmount,xbmcUSBsync,xbmcUSBsmb,xbmcUSBsmbrw,xbmcUSBuuidname,SpinDownHddGui]
+    SETTINGS = [xbmcLabel,xbmcTvOffGui,xbmcTvHaltOff,xbmcTvOn,DynamicPriorityGui,xbmcUSBLabel,xbmcUSBmount,xbmcUSBsync,xbmcUSBsmb,xbmcUSBsmbrw,xbmcUSBuuidname,SpinDownHddGui]
