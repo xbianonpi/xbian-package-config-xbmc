@@ -172,7 +172,7 @@ class packageUpdate(Setting) :
         
     def getXbianValue(self):                
         rc =xbianConfig('updates','list',self.key,cache=False,forcerefresh=self.needrefreshing)
-        if rc and rc[0] not in ('0','-2') :			 
+        if rc and not (rc[0] < '1') :
             for update in rc[:15] :
                 self.control.addUpdate(update)
         else :
