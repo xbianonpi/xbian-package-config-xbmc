@@ -6,13 +6,11 @@ from resources.lib.xbianconfig import xbianConfig
 def BTRFS() :
     return xbianConfig(cmd=["df -T | grep '/$' | awk '{print $2}'"])[0] == 'btrfs'        
     
-def RPI() :
-	#TODO : How to find the platform?
-	return True
+def RPI() :	
+	return xbianConfig(cmd=["xbian-arch"])[0] == 'RPI'
 
-def IMX6() :
-	#TODO : How to find the platform?
-	return False
+def IMX6() :	
+	return xbianConfig(cmd=["xbian-arch"])[0] == 'IMX6'
 	    
 class filters :
     #all filter is "AND" relation. it's enough for now
