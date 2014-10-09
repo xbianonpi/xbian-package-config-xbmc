@@ -118,7 +118,7 @@ class dialogWaitBackground :
     def show(self):
         #display foreground dialog
         if self.skinvar :
-			setvisiblecondition(self.skinvar,True)            
+            setvisiblecondition(self.skinvar,True)            
         if self.logFile :
             try :
                 self.logFile = open(self.logFile,'r')
@@ -141,20 +141,26 @@ class dialogWaitBackground :
         self._updateGui()
 
     def _updateGui(self) :
-        for i,line in enumerate(self.lines) :
-            #print 'set label %s to %s'%(str(self.guiLineControl[i]),line)
-            self.guiLineControl[i].setLabel(line)
+        if self.state == FOREGROUND :
+            for i,line in enumerate(self.lines) :
+                #print 'set label %s to %s'%(str(self.guiLineControl[i]),line)
+                self.guiLineControl[i].setLabel(line)
+        else :
+            self.dlgBackground.update(message=line[:-1])
 
     def close(self):
         if self.state == FOREGROUND :
             self.dlgForeground.getControl(self.BUTTONCONTROL).setLabel('Close')
+        else :
+            self.dlgBackground.close()
         if self.logFile :
             self.logFile.close()
             self.logFile = None
 
     def onBackground(self) :
         self.state == BACKGROUND
-        self.close()
+        self.dlgBackground = xbmcgui.DialogProgressBG()
+        self.dlgBackground.create(self.header)               
 
     def onFinished(self) :
         if self.onFinishedCB :
@@ -278,12 +284,12 @@ def wifiConnect(interface):
 
 
 def visiblecondition(key) :
-	return 'Stringcompare(Window.Property(%s),1)'%key
+    return 'Stringcompare(Window.Property(%s),1)'%key
 
 def setvisiblecondition(key,value) :
-	if value  :
-		valuel = 1
-	else : value = 0
-	xbmc.executebuiltin('SetProperty(%s,%d)'%(key,value))
+    if value  :
+        valuel = 1
+    else : value = 0
+    xbmc.executebuiltin('SetProperty(%s,%d)'%(key,value))
 
 ADVANCED = Tag('visible',visiblecondition('advancedmode'))
