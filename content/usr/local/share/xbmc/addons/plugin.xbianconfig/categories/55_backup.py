@@ -24,21 +24,26 @@ FILE  = 'File'
 DESTINATION_HOME_RESTORE = '/xbmc-backup/put_here_to_restore/'
 class separator(Setting) :
     CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.backup.category.snasphot')))
+    FILTER = ['BTRFS']
 class homeBackupLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.backup.category.home')))
-
+    FILTER = ['BTRFS']
 class systemBackupLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.backup.category.system')),ADVANCED)
+    FILTER = ['BTRFS']
 
 class snapshotLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.backup.category.snapshot')))
+    FILTER = ['BTRFS']
 
 class snapshotLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.backup.category.autosnapshot')),ADVANCED)
+    FILTER = ['BTRFS']
 
 
 class autodailysnapshot(MultiSettingControl):
     LABEL = _('xbian-config.backup.daily_snapshot')
+    FILTER = ['BTRFS']
 
     def onInit(self) :
         self.autodaily = RadioButtonControl(Tag('label',self.LABEL))
@@ -61,6 +66,7 @@ class autoweeklysnapshot(autodailysnapshot):
 
 class systemBackup(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
+    FILTER = ['BTRFS']
 
     def onInit(self) :
         self.systemAutoBackup = RadioButtonControl(Tag('label',_('xbian-config.backup.auto_system_image')))
@@ -129,7 +135,7 @@ class systemBackup(MultiSettingControl):
 class AutoBackupGui(Setting) :
     CONTROL = systemBackup(ADVANCED)
     DIALOGHEADER = _('xbian-config.backup.category.system')
-        
+    FILTER = ['BTRFS']    
     SAVEMODE = Setting.ONUNFOCUS
 
     def onInit(self) :
@@ -240,6 +246,7 @@ class AutoBackupGui(Setting) :
 class homeBackup(Setting) :
     CONTROL = ButtonControl(Tag('label',_('xbian-config.backup.start')),Tag('enable','!%s'%visiblecondition('homebackuprunning')))
     DIALOGHEADER = _('xbian-config.backup.category.home')
+    FILTER = ['BTRFS']
     
     def setControlValue(self,value) :
         pass
@@ -286,6 +293,7 @@ class homeBackup(Setting) :
 class homeRestoreBackup(Setting) :
     CONTROL = ButtonControl(Tag('label',_('xbian-config.backuphome.restore')),Tag('enable','!%s'%visiblecondition('homebackuprunning')))
     DIALOGHEADER = _('xbian-config.backuphome.restore')
+    FILTER = ['BTRFS']
     
     def setControlValue(self,value) :
         pass
@@ -332,7 +340,7 @@ class snapshotmount(Setting) :
     DIALOGHEADER = _('xbian-config.backup.category.snapshot')        
     PROGRESSTEXT = _('xbian-config.common.pleasewait')
     BLAKLISTVOLUME = ['modules']
-    
+    FILTER = ['BTRFS']
 
     def getUserValue(self):
         load = dialogWait(self.DIALOGHEADER,_('xbian-config.snapshot.loadingvolume'))
@@ -401,6 +409,7 @@ class snapshotCreate(Setting) :
     DIALOGHEADER = _('xbian-config.backup.category.snapshot')        
     BLAKLISTVOLUME = ['modules']
     PROGRESSTEXT = _('xbian-config.common.pleasewait')            
+    FILTER = ['BTRFS']
     
     def getUserValue(self):
         load = dialogWait(self.DIALOGHEADER,_('xbian-config.snapshot.loadingvolume'))
@@ -439,6 +448,7 @@ class dailySnapshotGui(Setting) :
     CONTROL = autodailysnapshot(ADVANCED)
     DIALOGHEADER = "Daily Snapshot"    
     SAVEMODE = Setting.ONUNFOCUS
+    FILTER = ['BTRFS']
 
     def onInit(self) :
         self.key = 'dodaily'

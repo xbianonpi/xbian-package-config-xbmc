@@ -260,12 +260,14 @@ class NetworkSetting(Setting) :
         
 class LicenceLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.licenses.name')))
+    FILTER = ['RPI']
 
 class mpeg2License(Setting) :
     CONTROL = ButtonControl(Tag('label',_('xbian-config.licensempg2.name')))
     DIALOGHEADER = _('xbian-config.licensempg2.name')    
     OKTEXT = _('xbian-config.license.updated')%_('xbian-config.licensempg2.name')
     BADUSERENTRYTEXT = _('xbian-config.license.invalid')%_('xbian-config.licensempg2.name')
+    FILTER = ['RPI']
     
     def onInit(self) :
         self.xbiankey = 'licensempg2'
@@ -309,15 +311,18 @@ class vc1License(mpeg2License) :
     DIALOGHEADER = _('xbian-config.licensevc1.name')    
     OKTEXT = _('xbian-config.license.updated')%_('xbian-config.licensevc1.name')
     BADUSERENTRYTEXT = _('xbian-config.license.invalid')%_('xbian-config.licensevc1.name')
+    FILTER = ['RPI']
     
     def onInit(self) :
         self.xbiankey = 'licensevc1'
     
 class connectivityLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.connectivity.name')),ADVANCED)
+    FILTER = ['RPI']
 
 class videooutputControl(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
+    FILTER = ['RPI']
     
     def onInit(self) :
         self.videooutputlist = xbianConfig('videoflags','list',cache=True)
@@ -347,6 +352,7 @@ class videooutputControl(MultiSettingControl):
 class videooutput(Setting) :
     CONTROL = videooutputControl(ADVANCED)
     DIALOGHEADER = _('xbian-config.connectivity.name')
+    FILTER = ['RPI']
                     
     def onInit(self) :
         #self.listvalue = xbianConfig('videoflags','list')
@@ -442,7 +448,7 @@ class kernel(Setting) :
         return ok
 
 class OverclockControl(MultiSettingControl):
-    XBMCDEFAULTCONTAINER = False
+    XBMCDEFAULTCONTAINER = False    
     
     def onInit(self) :
         self.overclockMode = SpinControlex(Tag('label',_('xbian-config.overclocking.name')))
@@ -485,6 +491,7 @@ class overclocking(Setting) :
     DIALOGHEADER = _('xbian-config.overclocking.name')    
     OKTEXT = _('xbian-config.overclocking.changed')
     SAVEMODE = Setting.ONUNFOCUS
+    FILTER = ['RPI']
             
     def getUserValue(self):
         values =  self.control.getValue()

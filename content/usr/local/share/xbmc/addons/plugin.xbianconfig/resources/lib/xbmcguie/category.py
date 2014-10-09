@@ -2,6 +2,7 @@ from tag import Tag
 from xbmcContainer import GroupListControl,Content
 from xbmcControl import scrollbarControl
 from resources.lib.utils import *
+from resources.lib.filter import setting_filter
 
 import xbmc
 import xbmcgui
@@ -22,18 +23,24 @@ class Category():
     def __init__(self,queue,cbProgress=None) :
         self.setTitle(self.TITLE)
         self.queue = queue
-        self.settings = []
+        self.settings = []        
+        self.category  = None
+        
         for i,setting in enumerate(self.SETTINGS) :
-            if cbProgress :
-                cbProgress(self.TITLE,setting.DIALOGHEADER,int(float(100/len(self.SETTINGS))*i))
-            self.settings.append(setting())
+            if setting_filter.is_active(setting.FILTER) :
+                #TODO : percent progress is not right because of not enable settings.
+                if cbProgress :
+                    cbProgress(self.TITLE,setting.DIALOGHEADER,int(float(100/len(self.SETTINGS))*i))
+                self.settings.append(setting())
         #self.scrollbar = scrollbarControl(Tag('onright',9000),Tag('posx',1060),Tag('posy',60),Tag('width',25),Tag('height',530),Tag('visible','Container(9000).HasFocus(%d)'%self.Menucategory.getId()),Tag('showonepage','false'))
-        self.category  = GroupListControl(Tag('onleft',9000),Tag('onright',9000),Tag('itemgap',-1),Tag('visible','Container(9000).HasFocus(%d)'%self.Menucategory.getId()),defaultSKin = False)
-        #self.scrollbar.setTag(Tag('onleft',self.category.getId()))
-        for setting in self.settings :
-            setting.addQueue(self.queue)
-            self.category.addControl(setting.getControl())
-        self.onInit()
+        #don't display an empty category
+        if self.settings :
+            self.category  = GroupListControl(Tag('onleft',9000),Tag('onright',9000),Tag('itemgap',-1),Tag('visible','Container(9000).HasFocus(%d)'%self.Menucategory.getId()),defaultSKin = False)
+            #self.scrollbar.setTag(Tag('onleft',self.category.getId()))
+            for setting in self.settings :
+                setting.addQueue(self.queue)
+                self.category.addControl(setting.getControl())
+            self.onInit()
     
     def onInit(self):
         pass
@@ -70,8 +77,8 @@ class Setting():
     OKTEXT = _('xbian-config.common.ok') #"override Ok Text"
     SAVEMODE = 0 
     BADUSERENTRYTEXT = _('xbian-config.common.badentry')
-    APPLYTEXT = _('xbian-config.common.confirmation')
-    
+    APPLYTEXT = _('xbian-config.common.confirmation')    
+    FILTER = ['ALL']
     
     #SAVE MODE
     NONE = -1 

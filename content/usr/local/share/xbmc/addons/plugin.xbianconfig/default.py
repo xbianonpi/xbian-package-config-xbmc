@@ -126,7 +126,7 @@ class xbianSettingWindow(xbianSettingCommon) :
              modu = getattr(catmodule,module.split('_')[-1])
              catinstance = modu(self.CmdQueue,self.update_progress)
              self.finished += 1
-             if catinstance.TITLE :
+             if catinstance.TITLE and catinstance.getCategory() :
                  try :
                      self.window.addCategory(catinstance)
                  except:
