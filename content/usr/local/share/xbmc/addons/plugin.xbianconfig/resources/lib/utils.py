@@ -146,7 +146,7 @@ class dialogWaitBackground :
                 #print 'set label %s to %s'%(str(self.guiLineControl[i]),line)
                 self.guiLineControl[i].setLabel(line)
         else :
-            self.dlgBackground.update(message=line[:-1])
+            self.dlgBackground.update(message=self.lines[:-1])
 
     def close(self):
         if self.state == FOREGROUND :
