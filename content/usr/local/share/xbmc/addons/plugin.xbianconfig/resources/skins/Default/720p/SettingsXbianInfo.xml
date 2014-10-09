@@ -138,12 +138,37 @@
                     </control>                     
                 </focusedlayout>
                 <content>
-<item id="36054">
+<item id="36101">
+<label2>$INFO[Skin.String(Systemloadingvalue)]</label2>
+<onclick>-</onclick>
+<label>System</label>
+</item>
+<item id="36158">
+<label2>$INFO[Skin.String(Servicesloadingvalue)]</label2>
+<onclick>-</onclick>
+<label>Services</label>
+</item>
+<item id="36288">
+<label2>$INFO[Skin.String(Packagesloadingvalue)]</label2>
+<onclick>-</onclick>
+<label>Packages</label>
+</item>
+<item id="36319">
+<label2>$INFO[Skin.String(Updateloadingvalue)]</label2>
+<onclick>-</onclick>
+<label>Update</label>
+</item>
+<item id="36343">
+<label2>$INFO[Skin.String(XBMCloadingvalue)]</label2>
+<onclick>-</onclick>
+<label>XBMC</label>
+</item>
+<item id="36393">
 <label2>$INFO[Skin.String(Backuploadingvalue)]</label2>
 <onclick>-</onclick>
 <label>Backup</label>
 </item>
-<item id="36066">
+<item id="36402">
 <label2>$INFO[Skin.String(Preferencesloadingvalue)]</label2>
 <onclick>-</onclick>
 <label>Preferences</label>
@@ -183,121 +208,54 @@
                 <posy>60</posy>
                 <width>750</width>
                 <height>500</height>
-<control type="grouplist" id="36055">
+<control type="grouplist" id="36103">
 <itemgap>-1</itemgap>
 <onleft>9000</onleft>
 <onright>9000</onright>
-<visible>Container(9000).HasFocus(36054)</visible>
-<control type="label" id="36001">
+<visible>Container(9000).HasFocus(36101)</visible>
+<control type="label" id="36000">
 <textcolor>blue</textcolor>
 <align>left</align>
 <aligny>center</aligny>
-<label>Home</label>
+<label>Network</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36040">
-<texturefocus>MenuItemFO.png</texturefocus>
+<control type="button" id="36003">
+<visible>false</visible>
+<description>hidden button to scroll up the list</description>
+</control>
+<control type="group" id="36005">
 <width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<label>Start Backup Now</label>
 <height>40</height>
+<control type="button" id="36008">
+<onup>36003</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36004</ondown>
+<width>750</width>
+<disabledcolor>white</disabledcolor>
+<visible>Control.HasFocus(36007) | Control.HasFocus(36006)</visible>
+<label>Select interface to configure</label>
+<height>40</height>
+<posx>0</posx>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
 <textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36041">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<label>Restore backup</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="label" id="36002">
-<textcolor>blue</textcolor>
-<align>left</align>
-<aligny>center</aligny>
-<label>System</label>
-<height>45</height>
-<width>750</width>
-<shadowcolor>black</shadowcolor>
-<font>font13_title</font>
-</control>
-<control type="radiobutton" id="36006">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<label>Auto image</label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
+<texturenofocus>MenuItemFO.png</texturenofocus>
+<posy>0</posy>
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
 <control type="button" id="36009">
-<visible>false</visible>
-<description>hidden button to scroll up the list</description>
-</control>
-<control type="group" id="36011">
-<width>750</width>
-<visible>SubString(Control.GetLabel(36006),*)</visible>
-<visible>skin.hasSetting(advancedmode)</visible>
-<height>40</height>
-<control type="spincontrol" id="36012">
-<onup>36009</onup>
-<textcolor>grey2</textcolor>
-<ondown>36010</ondown>
-<disabledcolor>grey3</disabledcolor>
-<enable>false</enable>
-<pulseonselect>false</pulseonselect>
-<subtype>page</subtype>
-<posx>670</posx>
-<posy>8</posy>
-<onleft>9000</onleft>
-<font>font13</font>
-<onright>9000</onright>
-<textoffsetx>5000</textoffsetx>
-</control>
-<control type="button" id="36013">
-<onup>36009</onup>
+<onup>36003</onup>
 <texturefocus>MenuItemFO.png</texturefocus>
-<ondown>36010</ondown>
-<width>750</width>
-<disabledcolor>white</disabledcolor>
-<visible>Control.HasFocus(36012) + Control.IsEnabled(36012) + control.IsVisible(36012)</visible>
-<label> -type</label>
-<height>40</height>
-<posx>0</posx>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemFO.png</texturenofocus>
-<posy>0</posy>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36014">
-<onup>36009</onup>
-<texturefocus>MenuItemFO.png</texturefocus>
-<ondown>36010</ondown>
+<ondown>36004</ondown>
 <width>750</width>
 <disabledcolor>grey2</disabledcolor>
-<visible>!Control.HasFocus(36012) + Control.IsEnabled(36012) + control.IsVisible(36012)</visible>
-<label> -type</label>
+<visible>![Control.HasFocus(36007) | Control.HasFocus(36006)] + Control.IsEnabled(36007)</visible>
+<label>Select interface to configure</label>
 <height>40</height>
 <posx>0</posx>
 <pulseonselect>false</pulseonselect>
@@ -305,129 +263,98 @@
 <textcolor>grey2</textcolor>
 <texturenofocus>MenuItemNF.png</texturenofocus>
 <posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36010">
+<onup>36003</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36004</ondown>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>!Control.IsEnabled(36006) + control.IsVisible(36006)</visible>
+<label>Select interface to configure</label>
+<height>40</height>
+<posx>0</posx>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36006">
+<onup>36003</onup>
+<texturefocus>scroll-down-focus-2.png</texturefocus>
+<posx>680</posx>
+<width>33</width>
+<disabledcolor>grey3</disabledcolor>
+<height>22</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>scroll-down-2.png</texturenofocus>
+<posy>9</posy>
+<focusedcolor>white</focusedcolor>
+<onleft>9000</onleft>
+<font>font13</font>
+<onright>36007</onright>
+<ondown>36004</ondown>
+</control>
+<control type="button" id="36007">
+<onup>36003</onup>
+<texturefocus>scroll-up-focus-2.png</texturefocus>
+<posx>713</posx>
+<width>33</width>
+<disabledcolor>grey3</disabledcolor>
+<height>22</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>scroll-up-2.png</texturenofocus>
+<posy>9</posy>
+<focusedcolor>white</focusedcolor>
+<onleft>36006</onleft>
+<font>font13</font>
+<onright>9000</onright>
+<ondown>36004</ondown>
+</control>
+</control>
+<control type="button" id="36004">
+<visible>false</visible>
+<description>hidden button to scroll down the list</description>
+</control>
+<control type="button" id="36013">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>StringCompare(Skin.String(spincontrol36007),eth0)</visible>
+<label> -Status</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
 <control type="button" id="36015">
-<onup>36009</onup>
-<texturefocus>MenuItemFO.png</texturefocus>
-<ondown>36010</ondown>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>!Control.IsEnabled(36012) + control.IsVisible(36012)</visible>
-<label> -type</label>
-<height>40</height>
-<posx>0</posx>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
-<posy>0</posy>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="wraplist" id="36016">
-<onup>36009</onup>
-<enable>false</enable>
-<ondown>36010</ondown>
-<width>225</width>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<scrolltime>0</scrolltime>
-<posx>450</posx>
-<posy>0</posy>
-<pagecontrol>36012</pagecontrol>
-<itemlayout width="225" height="40">
-</itemlayout>
-<focusedlayout width="225" height="40">
-<control type="label" id="36017">
-<textcolor>grey3</textcolor>
-<visible>!Control.IsEnabled(36012)</visible>
-<align>right</align>
-<label>$INFO[ListItem.Label]</label>
-<height>40</height>
-<width>225</width>
-<aligny>center</aligny>
-<posx>215</posx>
-<posy>0</posy>
-<font>font13</font>
-</control>
-<control type="label" id="36018">
-<textcolor>white</textcolor>
-<visible>Control.HasFocus(36012) + Control.IsEnabled(36012)</visible>
-<align>right</align>
-<label>$INFO[ListItem.Label]</label>
-<height>40</height>
-<width>225</width>
-<aligny>center</aligny>
-<posx>215</posx>
-<posy>0</posy>
-<font>font13</font>
-</control>
-<control type="label" id="36019">
-<textcolor>grey2</textcolor>
-<visible>!Control.HasFocus(36012) + Control.IsEnabled(36012)</visible>
-<align>right</align>
-<label>$INFO[ListItem.Label]</label>
-<height>40</height>
-<width>225</width>
-<aligny>center</aligny>
-<posx>215</posx>
-<posy>0</posy>
-<font>font13</font>
-</control>
-</focusedlayout>
-<content>
-<item id="36020">
-<onclick>-</onclick>
-<label>daily</label>
-</item>
-<item id="36021">
-<onclick>-</onclick>
-<label>weekly</label>
-</item>
-<item id="36022">
-<onclick>-</onclick>
-<label>monthly</label>
-</item>
-</content>
-</control>
-</control>
-<control type="button" id="36010">
-<visible>false</visible>
-<description>hidden button to scroll down the list</description>
-</control>
-<control type="button" id="36024">
 <visible>false</visible>
 <description>hidden button to scroll up the list</description>
 </control>
-<control type="group" id="36026">
+<control type="group" id="36017">
 <width>750</width>
-<visible>skin.hasSetting(advancedmode)</visible>
+<visible>StringCompare(Skin.String(spincontrol36007),eth0)</visible>
 <height>40</height>
-<control type="spincontrol" id="36027">
-<onup>36024</onup>
-<textcolor>grey2</textcolor>
-<ondown>36025</ondown>
-<disabledcolor>grey3</disabledcolor>
-<enable>false</enable>
-<pulseonselect>false</pulseonselect>
-<subtype>page</subtype>
-<posx>670</posx>
-<posy>8</posy>
-<onleft>9000</onleft>
-<font>font13</font>
-<onright>9000</onright>
-<textoffsetx>5000</textoffsetx>
-</control>
-<control type="button" id="36028">
-<onup>36024</onup>
+<control type="button" id="36020">
+<onup>36015</onup>
 <texturefocus>MenuItemFO.png</texturefocus>
-<ondown>36025</ondown>
+<ondown>36016</ondown>
 <width>750</width>
 <disabledcolor>white</disabledcolor>
-<visible>Control.HasFocus(36027) + Control.IsEnabled(36027) + control.IsVisible(36027)</visible>
-<label>Destination type </label>
+<visible>Control.HasFocus(36019) | Control.HasFocus(36018)</visible>
+<label> -Type</label>
 <height>40</height>
 <posx>0</posx>
 <pulseonselect>false</pulseonselect>
@@ -438,14 +365,14 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36029">
-<onup>36024</onup>
+<control type="button" id="36021">
+<onup>36015</onup>
 <texturefocus>MenuItemFO.png</texturefocus>
-<ondown>36025</ondown>
+<ondown>36016</ondown>
 <width>750</width>
 <disabledcolor>grey2</disabledcolor>
-<visible>!Control.HasFocus(36027) + Control.IsEnabled(36027) + control.IsVisible(36027)</visible>
-<label>Destination type </label>
+<visible>![Control.HasFocus(36019) | Control.HasFocus(36018)] + Control.IsEnabled(36019)</visible>
+<label> -Type</label>
 <height>40</height>
 <posx>0</posx>
 <pulseonselect>false</pulseonselect>
@@ -453,17 +380,205 @@
 <textcolor>grey2</textcolor>
 <texturenofocus>MenuItemNF.png</texturenofocus>
 <posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36022">
+<onup>36015</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36016</ondown>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>!Control.IsEnabled(36018) + control.IsVisible(36018)</visible>
+<label> -Type</label>
+<height>40</height>
+<posx>0</posx>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36018">
+<onup>36015</onup>
+<texturefocus>scroll-down-focus-2.png</texturefocus>
+<posx>680</posx>
+<width>33</width>
+<disabledcolor>grey3</disabledcolor>
+<height>22</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>scroll-down-2.png</texturenofocus>
+<posy>9</posy>
+<focusedcolor>white</focusedcolor>
+<onleft>9000</onleft>
+<font>font13</font>
+<onright>36019</onright>
+<ondown>36016</ondown>
+</control>
+<control type="button" id="36019">
+<onup>36015</onup>
+<texturefocus>scroll-up-focus-2.png</texturefocus>
+<posx>713</posx>
+<width>33</width>
+<disabledcolor>grey3</disabledcolor>
+<height>22</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>scroll-up-2.png</texturenofocus>
+<posy>9</posy>
+<focusedcolor>white</focusedcolor>
+<onleft>36018</onleft>
+<font>font13</font>
+<onright>9000</onright>
+<ondown>36016</ondown>
+</control>
+</control>
+<control type="button" id="36016">
+<visible>false</visible>
+<description>hidden button to scroll down the list</description>
+</control>
+<control type="button" id="36026">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>StringCompare(Skin.String(spincontrol36019),Static)</visible>
+<visible>StringCompare(Skin.String(spincontrol36007),eth0)</visible>
+<label>  -IP Address</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36027">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>StringCompare(Skin.String(spincontrol36019),Static)</visible>
+<visible>StringCompare(Skin.String(spincontrol36007),eth0)</visible>
+<label>  -Netmask</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36028">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>StringCompare(Skin.String(spincontrol36019),Static)</visible>
+<visible>StringCompare(Skin.String(spincontrol36007),eth0)</visible>
+<label>  -Gateway</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36029">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>StringCompare(Skin.String(spincontrol36019),Static)</visible>
+<visible>StringCompare(Skin.String(spincontrol36007),eth0)</visible>
+<label>  -Nameserver 1</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
 <control type="button" id="36030">
-<onup>36024</onup>
 <texturefocus>MenuItemFO.png</texturefocus>
-<ondown>36025</ondown>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>!Control.IsEnabled(36027) + control.IsVisible(36027)</visible>
-<label>Destination type </label>
+<visible>StringCompare(Skin.String(spincontrol36019),Static)</visible>
+<visible>StringCompare(Skin.String(spincontrol36007),eth0)</visible>
+<label>  -Nameserver 2</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36033">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>StringCompare(Skin.String(spincontrol36007),wlan0)</visible>
+<label> -Status</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36034">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>StringCompare(Skin.String(spincontrol36007),wlan0)</visible>
+<label> -SSID</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36036">
+<visible>false</visible>
+<description>hidden button to scroll up the list</description>
+</control>
+<control type="group" id="36038">
+<width>750</width>
+<visible>StringCompare(Skin.String(spincontrol36007),wlan0)</visible>
+<height>40</height>
+<control type="button" id="36041">
+<onup>36036</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36037</ondown>
+<width>750</width>
+<disabledcolor>white</disabledcolor>
+<visible>Control.HasFocus(36040) | Control.HasFocus(36039)</visible>
+<label> -Type</label>
+<height>40</height>
+<posx>0</posx>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemFO.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36042">
+<onup>36036</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36037</ondown>
+<width>750</width>
+<disabledcolor>grey2</disabledcolor>
+<visible>![Control.HasFocus(36040) | Control.HasFocus(36039)] + Control.IsEnabled(36040)</visible>
+<label> -Type</label>
 <height>40</height>
 <posx>0</posx>
 <pulseonselect>false</pulseonselect>
@@ -474,109 +589,72 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="wraplist" id="36031">
-<onup>36024</onup>
-<enable>false</enable>
-<ondown>36025</ondown>
-<width>225</width>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<scrolltime>0</scrolltime>
-<posx>450</posx>
-<posy>0</posy>
-<pagecontrol>36027</pagecontrol>
-<itemlayout width="225" height="40">
-</itemlayout>
-<focusedlayout width="225" height="40">
-<control type="label" id="36032">
-<textcolor>grey3</textcolor>
-<visible>!Control.IsEnabled(36027)</visible>
-<align>right</align>
-<label>$INFO[ListItem.Label]</label>
-<height>40</height>
-<width>225</width>
-<aligny>center</aligny>
-<posx>215</posx>
-<posy>0</posy>
-<font>font13</font>
-</control>
-<control type="label" id="36033">
-<textcolor>white</textcolor>
-<visible>Control.HasFocus(36027) + Control.IsEnabled(36027)</visible>
-<align>right</align>
-<label>$INFO[ListItem.Label]</label>
-<height>40</height>
-<width>225</width>
-<aligny>center</aligny>
-<posx>215</posx>
-<posy>0</posy>
-<font>font13</font>
-</control>
-<control type="label" id="36034">
-<textcolor>grey2</textcolor>
-<visible>!Control.HasFocus(36027) + Control.IsEnabled(36027)</visible>
-<align>right</align>
-<label>$INFO[ListItem.Label]</label>
-<height>40</height>
-<width>225</width>
-<aligny>center</aligny>
-<posx>215</posx>
-<posy>0</posy>
-<font>font13</font>
-</control>
-</focusedlayout>
-<content>
-<item id="36035">
-<onclick>-</onclick>
-<label>Device</label>
-</item>
-<item id="36036">
-<onclick>-</onclick>
-<label>File</label>
-</item>
-</content>
-</control>
-</control>
-<control type="button" id="36025">
-<visible>false</visible>
-<description>hidden button to scroll down the list</description>
-</control>
-<control type="button" id="36037">
+<control type="button" id="36043">
+<onup>36036</onup>
 <texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36037</ondown>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>Container(36031).HasFocus(36035)</visible>
-<visible>skin.hasSetting(advancedmode)</visible>
-<label> -Block device</label>
+<visible>!Control.IsEnabled(36039) + control.IsVisible(36039)</visible>
+<label> -Type</label>
 <height>40</height>
+<posx>0</posx>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
 <textcolor>grey2</textcolor>
 <texturenofocus>MenuItemNF.png</texturenofocus>
-<focusedcolor>white</focusedcolor>
-<font>font13</font>
-</control>
-<control type="button" id="36038">
-<texturefocus>MenuItemFO.png</texturefocus>
-<width>750</width>
-<disabledcolor>grey3</disabledcolor>
-<visible>Container(36031).HasFocus(36036)</visible>
-<visible>skin.hasSetting(advancedmode)</visible>
-<label> -Destination </label>
-<height>40</height>
-<pulseonselect>false</pulseonselect>
-<enable>false</enable>
-<textcolor>grey2</textcolor>
-<texturenofocus>MenuItemNF.png</texturenofocus>
+<posy>0</posy>
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
 <control type="button" id="36039">
+<onup>36036</onup>
+<texturefocus>scroll-down-focus-2.png</texturefocus>
+<posx>680</posx>
+<width>33</width>
+<disabledcolor>grey3</disabledcolor>
+<height>22</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>scroll-down-2.png</texturenofocus>
+<posy>9</posy>
+<focusedcolor>white</focusedcolor>
+<onleft>9000</onleft>
+<font>font13</font>
+<onright>36040</onright>
+<ondown>36037</ondown>
+</control>
+<control type="button" id="36040">
+<onup>36036</onup>
+<texturefocus>scroll-up-focus-2.png</texturefocus>
+<posx>713</posx>
+<width>33</width>
+<disabledcolor>grey3</disabledcolor>
+<height>22</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>scroll-up-2.png</texturenofocus>
+<posy>9</posy>
+<focusedcolor>white</focusedcolor>
+<onleft>36039</onleft>
+<font>font13</font>
+<onright>9000</onright>
+<ondown>36037</ondown>
+</control>
+</control>
+<control type="button" id="36037">
+<visible>false</visible>
+<description>hidden button to scroll down the list</description>
+</control>
+<control type="button" id="36047">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>skin.hasSetting(advancedmode)</visible>
-<label>Start backup now</label>
+<visible>StringCompare(Skin.String(spincontrol36040),Static)</visible>
+<visible>StringCompare(Skin.String(spincontrol36007),wlan0)</visible>
+<label>  -IP Address</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -585,21 +663,13 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36004">
-<textcolor>blue</textcolor>
-<align>left</align>
-<aligny>center</aligny>
-<label>Auto snapshot</label>
-<height>45</height>
-<width>750</width>
-<shadowcolor>black</shadowcolor>
-<font>font13_title</font>
-</control>
-<control type="radiobutton" id="36047">
+<control type="button" id="36048">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<label>Enable daily snapshot</label>
+<visible>StringCompare(Skin.String(spincontrol36040),Static)</visible>
+<visible>StringCompare(Skin.String(spincontrol36007),wlan0)</visible>
+<label>  -Netmask</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -612,7 +682,3656 @@
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>SubString(Control.GetLabel(36047),*)</visible>
+<visible>StringCompare(Skin.String(spincontrol36040),Static)</visible>
+<visible>StringCompare(Skin.String(spincontrol36007),wlan0)</visible>
+<label>  -Gateway</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36050">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>StringCompare(Skin.String(spincontrol36040),Static)</visible>
+<visible>StringCompare(Skin.String(spincontrol36007),wlan0)</visible>
+<label>  -Nameserver 1</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36051">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>StringCompare(Skin.String(spincontrol36040),Static)</visible>
+<visible>StringCompare(Skin.String(spincontrol36007),wlan0)</visible>
+<label>  -Nameserver 2</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36052">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>Licenses</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36053">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<label>MPG2 license</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36054">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<label>VC1 license</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36063">
+<textcolor>blue</textcolor>
+<width>750</width>
+<align>left</align>
+<aligny>center</aligny>
+<label>System</label>
+<height>45</height>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36064">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label>Hostname</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36096">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label>Timezone</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36066">
+<visible>false</visible>
+<description>hidden button to scroll up the list</description>
+</control>
+<control type="group" id="36068">
+<width>750</width>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<height>40</height>
+<control type="button" id="36071">
+<onup>36066</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36067</ondown>
+<width>750</width>
+<disabledcolor>white</disabledcolor>
+<visible>Control.HasFocus(36070) | Control.HasFocus(36069)</visible>
+<label>Kernel</label>
+<height>40</height>
+<posx>0</posx>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemFO.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36072">
+<onup>36066</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36067</ondown>
+<width>750</width>
+<disabledcolor>grey2</disabledcolor>
+<visible>![Control.HasFocus(36070) | Control.HasFocus(36069)] + Control.IsEnabled(36070)</visible>
+<label>Kernel</label>
+<height>40</height>
+<posx>0</posx>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36073">
+<onup>36066</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36067</ondown>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>!Control.IsEnabled(36069) + control.IsVisible(36069)</visible>
+<label>Kernel</label>
+<height>40</height>
+<posx>0</posx>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36069">
+<onup>36066</onup>
+<texturefocus>scroll-down-focus-2.png</texturefocus>
+<posx>680</posx>
+<width>33</width>
+<disabledcolor>grey3</disabledcolor>
+<height>22</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>scroll-down-2.png</texturenofocus>
+<posy>9</posy>
+<focusedcolor>white</focusedcolor>
+<onleft>9000</onleft>
+<font>font13</font>
+<onright>36070</onright>
+<ondown>36067</ondown>
+</control>
+<control type="button" id="36070">
+<onup>36066</onup>
+<texturefocus>scroll-up-focus-2.png</texturefocus>
+<posx>713</posx>
+<width>33</width>
+<disabledcolor>grey3</disabledcolor>
+<height>22</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>scroll-up-2.png</texturenofocus>
+<posy>9</posy>
+<focusedcolor>white</focusedcolor>
+<onleft>36069</onleft>
+<font>font13</font>
+<onright>9000</onright>
+<ondown>36067</ondown>
+</control>
+</control>
+<control type="button" id="36067">
+<visible>false</visible>
+<description>hidden button to scroll down the list</description>
+</control>
+<control type="button" id="36076">
+<visible>false</visible>
+<description>hidden button to scroll up the list</description>
+</control>
+<control type="group" id="36078">
+<width>750</width>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<height>40</height>
+<control type="button" id="36081">
+<onup>36076</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36077</ondown>
+<width>750</width>
+<disabledcolor>white</disabledcolor>
+<visible>Control.HasFocus(36080) | Control.HasFocus(36079)</visible>
+<label>Overclocking</label>
+<height>40</height>
+<posx>0</posx>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemFO.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36082">
+<onup>36076</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36077</ondown>
+<width>750</width>
+<disabledcolor>grey2</disabledcolor>
+<visible>![Control.HasFocus(36080) | Control.HasFocus(36079)] + Control.IsEnabled(36080)</visible>
+<label>Overclocking</label>
+<height>40</height>
+<posx>0</posx>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36083">
+<onup>36076</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36077</ondown>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>!Control.IsEnabled(36079) + control.IsVisible(36079)</visible>
+<label>Overclocking</label>
+<height>40</height>
+<posx>0</posx>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36079">
+<onup>36076</onup>
+<texturefocus>scroll-down-focus-2.png</texturefocus>
+<posx>680</posx>
+<width>33</width>
+<disabledcolor>grey3</disabledcolor>
+<height>22</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>scroll-down-2.png</texturenofocus>
+<posy>9</posy>
+<focusedcolor>white</focusedcolor>
+<onleft>9000</onleft>
+<font>font13</font>
+<onright>36080</onright>
+<ondown>36077</ondown>
+</control>
+<control type="button" id="36080">
+<onup>36076</onup>
+<texturefocus>scroll-up-focus-2.png</texturefocus>
+<posx>713</posx>
+<width>33</width>
+<disabledcolor>grey3</disabledcolor>
+<height>22</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>scroll-up-2.png</texturenofocus>
+<posy>9</posy>
+<focusedcolor>white</focusedcolor>
+<onleft>36079</onleft>
+<font>font13</font>
+<onright>9000</onright>
+<ondown>36077</ondown>
+</control>
+</control>
+<control type="button" id="36077">
+<visible>false</visible>
+<description>hidden button to scroll down the list</description>
+</control>
+<control type="button" id="36092">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>StringCompare(Skin.String(spincontrol36080),Custom)</visible>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label> -Arm</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36093">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>StringCompare(Skin.String(spincontrol36080),Custom)</visible>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label> -Core</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36094">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>StringCompare(Skin.String(spincontrol36080),Custom)</visible>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label> -SDram</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36095">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>StringCompare(Skin.String(spincontrol36080),Custom)</visible>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label> -Overvoltage</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36097">
+<textcolor>blue</textcolor>
+<width>750</width>
+<align>left</align>
+<aligny>center</aligny>
+<label>Accounts</label>
+<height>45</height>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36098">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label>Root password</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36099">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label>XBian password</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36100">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label>SSH root login</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36055">
+<textcolor>blue</textcolor>
+<width>750</width>
+<align>left</align>
+<aligny>center</aligny>
+<label>Connectivity</label>
+<height>45</height>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="radiobutton" id="36057">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label>Force HDMI output when no tv is identified</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36058">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label>Ignore HDMI output even if a tv is connected</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36059">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label>Ignore CEC init, preventing wakeup of tv at reboot</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36060">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label>Disable CEC</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36061">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label>Disable overscan</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36062">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label>Disable the 'rainbow' screen at really start of RPI</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+</control>
+<control type="grouplist" id="36159">
+<itemgap>-1</itemgap>
+<onleft>9000</onleft>
+<onright>9000</onright>
+<visible>Container(9000).HasFocus(36158)</visible>
+<control type="label" id="36104">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>Service</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36106">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(0cb8ada8-c2b2-4ad6-883f-500a4b515f09),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36107">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(f7aba63d-d756-4cef-845e-dfacb4f24294),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36108">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(25fd1863-9e00-4578-8b16-e5598a003625),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36109">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(9d8f156c-6ea4-4230-aabe-d8e5fd4cdc11),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36110">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(732caaab-7707-4c4a-99fa-2a129652f55a),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36111">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(6d6368ad-c35f-444c-830a-43827b6a3baa),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36112">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(4293667d-b19c-4146-a45c-8aa00df91e2c),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36113">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(96316f4b-690b-4b2c-a946-22cd218db874),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36114">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(241cbfea-b416-44b7-a476-0ff4b096ee8f),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36115">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(5cfdfddf-aacd-4107-b97d-fb4bfacd3429),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36116">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(80ef98b3-f7b3-4f6b-bbc4-893ec233e02c),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36117">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(901d3d95-068c-453f-aeb2-15b017dd77f3),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36118">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(2a5d2a3b-e943-44fe-aadb-083bad8d7df7),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36119">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(f0c6568a-60f5-446b-805a-db2f313e0637),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36120">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(5a4acc29-b72d-4092-886d-b68839584fdf),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36121">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(8702a23c-26d0-4ff4-aa5e-66a9ab465128),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36122">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(78080a7a-6c43-47cc-bed3-4580f4c9cad7),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36123">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(6a8b736c-6253-4aed-90bc-01a27aeac97c),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36124">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(0270521c-3f9b-4147-a1f7-ca7d124440a6),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36125">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(d1f42d43-781c-4544-89f8-0a23de3d9954),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36126">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(9a1b7e49-51cf-4c18-b655-8afd810e41c4),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36127">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(5eef515d-4e7f-4f7f-b1e3-a9cc10d655c1),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36128">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(d3cdf109-f30d-468d-8858-5d36c7b17768),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36129">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(692c1aff-363c-4534-9025-8d8ebc8ef9ba),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36130">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(acda5baa-ab31-472f-a06c-c14a26e64501),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36131">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(d0360170-30f8-491a-9f93-3c19ec9a7753),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36132">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(9e2bb8dd-acc4-468d-b14e-07f108b26803),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36133">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(2815a47c-74a0-4841-b277-a4493e202feb),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36134">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(d0e6c00e-3a04-4513-a85f-745021955ed8),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36135">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(8fa5ccec-d092-4dba-8fd4-d6516fd83be5),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36136">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(62e0618c-8c3f-453c-9980-dd117da2073b),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36137">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(19cab215-086b-4d82-9f8a-20bc3c828203),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36138">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(a99a0a5f-8fee-4c31-a680-7e36fe19a8b8),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36139">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(0dfd93d7-acf5-4574-89d0-f06dc87c8b6b),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36140">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(90ae2c80-507a-4c49-af28-8ff9dcfdfa0a),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36141">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(58e267be-ba55-4787-936c-0fe1d1666e81),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36142">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(90bebe0b-24a1-4491-b0de-4ab1319f8cc1),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36143">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(c5a06e71-92be-48d3-aa4c-b3cfd54adb34),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36144">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(1dc8ce0e-a42c-4012-95b9-2eb19c0ecb23),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36145">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(09641e39-d061-42c5-a202-ba2adab7b2eb),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36146">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(80f136e7-90ed-42cb-9d72-3f05953c7054),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36147">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(46cdc7b6-5af9-4575-abb3-d5ed9f3aa006),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36148">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(87fa6e57-a748-4117-b45c-67521519ec8e),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36149">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(c8050835-0436-4614-b7b9-72781049dadc),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36150">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(71ef15a6-6e1a-4739-a2ef-74ade4601378),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36151">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(3db97a62-24cc-4bf3-bef0-8b9c93cb1dc6),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36152">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(3ebbf0ad-1798-4ac7-b8b0-667ffbb6a409),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36153">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(3e1eef2d-8030-4615-b5fe-e798271a7f5d),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36154">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(42d917df-0d6c-416b-9acc-eccb9c3acf43),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36155">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(72a903d0-3014-432e-88ee-433b47fab0f8),1)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36156">
+<textcolor>blue</textcolor>
+<width>750</width>
+<align>left</align>
+<aligny>center</aligny>
+<label>Edit</label>
+<height>45</height>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36157">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label>Add a custom service</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+</control>
+<control type="grouplist" id="36289">
+<itemgap>-1</itemgap>
+<onleft>9000</onleft>
+<onright>9000</onright>
+<visible>Container(9000).HasFocus(36288)</visible>
+<control type="label" id="36162">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>admin [COLOR lightblue](0/2)[/COLOR]</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36163">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(ab80fa5a-bde3-49b3-bc42-29a46d8b8720),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36164">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(cefeb183-0434-454d-ba23-08c8ba6578a6),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36165">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(c3a6c5b5-93c4-487a-b881-e89c69b2d443),1)</visible>
+<label>Get more...</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36167">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>audio [COLOR lightblue](0/1)[/COLOR]</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36168">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(210c9b1a-b7e7-4412-963b-1db360feae10),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36169">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(7b8ddcb8-ee3d-4847-848c-06e2026c2cae),1)</visible>
+<label>Get more...</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36171">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>base [COLOR lightblue](1/1)[/COLOR]</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36172">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(94b33f0f-1aa0-4eec-998c-12542e87febb),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36173">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(ca821e14-4441-4d35-98af-b9c137c83893),1)</visible>
+<label>Get more...</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36175">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>devel [COLOR lightblue](0/1)[/COLOR]</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36176">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(51d1f01e-b20e-4e5d-8ed2-02424bae3731),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36177">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(727a1c7f-098a-4c0d-8a6b-707d2b40e67a),1)</visible>
+<label>Get more...</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36179">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>firmware [COLOR lightblue](1/3)[/COLOR]</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36180">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(74a5186b-add6-4385-aff4-2fb120fda111),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36181">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(62eb1618-fd09-4d4d-85f3-2e262d23b702),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36182">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(f78eeb1f-3c08-4860-a19d-5b507d114bb4),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36183">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(5fa96dfe-5820-4f9b-8e48-dbad8324fa19),1)</visible>
+<label>Get more...</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36185">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>kernel [COLOR lightblue](2/9)[/COLOR]</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36186">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(65630bef-2ca9-468d-b188-34485387a735),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36187">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(32f175fe-f3e2-4e39-bdf5-2206146be0d3),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36188">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(336e3a79-2d04-433d-b306-4e6e2923751a),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36189">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(b82a1e84-aef3-474b-a60a-05bf019b1bdd),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36190">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(7894b50a-ec72-4a2f-853b-aff189ca7bbe),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36191">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(697d85f6-019d-49ec-bf51-ee5c472a4192),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36192">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(e7c40a8c-0a1c-46d1-8d40-68882079c3bb),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36193">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(f438bd05-ad64-4f17-b0d4-cc4b34f709e1),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36194">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(38f81c93-93e9-4a01-867a-4875c12b01a9),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36195">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(5f34e358-5057-4378-abf3-9dcc09255b86),1)</visible>
+<label>Get more...</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36197">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>libdevel [COLOR lightblue](0/2)[/COLOR]</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36198">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(7f26f040-2e1b-408a-b161-c2f45caf2357),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36199">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(78b97c06-4216-40d6-9e4f-08df687bfc15),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36200">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(84c4716d-fd2c-4c63-80bb-933bd50dba2e),1)</visible>
+<label>Get more...</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36202">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>libs [COLOR lightblue](0/3)[/COLOR]</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36203">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(088d6b5b-c98a-4c5d-b35f-4fbd491a1e50),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36204">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(f604f370-b00e-4704-976d-6eb91345abe5),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36205">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(01570422-b246-4312-8e0f-6622c16304ca),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36206">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(ae66fbf5-ba8f-4494-898b-786bc10e03a1),1)</visible>
+<label>Get more...</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36208">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>net [COLOR lightblue](2/9)[/COLOR]</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36209">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(a78fb558-f3cf-4aab-a1cf-53214ceb0693),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36210">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(0c1b06ea-faf6-47a8-ae87-d8e2575bd694),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36211">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(91644797-82cf-4003-8b99-3be086f018bd),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36212">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(f571f5e8-e14a-4537-ad92-e897a71a0b10),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36213">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(f6cb076f-a265-4f85-b651-c07fa39bc280),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36214">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(01362ea6-c609-40e5-8c30-61eea2a0cfc1),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36215">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(d735ab1a-69f9-4b2b-8ba9-0343ac90b300),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36216">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(a5176fe7-acef-460f-8137-3f5bd8d939cf),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36217">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(5b6be948-91ea-44b4-99c6-cf19e8612c59),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36218">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(d29b0aa8-4927-47b3-89fe-593d46c0c344),1)</visible>
+<label>Get more...</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36220">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>non-free/utils [COLOR lightblue](0/1)[/COLOR]</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36221">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(335b8ea5-1792-4f89-85c7-ee548da8c4a0),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36222">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(c161cf30-6d6c-435f-be19-56e2b0b135e7),1)</visible>
+<label>Get more...</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36224">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>oldlibs [COLOR lightblue](0/4)[/COLOR]</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36225">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(37ec38ab-76ef-43a3-92e1-12f22435a132),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36226">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(c64d423a-401a-45e3-94d7-11b70cc8d2c3),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36227">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(327a2863-91b4-475f-b947-ac070c4c15f9),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36228">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(b9fec02e-6aea-425b-9feb-faa46321d78c),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36229">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(1f07bd21-efb6-4e99-b14f-882dabd13082),1)</visible>
+<label>Get more...</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36231">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>repository [COLOR lightblue](1/2)[/COLOR]</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36232">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(63b58fe4-db42-40a4-bc23-c5bdca29defb),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36233">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(460a5159-d57f-40c5-8673-00d49541a71e),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36234">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(4f7f83c0-0876-4946-926b-db35fad55a2f),1)</visible>
+<label>Get more...</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36236">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>system [COLOR lightblue](1/2)[/COLOR]</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36237">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(c370008f-8591-4b5a-af4d-a9373f4e7ea6),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36238">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(e7db71cc-312f-4eeb-b2c3-1fcbef8c22ae),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36239">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(5957cf80-8bf2-4b2c-ab7c-4032915e8d79),1)</visible>
+<label>Get more...</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36241">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>utils [COLOR lightblue](8/19)[/COLOR]</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36242">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(25c252a2-0586-4c4e-930b-08836df6cbcb),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36243">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(4090dbf2-138f-44b1-94c8-0871cd5b3b4d),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36244">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(9e7b2750-a97d-4f36-9457-45dd9e9fd32a),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36245">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(530c94fb-9acf-4dd6-8926-4ce7c9daea3e),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36246">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(d36eb8e1-98d8-4ba2-856c-5883a92fea3f),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36247">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(6b53c074-a185-4c22-b9ad-83c93e0eba3f),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36248">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(a2fc117f-ccb8-4542-aeca-c741dcf45eff),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36249">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(dbba582e-bb3a-4231-9b73-d1ad29f61a9d),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36250">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(84a38ea2-4b90-46f9-ade5-535cf1ff3028),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36251">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(f0d73840-d533-475f-a0cb-9cf92883e6c1),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36252">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(5898e722-d410-40ff-bbef-e25f23955e9b),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36253">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(b71770ce-aeba-4a5b-87c4-557d87754800),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36254">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(6d90fbd2-8107-4bbf-8f8b-ed9731cf19d4),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36255">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(46bbbdea-046d-4dcb-9a91-8d6cf299ddb2),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36256">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(d7ff20a4-6905-4f03-a83a-c5e104a09712),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36257">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(a879b925-4f63-419a-a41c-484d6f0a4b17),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36258">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(b3a66ec3-0b29-4506-ba85-2c7c3f2d136d),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36259">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(9d4de99b-b50b-44c8-a96e-1d57419c996e),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36260">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(383a7457-fa51-4169-96b3-c797ea602039),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36261">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(1c0f3dac-c37b-4321-b473-cd69d6196a35),1)</visible>
+<label>Get more...</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36263">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>video [COLOR lightblue](3/6)[/COLOR]</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36264">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(1dab4c29-5671-4cf8-9119-fa4a40e72c96),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36265">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(76195ae5-4a14-486c-b585-1d94feb75316),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36266">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(9188c091-a76d-4639-b8e0-c846d8f9c400),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36267">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(bd26c2ae-403a-44de-bc03-eed7cc289338),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36268">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(695711e0-3502-4a5e-8ca1-f11e505712c2),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36269">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(3a788102-081a-4dda-8e03-a90f492f7600),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36270">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(fe6760d1-7a85-41f9-94cf-1c9916ee6bc3),1)</visible>
+<label>Get more...</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36272">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>web [COLOR lightblue](0/2)[/COLOR]</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36273">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(c2c72fe1-d1d5-46c0-a8bb-4ab609d058e5),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36274">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(5c56dbd2-a034-4312-9ae5-1c026e9a21ca),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36275">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(f1e26126-9db0-4187-9c27-24f99e7e769b),1)</visible>
+<label>Get more...</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36277">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>x11 [COLOR lightblue](0/2)[/COLOR]</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36278">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(a9ca4819-a59d-4d48-91f9-28131968c154),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36279">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(e4402fc1-492d-4a75-8d2d-d46a4ceffa3f),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36280">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(6dbafd23-3e9c-40f0-8b5f-6181abc6f313),1)</visible>
+<label>Get more...</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36282">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>xbmc [COLOR lightblue](1/4)[/COLOR]</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36283">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(0945f3f3-2b3a-4b6e-8d21-0431b271a8b8),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36284">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(2e95bf5f-0069-41fa-bef6-7808abe9d524),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36285">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(02c7bc78-5f21-499b-9c1b-7f811d9caab5),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36286">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(4ef56358-d93d-48dd-bdb1-fc4519584275),1)</visible>
+<label>Not Loaded</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36287">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(7fb8f7e9-c79f-4d0b-b8cb-48252441f172),1)</visible>
+<label>Get more...</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+</control>
+<control type="grouplist" id="36320">
+<itemgap>-1</itemgap>
+<onleft>9000</onleft>
+<onright>9000</onright>
+<visible>Container(9000).HasFocus(36319)</visible>
+<control type="label" id="36310">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>Updates</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36292">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(bsqxdv0),1)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36293">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(bsqxdv1),1)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36294">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(bsqxdv2),1)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36295">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(bsqxdv3),1)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36296">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(bsqxdv4),1)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36297">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(bsqxdv5),1)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36298">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(bsqxdv6),1)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36299">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(bsqxdv7),1)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36300">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(bsqxdv8),1)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36301">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(bsqxdv9),1)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36302">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(bsqxdv10),1)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36303">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(bsqxdv11),1)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36304">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(bsqxdv12),1)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36305">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(bsqxdv13),1)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36306">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(bsqxdv14),1)</visible>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36307">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(bsqxdvall),1)</visible>
+<label>Update all</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36308">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(enableForce),1)</visible>
+<label>Check for system updates</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>!Stringcompare(Window.Property(aptrunning),1)</enable>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36309">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>!Control.IsVisible(36292) + !Control.IsVisible(36293) + !Control.IsVisible(36294) + !Control.IsVisible(36295) + !Control.IsVisible(36296) + !Control.IsVisible(36297) + !Control.IsVisible(36298) + !Control.IsVisible(36299) + !Control.IsVisible(36300) + !Control.IsVisible(36301) + !Control.IsVisible(36302) + !Control.IsVisible(36303) + !Control.IsVisible(36304) + !Control.IsVisible(36305) + !Control.IsVisible(36306)</visible>
+<label></label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36311">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>Automatic updates</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="radiobutton" id="36315">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<label>Auto update package inventory</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36317">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>SubString(Control.GetLabel(36315),*)</visible>
+<label>        - interval (days)</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36312">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<label>Auto install available updates</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36313">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<label>Do a snapshot with APT-GET transaction</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+</control>
+<control type="grouplist" id="36344">
+<itemgap>-1</itemgap>
+<onleft>9000</onleft>
+<onright>9000</onright>
+<visible>Container(9000).HasFocus(36343)</visible>
+<control type="label" id="36321">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>XBMC</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="radiobutton" id="36323">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<label>Turn CEC capable TV OFF with screensaver</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36325">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>SubString(Control.GetLabel(36323),*)</visible>
+<label>        - delay (min)</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36327">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<label>Turn CEC capable TV OFF on RPI shutdown</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36326">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label>Turn CEC capable TV ON when XBMC exits</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36334">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label>XBMC Dynamic Priority</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36336">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>SubString(Control.GetLabel(36334),*)</visible>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label>        - Lower Nice priority</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36337">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>SubString(Control.GetLabel(36334),*)</visible>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label>        - Higher Nice priority</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36328">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>USB HotPlug</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="radiobutton" id="36329">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label>Enable USB disk automounting</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36342">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label>Mount with sync option</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36330">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<label>Make automounted disks available via SMB</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36331">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<label>Shares should be world  writable (including anonymous access)</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36332">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label>Include partition UUID in mnt folder name</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="radiobutton" id="36339">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<label>Spin Down HDD</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36341">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>SubString(Control.GetLabel(36339),*)</visible>
+<label>        - delay (min)</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+</control>
+<control type="grouplist" id="36394">
+<itemgap>-1</itemgap>
+<onleft>9000</onleft>
+<onright>9000</onright>
+<visible>Container(9000).HasFocus(36393)</visible>
+<control type="label" id="36346">
+<textcolor>blue</textcolor>
+<align>left</align>
+<aligny>center</aligny>
+<label>Home backup</label>
+<height>45</height>
+<width>750</width>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="button" id="36379">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<label>Start backup now</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36380">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<label>Restore backup</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36347">
+<textcolor>blue</textcolor>
+<width>750</width>
+<align>left</align>
+<aligny>center</aligny>
+<label>System backup</label>
+<height>45</height>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="radiobutton" id="36351">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label>Auto image</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36354">
+<visible>false</visible>
+<description>hidden button to scroll up the list</description>
+</control>
+<control type="group" id="36356">
+<width>750</width>
+<visible>SubString(Control.GetLabel(36351),*)</visible>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<height>40</height>
+<control type="button" id="36359">
+<onup>36354</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36355</ondown>
+<width>750</width>
+<disabledcolor>white</disabledcolor>
+<visible>Control.HasFocus(36358) | Control.HasFocus(36357)</visible>
+<label> -Type</label>
+<height>40</height>
+<posx>0</posx>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemFO.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36360">
+<onup>36354</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36355</ondown>
+<width>750</width>
+<disabledcolor>grey2</disabledcolor>
+<visible>![Control.HasFocus(36358) | Control.HasFocus(36357)] + Control.IsEnabled(36358)</visible>
+<label> -Type</label>
+<height>40</height>
+<posx>0</posx>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36361">
+<onup>36354</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36355</ondown>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>!Control.IsEnabled(36357) + control.IsVisible(36357)</visible>
+<label> -Type</label>
+<height>40</height>
+<posx>0</posx>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36357">
+<onup>36354</onup>
+<texturefocus>scroll-down-focus-2.png</texturefocus>
+<posx>680</posx>
+<width>33</width>
+<disabledcolor>grey3</disabledcolor>
+<height>22</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>scroll-down-2.png</texturenofocus>
+<posy>9</posy>
+<focusedcolor>white</focusedcolor>
+<onleft>9000</onleft>
+<font>font13</font>
+<onright>36358</onright>
+<ondown>36355</ondown>
+</control>
+<control type="button" id="36358">
+<onup>36354</onup>
+<texturefocus>scroll-up-focus-2.png</texturefocus>
+<posx>713</posx>
+<width>33</width>
+<disabledcolor>grey3</disabledcolor>
+<height>22</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>scroll-up-2.png</texturenofocus>
+<posy>9</posy>
+<focusedcolor>white</focusedcolor>
+<onleft>36357</onleft>
+<font>font13</font>
+<onright>9000</onright>
+<ondown>36355</ondown>
+</control>
+</control>
+<control type="button" id="36355">
+<visible>false</visible>
+<description>hidden button to scroll down the list</description>
+</control>
+<control type="button" id="36366">
+<visible>false</visible>
+<description>hidden button to scroll up the list</description>
+</control>
+<control type="group" id="36368">
+<width>750</width>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<height>40</height>
+<control type="button" id="36371">
+<onup>36366</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36367</ondown>
+<width>750</width>
+<disabledcolor>white</disabledcolor>
+<visible>Control.HasFocus(36370) | Control.HasFocus(36369)</visible>
+<label>Destination type</label>
+<height>40</height>
+<posx>0</posx>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemFO.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36372">
+<onup>36366</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36367</ondown>
+<width>750</width>
+<disabledcolor>grey2</disabledcolor>
+<visible>![Control.HasFocus(36370) | Control.HasFocus(36369)] + Control.IsEnabled(36370)</visible>
+<label>Destination type</label>
+<height>40</height>
+<posx>0</posx>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36373">
+<onup>36366</onup>
+<texturefocus>MenuItemFO.png</texturefocus>
+<ondown>36367</ondown>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>!Control.IsEnabled(36369) + control.IsVisible(36369)</visible>
+<label>Destination type</label>
+<height>40</height>
+<posx>0</posx>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<posy>0</posy>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36369">
+<onup>36366</onup>
+<texturefocus>scroll-down-focus-2.png</texturefocus>
+<posx>680</posx>
+<width>33</width>
+<disabledcolor>grey3</disabledcolor>
+<height>22</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>scroll-down-2.png</texturenofocus>
+<posy>9</posy>
+<focusedcolor>white</focusedcolor>
+<onleft>9000</onleft>
+<font>font13</font>
+<onright>36370</onright>
+<ondown>36367</ondown>
+</control>
+<control type="button" id="36370">
+<onup>36366</onup>
+<texturefocus>scroll-up-focus-2.png</texturefocus>
+<posx>713</posx>
+<width>33</width>
+<disabledcolor>grey3</disabledcolor>
+<height>22</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>scroll-up-2.png</texturenofocus>
+<posy>9</posy>
+<focusedcolor>white</focusedcolor>
+<onleft>36369</onleft>
+<font>font13</font>
+<onright>9000</onright>
+<ondown>36367</ondown>
+</control>
+</control>
+<control type="button" id="36367">
+<visible>false</visible>
+<description>hidden button to scroll down the list</description>
+</control>
+<control type="button" id="36376">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>StringCompare(Skin.String(spincontrol36370),Device)</visible>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label> -Block device</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36377">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>StringCompare(Skin.String(spincontrol36370),File)</visible>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label> -Destination: </label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36378">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label>Start backup now</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="label" id="36349">
+<textcolor>blue</textcolor>
+<width>750</width>
+<align>left</align>
+<aligny>center</aligny>
+<label>Auto snapshot</label>
+<height>45</height>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<shadowcolor>black</shadowcolor>
+<font>font13_title</font>
+</control>
+<control type="radiobutton" id="36386">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
+<label>Enable daily snapshot</label>
+<height>40</height>
+<pulseonselect>false</pulseonselect>
+<enable>false</enable>
+<textcolor>grey2</textcolor>
+<texturenofocus>MenuItemNF.png</texturenofocus>
+<focusedcolor>white</focusedcolor>
+<font>font13</font>
+</control>
+<control type="button" id="36388">
+<texturefocus>MenuItemFO.png</texturefocus>
+<width>750</width>
+<disabledcolor>grey3</disabledcolor>
+<visible>SubString(Control.GetLabel(36386),*)</visible>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
 <label>     -Number of snapshot to keep</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -622,10 +4341,11 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36051">
+<control type="radiobutton" id="36390">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
 <label>Enable weekly snapshot</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -635,11 +4355,12 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36053">
+<control type="button" id="36392">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<visible>SubString(Control.GetLabel(36051),*)</visible>
+<visible>SubString(Control.GetLabel(36390),*)</visible>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
 <label>     -Number of snapshot to keep</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -649,7 +4370,7 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36000">
+<control type="label" id="36345">
 <textcolor>blue</textcolor>
 <align>left</align>
 <aligny>center</aligny>
@@ -659,10 +4380,11 @@
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="button" id="36042">
+<control type="button" id="36381">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
 <label>Mount a snapshot</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -672,7 +4394,7 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36043">
+<control type="button" id="36382">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
@@ -685,10 +4407,11 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36044">
+<control type="button" id="36383">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
+<visible>Stringcompare(Window.Property(advancedmode),1)</visible>
 <label>Delete a snapshot</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
@@ -698,7 +4421,7 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="button" id="36045">
+<control type="button" id="36384">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
@@ -712,12 +4435,12 @@
 <font>font13</font>
 </control>
 </control>
-<control type="grouplist" id="36067">
+<control type="grouplist" id="36403">
 <itemgap>-1</itemgap>
 <onleft>9000</onleft>
 <onright>9000</onright>
-<visible>Container(9000).HasFocus(36066)</visible>
-<control type="label" id="36056">
+<visible>Container(9000).HasFocus(36402)</visible>
+<control type="label" id="36396">
 <textcolor>blue</textcolor>
 <align>left</align>
 <aligny>center</aligny>
@@ -727,11 +4450,11 @@
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="radiobutton" id="36057">
+<control type="radiobutton" id="36397">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<label>Advanced mode</label>
+<label>Advanced Mode</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -740,21 +4463,21 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="label" id="36058">
+<control type="label" id="36398">
 <textcolor>blue</textcolor>
 <align>left</align>
 <aligny>center</aligny>
-<label>Notification</label>
+<label>Notifications</label>
 <height>45</height>
 <width>750</width>
 <shadowcolor>black</shadowcolor>
 <font>font13_title</font>
 </control>
-<control type="radiobutton" id="36061">
+<control type="radiobutton" id="36401">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
-<label>Ask confirmation before saving</label>
+<label>Ask confirmation before saving new settings</label>
 <height>40</height>
 <pulseonselect>false</pulseonselect>
 <enable>false</enable>
@@ -763,7 +4486,7 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36059">
+<control type="radiobutton" id="36399">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
@@ -776,7 +4499,7 @@
 <focusedcolor>white</focusedcolor>
 <font>font13</font>
 </control>
-<control type="radiobutton" id="36060">
+<control type="radiobutton" id="36400">
 <texturefocus>MenuItemFO.png</texturefocus>
 <width>750</width>
 <disabledcolor>grey3</disabledcolor>
