@@ -19,10 +19,16 @@ CACHEDIR = '/home/xbian/.xbmc/userdata/addon_data/plugin.xbianconfig'
 CACHEFILE = 'cache.db'
 
 if not os.path.isdir(CACHEDIR) :
-    try:
-        os.makedirs(CACHEDIR)
-    except:
-        exit(0)
+    if not os.path.isdir(CACHEDIR.replace('.xbmc', '.kodi')):
+        if XBMC:
+            xbmc.log('XBian-Config: no ~/.xbmc or ~/.kodi directory found.', xbmc.LOGWARNING)
+
+        try:
+            os.makedirs(CACHEDIR)
+        except:
+            exit(0)
+    else:
+        CACHEDIR = CACHEDIR.replace('.xbmc', '.kodi')
 
 cacheDB = shelve.open(os.path.join(CACHEDIR,CACHEFILE),'c',writeback=True)
 
