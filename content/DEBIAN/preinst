@@ -6,13 +6,13 @@ fi
 
 if [ $1 = upgrade ]; then
 
-    if [ -d /usr/local/share/xbmc/addons/plugin.xbianconfig ]; then
-	find /usr/local/share/xbmc/addons/plugin.xbianconfig -iname SettingsXbianInfo.xml | xargs rm -f 2
-	find /usr/local/share/xbmc/addons/plugin.xbianconfig -iname \*.pyc | xargs rm -f 2
+    if [ -d /usr/local/share/kodi/addons/plugin.xbianconfig ]; then
+	find /usr/local/share/kodi/addons/plugin.xbianconfig -iname SettingsXbianInfo.xml | xargs rm -f 2
+	find /usr/local/share/kodi/addons/plugin.xbianconfig -iname \*.pyc | xargs rm -f 2
     fi
-    if [ -d /home/xbian/.xbmc/addons/plugin.xbianconfig ]; then
-	find /home/xbian/.xbmc/addons/plugin.xbianconfig -iname SettingsXbianInfo.xml | xargs rm -f
-	find /home/xbian/.xbmc/addons/plugin.xbianconfig -iname \*.pyc  | xargs rm -f
+    if [ -d /home/xbian/.kodi/addons/plugin.xbianconfig ]; then
+	find /home/xbian/.kodi/addons/plugin.xbianconfig -iname SettingsXbianInfo.xml | xargs rm -f
+	find /home/xbian/.kodi/addons/plugin.xbianconfig -iname \*.pyc  | xargs rm -f
     fi
 
 fi

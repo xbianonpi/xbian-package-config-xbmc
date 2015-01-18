@@ -2,8 +2,8 @@
 
 if [ $1 == "configure" ]; then
 	
-	chown -R xbian:xbian /usr/local/share/xbmc/addons/plugin.xbianconfig/
+	chown -R xbian:xbian /usr/local/share/{xbmc,kodi}/addons/plugin.xbianconfig/
 
-        find /usr/local/share/xbmc/addons/plugin.xbianconfig -iname \*.pyc | xargs -L1 rm -f > /dev/null 2>&1
+        find /usr/local/share/{xbmc,kodi}/addons/plugin.xbianconfig -iname \*.pyc | xargs -L1 rm -f > /dev/null 2>&1
 
 fi
