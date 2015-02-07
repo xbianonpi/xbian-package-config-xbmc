@@ -77,17 +77,13 @@
                 <scrolltime>300</scrolltime>
                 <itemlayout height="60" width="260">
                     <control type="image">
-                        <posx>0</posx>
-                        <posy>0</posy>
                         <width>260</width>
                         <height>60</height>
                         <texture border="5">MenuItemNF.png</texture>
                     </control>
                     <control type="label" id="95">
                         <description>Menu Label no focus</description>
-                        <posx>250</posx>
-                        <posy>10</posy>
-                        <height>60</height>
+                        <centertop>55%</centertop>
                         <width>241</width>
                         <align>right</align>
                         <font>font13_title</font>
@@ -96,9 +92,7 @@
                     </control>
                     <control type="label" id="98">
                         <description>click to load Label focus</description>
-                        <posx>250</posx>
-                        <posy>35</posy>
-                        <height>20</height>
+                        <centertop>75%</centertop>
                         <width>241</width>
                         <align>right</align>
                         <font>font10</font>
@@ -108,17 +102,13 @@
                 </itemlayout>
                 <focusedlayout height="60" width="260">
                     <control type="image">
-                        <posx>0</posx>
-                        <posy>0</posy>
                         <width>260</width>
                         <height>60</height>
                         <texture border="5">MenuItemFO.png</texture>
                     </control>
                     <control type="label" id="96">
                         <description>Menu Label focus</description>
-                        <posx>250</posx>
-                        <posy>10</posy>
-                        <height>60</height>
+                        <centertop>55%</centertop>
                         <width>241</width>
                         <align>right</align>
                         <font>font13_title</font>
@@ -127,9 +117,7 @@
                     </control>
                     <control type="label" id="97">
                         <description>click to load Label focus</description>
-                        <posx>250</posx>
-                        <posy>35</posy>
-                        <height>20</height>
+                        <centertop>75%</centertop>
                         <width>241</width>
                         <align>right</align>
                         <font>font10</font>
