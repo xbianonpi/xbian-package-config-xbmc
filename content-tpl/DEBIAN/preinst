@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ $1 == "install" -o $1 == "upgrade" ]; then
+:
+fi
+
+if [ $1 = upgrade ]; then
+
+    if [ -d /usr/local/share/kodi/addons/plugin.xbianconfig ]; then
+	find /usr/local/share/kodi/addons/plugin.xbianconfig -iname SettingsXbianInfo.xml | xargs rm -f 2
+	find /usr/local/share/kodi/addons/plugin.xbianconfig -iname \*.pyc | xargs rm -f 2
+    fi
+    if [ -d /home/xbian/.kodi/addons/plugin.xbianconfig ]; then
+	find /home/xbian/.kodi/addons/plugin.xbianconfig -iname SettingsXbianInfo.xml | xargs rm -f
+	find /home/xbian/.kodi/addons/plugin.xbianconfig -iname \*.pyc  | xargs rm -f
+    fi
+
+fi
+
+exit 0

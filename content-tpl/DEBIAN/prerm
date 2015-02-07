@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ $1 == "purge" -o $1 ]; then
+	
+ :
+
+fi
+
+exit 0
+
