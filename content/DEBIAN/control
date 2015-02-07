@@ -1,6 +1,6 @@
 Origin: XBian
 Package: xbian-package-config-xbmc
-Version: 1.3.0
+Version: 20150207-0
 Section: utils
 Essential: No
 Priority: optional
@@ -8,4 +8,4 @@ Architecture: armhf
 Depends: xbian-package-config-shell (>=2.1.6-53), xbian-update (>=1.0.2-7c)
 Breaks: xbian-package-xbmc-scripts (<<1.0.1-16), xbian-package-upstart-xbmc-bridge (<<1.1.3), xbian-package-xbmc (<<14.0), xbian-package-xbmc-6q (<<14.0)
 Maintainer: Belese <development@xbian.org>
-Description: Configuration utility for XBian.
+Description: Configuration utility for XBian 20150207-0.
