@@ -15,7 +15,7 @@ import threading
 if XBMC :
 	xbmc.log('XBian-config : Initialise bash sessions',xbmc.LOGDEBUG)
 
-CACHEDIR = '/home/xbian/.xbmc/userdata/addon_data/plugin.xbianconfig'
+CACHEDIR = '/home/xbian/.kodi/userdata/addon_data/plugin.xbianconfig'
 CACHEFILE = 'cache.db'
 
 if not os.path.isdir(CACHEDIR) :
