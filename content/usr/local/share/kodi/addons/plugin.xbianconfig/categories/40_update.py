@@ -1,5 +1,4 @@
 import os
-import time
 import random
 import string
 
@@ -15,7 +14,6 @@ import resources.lib.translation
 _ = resources.lib.translation.language.ugettext
 
 
-import xbmc
 from xbmcaddon import Addon
 
 __addonID__      = "plugin.xbianconfig"

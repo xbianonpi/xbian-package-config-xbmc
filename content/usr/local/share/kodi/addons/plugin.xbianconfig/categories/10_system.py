@@ -13,9 +13,8 @@ _ = resources.lib.translation.language.ugettext
 import xbmcgui
 import base64
 
-import pickle
-
 dialog=xbmcgui.Dialog()
+
 
 class NewtorkLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label', _('Network')))
@@ -307,7 +306,6 @@ class mpeg2License(Setting) :
         
     def checkUserValue(self,value):
         try :
-            hexvalue = int(value,16)
             keyok = ((len(value) == 10) or (len(value) == 9))  and value[:2] == '0x'
         except :
             keyok = False   

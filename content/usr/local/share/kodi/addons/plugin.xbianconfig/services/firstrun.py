@@ -1,4 +1,3 @@
-import xbmcgui
 import xbmc
 from resources.lib.service import service
 from xbmcaddon import Addon

@@ -1,5 +1,5 @@
-import os,subprocess
 import datetime
+import os
 import threading
 
 from resources.lib.xbmcguie.xbmcContainer import *
@@ -29,9 +29,6 @@ class homeBackupLabel(Setting) :
 
 class systemBackupLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label', _('System backup')), ADVANCED)
-
-class snapshotLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label', _('Snapshot')))
 
 class snapshotLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label', _('Auto snapshot')), ADVANCED)
@@ -169,8 +166,6 @@ class AutoBackupGui(Setting) :
             self.notifyOnError()            
 
     def startManualBackup(self):
-        src = '/dev/root'
-        dialog = xbmcgui.Dialog()
         value = self.control.getValue()
         if value[1] == 'File' :        
             value[2] = 'file:' + value[2]
@@ -182,7 +177,6 @@ class AutoBackupGui(Setting) :
             confirm = True
                 
         if self.askConfirmation(confirm) :
-            rc = xbianConfig('xbiancopy','start',src,value[2])
             dlg = dialogWaitBackground(
                 'Xbian Copy', [_('Please wait while creating backup file')],
                 self.checkcopyFinish,
@@ -287,7 +281,6 @@ class homeBackup(Setting) :
     def getUserValue(self):
         self.APPLYTEXT = _('Backup /home to file')
         if self.askConfirmation() :
-            pid = xbianConfig('backuphome','start')
             msg = [
                 _('It can take several minutes depending on size of your '
                   '/home/xbian directory'),

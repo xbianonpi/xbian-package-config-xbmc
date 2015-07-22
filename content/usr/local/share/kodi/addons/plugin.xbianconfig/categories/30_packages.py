@@ -1,7 +1,5 @@
 import uuid
-import os
 import time
-import cPickle as pickle
 
 from resources.lib.xbmcguie.xbmcContainer import *
 from resources.lib.xbmcguie.xbmcControl import *
@@ -16,7 +14,6 @@ _ = resources.lib.translation.language.ugettext
 
 
 import xbmcgui,xbmc
-from xbmcaddon import Addon
 
 __addonID__      = "plugin.xbianconfig"
 

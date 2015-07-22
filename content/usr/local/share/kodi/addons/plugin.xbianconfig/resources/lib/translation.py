@@ -1,4 +1,3 @@
-import os
 from resources.lib.xbianconfig import xbianConfig
 import gettext
 import xbmc

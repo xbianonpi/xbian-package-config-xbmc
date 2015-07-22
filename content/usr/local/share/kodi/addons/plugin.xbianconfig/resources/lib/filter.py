@@ -30,7 +30,7 @@ class filters :
         for filtre in filtres :
             if filtre[0] == '!' :
                 filtre = filtre[1:]
-                oppposite = True
+                opposite = True
             else :
                 opposite = False
             

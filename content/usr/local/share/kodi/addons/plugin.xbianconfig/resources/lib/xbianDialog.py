@@ -1,6 +1,5 @@
 import traceback
 from xbmcguie.window import DialogSkinXml
-import threading
 import xbmc
 
 class XbianDialog(DialogSkinXml):

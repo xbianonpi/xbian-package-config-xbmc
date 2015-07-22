@@ -287,9 +287,8 @@ def visiblecondition(key) :
 	return 'Stringcompare(Window.Property(%s),1)'%key
 
 def setvisiblecondition(key,value) :
-	if value  :
-		valuel = 1
-	else : value = 0
-	xbmc.executebuiltin('SetProperty(%s,%d)'%(key,value))
+    xbmc.executebuiltin('SetProperty(%s,%d)' % (
+        key, 1 if value else 0))
+
 
 ADVANCED = Tag('visible',visiblecondition('advancedmode'))

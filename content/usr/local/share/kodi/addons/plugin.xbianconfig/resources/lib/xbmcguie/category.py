@@ -1,6 +1,5 @@
 from tag import Tag
 from xbmcContainer import GroupListControl,Content
-from xbmcControl import scrollbarControl
 from resources.lib.utils import *
 
 import xbmc
