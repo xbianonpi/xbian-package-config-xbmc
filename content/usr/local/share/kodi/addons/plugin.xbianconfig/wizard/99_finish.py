@@ -1,7 +1,7 @@
 import resources.lib.translation
 _ = resources.lib.translation.language.ugettext
 
-DATA={
+DATA = {
     "title": _("It's time to play"),
     "smalltitle": _("Finish"),
     "description": _("You now have a fully configured XBian.[CR]"
