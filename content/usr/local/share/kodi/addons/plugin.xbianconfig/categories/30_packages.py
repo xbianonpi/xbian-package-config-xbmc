@@ -116,7 +116,10 @@ class PackageCategory :
             self.packageList.append(Package(self._onPackageCLick))
             self.control.addControl(self.packageList[-1].getControl())
         self.visiblegetmorekey = uuid.uuid4()
-        self.getMoreControl = ButtonControl(Tag('label',_('xbian-config.packages.label.get_more')),Tag('visible',visiblecondition(self.visiblegetmorekey)),Tag('enable','!%s'%visiblecondition(SKINVARAPTRUNNIG)))
+        self.getMoreControl = ButtonControl(
+            Tag('label', _('Get more...')),
+            Tag('visible', visiblecondition(self.visiblegetmorekey)),
+            Tag('enable', '!%s' % (visiblecondition(SKINVARAPTRUNNIG), )))
         self.getMoreControl.onClick = self._ongetMoreClick
         self.control.addControl(self.getMoreControl)
 
@@ -201,17 +204,16 @@ class PackagesControl(MultiSettingControl):
 
 class packagesManager(Setting) :
     CONTROL = PackagesControl()
-    DIALOGHEADER = _('xbian-config.packages.description')
-    
-    INSTALLED = _('xbian-config.packages.label.installed')
-    NOTINSTALLED = _('xbian-config.packages.label.not_installed')
+    DIALOGHEADER = _('Install or remove packages')
+    INSTALLED = _('Installed')
+    NOTINSTALLED = _('Not installed')
 
     def onInit(self) :
         self.control.setCallback(self.onGetMore,self.onSelect)
         self.dialog = xbmcgui.Dialog()        
 
     def showInfo(self,package) :
-        progress = dialogWait(package,_('xbian-config.packages.loading'))
+        progress = dialogWait(package, _('Loading package database dialog...'))
         progress.show()
         rc = xbianConfig('packages','info',package)
         progress.close()
@@ -226,10 +228,10 @@ class packagesManager(Setting) :
             self.showInfo(package)
         elif select == 1 :
             #remove package
-            self.APPLYTEXT = _('xbian-config.packages.remove.confirm')
+            self.APPLYTEXT = _('Are you sure you want to remove this package?')
             if self.askConfirmation(True) :
                 self.tmppack = (cat,package)
-                progressDlg = dialogWait(_('xbian-config.packages.label.remove'),_('xbian-config.common.pleasewait'))
+                progressDlg = dialogWait(_('Remove'), _('Please wait...'))
                 progressDlg.show()
                 rc = xbianConfig('packages','removetest',package)
                 if rc and rc[0] == '1' :
@@ -241,12 +243,12 @@ class packagesManager(Setting) :
                 else :
                     if rc and rc[0] == '2' :
                          #normally never pass here
-                         self.ERRORTEXT = _('xbian-config.packages.not_installed')
+                         self.ERRORTEXT = _('This package is not installed')
                     elif rc and rc[0] == '3' :
-                         self.ERRORTEXT = _('xbian-config.packages.essential')
+                         self.ERRORTEXT = _('This is an essential package, and cannot be removed')
                     else :
                          #normally never pass here
-                         self.ERRORTEXT = _('xbian-config.dialog.unexpected_error')
+                         self.ERRORTEXT = _('An unexpected error occurred')
                     progressDlg.close()
                     self.notifyOnError()
 
@@ -258,7 +260,7 @@ class packagesManager(Setting) :
         time.sleep(0.5)
         self.control.addPackage(self.tmppack[0],self.tmppack[1])
         self.globalMethod['Services']['refresh']()
-        self.OKTEXT = _('xbian-config.packages.install.success')
+        self.OKTEXT = _('The package was successfully installed')
         self.notifyOnSuccess()
 
     def onRemoveFinished(self) :
@@ -266,11 +268,11 @@ class packagesManager(Setting) :
         print self.tmppack
         self.control.removePackage(self.tmppack[0],self.tmppack[1])
         self.globalMethod['Services']['refresh']()
-        self.OKTEXT = _('xbian-config.packages.remove.success')
+        self.OKTEXT = _('This package has been successfully removed')
         self.notifyOnSuccess()
 
     def onGetMore(self,cat) :
-        progress = dialogWait(cat,_('xbian-config.packages.list.download'))
+        progress = dialogWait(cat, _('Downloading remote package database...'))
         progress.show()
         tmp = xbianConfig('packages','list',cat)
         if tmp and tmp[0] == '-3' :
@@ -286,18 +288,19 @@ class packagesManager(Setting) :
              packageTmp = packag.split(',')
              if packageTmp[1] == '0' :
                 package.append(packageTmp[0])
-           select =self.dialog.select(_('xbian-config.packages.name'),package)
+           select = self.dialog.select(_('Packages'), package)
            if select != -1 :
-                choice = [_('xbian-config.packages.label.information'),_('xbian-config.packages.label.install')]
+                choice = [_('Information'), _('Install')]
                 sel = self.dialog.select('Select',choice)
                 if sel == 0 :
                     #display info dialog
                     self.showInfo(package[select])
                 elif sel == 1 :
-                    self.APPLYTEXT = _('xbian-config.packages.install.confirm')
+                    self.APPLYTEXT = _('Are you sure you want to install or '
+                                       'update this package?')
                     if self.askConfirmation(True) :
                         self.tmppack = (cat,package[select])
-                        progressDlg = dialogWait(package[select],'xbian-config.common.pleasewait')
+                        progressDlg = dialogWait(package[select],'Please wait...')
                         progressDlg.show()
                         rc = xbianConfig('packages','installtest',package[select])
                         if rc and rc[0] == '1' :
@@ -308,20 +311,33 @@ class packagesManager(Setting) :
                              dlg.show()
                         else :
                             if rc and rc[0] == '2' :
-                                self.ERRORTEXT = _('xbian-config.packages.already_installed')
+                                self.ERRORTEXT = _(
+                                    'The latest version of this package is '
+                                    'already installed')
                             elif rc and rc[0] == '3' :
-                                self.ERRORTEXT = _('xbian-config.packages.unavailable_version')
+                                self.ERRORTEXT = _(
+                                    'The package version you are trying to '
+                                    'install could not be found')
                             elif rc and rc[0] == '4' :
-                                self.ERRORTEXT = _('xbian-config.packages.unavailable_version')
+                                self.ERRORTEXT = _(
+                                    'The package version you are trying to '
+                                    'install could not be found')
                             elif rc and rc[0] == '5' :
-                                self.ERRORTEXT = _('xbian-config.packages.downgrade')
+                                self.ERRORTEXT = _(
+                                    'You are already running a newer version '
+                                    'of this package than officially available')
                             elif rc and rc[0] == '6' :
-                                self.ERRORTEXT = _('xbian-config.packages.size_mismatch')
+                                self.ERRORTEXT = _(
+                                    'There is a size mismatch for the '
+                                    'remote packages')
                             elif rc and rc[0] == '7' :
-                                self.ERRORTEXT = _('xbian-config.packages.error')
+                                self.ERRORTEXT = _(
+                                    'A serious error occured while processing '
+                                    'this package')
                             else :
                                 #normally never pass here
-                                self.ERRORTEXT = _('xbian-config.dialog.unexpected_error')
+                                self.ERRORTEXT = _(
+                                    'An unexpected error occurred')
                             progressDlg.close()
                             self.notifyOnError()
 
@@ -339,7 +355,7 @@ class packagesManager(Setting) :
         print 'Finish xbian part'
 
 class packages(Category) :
-    TITLE = _('xbian-config.packages.name')
+    TITLE = _('Packages')
     SETTINGS = [packagesManager]
 
 

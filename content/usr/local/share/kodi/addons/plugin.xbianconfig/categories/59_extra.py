@@ -8,7 +8,7 @@ _ = resources.lib.translation.language.ugettext
 class extra(Category) :
     SETTINGS = extrasetting.extra()
     if SETTINGS :
-        TITLE = _('xbian-config.extra.name')
+        TITLE = _('extra')
     else :
         TITLE = None
     

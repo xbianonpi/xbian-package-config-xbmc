@@ -32,7 +32,9 @@ class XbianWindow(WindowSkinXml):
         #first, get all public method
         for category in self.categories :
             title = category.getTitle()
-            xbmc.executebuiltin('Skin.SetString(%sloadingvalue,%s)'%(title,_('xbian-config.common.clicktoload')))
+            xbmc.executebuiltin(
+                'Skin.SetString(%sloadingvalue,%s)' % (
+                    title,_('xbian-config.common.clicktoload')))
             self.publicMethod[title] = {}
             self.loadingCat[title] = False
             for setting in category.getSettings():

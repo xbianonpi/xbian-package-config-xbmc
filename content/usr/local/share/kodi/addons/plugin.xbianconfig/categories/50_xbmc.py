@@ -14,17 +14,21 @@ import xbmcgui
 dialog=xbmcgui.Dialog()
 
 class xbmcLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.xbmc.name')))
+    CONTROL = CategoryLabelControl(Tag('label', _('XBMC')))
 
 class xbmcTvOff(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
 
     def onInit(self) :
-        self.tvOffEnable = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.tvoff_screensaver')))
+        self.tvOffEnable = RadioButtonControl(
+            Tag('label', _('Turn CEC capable TV OFF with screensaver')))
         self.addControl(self.tvOffEnable)
         self.tvOffProperty = MultiSettingControl(Tag('visible','SubString(Control.GetLabel(%d),*)'%self.tvOffEnable.getId()))
-        self.delay =  ButtonControl(Tag('label','        - %s'%_('xbian-config.xbmc.label.tvoff_screensaver_delay')))
-        self.delay.onClick = lambda delay: self.delay.setValue(getNumeric(_('xbian-config.xbmc.label.tvoff_screensaver_delay'),self.delay.getValue(),0,60))
+        self.delay =  ButtonControl(
+            Tag('label',
+                '        - %s' % (_('delay (min)'), )))
+        self.delay.onClick = lambda delay: self.delay.setValue(
+            getNumeric(_('delay (min)'), self.delay.getValue(), 0, 60))
         self.tvOffProperty.addControl(self.delay)
         self.addControl(self.tvOffProperty)
 
@@ -34,7 +38,7 @@ class xbmcTvOff(MultiSettingControl):
 
 class xbmcTvOffGui(Setting) :
     CONTROL = xbmcTvOff()
-    DIALOGHEADER = _('xbian-config.xbmc.label.tvoff_screensaver')
+    DIALOGHEADER = _('Turn CEC capable TV OFF with screensaver')
     SAVEMODE = Setting.ONUNFOCUS
 
     def getUserValue(self):
@@ -54,8 +58,9 @@ class xbmcTvOffGui(Setting) :
             return False
 
 class xbmcTvOn(Setting) :
-    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.tvon_exit')),ADVANCED)
-    DIALOGHEADER = _('xbian-config.xbmc.label.tvon_exit')
+    CONTROL = RadioButtonControl(
+        Tag('label', _('Turn CEC capable TV ON when XBMC exits')), ADVANCED)
+    DIALOGHEADER = _('Turn CEC capable TV ON when XBMC exits')
 
     def getUserValue(self):
         return str(self.getControlValue())
@@ -79,8 +84,9 @@ class xbmcTvOn(Setting) :
             return False
 
 class xbmcTvHaltOff(Setting) :
-    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.tvoff_shutdown')))
-    DIALOGHEADER = _('xbian-config.xbmc.label.tvoff_shutdown')
+    CONTROL = RadioButtonControl(
+        Tag('label', _('Turn CEC capable TV OFF on RPI shutdown')))
+    DIALOGHEADER = _('Turn CEC capable TV OFF on RPI shutdown')
 
     def getUserValue(self):
         return str(self.getControlValue())
@@ -104,11 +110,12 @@ class xbmcTvHaltOff(Setting) :
             return False
 
 class xbmcUSBLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.xbmc.label.usbhotplug')))
+    CONTROL = CategoryLabelControl(Tag('label', _('USB HotPlug')))
 
 class xbmcUSBmount(Setting) :
-    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.automount')),ADVANCED)
-    DIALOGHEADER = _('xbian-config.xbmc.label.automount')
+    CONTROL = RadioButtonControl(
+        Tag('label', _('Enable USB disk automounting')), ADVANCED)
+    DIALOGHEADER = _('Enable USB disk automounting')
 
     def getUserValue(self):
         return str(self.getControlValue())
@@ -132,8 +139,9 @@ class xbmcUSBmount(Setting) :
             return False
 
 class xbmcUSBsmb(Setting) :
-    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.share')))
-    DIALOGHEADER = _('xbian-config.xbmc.label.share')
+    CONTROL = RadioButtonControl(
+        Tag('label', _('Make automounted disks available via SMB')))
+    DIALOGHEADER = _('Make automounted disks available via SMB')
 
     def getUserValue(self):
         return str(self.getControlValue())
@@ -157,8 +165,9 @@ class xbmcUSBsmb(Setting) :
             return False
 
 class xbmcUSBsmbrw(Setting) :
-    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.sharerw')))
-    DIALOGHEADER = _('xbian-config.xbmc.label.sharerw')
+    CONTROL = RadioButtonControl(
+        Tag('label', _('Shares should be world  writable (including anonymous access)')))
+    DIALOGHEADER = _('Shares should be world  writable (including anonymous access)')
 
     def getUserValue(self):
         return str(self.getControlValue())
@@ -183,8 +192,9 @@ class xbmcUSBsmbrw(Setting) :
 
 
 class xbmcUSBuuidname(Setting) :
-    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.uuid')),ADVANCED)
-    DIALOGHEADER = _('xbian-config.xbmc.label.uuid')
+    CONTROL = RadioButtonControl(
+        Tag('label', _('Include partition UUID in mnt folder name')), ADVANCED)
+    DIALOGHEADER = _('Include partition UUID in mnt folder name')
 
     def getUserValue(self):
         return str(self.getControlValue())
@@ -211,11 +221,16 @@ class SpinDownHdd(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
 
     def onInit(self) :
-        self.spinDownEnable = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.spindown')))
+        self.spinDownEnable = RadioButtonControl(
+            Tag('label', _('Spin Down HDD')))
         self.addControl(self.spinDownEnable)
-        self.spinDownProperty = MultiSettingControl(Tag('visible','SubString(Control.GetLabel(%d),*)'%self.spinDownEnable.getId()))
-        self.delay =  ButtonControl(Tag('label','        - %s'%_('xbian-config.xbmc.label.tvoff_screensaver_delay')))
-        self.delay.onClick = lambda delay: self.delay.setValue(getNumeric(_('xbian-config.xbmc.label.tvoff_screensaver_delay'),self.delay.getValue(),0,20))
+        self.spinDownProperty = MultiSettingControl(
+            Tag('visible',
+                'SubString(Control.GetLabel(%d),*)' % (self.spinDownEnable.getId(), )))
+        self.delay = ButtonControl(
+            Tag('label', '        - %s' % (_('delay (min)'), )))
+        self.delay.onClick = lambda delay: self.delay.setValue(
+            getNumeric(_('delay (min)'), self.delay.getValue(), 0, 20))
         self.spinDownProperty.addControl(self.delay)
         self.addControl(self.spinDownProperty)
 
@@ -227,13 +242,18 @@ class DynamicPriority(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
 
     def onInit(self) :
-        self.priorityEnable = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.dyn_priority')))
+        self.priorityEnable = RadioButtonControl(
+            Tag('label', _('XBMC Dynamic Priority')))
         self.addControl(self.priorityEnable)
         self.priorityProperty = MultiSettingControl(Tag('visible','SubString(Control.GetLabel(%d),*)'%self.priorityEnable.getId()))
-        self.lowPriority =  ButtonControl(Tag('label','        - %s'%_('xbian-config.xbmc.label.lownice')))
-        self.lowPriority.onClick = lambda lowPriority: self.lowPriority.setValue(getNumeric(_('xbian-config.xbmc.label.lownice'),self.lowPriority.getValue(),-19,20))
-        self.highPriority =  ButtonControl(Tag('label','        - %s'%_('xbian-config.xbmc.label.highnice')))
-        self.highPriority.onClick = lambda highPriority: self.highPriority.setValue(getNumeric(_('xbian-config.xbmc.label.highnice'),self.highPriority.getValue(),-19,20))
+        self.lowPriority =  ButtonControl(
+            Tag('label','        - %s' % (_('Lower Nice priority'), )))
+        self.lowPriority.onClick = lambda lowPriority: self.lowPriority.setValue(
+            getNumeric(_('Lower Nice priority'), self.lowPriority.getValue(), -19, 20))
+        self.highPriority =  ButtonControl(
+            Tag('label', '        - %s' % (_('Higher Nice priority'), )))
+        self.highPriority.onClick = lambda highPriority: self.highPriority.setValue(
+            getNumeric(_('Higher Nice priority'), self.highPriority.getValue(), -19, 20))
         self.priorityProperty.addControl(self.lowPriority)
         self.priorityProperty.addControl(self.highPriority)
         self.addControl(self.priorityProperty)
@@ -245,7 +265,7 @@ class DynamicPriority(MultiSettingControl):
 
 class DynamicPriorityGui(Setting) :
     CONTROL = DynamicPriority(ADVANCED)
-    DIALOGHEADER = _('xbian-config.xbmc.label.dyn_priority')
+    DIALOGHEADER = _('XBMC Dynamic Priority')
     SAVEMODE = Setting.ONUNFOCUS
 
     def getUserValue(self):
@@ -266,7 +286,7 @@ class DynamicPriorityGui(Setting) :
 
 class SpinDownHddGui(Setting) :
     CONTROL = SpinDownHdd()
-    DIALOGHEADER = _("xbian-config.xbmc.label.spindown")
+    DIALOGHEADER = _("Spin Down HDD")
     SAVEMODE = Setting.ONUNFOCUS
 
     def getUserValue(self):
@@ -286,8 +306,9 @@ class SpinDownHddGui(Setting) :
             return False
 
 class xbmcUSBsync(Setting) :
-    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.xbmc.label.sync')),ADVANCED)
-    DIALOGHEADER = _('xbian-config.xbmc.label.sync')
+    CONTROL = RadioButtonControl(
+        Tag('label', _('Mount with sync option')), ADVANCED)
+    DIALOGHEADER = _('Mount with sync option')
 
     def getUserValue(self):
         return str(self.getControlValue())
@@ -312,5 +333,5 @@ class xbmcUSBsync(Setting) :
 
 #CATEGORY CLASS
 class xbmc(Category) :
-    TITLE = _('xbian-config.xbmc.name')
+    TITLE = _('XBMC')
     SETTINGS = [xbmcLabel,xbmcTvOffGui,xbmcTvHaltOff,xbmcTvOn,DynamicPriorityGui,xbmcUSBLabel,xbmcUSBmount,xbmcUSBsync,xbmcUSBsmb,xbmcUSBsmbrw,xbmcUSBuuidname,SpinDownHddGui]

@@ -1,9 +1,13 @@
 import resources.lib.translation
 _ = resources.lib.translation.language.ugettext
 
-DATA={
-"title" : _('xbian-config.wizard.network.title'),
-"smalltitle" : _('xbian-config.wizard.network.smalltitle'),
-"description" : _('xbian-config.wizard.network.description'),
-"action" : ['categories.10_system.NetworkSetting']
+DATA = {
+    "title": _("Configure your network"),
+    "smalltitle": _("Network"),
+    "description": _("Configuring your wired or wireless connection in XBian "
+                     "is really easy. XBian can run without internet access "
+                     "but you will have a better experience with it."),
+    "action": [
+        'categories.10_system.NetworkSetting',
+    ],
 }

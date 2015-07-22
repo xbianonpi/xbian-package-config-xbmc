@@ -41,11 +41,11 @@ def getNumeric(header,default=None,min=False,max=False):
         cont = False
         if min :
             if int(rc) < min :
-                dialog.ok(header,_('xbian-config.util.valuegreater'%min))
+                dialog.ok(header, _('Value must be greater than %d' % (min, )))
                 cont = True
         if max :
             if int(rc) > max :
-                dialog.ok(header,_('xbian-config.util.valuelower'%max))
+                dialog.ok(header, _('Value must be lower than %d' % (max, )))
                 cont = True
     return rc
 
@@ -207,7 +207,7 @@ SIGNAL = 3
 
 def wifiConnect(interface):
     dialog = xbmcgui.Dialog()
-    progress = dialogWait(_('xbian-config.network.label.scan'),_('xbian-config.network.scanning'))
+    progress = dialogWait(_('Scan'), _('Scanning for available networks...'))
     progress.show()
     networklist = xbianConfig('network','scan',interface)
     networks = []
@@ -235,17 +235,22 @@ def wifiConnect(interface):
 
            name = '%s %s'%(signal,network[SSID])
            displaylist.append(name)
-       selectedNetwork = dialog.select(_('xbian-config.network.label.ssid'),displaylist)
+       selectedNetwork = dialog.select(_('SSID'), displaylist)
        if selectedNetwork == -1 :
             canceled = True
        else :
            if networks[selectedNetwork][SECURITY] == 'on' :
-               key = getText('%s : %s'%(_('xbian-config.network.credentials.enter'),networks[selectedNetwork][SSID]))
+               key = getText('%s : %s' % (
+                   _('Enter credentials for selected interface'),
+                   networks[selectedNetwork][SSID]))
                if not key :
                    continue
            else :
                key = ""
-           progress = dialogWait(interface,_('xbian-config.network.connection.updating')%(networks[selectedNetwork][SSID]))
+           progress = dialogWait(
+               interface,
+               _('Please wait. Trying to connect to %s') % (
+                   networks[selectedNetwork][SSID], ))
            progress.show()
            retry = 2
            current_try = 1
@@ -272,7 +277,8 @@ def wifiConnect(interface):
                          return False
                else :
                     progress.close()
-                    dialog.ok(interface,_('xbian-config.network.connection.failed')%(networks[selectedNetwork][SSID],rc))
+                    dialog.ok(interface, _('Failed to connect to %s') % (
+                        networks[selectedNetwork][SSID],rc, ))
                     return False
     return False
 

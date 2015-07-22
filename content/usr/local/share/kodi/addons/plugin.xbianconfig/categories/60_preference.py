@@ -12,12 +12,12 @@ import xbmcgui
 dialog=xbmcgui.Dialog()
 
 class advancedLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.preferences.label.advanced')))
+    CONTROL = CategoryLabelControl(Tag('label', _('Advanced')))
 
 class advancedMode(Setting) :
-    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.preferences.label.advanced_mode')))
-    DIALOGHEADER = _('xbian-config.preferences.label.advanced_mode')
-    
+    DIALOGHEADER = _('Advanced_mode')
+    CONTROL = RadioButtonControl(Tag('label', DIALOGHEADER))
+
     def onInit(self) :
         self.key = 'advancedmode'
                     
@@ -46,23 +46,23 @@ class advancedMode(Setting) :
         return True
 
 class notificationLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.preferences.label.notify')))
+    CONTROL = CategoryLabelControl(Tag('label', _('Notifications')))
 
 class notifyonError(advancedMode) :
-    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.preferences.notify.on_error')))
-    DIALOGHEADER = _('xbian-config.preferences.notify.on_error')
+    DIALOGHEADER = _('Notify on error')
+    CONTROL = RadioButtonControl(Tag('label', DIALOGHEADER))
     def onInit(self) :
         self.key = 'notifyonerror'
-    
+
 class notifyonSuccess(advancedMode) :
-    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.preferences.notify.on_success')))
-    DIALOGHEADER = _('xbian-config.preferences.notify.on_success')
+    DIALOGHEADER = _('Notify on success')
+    CONTROL = RadioButtonControl(Tag('label', DIALOGHEADER))
     def onInit(self) :
         self.key = 'notifyonsuccess'
 
 class confirmonChange(advancedMode) :
-    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.preferences.ask_confirmation')))
-    DIALOGHEADER = _('xbian-config.preferences.ask_confirmation')
+    DIALOGHEADER = _('Ask confirmation before saving new settings')
+    CONTROL = RadioButtonControl(Tag('label', DIALOGHEADER))
     
     def onInit(self) :
         self.key = 'confirmationonchange'

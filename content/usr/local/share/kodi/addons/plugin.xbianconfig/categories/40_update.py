@@ -54,7 +54,10 @@ class updateControl(MultiSettingControl):
         self.addControl(self.udpateAll)
 
         setvisiblecondition(KEYFORCECHECK,False)
-        self.forceCheck = ButtonControl(Tag('label',_('xbian-config.updatemenu.description')),Tag('visible',visiblecondition(KEYFORCECHECK)),Tag('enable','!%s'%visiblecondition(SKINVARAPTRUNNIG)))
+        self.forceCheck = ButtonControl(
+            Tag('label', _('Check for system updates')),
+            Tag('visible', visiblecondition(KEYFORCECHECK)),
+            Tag('enable', '!%s' % (visiblecondition(SKINVARAPTRUNNIG), )))
         self.forceCheck.onClick = lambda forcecheck : self.onForceCheck()
         self.addControl(self.forceCheck)
 
@@ -94,14 +97,14 @@ class updateControl(MultiSettingControl):
         pass
         
 class upgradeXbianLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.updates.label.updates')))      
+    CONTROL = CategoryLabelControl(Tag('label', _('Updates')))
 
 class packageUpdate(Setting) :
     CONTROL = updateControl()
-    DIALOGHEADER = _('xbian-config.updates.label.updates')
-    ERRORTEXT = _('xbian-config.updates.update.error')
-    OKTEXT = _('xbian-config.updates.update.success')
-    APPLYTEXT = _('xbian-config.updates.update.confirm')
+    DIALOGHEADER = _('Updates')
+    ERRORTEXT = _('A serious error occured while processing these packages')
+    OKTEXT = _('The packages are successfully updated')
+    APPLYTEXT = _('Are you sure you want to update these packages?')
 
     def onInit(self) :
         self.control.onUpdateClick = self.onUpdate       
@@ -138,17 +141,17 @@ class packageUpdate(Setting) :
                 dlg.show()              
             else :
                 if rc and rc[0] == '2' :
-                    self.ERRORTEXT = _('xbian-config.updates.update.already_installed')           
+                    self.ERRORTEXT = _('The latest versions of these packages are already installed')
                 elif rc and rc[0] == '3' :
-                    self.ERRORTEXT = _('xbian-config.updates.update.not_exists')
+                    self.ERRORTEXT = _('The packages you are trying to install could not be found')
                 elif rc and rc[0] == '4' :
-                    self.ERRORTEXT = _('xbian-config.updates.update.not_exists')
+                    self.ERRORTEXT = _('The packages you are trying to install could not be found')
                 elif rc and rc[0] == '5' :
-                    self.ERRORTEXT = _('xbian-config.updates.update.size_mismatch')
+                    self.ERRORTEXT = _('There is a size mismatch for the remote packages')
                 elif rc and rc[0] == '6' :
-                    self.ERRORTEXT = _('xbian-config.updates.update.error')
+                    self.ERRORTEXT = _('A serious error occured while processing these packages')
                 else :
-                    self.ERRORTEXT = _('xbian-config.dialog.unexpected_error')
+                    self.ERRORTEXT = _('An unexpected error occurred')
                 os.remove(self.lockfile)                
                 self.notifyOnError()    
             
@@ -157,7 +160,9 @@ class packageUpdate(Setting) :
         self.lockfile = '/var/lock/.%s'%self.key
         open(self.lockfile,'w').close()
 
-        progress = dialogWait(_('xbian-config.common.pleasewait'),_('xbian-config.updates.list.download'))
+        progress = dialogWait(
+            _('Please wait...'),
+            _('Retrieving list of upgradeable packages...'))
         progress.show()
         rc = xbianConfig('updates','updatedb')
         progress.close()        
@@ -176,22 +181,22 @@ class packageUpdate(Setting) :
             for update in rc[:15] :
                 self.control.addUpdate(update)
         else :
-            self.control.udpateNo.setLabel(_('xbian-config.updates.label.update_to_date'))
+            self.control.udpateNo.setLabel(_('Update_to_date'))
         self.needrefreshing = False
 
         setvisiblecondition(KEYFORCECHECK,True)        
         return rc
 
 class updatePackageLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.updates.label.updates')))      
+    CONTROL = CategoryLabelControl(Tag('label', _('Updates')))
 
 class UpdateLabel(Setting) :
-    CONTROL = CategoryLabelControl(Tag('label',_('xbian-config.updates.label.autoupdates')))
-        
+    CONTROL = CategoryLabelControl(Tag('label', _('Automatic updates')))
+
 class updateAuto(Setting) :
-    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.updates.label.autoinstallupdates')))
-    DIALOGHEADER = _('xbian-config.updates.label.autoupdates')
-    
+    CONTROL = RadioButtonControl(Tag('label', _('Auto install available updates')))
+    DIALOGHEADER = _('Automatic updates')
+
     def getUserValue(self):
         return str(self.getControlValue())
 
@@ -214,9 +219,9 @@ class updateAuto(Setting) :
             return False
 
 class snapAPT(Setting) :
-    CONTROL = RadioButtonControl(Tag('label',_('xbian-config.updates.label.aptsnapshot')))
-    DIALOGHEADER = _('xbian-config.updates.label.update')
-    
+    CONTROL = RadioButtonControl(Tag('label', _('Do a snapshot with APT-GET transaction')))
+    DIALOGHEADER = _('Update')
+
     def getUserValue(self):
         return str(self.getControlValue())
 
@@ -242,11 +247,14 @@ class InventoryInt(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
 
     def onInit(self) :
-        self.AutoInventory = RadioButtonControl(Tag('label',_('xbian-config.updates.label.autoupdaterepo')))
+        self.AutoInventory = RadioButtonControl(
+            Tag('label', _('Auto update package inventory')))
         self.addControl(self.AutoInventory)
         self.AutoInventoryProperty = MultiSettingControl(Tag('visible','SubString(Control.GetLabel(%d),*)'%self.AutoInventory.getId()))
-        self.delay =  ButtonControl(Tag('label','        - %s'%_('xbian-config.updates.label.autoupdaterepointerval')))
-        self.delay.onClick = lambda delay: self.delay.setValue(getNumeric(_('xbian-config.updates.label.autoupdaterepointerval'),self.delay.getValue(),1,365))
+        self.delay = ButtonControl(
+            Tag('label', '        - %s' % (_('interval (days)'), )))
+        self.delay.onClick = lambda delay: self.delay.setValue(
+            getNumeric(_('interval (days)'), self.delay.getValue(), 1, 365))
         self.AutoInventoryProperty.addControl(self.delay)
         self.addControl(self.AutoInventoryProperty)
     
@@ -256,7 +264,7 @@ class InventoryInt(MultiSettingControl):
 
 class InventoryIntGui(Setting) :
     CONTROL = InventoryInt()
-    DIALOGHEADER = _('xbian-config.updates.label.autoupdaterepo')    
+    DIALOGHEADER = _('Auto update package inventory')
     SAVEMODE = Setting.ONUNFOCUS
     
     def getUserValue(self):
@@ -279,5 +287,5 @@ class emptyLabel(Setting) :
     CONTROL = CategoryLabelControl(Tag('label',''))
 
 class update(Category) :
-    TITLE = _('xbian-config.updates.label.update')
+    TITLE = _('Update')
     SETTINGS = [updatePackageLabel,packageUpdate,UpdateLabel,InventoryIntGui,updateAuto,snapAPT]

@@ -65,12 +65,12 @@ class Category():
         
 class Setting():
     CONTROL = None
-    DIALOGHEADER = _("distribution") #"override dialog header"
-    ERRORTEXT = _('xbian-config.common.error') #"Override Error Text here"
-    OKTEXT = _('xbian-config.common.ok') #"override Ok Text"
+    DIALOGHEADER = _("XBian")
+    ERRORTEXT = _('ERROR : cannot save setting')
+    OKTEXT = _('Setting has been saved')
     SAVEMODE = 0 
-    BADUSERENTRYTEXT = _('xbian-config.common.badentry')
-    APPLYTEXT = _('xbian-config.common.confirmation')
+    BADUSERENTRYTEXT = _('Data you have enter is not correct')
+    APPLYTEXT = _('Are you sure to apply modification?')
     
     
     #SAVE MODE
