@@ -1,0 +1,7 @@
+[main]
+host = https://www.transifex.com
+
+[xbian-translation/xbian-config.pot]
+file_filter = content/usr/local/share/kodi/addons/plugin.xbianconfig/po/<lang>.po
+source_file = content/usr/local/share/kodi/addons/plugin.xbianconfig/po/xbian-config.pot
+source_lang = en

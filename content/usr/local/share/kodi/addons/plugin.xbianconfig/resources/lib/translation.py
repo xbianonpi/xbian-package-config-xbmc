@@ -1,39 +1,33 @@
-from resources.lib.xbianconfig import xbianConfig
 import gettext
+import os
+
 import xbmc
 
+from resources.lib.xbianconfig import xbianConfig
+
+
 APP_NAME = "xbian"
-LOCALE_DIR = '/usr/share/locale/'
-
-DEFAULT_LANGUAGES = ['en']
-
-languages = []
-
-mo_location = LOCALE_DIR
+LOCALE_DIR = os.path.join([
+    os.path.dirname(os.path.abspath(__file__)),
+    os.path.pardir, os.path.pardir, 'po'])
 
 gettext.textdomain(APP_NAME)
 # gettext.bind_textdomain_codeset(APP_NAME, "UTF-8")
-gettext.install(APP_NAME, mo_location, unicode=True)
+gettext.install(APP_NAME, LOCALE_DIR, unicode=True)
 
 try:
     xlanguage = xbmc.getLanguage(xbmc.ISO_639_1)
-except:
+except Exception:
     xlanguage = 'xbmc.getLanguage not supported'
 
-print xlanguage
-
-rc = gettext.find(APP_NAME, mo_location)
+rc = gettext.find(APP_NAME, LOCALE_DIR)
 if rc:
-    language = gettext.translation(APP_NAME, mo_location)
+    language = gettext.translation(APP_NAME, LOCALE_DIR)
 else:
     lc = xbianConfig('locales', 'select')[0].split('.')[0]
+    languages = []
     if lc:
         languages = [lc]
 
-    print lc
-
-    languages += DEFAULT_LANGUAGES
-    language = gettext.translation(APP_NAME, mo_location, languages=languages, fallback=True)
-
-
-# print language.info()
+    language = gettext.translation(
+        APP_NAME, LOCALE_DIR, languages=languages, fallback=True)

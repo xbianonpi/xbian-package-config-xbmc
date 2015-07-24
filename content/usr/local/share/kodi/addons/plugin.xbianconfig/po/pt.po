@@ -1,0 +1,1655 @@
+# msgfmt -o /usr/share/locale/en/LC_MESSAGES/xbian.mo xbian.po
+#
+# Translators:
+# Translators:
+# Translators:
+# ismael.vb <ismael.vb@gmail.com>, 2014
+# pingo.mister <joao.lnsa@netcabo.pt>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: XBian Translation\n"
+"Report-Msgid-Bugs-To: hackedbellini@xbian.org\n"
+"POT-Creation-Date: 2015-07-24 10:16-0300\n"
+"PO-Revision-Date: 2014-10-25 13:07+0000\n"
+"Last-Translator: belese <besme2@gmail.com>\n"
+"Language-Team: Portuguese (http://www.transifex.com/projects/p/xbian-"
+"translation/language/pt/)\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: default.py:90 services/upgrade.py:99 categories/55_backup.py:342
+#: categories/55_backup.py:441
+msgid "A reboot is required. Do you want to reboot now?"
+msgstr "É necessário reiniciar o sistema. Quer fazê-lo agora?"
+
+#: default.py:113
+msgid "XBian Config"
+msgstr ""
+
+#   commom
+#
+#: default.py:113 default.py:164 categories/30_packages.py:244
+#: categories/20_services.py:214 categories/55_backup.py:384
+#: categories/55_backup.py:400 categories/55_backup.py:436
+#: categories/55_backup.py:448 categories/55_backup.py:458
+#: categories/40_update.py:168
+msgid "Please wait..."
+msgstr "Por favor aguarde..."
+
+#: default.py:128
+msgid "Initialisation..."
+msgstr "A inicializar..."
+
+#: default.py:156 default.py:164
+msgid "Loading"
+msgstr "A carregar"
+
+#: wizard/30_license.py:5
+msgid "Enter your License key"
+msgstr "Introduza a sua Chave de licença"
+
+#: wizard/30_license.py:6
+msgid "License key"
+msgstr "Chave de licença"
+
+#: wizard/30_license.py:7
+msgid ""
+"The Raspberry Pi can decode the majority of video and audio formats, "
+"however, in order to decode VC-1 (Used in some BluRay discs) and MPEG-2, you "
+"will need to purchase a license key for these.[CR]They are available at "
+"http://www.raspberrypi.com/license-keys/[CR][CR]If you already have a "
+"license key, you can enter it now."
+msgstr ""
+"O Raspberry Pi pode descodificar a maioria dos formatos de vídeo e audio, "
+"contudo,  para descodificar VC-1 (Usado em alguns discos BluRay) e MPEG2, "
+"terá de comprar licenças.[CR] Estas estão disponíveis em http://www."
+"raspberrypi.com/license-keys/[CR][CR]Se já tiver uma chave de licença, pode "
+"introduzi-la agora."
+
+#: wizard/60_package.py:5
+msgid "Install new packages"
+msgstr "Instalar novos pacotes"
+
+#: wizard/60_package.py:6
+msgid "package"
+msgstr "pacote"
+
+#: wizard/60_package.py:7
+msgid ""
+"XBian comes with everything needed for XBMC but you can easily add pre-"
+"configured  packages like Torrent, Newsbin, CouchPotatoe and many more.[CR]"
+"[CR]Users can create their own package and share it with others. If you feel "
+"you have something that others may like, go to the XBian Forum and post a "
+"thread, and someone will get back to you with information.[CR][CR]Please be "
+"patient while the package list is loading."
+msgstr ""
+"O XBian vem com tudo o que precisa para o XBMC mas pode facilmente adicionar "
+"pacotes pre-configurados como Torrent, Newbin, CouchPotatoe e muitos outros."
+"[CR][CR]Os utilizadores podem criar o seu próprio pacote e partilhá-lo com "
+"os outros. Se achar que tem algo que pode interessar a outros utilizadores, "
+"vá ao fórum XBian e coloque um artigo, e alguém virá ter consigo com "
+"informações.[CR][CR]Por favor seja paciente enquanto a lista de pacotes "
+"carrega."
+
+#: wizard/20_network.py:5
+msgid "Configure your network"
+msgstr "Configure a sua rede"
+
+# xbian-config module network
+#
+#: wizard/20_network.py:6 categories/10_system.py:20
+#: categories/10_system.py:174
+msgid "Network"
+msgstr "Rede"
+
+#: wizard/20_network.py:7
+msgid ""
+"Configuring your wired or wireless connection in XBian is really easy. XBian "
+"can run without internet access but you will have a better experience with "
+"it."
+msgstr ""
+"Configurar a sua ligação à rede com fios ou sem fios no XBian é muito facil. "
+"O XBian pode correr sem acesso à internet, mas terá uma experiência "
+"melhorada com ela."
+
+#: wizard/50_update.py:5
+msgid "Update XBian"
+msgstr "Actualizar XBian"
+
+#: wizard/50_update.py:6
+msgid "update"
+msgstr "actualizar"
+
+#: wizard/50_update.py:7
+msgid ""
+"You can now choose how XBian will be updated and how often to check for "
+"updates.[CR][CR]By default, XBian will not be updated automatically, but you "
+"will be advised when a new update is available.[CR][CR]To update go to "
+"System -> XBian -> Update and select the packages to upgrade.[CR][CR]If you "
+"wish XBian to be updated automatically, you can set it now."
+msgstr ""
+"Pode agora escolher como o XBian será actualizado e a frequência que ele "
+"procura actualizações.[CR][CR]Por defeito, o XBian não será actualizado "
+"automaticamente, mas será avisado quando estiver disponível uma nova "
+"actualização.[CR][CR]Para actualizar, vá a Sistema -> XBian -> Actualizações "
+"e seleccione os pacotes a actualizar.[CR][CR]Se pretender que o Xbian "
+"actualize automaticamente, pode defini-lo agora."
+
+#  wizard
+#
+#: wizard/10_welcome.py:5
+msgid "Welcome to XBian"
+msgstr "Bem-vindo ao XBian"
+
+#: wizard/10_welcome.py:6
+msgid "Welcome"
+msgstr "Bem-vindo"
+
+#: wizard/10_welcome.py:7
+msgid ""
+"Thanks for choosing XBian.[CR][CR]XBian is a free Open Source media centre "
+"XBian for the Raspberry Pi.[CR]Our slogans is \"XBMC on Raspberry Pi, the "
+"Bleeding edge\" as our main focus is on delivering the fasted media centre "
+"for the Raspberry Pi.[CR][CR]We believe that everyone can make XBian better."
+"[CR]Please visit our www.xbian.org for support. If you have any questions, "
+"suggestions or contributions, please share them with us!"
+msgstr ""
+"Obrigado por escolher o Xbian.[CR][CR]O XBian é uma distribuição Media "
+"Center de software livre para o Raspberry Pi.[CR]Os nossos slogans são "
+"\"XBMC no Raspberry Pi, o último grito\".[CR][CR]Acreditamos que toda a "
+"gente pode tornar o XBian melhor.[CR]Por favor visite o nosso site www.xbian."
+"org para obter suporte. Se tiver questões, sugestões ou contribuições, por "
+"favor partilhe-as connosco!"
+
+#: wizard/40_backup.py:5
+msgid "Restore Home"
+msgstr "Restaurar pasta pessoal"
+
+#: wizard/40_backup.py:6
+msgid "Restore"
+msgstr "Restaurar"
+
+#: wizard/40_backup.py:7
+msgid ""
+"XBian will offer you an easy way to backup your setup.[CR]If you have a "
+"previous backup of your home[CR](it contain your XBMC configuration, addons, "
+"settings including Libraries...),[CR]you can restore now.[CR][CR]Later, if "
+"you want to do a backup, create a snapshot and many more,[CR],go to system-"
+">xbian->backup"
+msgstr ""
+"O XBian oferece-lhe uma forma facil de fazer cópias de segurança do seu "
+"sistema.[CR]Se tiver uma cópia anterior da sua pasta pessoal (ela contem as "
+"configurações do XBMC, extenções, bibliotecas...), pode restaurá-las agora."
+"[CR][CR]Depois, se pretender fazer cópias de segurança, crie uma cópia e "
+"seguida de muitas mais, vá a sistema->xbian->cópia de segurança"
+
+#: wizard/99_finish.py:5
+msgid "It's time to play"
+msgstr "É hora de jogar"
+
+#: wizard/99_finish.py:6
+msgid "Finish"
+msgstr "Fim"
+
+#: wizard/99_finish.py:7
+msgid ""
+"You now have a fully configured XBian.[CR]We hope it will give you a great "
+"experience.[CR][CR]If you want to manage additional XBian settings: Go "
+"System -> XBian.[CR]If you want to rerun this Wizard at a later date: Select "
+"tab XBian Wizard under System"
+msgstr ""
+"Tem um XBian completamente configurado.[CR]Esperamos que lhe dê uma optima "
+"experiência.[CR][CR]Se pretender configurar definições adicionais: Vá a "
+"Sistema -> XBian.[CR]Se pretender correr novamente este utilitário de "
+"configuração mais tarde: Seleccione o separador XBian Wizard no menu Sistema."
+
+#: categories/60_preference.py:16
+msgid "Advanced"
+msgstr "Avançado"
+
+#: categories/60_preference.py:20
+msgid "Advanced_mode"
+msgstr "Modo Avançado"
+
+#: categories/60_preference.py:52
+msgid "Notifications"
+msgstr "Notificações"
+
+#: categories/60_preference.py:56
+msgid "Notify on error"
+msgstr "Notificação em erros"
+
+#: categories/60_preference.py:64
+msgid "Notify on success"
+msgstr "Notificação ao concluir"
+
+#: categories/60_preference.py:72
+msgid "Ask confirmation before saving new settings"
+msgstr "Pedir confirmação antes de guardar novas definições"
+
+#: categories/10_system.py:30
+msgid "Select interface to configure"
+msgstr "Seleccione a interface para configurar"
+
+#: categories/10_system.py:50
+msgid "Status"
+msgstr "Estado"
+
+#: categories/10_system.py:59 resources/lib/utils.py:251
+msgid "SSID"
+msgstr "SSID"
+
+#: categories/10_system.py:66 categories/55_backup.py:79
+msgid "Type"
+msgstr "Tipo"
+
+#: categories/10_system.py:79 categories/10_system.py:82
+msgid "IP Address"
+msgstr "Endereço IP"
+
+#: categories/10_system.py:85 categories/10_system.py:88
+msgid "Netmask"
+msgstr "Máscara de Rede"
+
+#: categories/10_system.py:91 categories/10_system.py:94
+msgid "Gateway"
+msgstr "Gateway"
+
+#: categories/10_system.py:97 categories/10_system.py:100
+#: categories/10_system.py:103 categories/10_system.py:106
+msgid "Networkserver"
+msgstr "Nameserver"
+
+# xbian-config dialog
+#
+#: categories/10_system.py:175
+msgid "Error"
+msgstr "Erro"
+
+#: categories/10_system.py:176
+msgid "OK"
+msgstr "OK"
+
+#: categories/10_system.py:186
+msgid "Please wait while updating..."
+msgstr "Por favor aguarde, a actualizar..."
+
+#: categories/10_system.py:187 categories/10_system.py:195
+#, python-format
+msgid "Reloading values for %s"
+msgstr "A recarregar valores para %s"
+
+#: categories/10_system.py:222
+#, python-format
+msgid "Successfully connected to %s"
+msgstr "Ligado a %s"
+
+#: categories/10_system.py:225 resources/lib/utils.py:294
+#, python-format
+msgid "Failed to connect to %s"
+msgstr "Não foi possível ligar a %s"
+
+#: categories/10_system.py:293 categories/10_system.py:299
+#: categories/10_system.py:486 categories/30_packages.py:262
+#: categories/30_packages.py:351 categories/20_services.py:205
+#: categories/20_services.py:233 categories/55_backup.py:177
+#: categories/55_backup.py:292 categories/40_update.py:158
+msgid "An unexpected error occurred"
+msgstr "Ocorreu um erro inesperado"
+
+#: categories/10_system.py:304
+msgid "Licenses"
+msgstr "Licenças"
+
+# xbian-config module licensempg2
+#
+#: categories/10_system.py:308
+msgid "MPG2 license"
+msgstr "Licença MPG2"
+
+#: categories/10_system.py:310 categories/10_system.py:353
+#, python-format
+msgid "%s successfully updated"
+msgstr "%s foi actualizado"
+
+#: categories/10_system.py:311 categories/10_system.py:354
+#, python-format
+msgid ""
+"A %s must be 9 or 10 characters long and looks like 0x00000000. You can "
+"specify maximum 8 licenses, separated by comma."
+msgstr "%s deve ter 9 ou 10 caracteres e parecer-se com 0x00000000"
+
+# xbian-config module licensevc1
+#
+#: categories/10_system.py:351
+msgid "VC1 license"
+msgstr "Licença VC1"
+
+#: categories/10_system.py:363 categories/10_system.py:396
+msgid "Connectivity"
+msgstr "Conectividade"
+
+#: categories/10_system.py:375 categories/10_system.py:417
+#, python-format
+msgid "xbian-config.videoflags.%s"
+msgstr ""
+
+#: categories/10_system.py:426 categories/10_system.py:715
+msgid "System"
+msgstr "Sistema"
+
+# xbian-config module hostname
+#
+#: categories/10_system.py:430 categories/10_system.py:431
+msgid "Hostname"
+msgstr "Anfitrião"
+
+#: categories/10_system.py:432
+msgid "Hostname successfully changed"
+msgstr "O anfitrião foi alterado"
+
+# xbian-config module kernel
+#
+#: categories/10_system.py:458 categories/10_system.py:459
+msgid "Kernel"
+msgstr "Kernel"
+
+#: categories/10_system.py:459
+msgid "Version"
+msgstr "Versão"
+
+#: categories/10_system.py:460
+msgid "Successfully switched kernel versions"
+msgstr "A versão de kernel foi alternada"
+
+#: categories/10_system.py:488
+msgid "You're already running this kernel version"
+msgstr "Já está a utilizar esta versão do kernel"
+
+# xbian-config module overclocking
+#
+#: categories/10_system.py:498 categories/10_system.py:541
+msgid "Overclocking"
+msgstr "Overclock"
+
+#: categories/10_system.py:542
+msgid "The overclock settings are successfully changed"
+msgstr "As definições de overclock foram alteradas"
+
+# xbian-config module timezone
+#
+#: categories/10_system.py:582 categories/10_system.py:583
+#: categories/10_system.py:595
+msgid "Timezone"
+msgstr "Fuso Horário"
+
+#: categories/10_system.py:603
+msgid "Location"
+msgstr "Localização"
+
+#: categories/10_system.py:613
+msgid "Not Set"
+msgstr "Não Definido"
+
+#: categories/10_system.py:624
+msgid "Accounts"
+msgstr "Contas"
+
+# xbian-config module rootpass
+#
+#: categories/10_system.py:639
+msgid "Root password"
+msgstr "Palavra-passe root"
+
+#: categories/10_system.py:640
+msgid "Password:"
+msgstr "Palavra-passe:"
+
+#: categories/10_system.py:641
+msgid "root password successfully changed"
+msgstr "a palavra-passe root foi alterada"
+
+#: categories/10_system.py:642
+msgid "Passwords didn't match"
+msgstr "As palavras-passe não correspondem"
+
+# xbian-config module xbianpass
+#
+#: categories/10_system.py:671
+msgid "XBian password"
+msgstr "Palavra-passe XBian"
+
+#: categories/10_system.py:672
+msgid "xbian password successfully changed"
+msgstr "a palavra-passe xbian foi alterada"
+
+# xbian-config module sshroot
+#
+#: categories/10_system.py:681 categories/10_system.py:682
+msgid "SSH root login"
+msgstr "Sessão root SSH"
+
+#: categories/30_packages.py:123
+msgid "Get more..."
+msgstr "Obter mais..."
+
+#: categories/30_packages.py:216
+msgid "Install or remove packages"
+msgstr "Instalar ou remover pacotes"
+
+#: categories/30_packages.py:217
+msgid "Installed"
+msgstr "Instalado"
+
+#: categories/30_packages.py:218
+msgid "Not installed"
+msgstr "Não instalado"
+
+#: categories/30_packages.py:225
+msgid "Loading package database dialog..."
+msgstr "A carregar base de dados de pacotes remota..."
+
+#: categories/30_packages.py:241
+msgid "Are you sure you want to remove this package?"
+msgstr "Tem a certeza que quer remover este pacote?"
+
+#: categories/30_packages.py:244
+msgid "Remove"
+msgstr "Remover"
+
+#: categories/30_packages.py:257
+msgid "This package is not installed"
+msgstr "O pacote não está instalado"
+
+#: categories/30_packages.py:259
+msgid "This is an essential package, and cannot be removed"
+msgstr "Este é um pacote essencial e não pode ser removido"
+
+#: categories/30_packages.py:273
+msgid "The package was successfully installed"
+msgstr "O pacote foi instalado"
+
+#: categories/30_packages.py:281
+msgid "This package has been successfully removed"
+msgstr "O pacote foi removido"
+
+#: categories/30_packages.py:285
+msgid "Downloading remote package database..."
+msgstr "A transferir base de dados de pacotes remota..."
+
+# xbian-config module packages
+#
+#: categories/30_packages.py:301 categories/30_packages.py:369
+msgid "Packages"
+msgstr "Pacotes"
+
+# xbian-config module information
+#
+#: categories/30_packages.py:303
+msgid "Information"
+msgstr "Informação"
+
+#: categories/30_packages.py:303
+msgid "Install"
+msgstr "Instalar"
+
+#: categories/30_packages.py:309
+msgid "Are you sure you want to install or update this package?"
+msgstr "Tem a certeza que quer instalar ou actualizar este pacote?"
+
+#: categories/30_packages.py:326
+msgid "The latest version of this package is already installed"
+msgstr "A última versão deste pacote já está instalada"
+
+#: categories/30_packages.py:330 categories/30_packages.py:334
+msgid "The package version you are trying to install could not be found"
+msgstr ""
+"Não foi possível encontrar a versão do pacote que está a tentar instalar"
+
+#: categories/30_packages.py:338
+msgid ""
+"You are already running a newer version of this package than officially "
+"available"
+msgstr ""
+"Já está a usar uma versão do pacote mais recente do que a versão oficial"
+
+#: categories/30_packages.py:342 categories/40_update.py:154
+msgid "There is a size mismatch for the remote packages"
+msgstr "Os tamanhos dos pacotes remotos não correspondem"
+
+#: categories/30_packages.py:346
+msgid "A serious error occured while processing this package"
+msgstr "Ocorreu um erro grave ao processar este pacote"
+
+#: categories/20_services.py:69 categories/20_services.py:214
+msgid "Edit"
+msgstr "Editar"
+
+#: categories/20_services.py:71
+msgid "Add a custom service"
+msgstr "Adicionar um serviço personalizado"
+
+#: categories/20_services.py:81
+msgid "Running"
+msgstr "Em execução"
+
+#: categories/20_services.py:81
+msgid "Stopped"
+msgstr "Parado"
+
+#: categories/20_services.py:112
+msgid "Service"
+msgstr "Serviço"
+
+#: categories/20_services.py:117
+msgid "Start/stop and manage services"
+msgstr "Iniciar/parar e gerir serviços"
+
+#: categories/20_services.py:137 categories/20_services.py:185
+msgid "Stop"
+msgstr "Parar"
+
+#: categories/20_services.py:139
+msgid "Restart"
+msgstr "Reiniciar"
+
+#: categories/20_services.py:142 categories/20_services.py:182
+msgid "Start"
+msgstr "Iniciar"
+
+#: categories/20_services.py:145 categories/20_services.py:188
+msgid "Disable autostart"
+msgstr "Desactivar auto-início"
+
+#: categories/20_services.py:148 categories/20_services.py:190
+msgid "Autostart"
+msgstr "Início Automático"
+
+#: categories/20_services.py:150
+msgid "Delete"
+msgstr "Apagar"
+
+#: categories/20_services.py:152 categories/20_services.py:163
+msgid "Refresh"
+msgstr "Actualizar"
+
+#: categories/20_services.py:158
+#, python-format
+msgid "Do you want to %s"
+msgstr "Deseja %s"
+
+#: categories/20_services.py:209
+msgid "Name"
+msgstr "Nome"
+
+#: categories/20_services.py:212
+#, python-format
+msgid "Do you want to insert %s"
+msgstr "Quer inserir %s"
+
+#: categories/20_services.py:224
+msgid "The service has successfully been inserted"
+msgstr "O serviço foi inserido"
+
+#: categories/20_services.py:227
+msgid "Failed to refresh the service..."
+msgstr "Falha ao actualizar o serviço"
+
+#: categories/20_services.py:230
+msgid "This service does not exists..."
+msgstr "O serviço não existe..."
+
+# xbian-config module services
+#
+#: categories/20_services.py:257
+msgid "Services"
+msgstr "Serviços"
+
+#: categories/50_xbmc.py:17 categories/50_xbmc.py:353
+msgid "XBMC"
+msgstr "XBMC"
+
+#: categories/50_xbmc.py:25 categories/50_xbmc.py:44
+msgid "Turn CEC capable TV OFF with screensaver"
+msgstr "Desligar televisão CEC quando em espera"
+
+#: categories/50_xbmc.py:31 categories/50_xbmc.py:33 categories/50_xbmc.py:241
+#: categories/50_xbmc.py:243
+msgid "delay (min)"
+msgstr "atraso (min)"
+
+#: categories/50_xbmc.py:66 categories/50_xbmc.py:67
+msgid "Turn CEC capable TV ON when XBMC exits"
+msgstr "Ligar televisão CEC quando o XBMC termina"
+
+#: categories/50_xbmc.py:93 categories/50_xbmc.py:94
+msgid "Turn CEC capable TV OFF on RPI shutdown"
+msgstr "Desligar televisão CEC quando o RPI desliga"
+
+#: categories/50_xbmc.py:119
+msgid "USB HotPlug"
+msgstr "Detectar automaticamente USB"
+
+#: categories/50_xbmc.py:124 categories/50_xbmc.py:125
+msgid "Enable USB disk automounting"
+msgstr "Activar ejecção automática de USB"
+
+#: categories/50_xbmc.py:151 categories/50_xbmc.py:152
+msgid "Make automounted disks available via SMB"
+msgstr "Disponibilizar discos auto-montados por SMB"
+
+#: categories/50_xbmc.py:178 categories/50_xbmc.py:179
+msgid "Shares should be world  writable (including anonymous access)"
+msgstr "Partilhas devem ser editáveis por todos (inclui anónimos)"
+
+#: categories/50_xbmc.py:205 categories/50_xbmc.py:206
+msgid "Include partition UUID in mnt folder name"
+msgstr "Incluir UUID da partição no nome da pasta mnt"
+
+#: categories/50_xbmc.py:235 categories/50_xbmc.py:303
+msgid "Spin Down HDD"
+msgstr "Abrandar disco rígido"
+
+#: categories/50_xbmc.py:257 categories/50_xbmc.py:281
+msgid "XBMC Dynamic Priority"
+msgstr "Prioridade dinâmica no XBMC"
+
+#: categories/50_xbmc.py:262 categories/50_xbmc.py:264
+msgid "Lower Nice priority"
+msgstr "Baixa prioridade"
+
+#: categories/50_xbmc.py:266 categories/50_xbmc.py:268
+msgid "Higher Nice priority"
+msgstr "Alta prioridade"
+
+#: categories/50_xbmc.py:325 categories/50_xbmc.py:326
+msgid "Mount with sync option"
+msgstr "Montar com opção de sincronização"
+
+#: categories/55_backup.py:27
+msgid "Manage snapshot"
+msgstr "Gerir Cópias Guardadas"
+
+#: categories/55_backup.py:31 categories/55_backup.py:269
+msgid "Home backup"
+msgstr "Cópia da pasta pessoal"
+
+#: categories/55_backup.py:35 categories/55_backup.py:151
+msgid "System backup"
+msgstr "Cópia do sistema"
+
+#: categories/55_backup.py:39
+msgid "Auto snapshot"
+msgstr "Auto-cópia"
+
+#: categories/55_backup.py:43
+msgid "Enable daily snapshot"
+msgstr "Activar cópia de segurança diária"
+
+#: categories/55_backup.py:51 categories/55_backup.py:53
+msgid "Number of snapshot to keep"
+msgstr "Número de cópias a manter"
+
+#: categories/55_backup.py:66
+msgid "Enable weekly snapshot"
+msgstr "Activar cópia de segurança semanal"
+
+#: categories/55_backup.py:74
+msgid "Auto image"
+msgstr "Auto cópia"
+
+#: categories/55_backup.py:86
+msgid "Destination type"
+msgstr "Tipo de destino"
+
+#: categories/55_backup.py:93
+msgid "Block device"
+msgstr "Unidade de Bloco"
+
+#: categories/55_backup.py:100
+msgid "Destination: "
+msgstr "Destino:"
+
+#: categories/55_backup.py:106 categories/55_backup.py:267
+msgid "Start backup now"
+msgstr "Iniciar cópia agora"
+
+#: categories/55_backup.py:172
+msgid "Can't prepare destination filesystem"
+msgstr "Não é possível preparar o sistema de ficheiros de destino"
+
+#: categories/55_backup.py:184
+#, python-format
+msgid "Write backup to %s?"
+msgstr "Guardar cópia em %s?"
+
+#: categories/55_backup.py:187
+#, python-format
+msgid "This will erase ALL data on %s, continue?"
+msgstr "esta acção vai apagar todos os dados em %s, continuar?"
+
+#: categories/55_backup.py:193
+msgid "Please wait while creating backup file"
+msgstr "Por favor aguarde enquanto é criado o ficheiro de cópia"
+
+#: categories/55_backup.py:206
+msgid "Select Device"
+msgstr "Escolha a unidade"
+
+#: categories/55_backup.py:282
+msgid ""
+"Backup file is prepared at /xbmc-backup. Please grab the file over network "
+"or save locally."
+msgstr ""
+"O ficheiro de cópia está preparado em /xbmc-backup. Por favor arraste o "
+"ficheiro para a rede ou guarde-o localmente."
+
+#: categories/55_backup.py:287
+msgid "Backup /home process failed!"
+msgstr "O processo de cópia de /home falhou!"
+
+#       backuphome
+#
+#: categories/55_backup.py:296 categories/55_backup.py:311
+msgid "Backup /home to file"
+msgstr "Cópia segurança"
+
+#: categories/55_backup.py:299
+msgid ""
+"It can take several minutes depending on size of your /home/xbian directory"
+msgstr ""
+"Pode demorar vários minutos dependendo do tamanho da sua pasta /home/xbian"
+
+#: categories/55_backup.py:301
+msgid ""
+"File will be created under /xbian-backup, which is also accessible through "
+"smb share"
+msgstr ""
+"O ficheiro será criado em /xbian-backup, que está acessivel através de "
+"partilha smb"
+
+#: categories/55_backup.py:303
+msgid ""
+"Until finished, there will be just temp folder. Once ready, .img file will "
+"appear."
+msgstr ""
+"Até terminar apenas existirá uma pasta temporária. Uma vez terminado, o "
+"ficheiro .img aparecerá."
+
+#: categories/55_backup.py:305
+msgid ""
+"You can copy the file directly to you computer (the file will be deleted "
+"during reboots!)"
+msgstr ""
+"Poderá copiar o ficheiro para o seu computador (o ficheiro é apagado ao "
+"reiniciar!)"
+
+#: categories/55_backup.py:307
+msgid ""
+"To restore your XBMC, just copy .img file to /xbian-backup/put_to_restore "
+"folder."
+msgstr ""
+"Para restaurar o seu XBMC apenas copie o ficheiro .img para a pasta /xbian-"
+"backup/put_to_restore."
+
+#: categories/55_backup.py:327 categories/55_backup.py:329
+#: categories/55_backup.py:367
+msgid "Restore backup"
+msgstr "Restaurar cópia de segunrança"
+
+#: categories/55_backup.py:357
+msgid "Select Home Image"
+msgstr "Seleccionar cópia da pasta pessoal"
+
+#: categories/55_backup.py:358
+#, python-format
+msgid "%s : Do you want to restore home from %s?"
+msgstr "%s: Deseja restaurar a pasta pessoal a partir de %s?"
+
+#: categories/55_backup.py:364
+msgid "It can take several minutes depending on size of your backup image."
+msgstr "Pode demorar alguns minutos, dependendo do tamanho da cópia."
+
+# manage snapshot
+#
+#: categories/55_backup.py:382
+msgid "Mount a snapshot"
+msgstr "Montar uma cópia"
+
+#: categories/55_backup.py:383 categories/55_backup.py:456
+msgid "Snapshot"
+msgstr "Cópia"
+
+#: categories/55_backup.py:388 categories/55_backup.py:461
+msgid "Loading volumes..."
+msgstr "A carregar volumes..."
+
+#: categories/55_backup.py:396
+msgid "Btrfs volume"
+msgstr "Unidade Btrfs"
+
+#: categories/55_backup.py:435
+msgid "Rollback to a snapshot"
+msgstr "Restaurar cópia"
+
+#: categories/55_backup.py:447
+msgid "Delete a snapshot"
+msgstr "Apagar cópia"
+
+#: categories/55_backup.py:455
+msgid "Create a snapshot"
+msgstr "Criar cópia"
+
+#: categories/55_backup.py:474
+msgid "Snapshot name"
+msgstr "Nome da cópia"
+
+#: categories/55_backup.py:537
+msgid "Backup"
+msgstr "Cópia de segurança"
+
+#: categories/40_update.py:58
+msgid "Check for system updates"
+msgstr "Verificar actualizações de sistema"
+
+#: categories/40_update.py:101 categories/40_update.py:106
+#: categories/40_update.py:196
+msgid "Updates"
+msgstr "Actualizações"
+
+#: categories/40_update.py:107 categories/40_update.py:156
+msgid "A serious error occured while processing these packages"
+msgstr "Ocorreu um erro grave ao processar estes pacotes"
+
+#: categories/40_update.py:108
+msgid "The packages are successfully updated"
+msgstr "Os pacotes foram actualizados"
+
+#: categories/40_update.py:109
+msgid "Are you sure you want to update these packages?"
+msgstr "Tem a certeza que quer actualizar estes pacotes?"
+
+#: categories/40_update.py:148
+msgid "The latest versions of these packages are already installed"
+msgstr "As últimas versões destes pacotes já estão instaladas"
+
+#: categories/40_update.py:150 categories/40_update.py:152
+msgid "The packages you are trying to install could not be found"
+msgstr "Não foi possível encontrar os pacotes que está a tentar instalar"
+
+#: categories/40_update.py:169
+msgid "Retrieving list of upgradeable packages..."
+msgstr "A obter a lista de pacotes actualizáveis..."
+
+#: categories/40_update.py:188
+msgid "Update_to_date"
+msgstr "Actualizado"
+
+#: categories/40_update.py:200 categories/40_update.py:205
+msgid "Automatic updates"
+msgstr "Actualizações automáticas"
+
+#: categories/40_update.py:204
+msgid "Auto install available updates"
+msgstr "Auto-instalar actualizações disponíveis"
+
+#: categories/40_update.py:230
+msgid "Do a snapshot with APT-GET transaction"
+msgstr "Fazer uma cópia com as transacções do APT-GET"
+
+#: categories/40_update.py:231 categories/40_update.py:303
+msgid "Update"
+msgstr "Actualizar"
+
+#: categories/40_update.py:260 categories/40_update.py:278
+msgid "Auto update package inventory"
+msgstr "Auto-actualizar o inventário de pacotes"
+
+#: categories/40_update.py:265 categories/40_update.py:267
+msgid "interval (days)"
+msgstr "Intervalo (dias)"
+
+# extra
+#
+#: categories/59_extra.py:11
+msgid "extra"
+msgstr "extra"
+
+#: resources/lib/xbmcguie/category.py:73
+msgid "XBian"
+msgstr "XBian"
+
+#: resources/lib/xbmcguie/category.py:74
+msgid "ERROR : cannot save setting"
+msgstr "ERRO: não foi possivel guardar definição"
+
+#: resources/lib/xbmcguie/category.py:75
+msgid "Setting has been saved"
+msgstr "A definição foi guardada"
+
+#: resources/lib/xbmcguie/category.py:77
+msgid "Data you have enter is not correct"
+msgstr "Os dados que introduziu não estão correctos"
+
+#: resources/lib/xbmcguie/category.py:78
+msgid "Are you sure to apply modification?"
+msgstr "Tem a certeza que quer aplicar a modificação?"
+
+#: resources/lib/xbianWindow.py:39
+msgid "xbian-config.common.clicktoload"
+msgstr ""
+
+# util
+#
+#: resources/lib/utils.py:46
+#, python-format
+msgid "Value must be greater than %d"
+msgstr "O valor deve ser superior a %d"
+
+#: resources/lib/utils.py:50
+#, python-format
+msgid "Value must be lower than %d"
+msgstr "O valor deve ser inferior a %d"
+
+#: resources/lib/utils.py:223
+msgid "Scan"
+msgstr "Analisar"
+
+#: resources/lib/utils.py:223
+msgid "Scanning for available networks..."
+msgstr "A procurar redes disponíveis..."
+
+#: resources/lib/utils.py:257
+msgid "Enter credentials for selected interface"
+msgstr "Introduza credenciais para a interface seleccionada"
+
+#: resources/lib/utils.py:265
+#, python-format
+msgid "Please wait. Trying to connect to %s"
+msgstr "Por favor, aguarde. A tentar ligar a %s"
+
+# xbian-config main (menu)
+#
+#~ msgid "Config"
+#~ msgstr "Config"
+
+#~ msgid "Settings"
+#~ msgstr "Definições"
+
+#~ msgid "Change various system settings"
+#~ msgstr "Alterar várias definições do sistema"
+
+#~ msgid "e.g. Resize SD, Overclocking, Hostname"
+#~ msgstr "ex. Redim. SD, Overclock, Nome Anfitrião"
+
+#~ msgid "e.g. Change passwords, SSH root login"
+#~ msgstr "ex. Alterar palavras-passe, sessão SSH"
+
+#~ msgid "Add/Remove hardware licenses"
+#~ msgstr "Adicionar/Remover licenças de hardware"
+
+#~ msgid "e.g. Video output"
+#~ msgstr "ex. Saída Vídeo"
+
+#~ msgid "Apply"
+#~ msgstr "Aplicar"
+
+#~ msgid "Yes"
+#~ msgstr "Sim"
+
+#~ msgid "No"
+#~ msgstr "Não"
+
+#~ msgid "On"
+#~ msgstr "Ligado"
+
+#~ msgid "Off"
+#~ msgstr "Desligado"
+
+#~ msgid "Insert"
+#~ msgstr "Inserir"
+
+#~ msgid "Cancel"
+#~ msgstr "Cancelar"
+
+#~ msgid "Select"
+#~ msgstr "Seleccionar"
+
+#~ msgid "Return"
+#~ msgstr "Voltar"
+
+#~ msgid "Close"
+#~ msgstr "Fechar"
+
+#~ msgid "Change"
+#~ msgstr "Alterar"
+
+#~ msgid "Exit"
+#~ msgstr "Sair"
+
+#~ msgid "Enable"
+#~ msgstr "Activar"
+
+#~ msgid "Disable"
+#~ msgstr "Desactivar"
+
+#~ msgid "Confirm:"
+#~ msgstr "Confirmar:"
+
+#~ msgid "Retry"
+#~ msgstr "Tentar de novo"
+
+#~ msgid "Press [space] to select a different option"
+#~ msgstr "Pressione [barra espaços] para seleccionar uma opção diferente"
+
+#~ msgid "Press [space] to enable or disable an option"
+#~ msgstr "Pressione [barra espaços] para activar ou desactivar uma opção"
+
+#~ msgid "Loading module. Please wait..."
+#~ msgstr "A carregar módulo. Por favor, aguarde..."
+
+#~ msgid "This program requires the following packages:"
+#~ msgstr "Este programa necessita dos seguintes pacotes:"
+
+#~ msgid "Insufficient number of arguments"
+#~ msgstr "Número de argumentos insuficiente"
+
+#~ msgid "Incorrect argument type"
+#~ msgstr "Tipo de argumento incorrecto"
+
+# xbian-config module bootflags
+#
+#~ msgid "Boot settings"
+#~ msgstr "Definições de arranque"
+
+#~ msgid "Change various boot settings"
+#~ msgstr "Modificar várias definições de arranque"
+
+#~ msgid "Boot flags"
+#~ msgstr "Etiquetas do arranque"
+
+#~ msgid "Boot flags successfully updated"
+#~ msgstr "Etiquetas de arranque actualizadas com sucesso"
+
+#~ msgid "Show XBian splash on boot"
+#~ msgstr "Mostrar ecrã XBian no arranque "
+
+#~ msgid "Disable kernel bootup logo"
+#~ msgstr "Desactivar o logotipo do kernel no arranque"
+
+#~ msgid "Suppress kernel output"
+#~ msgstr "Ocultar depuração do kernel"
+
+#~ msgid "Kernel loglevel"
+#~ msgstr "Nível de depuração do kernel"
+
+#~ msgid "Information about this XBian"
+#~ msgstr "Informação sobre esta distribuição"
+
+#~ msgid ""
+#~ "XBian is a free, Open Source media center XBian for the Raspberry Pi, "
+#~ "which can be downloaded at http://www.xbian.org. Our slogan is \"XBMC on "
+#~ "Raspberry Pi, bleeding edge\" as our main focus is delivering the fastest "
+#~ "mediacenter solution for the Raspberry Pi. We believe that everyone can "
+#~ "help make XBian better. Please visit our website for support and if you "
+#~ "have suggestions, wishes or contributions, please share them with us!"
+#~ msgstr ""
+#~ "O XBian é uma distribuição de centro de média, grátis e com código "
+#~ "aberto, para o Raspberry Pi, que pode ser obtida em http://www.xbian.org. "
+#~ "O nosso slogan é \"XBMC no Raspberry Pi, tecnologia de ponta\" já que o "
+#~ "objectivo é proporcionar o mais rápido centro de média para o Raspberry "
+#~ "Pi. Acreditamos que todos podem ajudar a fazer o XBian um produto melhor. "
+#~ "Por favor visitem a nossa página para obterem ajuda e, se tiverem "
+#~ "sugestões, desejos ou contribuições a dar, por favor partilhem connosco!"
+
+#~ msgid "Hostname:"
+#~ msgstr "Anfitrião:"
+
+#~ msgid "Change the default hostname"
+#~ msgstr "Alterar o anfitrião padrão"
+
+#~ msgid "Switch between installed kernels"
+#~ msgstr "Alternar entre vários kernel instalados"
+
+#~ msgid "There is only one kernel installed"
+#~ msgstr "Existe apenas um kernel instalado"
+
+# xbian-config general licenses
+#
+#~ msgid "%s successfully inserted"
+#~ msgstr "%s foi inserido"
+
+#~ msgid "%s successfully removed"
+#~ msgstr "%s foi removido"
+
+#~ msgid "Manage your MPG2 license"
+#~ msgstr "Gerir a sua licença MPG2"
+
+#~ msgid "Manage your VC1 license"
+#~ msgstr "Gerir a sua licença VC1"
+
+# xbian-config module locales
+#
+#~ msgid "System locale"
+#~ msgstr "Opções regionais"
+
+#~ msgid "Change your system language"
+#~ msgstr "Alterar o idioma do sistema"
+
+#~ msgid "Letter"
+#~ msgstr "Letra"
+
+#~ msgid "System, XBian, and XBMC language successfully updated"
+#~ msgstr "O idioma do sistema, XBian e XBMC foi actualizado"
+
+#~ msgid "Configure network interfaces"
+#~ msgstr "Configurar interfaces de rede"
+
+#~ msgid "Interfaces"
+#~ msgstr "Interfaces"
+
+#~ msgid "Loading interfaces, please wait ..."
+#~ msgstr "A carregar interfaces de rede, por favor aguarde..."
+
+#~ msgid "No network interfaces available or connected"
+#~ msgstr "Não existe nenhuma interface de rede disponível ou ligada"
+
+#~ msgid "DHCP"
+#~ msgstr "DHCP"
+
+#~ msgid "Interface is now configured using DHCP"
+#~ msgstr "A interface está configurada através de DHCP"
+
+#~ msgid "Static IP"
+#~ msgstr "IP Estático"
+
+#~ msgid "Key"
+#~ msgstr "Chave"
+
+#~ msgid "Protection"
+#~ msgstr "Protecção"
+
+#~ msgid "Custom"
+#~ msgstr "Personalizado"
+
+#~ msgid "WLAN"
+#~ msgstr "Rede Sem Fios"
+
+#~ msgid "Not connected"
+#~ msgstr "Desligado"
+
+#~ msgid "Restarting %s"
+#~ msgstr "A reiniciar %s"
+
+#~ msgid ""
+#~ "Invalid WLAN credentials entered, both SSID and KEY has to be entered"
+#~ msgstr ""
+#~ "Credenciais de Rede Sem Fios inválidas, SSID e KEY têm de ser inseridos"
+
+#~ msgid "WLAN credentials successfully updated"
+#~ msgstr "As credenciais de Rede Sem Fios foram actualizadas"
+
+#~ msgid "Invalid static IP credentials entered, please try again"
+#~ msgstr ""
+#~ "As credenciais de IP estático introduzidas são inválidas, por favor tente "
+#~ "de novo"
+
+#~ msgid "Static IP configuration updated"
+#~ msgstr "A configuração de IP estático foi actualizada"
+
+#~ msgid "WPA"
+#~ msgstr "WPA"
+
+#~ msgid "WEP"
+#~ msgstr "WEP"
+
+#~ msgid "Open"
+#~ msgstr "Abrir"
+
+#~ msgid "Signal"
+#~ msgstr "Sinal"
+
+#~ msgid "Configure overclocking"
+#~ msgstr "Configurar overclock"
+
+#~ msgid ""
+#~ "Extreme overclocking can reduce the lifetime of your Raspberry Pi. XBian "
+#~ "has tested different overclocking settings and created a most preferable "
+#~ "combination of settings. Turbo overclock can cause filesystem corruption. "
+#~ "Overclock at your own risk!"
+#~ msgstr ""
+#~ "Um overclock extremo pode reduzir o tempo de vida do seu Raspberry Pi. "
+#~ "Com o XBian, testámos diferentes configurações de overclock e criámos uma "
+#~ "combinação de definições adequada. O overclock turbo pode causar "
+#~ "corrupção no sistema de ficheiros. Utilize o overclock por sua conta e "
+#~ "risco!"
+
+#~ msgid "These overclock settings are already set"
+#~ msgstr "Estas definições de overclock já foram introduzidas"
+
+#~ msgid "Preset"
+#~ msgstr "Pré-Definição"
+
+#~ msgid "~"
+#~ msgstr "~"
+
+#~ msgid "You didn't fill in all fields"
+#~ msgstr "Não preencheu todos os campos"
+
+#~ msgid "Updating local package database..."
+#~ msgstr "A actualizar a base de dados local de pacotes..."
+
+#~ msgid "Updating local package database..._failed"
+#~ msgstr "Ocorreu um erro ao actualizar a base de dados de pacotes"
+
+#~ msgid ""
+#~ "Failed to retrieve download mirrors, therefore a local (possibly "
+#~ "outdated) list will be used"
+#~ msgstr ""
+#~ "Não foi possível obter os servidores de transferência, portanto uma lista "
+#~ "local (possivelmente desactualizada) será usada"
+
+#~ msgid "Please retry to install this packages"
+#~ msgstr "Por favor, volte a tentar instalar estes pacotes"
+
+#~ msgid "The package you are trying to install could not be found"
+#~ msgstr "Não foi possível encontrar o pacote que está a tentar instalar"
+
+#~ msgid "Do you want to see the package install log?"
+#~ msgstr "Quer ver o registo de instalação do pacote"
+
+#~ msgid ""
+#~ "Installing/updating this package, this could take several minutes so "
+#~ "please wait..."
+#~ msgstr ""
+#~ "A instalar/actualizar este pacote, poderá demorar vários minutos, por "
+#~ "favor aguarde..."
+
+#~ msgid ""
+#~ "Removing this package, this could take several minutes so please wait..."
+#~ msgstr ""
+#~ "A remover este pacote, poderá demorar vários minutos, por favor aguarde..."
+
+#~ msgid "Categories"
+#~ msgstr "Categorias"
+
+#~ msgid "Install_update"
+#~ msgstr "Instalar/Actualizar"
+
+#~ msgid "Full name:"
+#~ msgstr "Nome completo:"
+
+#~ msgid "Available version:"
+#~ msgstr "Versão disponível:"
+
+#~ msgid "Installed version:"
+#~ msgstr "Versão instalada:"
+
+#~ msgid "Installed size:"
+#~ msgstr "Tamanho da instalação:"
+
+#~ msgid "Download size:"
+#~ msgstr "Tamanho da transferência:"
+
+#~ msgid "Description:"
+#~ msgstr "Descrição:"
+
+#~ msgid "Dependencies:"
+#~ msgstr "Dependências:"
+
+#~ msgid "Actions"
+#~ msgstr "Acções"
+
+# xbian-config module resizesd
+#
+#~ msgid "Resize SD"
+#~ msgstr "Redimensionar SD"
+
+#~ msgid "Expand root parition to fill SD card"
+#~ msgstr "Expandir a partição para encher o cartão"
+
+#~ msgid "Are you sure you want to resize you SD card?"
+#~ msgstr "Tem a certeza que quer redimensionar o seu cartão SD?"
+
+#~ msgid "This SD card is already resized. Aborting."
+#~ msgstr "Este cartão SD já está redimensionado. A cancelar."
+
+#~ msgid ""
+#~ "Root partition has been resized. The filesystem will be enlarged upon the "
+#~ "next reboot."
+#~ msgstr ""
+#~ "A partição raiz foi redimensionada. O sistema de ficheiros será aumentado "
+#~ "quando reiniciar o sistema."
+
+#~ msgid ""
+#~ "An error occurred. It is possible that the system will become unbootable. "
+#~ "Please make a backup of your files before rebooting."
+#~ msgstr ""
+#~ "Ocorreu um erro. É possível que não consiga iniciar o sistema. Por favor, "
+#~ "faça uma cópia de segurança dos seus ficheiros antes de reiniciar."
+
+#~ msgid "Change password for root user"
+#~ msgstr "Alterar palavra-passe para root"
+
+#~ msgid "You have to enter both a new password and a confirmation"
+#~ msgstr "Tem de introduzir uma nova palavra-passe e uma confirmação"
+
+#~ msgid "Loading status of services..."
+#~ msgstr "A carregar estado dos serviços..."
+
+#~ msgid "Restarting service..."
+#~ msgstr "A reiniciar o serviço..."
+
+#~ msgid "Failed to restart the service..."
+#~ msgstr "Não foi possível reiniciar o serviço..."
+
+#~ msgid "Starting service..."
+#~ msgstr "A iniciar o serviço..."
+
+#~ msgid "Failed to start the service..."
+#~ msgstr "Não foi possível iniciar o serviço..."
+
+#~ msgid "Stopping service..."
+#~ msgstr "A parar o serviço..."
+
+#~ msgid "Failed to stop the service..."
+#~ msgstr "Não foi possível parar o serviço..."
+
+#~ msgid "Enabling the autostart of the service..."
+#~ msgstr "A activar o início automático do serviço..."
+
+#~ msgid "Disabling the autostart of the service..."
+#~ msgstr "A desactivar o início automático do serviço..."
+
+#~ msgid "Failed to enable the autostart of the service..."
+#~ msgstr "Não foi possível activar o início automático do serviço..."
+
+#~ msgid "Failed to disable the autostart of the service..."
+#~ msgstr "Não foi possível desactivar o início automático do serviço..."
+
+#~ msgid "Unknown error"
+#~ msgstr "Erro desconhecido"
+
+#~ msgid "Are you sure you want to delete this service from the list?"
+#~ msgstr "Tem a certeza que quer apagar este serviço da lista?"
+
+#~ msgid "The service has successfully been removed"
+#~ msgstr "O serviço foi removido"
+
+#~ msgid "The service has successfully been updated"
+#~ msgstr "O serviço foi actualizado"
+
+#~ msgid "Action"
+#~ msgstr "Acção"
+
+#~ msgid "(Re)Start"
+#~ msgstr "(Re)Iniciar"
+
+#~ msgid "Daemon(s)"
+#~ msgstr "Daemon(s)"
+
+#~ msgid "Leave empty if none"
+#~ msgstr "Se nenhum, deixar em branco"
+
+#~ msgid "Separate by spaces"
+#~ msgstr "Separar por espaços"
+
+#~ msgid "Enable/Disable SSH root login"
+#~ msgstr "Activar/Desactivar sessão root SSH"
+
+#~ msgid "Do you want to enable or disable root ssh login?"
+#~ msgstr "Quer activar ou desactivar o início de sessão root por SSH?"
+
+#~ msgid ""
+#~ "User root has an empty password, without a password user root cannot "
+#~ "login through SSH so please set this first."
+#~ msgstr ""
+#~ "O utilizador root tem uma palavra-passe em branco. Sem uma palavra-passe, "
+#~ "o utilizador root não pode iniciar sessão por SSH, portanto defina uma "
+#~ "primeiro."
+
+#~ msgid "SSH root login successfully enabled"
+#~ msgstr "Início de sessão root por SSH activado"
+
+#~ msgid "SSH root login successfully disabled"
+#~ msgstr "Início de sessão root por SSH desactivado"
+
+#~ msgid "Change the timezone of your RPi"
+#~ msgstr "Mudar o fuso horário do seu RPi"
+
+#~ msgid "Retrieving current timezone..."
+#~ msgstr "A obter fuso horário actual..."
+
+#~ msgid "Loading locations..."
+#~ msgstr "A carregar localizações..."
+
+#~ msgid "The old timezone: %s"
+#~ msgstr "Fuso horário antigo: %s"
+
+#~ msgid "The new timezone: %s"
+#~ msgstr "Fuso horário novo: %s"
+
+#~ msgid "You didn't select a timezone"
+#~ msgstr "Não seleccionou um fuso horário"
+
+#~ msgid "You didn't select a location"
+#~ msgstr "Não seleccionou uma localização"
+
+# xbian-config modules updates
+#
+#~ msgid "apt-get update"
+#~ msgstr "Apt-get update"
+
+#~ msgid "Run apt-get update"
+#~ msgstr "Correr 'apt-get update'"
+
+#~ msgid "Check deb upgrades"
+#~ msgstr "Actualizações"
+
+#~ msgid "Run apt-get upgrade"
+#~ msgstr "Verificar actualizações de sistema"
+
+#~ msgid "Update mirrors"
+#~ msgstr "Serv. alternativos"
+
+#~ msgid "Update informations about mirror sites available"
+#~ msgstr "Actualizar info de repositórios alternativos"
+
+#~ msgid "Update local package database..."
+#~ msgstr "Actualizar a base de dados local de pacotes..."
+
+#~ msgid "An error occured while updating the package database"
+#~ msgstr "Ocorreu um erro ao actualizar a base de dados local de pacotes"
+
+#~ msgid "Downloading remote package database..._failed"
+#~ msgstr ""
+#~ "Não foi possível obter os servidores de transferência, portanto uma lista "
+#~ "local (possivelmente desactualizada) será usada"
+
+#~ msgid ""
+#~ "A new XBian version is available, would you like to install it now? The "
+#~ "system will reboot automatically when the update is finished"
+#~ msgstr ""
+#~ "Está disponível uma nova versão do XBian, quer instalá-la agora? O "
+#~ "sistema será reiniciado automaticamente quando a actualização estiver "
+#~ "concluída"
+
+#~ msgid ""
+#~ "XBian is being upgraded to a new version, please do not reboot or pull "
+#~ "the power plug because this could result in a malfunctioning system, "
+#~ "depending on your internet connection, this procedure can take quit some "
+#~ "time..."
+#~ msgstr ""
+#~ "O XBian está a ser actualizado para uma nova versão. Por favor, não "
+#~ "reinicie nem desligue o sistema porque isso poderá danificá-lo. Este "
+#~ "processo pode demorar algum tempo, dependendo da sua velocidade de "
+#~ "internet..."
+
+#~ msgid "XBian will reboot automatically when you close this window"
+#~ msgstr "O XBian será reiniciado automaticamente quando fechar esta janela"
+
+#~ msgid "The packages versions you are trying to install could not be found"
+#~ msgstr ""
+#~ "Não foi possível encontrar as versões dos pacotes que está a tentar "
+#~ "instalar"
+
+#~ msgid "Would you like to see the installation log?"
+#~ msgstr "Quer ver o registo da instalação?"
+
+#~ msgid ""
+#~ "Updating the packages, this could take several minutes so please wait..."
+#~ msgstr ""
+#~ "A actualizar os pacotes, poderá demorar vários minutos, por favor "
+#~ "aguarde..."
+
+#~ msgid "You already got newer versions of this package installed"
+#~ msgstr "Já tem instaladas versões mais recentes deste pacote"
+
+#~ msgid "Update_packages"
+#~ msgstr "Actualizar Pacotes"
+
+#~ msgid "Update_all"
+#~ msgstr "Actualizar Todos"
+
+#~ msgid "Upgrade"
+#~ msgstr "Actualizar"
+
+#~ msgid "Your install already contains the latest versions of XBian packages"
+#~ msgstr ""
+#~ "A sua instalação já contém as versões mais recentes dos pacotes XBian"
+
+# xbian-config module videoflags
+#
+#~ msgid "Video output"
+#~ msgstr "Saída vídeo"
+
+#~ msgid "Change HDMI, CEC and overscan settings"
+#~ msgstr "Alterar definições de HDMI, CEC e overscan"
+
+#~ msgid "Video flags"
+#~ msgstr "Etiquetas de vídeo"
+
+#~ msgid "Video flags successfully updated"
+#~ msgstr "As etiquetas de vídeo foram actualizadas"
+
+#~ msgid "Force HDMI output when no tv is identified"
+#~ msgstr "Forçar saída HDMI ao não identificar nenhuma TV"
+
+#~ msgid "Ignore HDMI output even if a tv is connected"
+#~ msgstr "Ignorar saída HDMI mesmo com uma TV ligada"
+
+#~ msgid "Disable CEC_init"
+#~ msgstr "Ignorar inicialização CEC, evita ligar TV ao reiniciar"
+
+#~ msgid "Disable CEC"
+#~ msgstr "Desactivar CEC"
+
+#~ msgid "Disable overscan"
+#~ msgstr "Desactivar overscan"
+
+#~ msgid "Disable the 'rainbow' screen at really start of RPI"
+#~ msgstr "Desactivar ecrã 'arco-íris' ao ligar o RaspberryPI"
+
+# xbian-config module xbconfig
+#
+#~ msgid "XBian config"
+#~ msgstr "Configuração XBian"
+
+#~ msgid "XBian config settings"
+#~ msgstr "Definições da configuração XBian"
+
+#~ msgid ""
+#~ "Do you automatically want to start xbian-config when you login as user "
+#~ "xbian?"
+#~ msgstr ""
+#~ "Quer iniciar automaticamente o xbian-config quando inicia sessão como o "
+#~ "utilizador xbian?"
+
+#~ msgid "Successfully enabled xbian-config autostart"
+#~ msgstr "O início automático de xbian-config foi activado"
+
+#~ msgid "Successfully disabled xbian-config autostart"
+#~ msgstr "O início automático de xbian-config foi desactivado"
+
+#~ msgid "Change password for xbian user"
+#~ msgstr "Alterar palavra-passe para xbian"
+
+# xbian-config module xbmc
+#
+#~ msgid "Change XBMC settings"
+#~ msgstr "Alterar definições do XBMC"
+
+#~ msgid "Do you want to enable or disable the XBMC webserver?"
+#~ msgstr "Quer activar ou desactivar o servidor web do XBMC?"
+
+#~ msgid "XBMC webserver successfully enabled"
+#~ msgstr "O servidor web do XBMC foi activado"
+
+#~ msgid "XBMC webserver successfully disabled"
+#~ msgstr "O servidor web do XBMC foi desactivado"
+
+#~ msgid "Failed to enable XBMC webserver"
+#~ msgstr "Não foi possível activar o servidor web do XBMC"
+
+#~ msgid "Failed to disable XBMC webserver"
+#~ msgstr "Não foi possível desactivar o servidor web do XBMC"
+
+#~ msgid "Webserver"
+#~ msgstr "Servidor web"
+
+# xbian-config module preferences
+#
+#~ msgid "Preferences"
+#~ msgstr "Preferências"
+
+#~ msgid "Error while updating setting"
+#~ msgstr "Erro ao actualizar definição"
+
+#~ msgid "Successfully updated setting"
+#~ msgstr "A definição foi actualizada"
+
+#~ msgid "Notification"
+#~ msgstr "Notificação"
+
+# 	xbiancopy
+#
+#~ msgid "Source drive/partition: "
+#~ msgstr "Disco/Partição de origem:"
+
+#~ msgid "Xbian copier"
+#~ msgstr "Copiador XBMC"
+
+#~ msgid "XBIAN system copy tool (to usb, img file ...)"
+#~ msgstr "Sistema de cópia XBian (p/ usb, .img ...)"
+
+#~ msgid "Wrong destination block device (doesn't exist or is not a partition)"
+#~ msgstr "Unidade de destino errada (não existe ou não é uma partição)"
+
+#~ msgid "NFS export does not meet requirements"
+#~ msgstr "A exportação NFS não cumpre os requisitos"
+
+#~ msgid "Destination"
+#~ msgstr "Destino"
+
+#~ msgid "Backups XBMC settings, Libraries and related files"
+#~ msgstr "Guarda cópias de definições XBMC e relacionados"
+
+# 	enable auto updates
+#
+#~ msgid "Auto updates"
+#~ msgstr "Auto-actualizações"
+
+#~ msgid "Set auto update mechanism"
+#~ msgstr "Configurar actualizações automáticas"
+
+#~ msgid "Do you want to activate automatic updates?"
+#~ msgstr "Deseja activar as actualizações automáticas?"
+
+#~ msgid "Automatic updates are disabled"
+#~ msgstr "As actualizações automáticas estão desactivadas"
+
+#~ msgid "Automatic updates are enabled"
+#~ msgstr "As actualizações automáticas estão activas"
