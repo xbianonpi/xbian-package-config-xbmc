@@ -1,33 +1,32 @@
 import gettext
-import os
+import locale
 
 import xbmc
 
 from resources.lib.xbianconfig import xbianConfig
 
 
-APP_NAME = "xbian"
-LOCALE_DIR = os.path.join([
-    os.path.dirname(os.path.abspath(__file__)),
-    os.path.pardir, os.path.pardir, 'po'])
+APP_NAME = "xbian-config"
+CODESET = "UTF-8"
 
+
+gettext.bindtextdomain(APP_NAME)
 gettext.textdomain(APP_NAME)
-# gettext.bind_textdomain_codeset(APP_NAME, "UTF-8")
-gettext.install(APP_NAME, LOCALE_DIR, unicode=True)
+gettext.bind_textdomain_codeset(APP_NAME, CODESET)
+gettext.install(APP_NAME, unicode=True)
 
 try:
-    xlanguage = xbmc.getLanguage(xbmc.ISO_639_1)
+    xbmc_lang = xbmc.getLanguage(xbmc.ISO_639_1)
 except Exception:
-    xlanguage = 'xbmc.getLanguage not supported'
+    xbmc_lang = None
 
-rc = gettext.find(APP_NAME, LOCALE_DIR)
-if rc:
-    language = gettext.translation(APP_NAME, LOCALE_DIR)
-else:
-    lc = xbianConfig('locales', 'select')[0].split('.')[0]
-    languages = []
-    if lc:
-        languages = [lc]
+xbian_lang = xbianConfig('locales', 'select')[0].split('.')[0]
+system_lang = locale.getlocale(locale.LC_MESSAGES)[0]
+if not system_lang:
+    system_lang = locale.getdefaultlocale()[0]
 
-    language = gettext.translation(
-        APP_NAME, LOCALE_DIR, languages=languages, fallback=True)
+# The priority is: xbmc => xbian => system
+languages = [
+    lang for lang in [xbmc_lang, xbian_lang, system_lang] if lang]
+language = gettext.translation(
+    APP_NAME, languages=languages, fallback=True, codeset=CODESET)

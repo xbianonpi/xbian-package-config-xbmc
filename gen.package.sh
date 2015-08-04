@@ -3,6 +3,7 @@
 BUILD_DIR=build
 INSTALL_DIR=usr/local/share/kodi/addons/plugin.xbianconfig
 ADDON_DIR=xbianconfig
+LOCALE_DIR=usr/share/locale
 
 str='strip'
 strargs='--strip-unneeded'
@@ -23,6 +24,15 @@ mkdir -p $BUILD_DIR/$INSTALL_DIR
 mkdir -p $BUILD_DIR/DEBIAN
 cp -r $ADDON_DIR/* $BUILD_DIR/$INSTALL_DIR
 cp -r debian/* $BUILD_DIR/DEBIAN
+
+# Compile translations
+for f in $(find po -type f -name "*.po"); do
+    base=$(basename $f)
+    language=${base%.*}
+    dir=$BUILD_DIR/$LOCALE_DIR/$language/LC_MESSAGES/
+    mkdir -p $dir
+    msgfmt -o $dir/xbian-config.mo -v $f
+done
 
 find $BUILD_DIR/$INSTALL_DIR -name "*.pyc" -delete
 
