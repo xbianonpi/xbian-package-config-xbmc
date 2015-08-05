@@ -1,7 +1,7 @@
 [main]
 host = https://www.transifex.com
 
-[xbian-translation/xbian-config.pot]
+[xbian-translation/xbian-configpot]
 file_filter = po/<lang>.po
 source_file = po/xbian-config.pot
 source_lang = en
