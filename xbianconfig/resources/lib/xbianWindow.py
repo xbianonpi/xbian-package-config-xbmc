@@ -36,7 +36,7 @@ class XbianWindow(WindowSkinXml):
             title = category.getTitle()
             xbmc.executebuiltin(
                 'Skin.SetString(%sloadingvalue,%s)' % (
-                    title, _('xbian-config.common.clicktoload')))
+                    title, _('Click to load...')))
             self.publicMethod[title] = {}
             self.loadingCat[title] = False
             for setting in category.getSettings():

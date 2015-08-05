@@ -12,6 +12,22 @@ import resources.lib.translation
 
 _ = resources.lib.translation.language.ugettext
 
+# FIXME: This is not a very good solution, but was the easiest way I found to
+# migrate the previous translations for videoflags since they are used in more
+# than one place. We should try to avoid that duplication instead.
+_VIDEO_STRINGS = {
+    'name': _("Video output"),
+    'description': _("Change HDMI, CEC and overscan settings"),
+    'label.videoflags': _("Video flags"),
+    'update_success': _("Video flags successfully updated"),
+    'hdmi_force_hotplug': _("Force HDMI output when no tv is identified"),
+    'hdmi_ignore_hotplug': _("Ignore HDMI output even if a tv is connected"),
+    'hdmi_ignore_cec_init': _(
+        "Ignore CEC init, preventing wakeup of tv at reboot"),
+    'hdmi_ignore_cec': _("Disable CEC"),
+    'disable_overscan': _("Disable overscan"),
+    'disable_splash': _("Disable the 'rainbow' screen at really start of RPI"),
+}
 
 dialog = xbmcgui.Dialog()
 
@@ -371,8 +387,7 @@ class videooutputControl(MultiSettingControl):
         self.videooutputcontrol = {}
         for videooutput in self.videooutputlist:
             self.videooutputcontrol[videooutput] = RadioButtonControl(
-                # XXX: Get translation based on flag
-                Tag('label', _('xbian-config.videoflags.%s')))
+                Tag('label', _VIDEO_STRINGS[videooutput]))
             self.videooutputcontrol[videooutput].onClick = lambda forwardclick: self.onClick(self)
             self.addControl(self.videooutputcontrol[videooutput])
 
@@ -413,8 +428,7 @@ class videooutput(Setting):
         for key in value:
             if value[key] != self.xbianValue[key]:
                 rc = xbianConfig('videoflags', 'update', key, value[key])
-                # XXX: Get translation based on flag
-                self.DIALOGHEADER = _('xbian-config.videoflags.%s')
+                self.DIALOGHEADER = _VIDEO_STRINGS[key]
                 break
         if rc and rc[0] == '1':
             return True
