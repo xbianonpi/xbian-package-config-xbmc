@@ -8,7 +8,7 @@ from resources.lib.xbianconfig import xbianConfig
 from resources.lib.utils import *
 import resources.lib.translation
 
-_ = resources.lib.translation.language.ugettext
+_ = resources.lib.translation.language.gettext
 
 dialog = xbmcgui.Dialog()
 

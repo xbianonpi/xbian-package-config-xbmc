@@ -1,5 +1,5 @@
 import resources.lib.translation
-_ = resources.lib.translation.language.ugettext
+_ = resources.lib.translation.language.gettext
 
 DATA = {
     "title": _("Welcome to XBian"),

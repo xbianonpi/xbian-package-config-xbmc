@@ -7,7 +7,7 @@ import xbmcgui
 from xbmcaddon import Addon
 
 import resources.lib.translation
-_ = resources.lib.translation.language.ugettext
+_ = resources.lib.translation.language.gettext
 
 __addonID__ = "plugin.xbianconfig"
 

@@ -6,7 +6,7 @@ import xbmc
 from resources.lib.utils import setvisiblecondition, getSetting
 
 import resources.lib.translation
-_ = resources.lib.translation.language.ugettext
+_ = resources.lib.translation.language.gettext
 
 
 ACTION_SELECT_ITEM = 7
@@ -109,10 +109,10 @@ class XbianWindow(WindowSkinXml):
         for line in xmltemplate.readlines():
             if '<control type="xbian" value="Menucategories"/>' in line:
                 for category in self.categories:
-                    xmlout.write(category.getTitleContent().toXml().encode('utf-8'))
+                    xmlout.write(category.getTitleContent().toXml())
             elif '<control type="xbian" value="categories"/>' in line:
                 for category in self.categories:
-                    xmlout.write(category.getCategory().toXml().encode('utf-8'))
+                    xmlout.write(category.getCategory().toXml())
                     # xmlout.write(category.getScrollBar().toXml())
             else:
                 xmlout.write(line)

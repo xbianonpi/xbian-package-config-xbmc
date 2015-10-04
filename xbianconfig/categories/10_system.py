@@ -10,7 +10,7 @@ from resources.lib.xbianconfig import xbianConfig
 from resources.lib.utils import *
 import resources.lib.translation
 
-_ = resources.lib.translation.language.ugettext
+_ = resources.lib.translation.language.gettext
 
 # FIXME: This is not a very good solution, but was the easiest way I found to
 # migrate the previous translations for videoflags since they are used in more

@@ -50,7 +50,7 @@ class XbianDialog(DialogSkinXml):
         for line in xmltemplate.readlines():
             if '<control type="xbian" value="settings"/>' in line:
                 for setting in self.settings:
-                    xmlout.write(setting.getControl().toXml().encode('utf-8'))
+                    xmlout.write(setting.getControl().toXml())
             else:
                 xmlout.write(line)
         xmltemplate.close()

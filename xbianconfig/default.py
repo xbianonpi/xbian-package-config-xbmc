@@ -14,7 +14,7 @@ from resources.lib.utils import *
 from resources.lib.xbianconfig import xbianConfig
 import resources.lib.translation
 
-_ = resources.lib.translation.language.ugettext
+_ = resources.lib.translation.language.gettext
 
 __script__ = "Unknown"
 __plugin__ = "xbian-config"

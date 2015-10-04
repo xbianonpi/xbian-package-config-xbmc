@@ -10,7 +10,7 @@ import collections
 import threading
 from resources.lib.xbmcguie.tag import Tag
 import resources.lib.translation
-_ = resources.lib.translation.language.ugettext
+_ = resources.lib.translation.language.gettext
 
 
 __addonID__ = "plugin.xbianconfig"
