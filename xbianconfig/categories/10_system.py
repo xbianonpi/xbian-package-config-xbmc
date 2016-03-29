@@ -116,7 +116,7 @@ class NetworkControl(MultiSettingControl):
                     getIp(make_label(_('Networkserver')), dns1.getValue())))
 
             self.interfaceValue[interface]['dns2'] = ButtonControl(
-                Tag('label', make_label(_('Networkserver'))))
+                Tag('label', make_label(_('Networkserver'), 2)))
             self.interfaceValue[interface]['dns2'].onClick = (
                 lambda dns2: dns2.setValue(
                     getIp(make_label(_('Networkserver')), dns2.getValue())))
