@@ -110,16 +110,16 @@ class NetworkControl(MultiSettingControl):
                     getIp(_('Gateway'), gateway.getValue())))
 
             self.interfaceValue[interface]['dns1'] = ButtonControl(
-                Tag('label', make_label(_('Networkserver'), 2)))
+                Tag('label', make_label(_('Nameserver'), 2)))
             self.interfaceValue[interface]['dns1'].onClick = (
                 lambda dns1: dns1.setValue(
-                    getIp(make_label(_('Networkserver')), dns1.getValue())))
+                    getIp(make_label(_('Nameserver')), dns1.getValue())))
 
             self.interfaceValue[interface]['dns2'] = ButtonControl(
-                Tag('label', make_label(_('Networkserver'), 2)))
+                Tag('label', make_label(_('Nameserver'), 2)))
             self.interfaceValue[interface]['dns2'].onClick = (
                 lambda dns2: dns2.setValue(
-                    getIp(make_label(_('Networkserver')), dns2.getValue())))
+                    getIp(make_label(_('Nameserver')), dns2.getValue())))
 
             self.interfaceValue[interface]['staticgroup'].addControl(
                 self.interfaceValue[interface]['ipadress'])

@@ -319,7 +319,7 @@ msgstr "Passerelle"
 #: xbianconfig/categories/10_system.py:116
 #: xbianconfig/categories/10_system.py:119
 #: xbianconfig/categories/10_system.py:122
-msgid "Networkserver"
+msgid "Nameserver"
 msgstr "Serveur DNS"
 
 # xbian-config dialog

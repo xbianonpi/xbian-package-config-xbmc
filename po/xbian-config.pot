@@ -267,7 +267,7 @@ msgstr ""
 #: xbianconfig/categories/10_system.py:116
 #: xbianconfig/categories/10_system.py:119
 #: xbianconfig/categories/10_system.py:122
-msgid "Networkserver"
+msgid "Nameserver"
 msgstr ""
 
 #: xbianconfig/categories/10_system.py:191
