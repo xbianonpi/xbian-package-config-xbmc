@@ -66,6 +66,10 @@ class autoweeklysnapshot(autodailysnapshot):
     LABEL = _('Enable weekly snapshot')
 
 
+class automonthlysnapshot(autodailysnapshot):
+    LABEL = _('Enable monthly snapshot')
+
+
 class systemBackup(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
 
@@ -181,7 +185,8 @@ class AutoBackupGui(Setting):
         value = self.control.getValue()
         if value[1] == 'File':
             value[2] = 'file:' + value[2]
-            self.APPLYTEXT = _('Write backup to %s?') % (value[2][5:], )
+            dest = xbianConfig('xbiancopy', 'imgdest', '?')[0]
+            self.APPLYTEXT = _('Write backup to %s?') % (dest, )
             confirm = False
         else:
             self.APPLYTEXT = _('This will erase ALL data on %s, continue?') % (
@@ -189,6 +194,7 @@ class AutoBackupGui(Setting):
             confirm = True
 
         if self.askConfirmation(confirm):
+            xbianConfig('xbiancopy', 'start', '/dev/root', value[2])[0]
             dlg = dialogWaitBackground(
                 'Xbian Copy', [_('Please wait while creating backup file')],
                 self.checkcopyFinish,
@@ -219,10 +225,6 @@ class AutoBackupGui(Setting):
         #  'UUID'/'backup_dir', #system Path
         #  BACKUP_PROFILE[x]#system backup delta
         # ]
-
-        # TODO
-        # read default Value from file here
-        # value is like [1,'File','/home/belese/','Daily']
         if xbianConfig('xbiancopy', 'imgtype')[0] == 'file':
             imgtype = 'File'
         else:
@@ -244,9 +246,6 @@ class AutoBackupGui(Setting):
     def setXbianValue(self, value):
         # value is like [1,'File','/home/belese/', 'Daily']
         # or [1,'Device','UUID','Daily']
-        # TODO
-        # save xbian autobackup values here
-        # return True if ok, False either
         if value[1] == 'File':
             value[1] = 'file'
         if value[1] == 'Device':
@@ -533,7 +532,15 @@ class weeklySnapshotGui(dailySnapshotGui):
         self.key = 'doweekly'
 
 
+class monthlySnapshotGui(dailySnapshotGui):
+    CONTROL = automonthlysnapshot(ADVANCED)
+    DIALOGHEADER = "Monthly Snapshot"
+
+    def onInit(self):
+        self.key = 'domonthly'
+
+
 class backup(Category):
     TITLE = _('Backup')
     SETTINGS = [homeBackupLabel, homeBackup, homeRestoreBackup, systemBackupLabel, AutoBackupGui, snapshotLabel,
-                dailySnapshotGui, weeklySnapshotGui, separator, snapshotmount, snapshotRollback, snapshotDestroy, snapshotCreate]
+                dailySnapshotGui, weeklySnapshotGui, monthlySnapshotGui, separator, snapshotmount, snapshotRollback, snapshotDestroy, snapshotCreate]
