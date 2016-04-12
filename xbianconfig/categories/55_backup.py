@@ -294,6 +294,7 @@ class homeBackup(Setting):
     def getUserValue(self):
         self.APPLYTEXT = _('Backup /home to file')
         if self.askConfirmation():
+            xbianConfig('backuphome', 'start')[0]
             msg = [
                 _('It can take several minutes depending on size of your '
                   '/home/xbian directory'),
