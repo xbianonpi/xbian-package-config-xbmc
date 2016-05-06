@@ -8,6 +8,6 @@ _ = resources.lib.translation.language.gettext
 class extra(Category):
     SETTINGS = extrasetting.extra()
     if SETTINGS:
-        TITLE = _('extra')
+        TITLE = _('Extra')
     else:
         TITLE = None
