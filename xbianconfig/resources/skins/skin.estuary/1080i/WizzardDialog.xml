@@ -1,0 +1,244 @@
+<window>
+	<defaultcontrol always="true">112</defaultcontrol>
+	<allowoverlay>no</allowoverlay>
+	<controls>
+            <include>DefaultBackground</include>
+            <control type="group">
+                <left>90</left>
+                <top>138</top>
+                <include content="DialogBackgroundCommons">
+                    <param name="DialogBackgroundWidth" value="1740" />
+                    <param name="DialogBackgroundHeight" value="792" />
+                    <param name="DialogHeaderLabel" value="" />
+                    <param name="DialogHeaderId" value="1" />
+                </include>
+		<control type="image">
+	            <description>xbian logo</description>
+		    <posx>90</posx>
+		    <posy>120</posy>
+		    <width>390</width>
+		    <height>327</height>			
+		    <texture>$INFO[System.AddonIcon(plugin.xbianconfig)]</texture>				
+		</control>
+		<control type="list" id="50000">
+           	    <description>button area</description>
+		    <posx>20</posx>
+		    <posy>5</posy>
+		    <width>1600</width>
+		    <height>70</height>
+		    <itemgap>5</itemgap>
+		    <align>center</align>
+		    <orientation>horizontal</orientation>
+		    <onleft>50000</onleft>
+		    <onright>50000</onright>
+		    <onup>2</onup>
+		    <ondown>100</ondown>		            
+                    <itemlayout width="240" height="60">
+		        <control type="label">
+		            <description>Welcome</description>
+			    <posx>15</posx> <!-- 30 -->
+			    <posy>0</posy>
+			    <width>180</width>
+			    <height>60</height>				
+			    <aligny>center</aligny>
+			    <font>font12_title</font>
+			    <info>ListItem.Label</info>				
+		        </control>
+		        <control type="image">
+	                    <description>Has Next</description>
+			    <posx>205</posx>
+			    <posy>22</posy>
+			    <width>22</width>
+			    <height>22</height>
+			    <texture>icons/now-playing/play.png</texture>
+		        </control>
+                    </itemlayout>
+                    <focusedlayout height="60" width="240">
+		        <control type="label">
+			    <description>Welcome</description>
+			    <posx>15</posx>
+			    <posy>0</posy>
+		            <width>180</width>
+			    <height>60</height>				
+			    <aligny>center</aligny>
+			    <font>font14_title</font>
+			    <info>ListItem.Label</info>				
+			    <texture>list-focus.png</texture>
+			</control>
+                        <!-- ???
+			<control type="label">
+			    <description>Welcome</description>
+			    <posx>900</posx>
+			    <posy>300</posy>
+			    <width>180</width>
+			    <height>60</height>				
+			    <aligny>center</aligny>
+			    <font>font14_title</font>
+			    <info>ListItem.Label</info>				
+			    <texture>list-focus.png</texture>
+			</control>
+                        -->
+                        <!-- ???
+			<control type="image">
+			    <description>Has Previous</description>
+			    <posx>205</posx>
+			    <posy>23</posy>
+			    <width>22</width>
+			    <height>22</height>
+			    <texture>scroll-right-focus.png</texture>
+			    <visible>Container(50000).HasNext</visible>
+			</control>
+                        -->
+                    </focusedlayout>      
+                </control>		
+
+                <control type="label">
+                    <description>Main title</description>
+                    <posx>570</posx>
+                    <posy>120</posy>
+                    <width>1100</width>
+                    <height>60</height>      
+                    <font>font28_title</font>
+	            <label>$INFO[Container(50000).ListItem(0).Property(title)]</label>	  
+	            <aligny>center</aligny>
+	            <textcolor>blue</textcolor>
+	            <shadowcolor>black</shadowcolor>
+                </control>
+
+                <control type="textbox" id="50001">
+                    <description>Description</description>
+                    <posx>570</posx>
+                    <posy>190</posy>
+                    <width>1100</width>
+                    <height>452</height>
+                    <font>font13</font>      
+                    <label>$INFO[Container(50000).ListItem(0).Label2]</label>
+                </control>
+                <!-- ???
+		<control type="grouplist" id="2">
+		    <description>control area</description>
+		    <posx>40</posx>
+		    <posy>120</posy>
+		    <width>960</width>
+		    <height>380</height>
+		    <itemgap>5</itemgap>
+		    <pagecontrol>30</pagecontrol>
+		    <onup>9</onup>
+		    <ondown>9001</ondown>
+		    <onleft>2</onleft>
+		    <onright>30</onright>
+		</control>
+		-->
+		<!-- Scrollbar not used
+		<control type="scrollbar" id="30">
+		    <posx>765</posx>
+		    <posy>120</posy>
+		    <width>25</width>
+		    <height>380</height>
+		    <texturesliderbackground border="0,14,0,14">ScrollBarV.png</texturesliderbackground>
+		    <texturesliderbar border="2,16,2,16">ScrollBarV_bar.png</texturesliderbar>
+		    <texturesliderbarfocus border="2,16,2,16">ScrollBarV_bar_focus.png</texturesliderbarfocus>
+		    <textureslidernib>ScrollBarNib.png</textureslidernib>
+		    <textureslidernibfocus>ScrollBarNib.png</textureslidernibfocus>
+		    <onleft>2</onleft>
+		    <onright>9</onright>
+		    <showonepage>false</showonepage>
+		    <orientation>vertical</orientation>
+		</control>
+                -->
+		<control type="button" id="100">
+		    <description>OK Button</description>
+		    <visible>!StringCompare(Container(50000).ListItem(0).Property(path),None)</visible>
+		    <posx>850</posx>
+		    <posy>620</posy>
+		    <width>575</width>
+		    <height>85</height>
+		    <align>center</align>
+		    <aligny>center</aligny>
+		    <font>font12_title</font>
+		    <label>Manage $INFO[Container(50000).ListItem(0).Label]</label>				
+		    <onclick>RunScript(plugin.xbianconfig,$INFO[Container(50000).ListItem(0).Property(path)])</onclick>
+		    <onright>9001</onright>
+		    <onleft>9001</onleft>
+		    <onup>50000</onup>
+		    <ondown>9001</ondown>
+		</control>
+		<control type="group" id="9001">
+		    <posx>135</posx>
+		    <posy>680</posy>
+		    <control type="button" id="110">
+		        <description>Close</description>
+			<posx>0</posx>
+			<posy>0</posy>
+			<width>300</width>
+			<height>85</height>
+			<align>center</align>
+			<aligny>center</aligny>
+			<font>font12_title</font>
+			<label>Close</label>
+			<onleft>112</onleft>
+			<onclick>PreviousMenu</onclick>
+			<onright>111</onright>
+			<onup>100</onup>
+		        <ondown>50000</ondown>
+		    </control>
+		    <control type="button" id="111">
+		        <description>Previous</description>
+			<posx>715</posx>
+			<posy>0</posy>
+			<width>300</width>
+			<height>85</height>
+			<align>center</align>
+			<aligny>center</aligny>
+			<font>font12_title</font>
+			<label>Previous</label>				
+			<visible>!Container(50000).Position(0) | Container(50000).HasPrevious</visible>
+			<onclick>Control.Move(50000,-1)</onclick>
+			<onleft>110</onleft>
+			<onright>112</onright>
+			<onup>100</onup>
+			<ondown>50000</ondown>
+		    </control>			
+		    <control type="button" id="112">
+		        <description>Next</description>
+			<posx>990</posx>
+			<posy>0</posy>
+			<width>300</width>
+			<height>85</height>
+			<align>center</align>
+			<aligny>center</aligny>
+			<font>font12_title</font>
+			<visible>Container(50000).HasNext</visible>
+			<label>Next</label>
+			<onclick>Control.Move(50000,1)</onclick>
+			<onleft>111</onleft>
+			<onright>110</onright>
+			<onup>100</onup>
+			<ondown>50000</ondown>
+		    </control>
+		    <control type="button" id="112">
+		        <description>Finish</description>
+			<posx>990</posx>
+			<posy>0</posy>
+			<width>300</width>
+			<height>85</height>
+			<align>center</align>
+			<aligny>center</aligny>
+			<font>font12_title</font>
+			<visible>!Container(50000).HasNext</visible>
+			<label>Finish</label>
+			<onclick>PreviousMenu</onclick>
+			<onleft>111</onleft>
+			<onright>110</onright>
+			<onup>100</onup>
+			<ondown>50000</ondown>
+		    </control>
+		</control>
+	    </control>
+            <include content="TopBar">
+                <param name="breadcrumbs_label" value="XBian Wizard" />
+                <param name="breadcrumbs_icon" value="icons/settings/system.png" />
+            </include>
+            <include>BottomBar</include>
+	</controls>
+</window>

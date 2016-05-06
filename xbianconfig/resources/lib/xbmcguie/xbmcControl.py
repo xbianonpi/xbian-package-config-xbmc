@@ -4,6 +4,7 @@ from virtualControl import ControlXml
 from tag import Tag
 from xbmcContainer import *
 
+SKIN_DIR = xbmc.getSkinDir()
 
 class scrollbarControl(ControlXml):
     FOCUSABLE = True
@@ -101,10 +102,15 @@ class CategoryLabelControl(ControlXml):
     def onInit(self):
         self.setTag(Tag('height', '%d' % (self.getTag('height').getValue()['value'] + 5)))
         self.setTag(Tag('font', 'font13_title'))
-        self.setTag(Tag('textcolor', 'blue'))
         self.setTag(Tag('shadowcolor', 'black'))
-        self.setTag(Tag('align', 'left'))
         self.setTag(Tag('aligny', 'center'))
+        global SKIN_DIR
+        if SKIN_DIR == 'skin.estuary':
+            self.setTag(Tag('textcolor', 'white'))
+            self.setTag(Tag('align', 'center'))
+        else:
+            self.setTag(Tag('textcolor', 'blue'))
+            self.setTag(Tag('align', 'left'))
 
     def setLabel(self, value):
         if hasattr(self, 'Controlinstance'):
@@ -176,14 +182,26 @@ class SpinControlex(ControlXml):
         # print self.tags
         # create the groupControl
         self.controls['groupControl'] = GroupControl(*self.getArrayTags())
-
         self.controls['buttondown'] = ButtonControl()
-        self.controls['buttondown'].setTag(Tag('posx', 680))
-        self.controls['buttondown'].setTag(Tag('posy', 9))
-        self.controls['buttondown'].setTag(Tag('width', 33))
-        self.controls['buttondown'].setTag(Tag('height', 22))
-        self.controls['buttondown'].setTag(Tag('texturefocus', 'scroll-down-focus-2.png'))
-        self.controls['buttondown'].setTag(Tag('texturenofocus', 'scroll-down-2.png'))
+        global SKIN_DIR
+        if SKIN_DIR == 'skin.estuary':
+            currentProperties = [ {'key' : 'colordiffuse', 'value' : 'button_focus'} ]
+            offsetX = 42
+            self.controls['buttondown'].setTag(Tag('posx', 1144))
+            self.controls['buttondown'].setTag(Tag('posy', 20))
+            self.controls['buttondown'].setTag(Tag('width', 33))
+            self.controls['buttondown'].setTag(Tag('height', 20))
+            self.controls['buttondown'].setTag(Tag('texturefocus', 'arrow-light-down1-nf.png', currentProperties))
+            self.controls['buttondown'].setTag(Tag('texturenofocus', 'arrow-light-down1-nf.png'))
+        else:
+            currentProperties = None
+            offsetX = None
+            self.controls['buttondown'].setTag(Tag('posx', 680))
+            self.controls['buttondown'].setTag(Tag('posy', 9))
+            self.controls['buttondown'].setTag(Tag('width', 33))
+            self.controls['buttondown'].setTag(Tag('height', 22))
+            self.controls['buttondown'].setTag(Tag('texturefocus', 'scroll-down-focus-2.png'))
+            self.controls['buttondown'].setTag(Tag('texturenofocus', 'scroll-down-2.png'))
         self.controls['buttondown'].setTag(Tag('onup', self.controls['FakebtnUp'].getId()))
         self.controls['buttondown'].setTag(Tag('ondown', self.controls['FakebtnDown'].getId()))
         if not self.hasTag('onleft'):
@@ -191,12 +209,20 @@ class SpinControlex(ControlXml):
             self.controls['buttondown'].setTag(Tag('onleft', 9000))
 
         self.controls['buttonup'] = ButtonControl()
-        self.controls['buttonup'].setTag(Tag('posx', 713))
-        self.controls['buttonup'].setTag(Tag('posy', 9))
-        self.controls['buttonup'].setTag(Tag('width', 33))
-        self.controls['buttonup'].setTag(Tag('height', 22))
-        self.controls['buttonup'].setTag(Tag('texturefocus', 'scroll-up-focus-2.png'))
-        self.controls['buttonup'].setTag(Tag('texturenofocus', 'scroll-up-2.png'))
+        if SKIN_DIR == 'skin.estuary':
+            self.controls['buttonup'].setTag(Tag('posx', 1177))
+            self.controls['buttonup'].setTag(Tag('posy', 20))
+            self.controls['buttonup'].setTag(Tag('width', 33))
+            self.controls['buttonup'].setTag(Tag('height', 20))
+            self.controls['buttonup'].setTag(Tag('texturefocus', 'arrow-light-up1-nf.png', currentProperties))
+            self.controls['buttonup'].setTag(Tag('texturenofocus', 'arrow-light-up1-nf.png'))
+        else:
+            self.controls['buttonup'].setTag(Tag('posx', 713))
+            self.controls['buttonup'].setTag(Tag('posy', 9))
+            self.controls['buttonup'].setTag(Tag('width', 33))
+            self.controls['buttonup'].setTag(Tag('height', 22))
+            self.controls['buttonup'].setTag(Tag('texturefocus', 'scroll-up-focus-2.png'))
+            self.controls['buttonup'].setTag(Tag('texturenofocus', 'scroll-up-2.png'))
         self.controls['buttonup'].setTag(Tag('onleft', self.controls['buttondown'].getId()))
         self.controls['buttonup'].setTag(Tag('onup', self.controls['FakebtnUp'].getId()))
         self.controls['buttonup'].setTag(Tag('ondown', self.controls['FakebtnDown'].getId()))
@@ -214,7 +240,7 @@ class SpinControlex(ControlXml):
         self.controls['FakebtnLabelFocus'].setTag(Tag('visible', 'Control.HasFocus(%d) | Control.HasFocus(%d)' % (
             self.controls['buttonup'].getId(), self.controls['buttondown'].getId())))
         self.controls['FakebtnLabelFocus'].setTag(
-            Tag('texturenofocus', self.controls['FakebtnLabelFocus'].getTag('texturefocus').getValue()['value']))
+            Tag('texturenofocus', self.controls['FakebtnLabelFocus'].getTag('texturefocus').getValue()['value'], currentProperties))
         self.controls['groupControl'].addControl(self.controls['FakebtnLabelFocus'])
 
         self.controls['FakebtnLabelNoFocus'] = ButtonControl(*self.getArrayTags())
@@ -235,6 +261,12 @@ class SpinControlex(ControlXml):
         self.controls['FakebtnLabelDisabled'].setTag(Tag('posy', 0))
         self.controls['FakebtnLabelDisabled'].setTag(Tag('visible', '!Control.IsEnabled(%d) + control.IsVisible(%d)' % (
             self.controls['buttondown'].getId(), self.controls['buttondown'].getId())))
+
+        if offsetX is not None:
+            self.controls['FakebtnLabelFocus'].setTag(Tag('textoffsetx', offsetX))
+            self.controls['FakebtnLabelNoFocus'].setTag(Tag('textoffsetx', offsetX))
+            self.controls['FakebtnLabelDisabled'].setTag(Tag('textoffsetx', offsetX))
+
         self.controls['groupControl'].addControl(self.controls['FakebtnLabelDisabled'])
 
         self.controls['groupControl'].addControl(self.controls['buttondown'])

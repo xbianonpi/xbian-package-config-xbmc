@@ -1,5 +1,6 @@
 import itertools
 from tag import Tag
+import xbmc
 
 id_generator = itertools.count(36000)
 
@@ -7,6 +8,8 @@ id_generator = itertools.count(36000)
 # check later if possible to get from skin
 defaultSkinSetting = {'height': 40, 'width': 750, 'textcolor': 'grey2', 'focusedcolor': 'white', 'disabledcolor': 'grey3', 'pulseonselect': 'false', 'texturefocus': 'MenuItemFO.png', 'texturenofocus': 'MenuItemNF.png', 'font': 'font13',
                       'texturesliderbackground': 'ScrollBarV.png', 'texturesliderbar': 'ScrollBarV_bar.png', 'texturesliderbarfocus': 'ScrollBarV_bar_focus.png', 'textureslidernib': 'ScrollBarNib.png', 'textureslidernibfocus': 'ScrollBarNib.png'}
+defaultSkinSettingEstuary = {'height': 60, 'width': 1256, 'textcolor': 'grey', 'focusedcolor': 'white', 'disabledcolor': 'disabled', 'pulseonselect': 'false', 'texturefocus': 'lists/focus.png', 'texturenofocus': 'lists/separator.png', 'font': 'font13',
+                             'textoffsetx': 42, 'radioposx': 1124 }
 
 # virtual class xbmcxml
 # Base class for Control and Container
@@ -42,10 +45,21 @@ class xbmcxml:
 
         self.tags = {}
         # set default tag if necessary
+        SKIN_DIR = xbmc.getSkinDir()
+        if SKIN_DIR == 'skin.estuary':
+            currentSkinSetting = defaultSkinSettingEstuary
+            currentProperties = [ {'key' : 'colordiffuse', 'value' : 'button_focus' } ]
+        else:
+            currentSkinSetting = defaultSkinSetting
+            currentProperties = None
+
         if 'defaultSKin' not in kwargs or kwargs['defaultSKin'] == True:
-            for default in defaultSkinSetting:
+            for default in currentSkinSetting:
                 if default in self.availabletags:
-                    xbmcxml.setTag(self, Tag(default, defaultSkinSetting[default]))
+                    if default == 'texturefocus':
+                        xbmcxml.setTag(self, Tag(default, currentSkinSetting[default], currentProperties))
+                    else:
+                        xbmcxml.setTag(self, Tag(default, currentSkinSetting[default]))
 
         # set tag from args
         for tag in args:

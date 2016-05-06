@@ -12,18 +12,24 @@ ROOTDIR = ADDON_DIR
 ACTION_PREVIOUS_MENU = 10
 ACTION_BACK = 92
 
+SKIN_DIR = xbmc.getSkinDir()
+if SKIN_DIR == 'skin.estuary':
+    SKIN_RES = '1080i'
+else:
+    SKIN_RES = '720p'
 
 class WindowSkinXml(xbmcgui.WindowXML):
 
     def __init__(self, strXMLname, strFallbackPath, strDefaultName=False, forceFallback=False):
-        SKIN_DIR = xbmc.getSkinDir()
+        global SKIN_DIR
+        global SKIN_RES
         try:
-            with open(os.path.join(ROOTDIR, 'resources', 'skins', SKIN_DIR, '720p', 'SettingsXbianInfo.template')):
+            with open(os.path.join(ROOTDIR, 'resources', 'skins', SKIN_DIR, SKIN_RES, 'SettingsXbianInfo.template')):
                 pass
         except IOError:
             SKIN_DIR = 'Default'
         self.xmlfile = os.path.join(
-            strFallbackPath, 'resources', 'skins', SKIN_DIR, '720p', strXMLname)
+            strFallbackPath, 'resources', 'skins', SKIN_DIR, SKIN_RES, strXMLname)
         self.controls = []
         self.init()
 
@@ -68,14 +74,15 @@ class WindowSkinXml(xbmcgui.WindowXML):
 class DialogSkinXml(xbmcgui.WindowXMLDialog):
 
     def __init__(self, strXMLname, strFallbackPath, strDefaultName=False, forceFallback=False):
-        SKIN_DIR = xbmc.getSkinDir()
+        global SKIN_DIR
+        global SKIN_RES
         try:
-            with open(os.path.join(ROOTDIR, 'resources', 'skins', SKIN_DIR, '720p', 'SettingsXbianDialog.template')):
+            with open(os.path.join(ROOTDIR, 'resources', 'skins', SKIN_DIR, SKIN_RES, 'SettingsXbianDialog.template')):
                 pass
         except IOError:
             SKIN_DIR = 'Default'
         self.xmlfile = os.path.join(
-            strFallbackPath, 'resources', 'skins', SKIN_DIR, '720p', strXMLname)
+            strFallbackPath, 'resources', 'skins', SKIN_DIR, SKIN_RES, strXMLname)
         self.controls = []
         self.init()
 

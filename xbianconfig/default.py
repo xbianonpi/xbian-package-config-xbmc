@@ -39,6 +39,10 @@ ADDON_DATA = xbmc.translatePath("special://profile/addon_data/%s/" % __addonID__
 CATEGORY_PATH = 'categories'
 
 SKIN_DIR = xbmc.getSkinDir()
+if SKIN_DIR == 'skin.estuary':
+    SKIN_RES = '1080i'
+else:
+    SKIN_RES = '720p'
 LOCK_FILE = os.path.join('/', 'tmp', '.xbian_config_python')
 
 
@@ -140,11 +144,12 @@ class xbianSettingWindow(xbianSettingCommon):
         if not self.stop:
             # really don't know why, all others are ok, but skindir have to be global???
             global SKIN_DIR
+            global SKIN_RES
             if not os.path.isfile(
-                    os.path.join(ROOTDIR, 'resources', 'skins', SKIN_DIR, '720p', 'SettingsXbianInfo.template')):
+                    os.path.join(ROOTDIR, 'resources', 'skins', SKIN_DIR, SKIN_RES, 'SettingsXbianInfo.template')):
                 SKIN_DIR = 'Default'
             self.window.doXml(
-                os.path.join(ROOTDIR, 'resources', 'skins', SKIN_DIR, '720p', 'SettingsXbianInfo.template'))
+                os.path.join(ROOTDIR, 'resources', 'skins', SKIN_DIR, SKIN_RES, 'SettingsXbianInfo.template'))
             self.wait.close()
             self.wait = None
             self.window.doModal()
@@ -182,11 +187,12 @@ class xbianSettingDialog(xbianSettingCommon):
         for setting in self.settings:
             self.window.addSetting(self._import_class(setting))
         global SKIN_DIR
+        global SKIN_RES
         if not os.path.isfile(
-                os.path.join(ROOTDIR, 'resources', 'skins', SKIN_DIR, '720p', 'SettingsXbianDialog.template')):
+                os.path.join(ROOTDIR, 'resources', 'skins', SKIN_DIR, SKIN_RES, 'SettingsXbianDialog.template')):
             SKIN_DIR = 'Default'
         self.window.doXml(
-            os.path.join(ROOTDIR, 'resources', 'skins', SKIN_DIR, '720p', 'SettingsXbianDialog.template'))
+            os.path.join(ROOTDIR, 'resources', 'skins', SKIN_DIR, SKIN_RES, 'SettingsXbianDialog.template'))
         self.wait.close()
         self.wait = None
         self.window.doModal()
