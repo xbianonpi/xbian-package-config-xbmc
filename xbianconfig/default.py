@@ -72,7 +72,7 @@ class xbianSettingCommon:
 
     def _checkIsRunning(self):
         if os.path.isfile(LOCK_FILE):
-            xbmcgui.Dialog().ok('XBian-config', 'XBian-config is still running', 'Please wait...')
+            xbmcgui.Dialog().ok('XBian-config', _('XBian-config is still running'), _('Please wait...'))
             return False
         open(LOCK_FILE, 'w').close()
         return True

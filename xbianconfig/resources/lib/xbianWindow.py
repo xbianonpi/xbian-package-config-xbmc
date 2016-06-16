@@ -62,7 +62,7 @@ class XbianWindow(WindowSkinXml):
                          category.getTitle(), xbmc.LOGDEBUG)
                 # load category value
                 xbmc.executebuiltin('Skin.SetString(%sloadingvalue,%s)' %
-                                    (category.getTitle(), _('Loading...')))
+                                    (category.getTitle(), _('Loading') + '...'))
                 self.loadingCat[selectCat] = True
                 initthread = threading.Thread(None, self.onInitThread, None, (category,))
                 initthread.start()

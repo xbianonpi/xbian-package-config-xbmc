@@ -23,7 +23,7 @@ class XbianDialog(DialogSkinXml):
             self.addControl(setting.getControl())
         DialogSkinXml.onInit(self)
         # set title
-        self.getControl(20).setLabel(self.title.title() + ' Loading...')
+        self.getControl(20).setLabel(self.title.title() + ' ' + _('Loading') +'...')
         for setting in self.settings:
             self._loadSettingValue(setting)
         self.getControl(20).setLabel(self.title.title())
