@@ -12,6 +12,6 @@ DATA = {
                      "Later, if you want to do a backup, create a snapshot "
                      "and many more,[CR],go to system->xbian->backup"),
     "action": [
-        'categories.55_backup.homeRestoreBackup',
+        'categories.55_backup.homeExecGui',
     ],
 }
