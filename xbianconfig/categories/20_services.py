@@ -41,7 +41,7 @@ class Service:
         self.control.setLabel(self.label)
         self.control.setValue(status)
         self.control.setEnabled(True)
-        setvisiblecondition(self.visiblekey, True)
+        setvisiblecondition(self.visiblekey, True, xbmcgui.getCurrentWindowId())
 
     def getControl(self):
         return self.control
@@ -172,7 +172,7 @@ class servicesManager(Setting):
             elif rc[0] == '1':
                 self.OKTEXT = '%s %s successfully' % (choice[select], service)
                 self.notifyOnSuccess()
-                if choice[select] == 'Remove from gui':
+                if choice[select] == _('Delete'):
                     self.control.removeService(service)
 
                 # refresh internal value
