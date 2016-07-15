@@ -57,12 +57,12 @@ class PackageCategory:
     def getInstalled(self):
         return self.installed
 
-    def addPackage(self, package):
+    def addPackage(self, package, update=False):
         xbmc.log('XBian-config : Add package %s to category %s' %
                  (package, self.name), xbmc.LOGDEBUG)
         idx = self.initialiseIndex
         find = False
-        if self.flagRemove:
+        if self.flagRemove or update:
             for i, pack in enumerate(self.packageList):
                 if pack.getName() == package:
                     find = True
@@ -72,19 +72,17 @@ class PackageCategory:
 
         if not find:
             self.initialiseIndex += 1
+            self.installed += 1
 
         self.packageList[idx].enable(package)
-        self.installed += 1
         self.LabelPackageControl.setLabel(
             '%s [COLOR lightblue](%d/%d)[/COLOR]' % (self.name, self.installed, self.available))
         if self.installed == self.available:
             # hide get more button
-            setvisiblecondition(self.visiblegetmorekey, False)
-            self.getMoreState = False
-        elif not self.getMoreState:
+            self.disableGetMore()
+        else:
             # as we can't call during progress (xbmc bug), nasty workaround and set here
-            setvisiblecondition(self.visiblegetmorekey, True)
-            self.getMoreState = True
+            self.enableGetMore()
 
     def removePackage(self, package):
         xbmc.log('XBian-config : Remove package %s from category %s' %
@@ -96,15 +94,19 @@ class PackageCategory:
         # refresh category label
         self.LabelPackageControl.setLabel(
             '%s [COLOR lightblue](%d/%d)[/COLOR]' % (self.name, self.installed, self.available))
-        if not self.getMoreState:
-            self.enableGetMore()
+        self.enableGetMore()
 
     def getControl(self):
         return self.control
 
     def enableGetMore(self):
-        setvisiblecondition(self.visiblegetmorekey, True)
-        self.getMoreState = True
+        if not self.getMoreState:
+            setvisiblecondition(self.visiblegetmorekey, True, xbmcgui.getCurrentWindowId())
+            self.getMoreState = True
+
+    def disableGetMore(self):
+        setvisiblecondition(self.visiblegetmorekey, False, xbmcgui.getCurrentWindowId())
+        self.getMoreState = False
 
     def clean(self):
         # clean xbmc skin var
@@ -151,7 +153,7 @@ class Package:
 
     def disable(self):
         xbmc.log('XBian-config : Disable package %s' % self.label, xbmc.LOGDEBUG)
-        setvisiblecondition(self.visiblekey, False)
+        setvisiblecondition(self.visiblekey, False, xbmcgui.getCurrentWindowId())
         self.control.setLabel('')
 
     def enable(self, package):
@@ -159,7 +161,7 @@ class Package:
         self.label = package
         self.control.setLabel(self.label)
         self.control.setEnabled(True)
-        setvisiblecondition(self.visiblekey, True)
+        setvisiblecondition(self.visiblekey, True, xbmcgui.getCurrentWindowId())
 
     def getControl(self):
         return self.control
@@ -195,7 +197,7 @@ class PackagesControl(MultiSettingControl):
         self.onPackage = onPackage
 
     def addPackage(self, group, package):
-        filter(lambda x: x.getName() == group, self.packages)[0].addPackage(package)
+        filter(lambda x: x.getName() == group, self.packages)[0].addPackage(package, True)
 
     def removePackage(self, group, package):
         a = filter(lambda x: x.getName() == group, self.packages)
@@ -230,13 +232,64 @@ class packagesManager(Setting):
             PackageInfo(package, rc[0].partition(' ')[2], rc[1].partition(' ')[2], rc[2].partition(' ')[2], rc[
                         3].partition(' ')[2], rc[4].partition(' ')[2], rc[5].partition(' ')[2], rc[6].partition(' ')[2])
 
+    def installPackage(self, cat, package, update=False):
+        self.APPLYTEXT = _('Are you sure you want to install or '
+                                       'update this package?')
+        if self.askConfirmation(True):
+            self.tmppack = (cat, package)
+            progressDlg = dialogWait(package, _('Please wait...'))
+            progressDlg.show()
+            if not update:
+                rc = xbianConfig('packages', 'installtest', package)
+            if update or (rc and rc[0] == '1'):
+                rc = xbianConfig('packages', 'install', package)
+            if rc and rc[0] == '1':
+                progressDlg.close()
+                dlg = dialogWaitBackground(self.DIALOGHEADER, [
+                   ], self.checkInstallFinish, APTLOGFILE, skinvar=SKINVARAPTRUNNIG, id=xbmcgui.getCurrentWindowId(), onFinishedCB=self.onInstallFinished)
+                dlg.show()
+            else:
+                if rc and rc[0] == '2':
+                    self.ERRORTEXT = _(
+                        'The latest version of this package is '
+                        'already installed')
+                elif rc and rc[0] == '3':
+                    self.ERRORTEXT = _(
+                        'The package version you are trying to '
+                        'install could not be found')
+                elif rc and rc[0] == '4':
+                    self.ERRORTEXT = _(
+                        'The package version you are trying to '
+                        'install could not be found')
+                elif rc and rc[0] == '5':
+                    self.ERRORTEXT = _(
+                        'You are already running a newer version '
+                        'of this package than officially available')
+                elif rc and rc[0] == '6':
+                    self.ERRORTEXT = _(
+                        'There is a size mismatch for the '
+                        'remote packages')
+                elif rc and rc[0] == '7':
+                    self.ERRORTEXT = _(
+                        'A serious error occured while processing '
+                        'this package')
+                else:
+                    # normally never pass here
+                    self.ERRORTEXT = _(
+                        'An unexpected error occurred')
+                progressDlg.close()
+                self.notifyOnError()
+
     def onSelect(self, cat, package):
-        choice = ['Informations', 'Remove Package']
+        choice = [_('Information'), _('Install') + '/' + _('Update'), _('Remove')]
         select = self.dialog.select('Select', choice)
         if select == 0:
             # display info dialog
             self.showInfo(package)
         elif select == 1:
+            # update package
+            self.installPackage(cat, package, True)
+        elif select == 2:
             # remove package
             self.APPLYTEXT = _('Are you sure you want to remove this package?')
             if self.askConfirmation(True):
@@ -249,7 +302,7 @@ class packagesManager(Setting):
                     if rc and rc[0] == '1':
                         progressDlg.close()
                         dlg = dialogWaitBackground(self.DIALOGHEADER, [
-                        ], self.checkInstallFinish, APTLOGFILE, skinvar=SKINVARAPTRUNNIG, onFinishedCB=self.onRemoveFinished)
+                        ], self.checkInstallFinish, APTLOGFILE, skinvar=SKINVARAPTRUNNIG, id=xbmcgui.getCurrentWindowId(), onFinishedCB=self.onRemoveFinished)
                         dlg.show()
                 else:
                     if rc and rc[0] == '2':
@@ -267,17 +320,20 @@ class packagesManager(Setting):
         return xbianConfig('packages', 'progress')[0] != '1'
 
     def onInstallFinished(self):
-        time.sleep(0.5)
+        # unfortunately we have to update all categories because we do not know
+        # whether additional packages has been installed in other category
+        for group in self.control.packages:
+            xbianConfig('packages', 'list', group.getName(), forcerefresh=True)
         self.control.addPackage(self.tmppack[0], self.tmppack[1])
-        self.globalMethod['Services']['refresh']()
+        self.globalMethod[_('Services')]['refresh']()
         self.OKTEXT = _('The package was successfully installed')
         self.notifyOnSuccess()
 
     def onRemoveFinished(self):
-        time.sleep(0.5)
-        print self.tmppack
+        # have to update local cache for current category only
+        xbianConfig('packages', 'list', self.tmppack[0], forcerefresh=True)
         self.control.removePackage(self.tmppack[0], self.tmppack[1])
-        self.globalMethod['Services']['refresh']()
+        self.globalMethod[_('Services')]['refresh']()
         self.OKTEXT = _('This package has been successfully removed')
         self.notifyOnSuccess()
 
@@ -293,64 +349,22 @@ class packagesManager(Setting):
                 tmp = []
         progress.close()
         if tmp[0] != '-2' and tmp[0] != '-3':
-            package = []
+            packages = []
             for packag in tmp:
                 packageTmp = packag.split(',')
                 if packageTmp[1] == '0':
-                    package.append(packageTmp[0])
-            select = self.dialog.select(_('Packages'), package)
+                    packages.append(packageTmp[0])
+            select = self.dialog.select(_('Packages'), packages)
             if select != -1:
+                package = packages[select]
                 choice = [_('Information'), _('Install')]
                 sel = self.dialog.select('Select', choice)
                 if sel == 0:
                     # display info dialog
-                    self.showInfo(package[select])
+                    self.showInfo(package)
                 elif sel == 1:
-                    self.APPLYTEXT = _('Are you sure you want to install or '
-                                       'update this package?')
-                    if self.askConfirmation(True):
-                        self.tmppack = (cat, package[select])
-                        progressDlg = dialogWait(package[select], 'Please wait...')
-                        progressDlg.show()
-                        rc = xbianConfig('packages', 'installtest', package[select])
-                        if rc and rc[0] == '1':
-                            rc = xbianConfig('packages', 'install', package[select])
-                        if rc and rc[0] == '1':
-                            progressDlg.close()
-                            dlg = dialogWaitBackground(self.DIALOGHEADER, [
-                            ], self.checkInstallFinish, APTLOGFILE, skinvar=SKINVARAPTRUNNIG, onFinishedCB=self.onInstallFinished)
-                            dlg.show()
-                        else:
-                            if rc and rc[0] == '2':
-                                self.ERRORTEXT = _(
-                                    'The latest version of this package is '
-                                    'already installed')
-                            elif rc and rc[0] == '3':
-                                self.ERRORTEXT = _(
-                                    'The package version you are trying to '
-                                    'install could not be found')
-                            elif rc and rc[0] == '4':
-                                self.ERRORTEXT = _(
-                                    'The package version you are trying to '
-                                    'install could not be found')
-                            elif rc and rc[0] == '5':
-                                self.ERRORTEXT = _(
-                                    'You are already running a newer version '
-                                    'of this package than officially available')
-                            elif rc and rc[0] == '6':
-                                self.ERRORTEXT = _(
-                                    'There is a size mismatch for the '
-                                    'remote packages')
-                            elif rc and rc[0] == '7':
-                                self.ERRORTEXT = _(
-                                    'A serious error occured while processing '
-                                    'this package')
-                            else:
-                                # normally never pass here
-                                self.ERRORTEXT = _(
-                                    'An unexpected error occurred')
-                            progressDlg.close()
-                            self.notifyOnError()
+                    # install package
+                    self.installPackage(cat, package)
 
     def getXbianValue(self):
         packagesGroup = self.control.packages
