@@ -344,6 +344,7 @@ class systemExecGui(Setting):
                 'Xbian Copy', [_('Please wait while creating backup file')],
                 self.checkcopyFinish,
                 skinvar='systembackuprunning',
+                id=xbmcgui.getCurrentWindowId(),
                 onFinishedCB=self.oncopyFinished)
             dlg.show()
         self.APPLYTEXT = AT
@@ -611,6 +612,7 @@ class homeExecGui(Setting):
                 msg,
                 self.checkcopyFinish,
                 skinvar='homebackuprunning',
+                id=xbmcgui.getCurrentWindowId(),
                 onFinishedCB=self.oncopyFinished)
             dlg.show()
         self.APPLYTEXT = AT
@@ -651,6 +653,7 @@ class homeExecGui(Setting):
                 msg,
                 self.checkcopyFinishRestore,
                 skinvar='homebackuprunning',
+                id=xbmcgui.getCurrentWindowId(),
                 onFinishedCB=self.oncopyFinishedRestore)
             dlg.show()
         AT = self.APPLYTEXT
