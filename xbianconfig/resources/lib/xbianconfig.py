@@ -18,14 +18,6 @@ if XBMC:
 CACHEDIR = '/home/xbian/.kodi/userdata/addon_data/plugin.xbianconfig'
 CACHEFILE = 'cache.db'
 
-if not os.path.isdir(CACHEDIR):
-    try:
-        os.makedirs(CACHEDIR)
-    except:
-        exit(0)
-
-cacheDB = shelve.open(os.path.join(CACHEDIR, CACHEFILE), 'c', writeback=True)
-
 process = subprocess.Popen(
     ['/bin/bash'], shell=False, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 processlock = threading.Lock()
@@ -39,6 +31,21 @@ def xbianConfig(*args, **kwargs):
     cmd = kwargs.get('cmd', ['sudo', '/usr/local/sbin/xbian-config'])
     cache = kwargs.get('cache', False)
     force_refresh = kwargs.get('forcerefresh', False)
+    force_clean = kwargs.get('forceclean', False)
+
+    CACHEDIR = '/home/xbian/.kodi/userdata/addon_data/plugin.xbianconfig'
+    CACHEFILE = 'cache.db'
+
+    if not os.path.isdir(CACHEDIR):
+        try:
+            os.makedirs(CACHEDIR)
+        except:
+            exit(0)
+
+    if force_clean:
+        os.remove(os.path.join(CACHEDIR, CACHEFILE))
+
+    cacheDB = shelve.open(os.path.join(CACHEDIR, CACHEFILE), 'c', writeback=True)
 
     for arg in args:
         cmd.append(sh_escape(arg))
