@@ -156,7 +156,7 @@ class servicesManager(Setting):
             return
 
         self.APPLYTEXT = '%s %s?' % (_('Do you want to %s') % choice[select], service)
-        if self.askConfirmation():
+        if choice[select] == _('Refresh') or self.askConfirmation():
             # TODO
             # not clean to use translation in test
             # have to be rewrited
