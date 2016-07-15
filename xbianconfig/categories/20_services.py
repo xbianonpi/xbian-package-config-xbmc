@@ -167,10 +167,10 @@ class servicesManager(Setting):
                 print action, select
                 rc = xbianConfig(*action[select])
             if not rc or rc[0] == '0':
-                self.ERRORTEXT = 'Cant %s %s' % (choice[select], service)
+                self.ERRORTEXT = _('Can not %s %s') % (choice[select], service)
                 self.notifyOnError()
             elif rc[0] == '1':
-                self.OKTEXT = '%s %s successfully' % (choice[select], service)
+                self.OKTEXT = _('%s %s successfully') % (choice[select], service)
                 self.notifyOnSuccess()
                 if choice[select] == _('Delete'):
                     self.control.removeService(service)
@@ -190,16 +190,16 @@ class servicesManager(Setting):
                 elif choice[select] == _('Autostart'):
                     self.services[service][1] = True
             elif rc[0] == '-3':
-                self.ERRORTEXT = 'Service %s already running' % service
+                self.ERRORTEXT = _('%s already running') % service
                 self.notifyOnError()
             elif rc[0] == '-4':
-                self.ERRORTEXT = 'Service %s already stopped' % service
+                self.ERRORTEXT = _('%s already stopped') % service
                 self.notifyOnError()
             elif rc[0] == '-5':
-                self.ERRORTEXT = 'Autostart already enabled for %s' % service
+                self.ERRORTEXT = _('Autostart already enabled for %s') % service
                 self.notifyOnError()
             elif rc[0] == '-6':
-                self.ERRORTEXT = 'Autostart already disabled for %s' % service
+                self.ERRORTEXT = _('Autostart already disabled for %s') % service
                 self.notifyOnError()
             else:
                 self.ERRORTEXT = _('An unexpected error occurred')
