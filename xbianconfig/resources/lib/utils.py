@@ -113,7 +113,7 @@ class dialogWaitBackground:
     BUTTONCONTROL = 10
 
     def __init__(self, header, lines=[], checkFn=None, logfile=None,
-                 polltime=2000, skinvar=None, onFinishedCB=None):
+                 polltime=2000, skinvar=None, id=False, onFinishedCB=None):
         self.header = header
         self.lines = collections.deque(maxlen=len(self.LINEGUICONTROL))
         self.lines.extend(lines)
@@ -121,6 +121,7 @@ class dialogWaitBackground:
         self.polltime = polltime
         self.logFile = logfile
         self.skinvar = skinvar
+        self.id = id
         self.onFinishedCB = onFinishedCB
         self.state = FOREGROUND
         self.dlgForeground = xbmcgui.WindowXMLDialog('DialogWaitBackground.xml', ROOTDIR)
@@ -130,7 +131,7 @@ class dialogWaitBackground:
     def show(self):
         # display foreground dialog
         if self.skinvar:
-            setvisiblecondition(self.skinvar, True)
+            setvisiblecondition(self.skinvar, True, self.id)
         if self.logFile:
             try:
                 self.logFile = open(self.logFile, 'r')
@@ -172,7 +173,7 @@ class dialogWaitBackground:
         if self.onFinishedCB:
             self.onFinishedCB()
         if self.skinvar:
-            setvisiblecondition(self.skinvar, False)
+            setvisiblecondition(self.skinvar, False, self.id)
         self.finished = True
         self.close()
 
