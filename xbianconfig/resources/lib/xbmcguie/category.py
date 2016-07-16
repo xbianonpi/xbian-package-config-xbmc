@@ -191,13 +191,13 @@ class Setting():
         if self.queue:
             self.queue.put([self, value])
 
-    def notifyOnError(self, force=False):
+    def notifyOnError(self, force=False, time=15000):
         if self.getSetting('notifyonerror') != '0' or force:
-            xbmc.executebuiltin("Notification(%s,%s)" % (self.DIALOGHEADER, self.ERRORTEXT))
+            xbmc.executebuiltin("Notification(%s,%s,%d)" % (self.DIALOGHEADER, self.ERRORTEXT, time))
 
-    def notifyOnSuccess(self, force=False):
+    def notifyOnSuccess(self, force=False, time=5000):
         if self.getSetting('notifyonsuccess') == '1' or force:
-            xbmc.executebuiltin("Notification(%s,%s)" % (self.DIALOGHEADER, self.OKTEXT))
+            xbmc.executebuiltin("Notification(%s,%s,%d)" % (self.DIALOGHEADER, self.OKTEXT, time))
 
     def ThreadSetXbianValue(self, value):
         rc = self.setXbianValue(value)
