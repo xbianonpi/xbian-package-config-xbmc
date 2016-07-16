@@ -237,47 +237,46 @@ class packagesManager(Setting):
                                        'update this package?')
         if self.askConfirmation(True):
             self.tmppack = (cat, package)
-            progressDlg = dialogWait(package, _('Please wait...'))
+            progressDlg = dialogWait(_('Install') + ' ' + package, _('Please wait...'))
             progressDlg.show()
-            if not update:
-                rc = xbianConfig('packages', 'installtest', package)
-            if update or (rc and rc[0] == '1'):
-                rc = xbianConfig('packages', 'install', package)
+            rc = xbianConfig('packages', 'installtest', package)
             if rc and rc[0] == '1':
-                progressDlg.close()
+                rc = xbianConfig('packages', 'install', package)
+            progressDlg.close()
+            if not rc:
+                rc = ['99']
+            if rc[0] == '1':
                 dlg = dialogWaitBackground(self.DIALOGHEADER, [
                    ], self.checkInstallFinish, APTLOGFILE, skinvar=SKINVARAPTRUNNIG, id=xbmcgui.getCurrentWindowId(), onFinishedCB=self.onInstallFinished)
                 dlg.show()
             else:
-                if rc and rc[0] == '2':
+                if rc[0] == '2':
                     self.ERRORTEXT = _(
                         'The latest version of this package is '
                         'already installed')
-                elif rc and rc[0] == '3':
+                elif rc[0] == '3':
                     self.ERRORTEXT = _(
                         'The package version you are trying to '
                         'install could not be found')
-                elif rc and rc[0] == '4':
+                elif rc[0] == '4' or rc[0] == '-2':
                     self.ERRORTEXT = _(
                         'The package version you are trying to '
                         'install could not be found')
-                elif rc and rc[0] == '5':
+                elif rc[0] == '5':
                     self.ERRORTEXT = _(
                         'You are already running a newer version '
                         'of this package than officially available')
-                elif rc and rc[0] == '6':
+                elif rc[0] == '6':
                     self.ERRORTEXT = _(
                         'There is a size mismatch for the '
                         'remote packages')
-                elif rc and rc[0] == '7':
+                elif rc[0] == '7':
                     self.ERRORTEXT = _(
                         'A serious error occured while processing '
                         'this package')
                 else:
                     # normally never pass here
-                    self.ERRORTEXT = _(
-                        'An unexpected error occurred')
-                progressDlg.close()
+                    self.ERRORTEXT = '%s (%s)' % (_('An unexpected error occurred'), rc[0])
                 self.notifyOnError()
 
     def onSelect(self, cat, package):
@@ -294,44 +293,56 @@ class packagesManager(Setting):
             self.APPLYTEXT = _('Are you sure you want to remove this package?')
             if self.askConfirmation(True):
                 self.tmppack = (cat, package)
-                progressDlg = dialogWait(_('Remove'), _('Please wait...'))
+                progressDlg = dialogWait(_('Remove') + ' ' + package, _('Please wait...'))
                 progressDlg.show()
                 rc = xbianConfig('packages', 'removetest', package)
                 if rc and rc[0] == '1':
                     rc = xbianConfig('packages', 'remove', package)
-                    if rc and rc[0] == '1':
-                        progressDlg.close()
-                        dlg = dialogWaitBackground(self.DIALOGHEADER, [
-                        ], self.checkInstallFinish, APTLOGFILE, skinvar=SKINVARAPTRUNNIG, id=xbmcgui.getCurrentWindowId(), onFinishedCB=self.onRemoveFinished)
-                        dlg.show()
+                progressDlg.close()
+                if not rc:
+                    rc = ['99']
+                if rc[0] == '1':
+                    dlg = dialogWaitBackground(self.DIALOGHEADER, [
+                       ], self.checkInstallFinish, APTLOGFILE, skinvar=SKINVARAPTRUNNIG, id=xbmcgui.getCurrentWindowId(), onFinishedCB=self.onRemoveFinished)
+                    dlg.show()
                 else:
-                    if rc and rc[0] == '2':
+                    if rc[0] == '2':
                         # normally never pass here
                         self.ERRORTEXT = _('This package is not installed')
-                    elif rc and rc[0] == '3':
+                    elif rc[0] == '3':
                         self.ERRORTEXT = _('This is an essential package, and cannot be removed')
+                    elif rc[0] == '4' or rc[0] == '-2':
+                        # normally never pass here
+                        self.ERRORTEXT = _('The package version you are trying to remove could not be found')
                     else:
                         # normally never pass here
-                        self.ERRORTEXT = _('An unexpected error occurred')
-                    progressDlg.close()
+                        self.ERRORTEXT = '%s (%s)' % (_('An unexpected error occurred'), rc[0])
                     self.notifyOnError()
+
+    def syncLocalCache(self):
+        self.addedremoved = int(xbianConfig('packages', 'status')[0])
+        xbmc.log('XBian-config : packages added/removed %d' % self.addedremoved, xbmc.LOGDEBUG)
+        if self.addedremoved == 1:
+            # have to update local cache for current category only
+            xbianConfig('packages', 'list', self.tmppack[0], forcerefresh=True)
+        elif self.addedremoved != 0:
+            # unfortunately we have to update all categories because we do not know
+            # where additional packages has been installed in other category
+            for group in self.control.packages:
+                xbianConfig('packages', 'list', group.getName(), forcerefresh=True)
 
     def checkInstallFinish(self):
         return xbianConfig('packages', 'progress')[0] != '1'
 
     def onInstallFinished(self):
-        # unfortunately we have to update all categories because we do not know
-        # whether additional packages has been installed in other category
-        for group in self.control.packages:
-            xbianConfig('packages', 'list', group.getName(), forcerefresh=True)
+        self.syncLocalCache()
         self.control.addPackage(self.tmppack[0], self.tmppack[1])
         self.globalMethod[_('Services')]['refresh']()
         self.OKTEXT = _('The package was successfully installed')
         self.notifyOnSuccess()
 
     def onRemoveFinished(self):
-        # have to update local cache for current category only
-        xbianConfig('packages', 'list', self.tmppack[0], forcerefresh=True)
+        self.syncLocalCache()
         self.control.removePackage(self.tmppack[0], self.tmppack[1])
         self.globalMethod[_('Services')]['refresh']()
         self.OKTEXT = _('This package has been successfully removed')
