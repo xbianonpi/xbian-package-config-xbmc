@@ -195,6 +195,31 @@ class NetworkSetting(Setting):
     def onInit(self):
         self.control.wifi = self.connectWifi
 
+    def reloadInterface(self, interface):
+        interface_config = xbianConfig('network', 'status', interface)
+        lanConfig = []
+        values = dict(map(lambda x: x.split(' '), interface_config))
+        guivalues = ['mode', 'state', 'ip', 'netmask',
+                     'gateway', 'nameserver1', 'nameserver2', 'ssid']
+
+        for val in guivalues:
+            value = None
+            if val == 'mode' and values['mode'] == 'manual':
+                value = 'static'
+            elif val == 'mode':
+                value = values.get('mode')
+            elif val == 'ssid':
+                value = values.get('ssid')
+                if not value:
+                    value = 'Not connected'
+                else:
+                    value = base64.b64decode(value)
+            else:
+                value = values.get(val)
+            lanConfig.append(value)
+        self.xbianValue[interface] = lanConfig
+        self.setControlValue({interface: lanConfig})
+
     def connectWifi(self, interface):
         self.userValue = self.getUserValue()
         if self.isModified():
@@ -207,34 +232,11 @@ class NetworkSetting(Setting):
 
         if wifiConnect(interface):
             progress = dialogWait(
-                'Refresh',
+                _('Refresh'),
                 _('Reloading values for %s') % (interface, ))
             progress.show()
-            interface_config = xbianConfig('network', 'status', interface)
-
-            lanConfig = []
-            values = dict(map(lambda x: x.split(' '), interface_config))
-            guivalues = ['mode', 'state', 'ip', 'netmask',
-                         'gateway', 'nameserver1', 'nameserver2', 'ssid']
-
-            for val in guivalues:
-                value = None
-                if val == 'mode' and values['mode'] == 'manual':
-                    value = 'static'
-                elif val == 'mode':
-                    value = values.get('mode')
-                elif val == 'ssid':
-                    value = values.get('ssid')
-                    if not value:
-                        value = 'Not connected'
-                    else:
-                        value = base64.b64decode(value)
-                else:
-                    value = values.get(val)
-                lanConfig.append(value)
-            self.xbianValue[interface] = lanConfig
+            self.reloadInterface(interface)
             progress.close()
-            self.setControlValue({interface: lanConfig})
             self.OKTEXT = _('Successfully connected to %s') % (interface, )
             self.notifyOnSuccess()
         else:
@@ -295,7 +297,16 @@ class NetworkSetting(Setting):
     def setXbianValue(self, values):
         ok = True
         for interface in values:
-            if values[interface] != self.xbianValue[interface]:
+            modified = False
+            if values[interface][0] != self.xbianValue[interface][0]:
+                modified = True
+            elif values[interface][0] != 'dhcp':
+                j = (0, 2, 3, 4, 5, 6)
+                for i in j:
+                    if values[interface][i] != self.xbianValue[interface][i]:
+                        modified = True
+                        break
+            if modified:
                 if values[interface][0].lower() == NetworkControl.DHCP.lower():
                     mode = 'dhcp'
                     cmd = [mode, interface]
@@ -307,7 +318,22 @@ class NetworkSetting(Setting):
                 if not rc:
                     ok = False
                     self.ERRORTEXT = _('An unexpected error occurred')
-                elif rc[0] != '1':
+                elif rc[0] == '1':
+                    progress = dialogWait(
+                        _('Restarting %s') % (interface, ), _('Please wait while updating'))
+                    progress.show()
+                    xbianConfig('network', 'restart', interface)
+                    rc = '2'
+                    lc = 0
+                    while (rc == '2' or rc == '-12') and lc < 60:
+                        tmp = xbianConfig('network', 'progress', interface)
+                        if tmp:
+                            rc = tmp[0]
+                        time.sleep(1)
+                        lc += 1
+                    self.reloadInterface(interface)
+                    progress.close()
+                else:
                     ok = False
                     try:
                         self.ERRORTEXT = rc[1]

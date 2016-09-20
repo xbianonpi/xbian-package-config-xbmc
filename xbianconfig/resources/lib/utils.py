@@ -276,11 +276,13 @@ def wifiConnect(interface):
                     restart = xbianConfig('network', 'restart', interface)
                     if restart and restart[0] == '1':
                         rc = '2'
-                        while rc == '2' or rc == '-12':
+                        lc = 0
+                        while (rc == '2' or rc == '-12') and lc < 60:
                             tmp = xbianConfig('network', 'progress', interface)
                             if tmp:
                                 rc = tmp[0]
                             time.sleep(1)
+                            lc += 1
                         if rc == '1':
                             progress.close()
                             return True
