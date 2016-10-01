@@ -618,6 +618,62 @@ class overclocking(Setting):
         return ok
 
 
+INITRAMFS_MODES = [ _('required'), _('always'), _('never') ]
+
+class InitramfsControl(MultiSettingControl):
+    XBMCDEFAULTCONTAINER = False
+
+    def onInit(self):
+        self.initramfsMode = SpinControlex(Tag('label', _('Use of initramfs')))
+        self.addControl(self.initramfsMode)
+        self.initramfsmode = INITRAMFS_MODES
+
+        for mode in self.initramfsmode:
+            content = Content(Tag('label', mode), defaultSKin=False)
+            self.initramfsMode.addContent(content)
+
+    def setValue(self, value):
+        if value:
+            self.initramfsMode.setValue(value[0])
+
+
+class initramfs(Setting):
+    CONTROL = InitramfsControl(ADVANCED)
+    DIALOGHEADER = _('Use of initramfs')
+    SAVEMODE = Setting.ONUNFOCUS
+
+    def getUserValue(self):
+        return self.control.getValue()
+
+    def getXbianValue(self):
+        value = xbianConfig('kernel', 'initramfs')
+        if value:
+            if value[0] == 'disabled':
+                value[0] = INITRAMFS_MODES[2]
+            elif value[0] == 'yes':
+                value[0] = INITRAMFS_MODES[1]
+            else:
+                value[0] = INITRAMFS_MODES[0]
+            return value
+        else:
+            return INITRAMFS_MODES[0]
+
+    def setXbianValue(self, value):
+        if value[0] == INITRAMFS_MODES[2]:
+            val = 'disabled'
+        elif value[0] == INITRAMFS_MODES[1]:
+            val = 'yes'
+        else:
+            val = 'no'
+        rc = xbianConfig('kernel', 'initramfs', val)
+        ok = True
+        if not rc:
+            ok = False
+        elif rc[0] != '1':
+            ok = False
+        return ok
+
+
 class timezone(Setting):
     CONTROL = ButtonControl(Tag('label', _('Timezone')), ADVANCED)
     DIALOGHEADER = _('Timezone')
@@ -754,4 +810,4 @@ class sshroot(Setting):
 class system(Category):
     TITLE = _('System')
     SETTINGS = [NewtorkLabel, NetworkSetting, LicenceLabel, mpeg2License, vc1License, SytemLabel, hostname,
-                timezone, kernel, overclocking, AccountLabel, rootpwd, xbianpwd, sshroot, connectivityLabel, videooutput]
+                timezone, kernel, overclocking, initramfs, AccountLabel, rootpwd, xbianpwd, sshroot, connectivityLabel, videooutput]
