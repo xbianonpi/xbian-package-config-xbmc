@@ -53,7 +53,7 @@ class updateControl(MultiSettingControl):
         self.udpateAll.onClick = lambda updateall: self.onUpdateAll()
         self.addControl(self.udpateAll)
 
-        setvisiblecondition(KEYFORCECHECK, False)
+        setvisiblecondition(KEYFORCECHECK, False, xbmcgui.getCurrentWindowId())
         self.forceCheck = ButtonControl(
             Tag('label', _('Check for system updates')),
             Tag('visible', visiblecondition(KEYFORCECHECK)),
@@ -73,19 +73,19 @@ class updateControl(MultiSettingControl):
         values = update.split(';')
         self.updates[int(values[0]) - 1]['name'].setLabel(values[1])
         self.updates[int(values[0]) - 1]['name'].setValue(values[3])
-        setvisiblecondition('%s%d' % (self.key, int(values[0]) - 1), True)
+        setvisiblecondition('%s%d' % (self.key, int(values[0]) - 1), True, xbmcgui.getCurrentWindowId())
         self.nbcanbeupdate += 1
         if self.nbcanbeupdate == 2:
-            setvisiblecondition(self.keyupdateall, True)
+            setvisiblecondition(self.keyupdateall, True, xbmcgui.getCurrentWindowId())
         elif self.nbcanbeupdate == 1:
-            setvisiblecondition(self.keyupdateall, False)
+            setvisiblecondition(self.keyupdateall, False, xbmcgui.getCurrentWindowId())
 
     def removeUpdate(self, update):
         values = update.split(';')
-        setvisiblecondition('%s%d' % (self.key, int(values[0]) - 1), False)
+        setvisiblecondition('%s%d' % (self.key, int(values[0]) - 1), False, xbmcgui.getCurrentWindowId())
         self.nbcanbeupdate -= 1
         if self.nbcanbeupdate == 1:
-            setvisiblecondition(self.keyupdateall, False)
+            setvisiblecondition(self.keyupdateall, False, xbmcgui.getCurrentWindowId())
 
     def onUpdateClick(self, updateId):
         pass
@@ -140,7 +140,7 @@ class packageUpdate(Setting):
             if rc and rc[0] == '1':
                 self.needrefreshing = True
                 dlg = dialogWaitBackground(self.DIALOGHEADER, [
-                ], self.checkUpdateFinish, APTLOGFILE, skinvar=SKINVARAPTRUNNIG, onFinishedCB=self.onUpdateFinished)
+                ], self.checkUpdateFinish, APTLOGFILE, skinvar=SKINVARAPTRUNNIG, id=xbmcgui.getCurrentWindowId(), onFinishedCB=self.onUpdateFinished)
                 dlg.show()
             else:
                 if rc and rc[0] == '2':
@@ -160,7 +160,7 @@ class packageUpdate(Setting):
                 self.notifyOnError()
 
     def onForceCheck(self):
-        setvisiblecondition(SKINVARAPTRUNNIG, True)
+        setvisiblecondition(SKINVARAPTRUNNIG, True, xbmcgui.getCurrentWindowId())
         self.lockfile = '/var/lock/.%s' % self.key
         open(self.lockfile, 'w').close()
 
@@ -173,7 +173,7 @@ class packageUpdate(Setting):
         if rc and rc[0] == '1':
             self.needrefreshing = True
             self.onUpdateFinished()
-        setvisiblecondition(SKINVARAPTRUNNIG, False)
+        setvisiblecondition(SKINVARAPTRUNNIG, False, xbmcgui.getCurrentWindowId())
 
     def onUpdateAll(self):
         updates = '-'
@@ -188,7 +188,7 @@ class packageUpdate(Setting):
             self.control.udpateNo.setLabel(_('Update_to_date'))
         self.needrefreshing = False
 
-        setvisiblecondition(KEYFORCECHECK, True)
+        setvisiblecondition(KEYFORCECHECK, True, xbmcgui.getCurrentWindowId())
         return rc
 
 
@@ -299,7 +299,49 @@ class emptyLabel(Setting):
     CONTROL = CategoryLabelControl(Tag('label', ''))
 
 
+class repoLabel(Setting):
+    CONTROL = CategoryLabelControl(Tag('label', _('Additional repositories')))
+
+
+class enableStaging(Setting):
+    DIALOGHEADER =  _('Staging repository')
+    CONTROL = RadioButtonControl(Tag('label', DIALOGHEADER))
+
+    def onInit(self):
+        self.key = 'staging'
+
+    def getUserValue(self):
+        return str(self.getControlValue())
+
+    def setControlValue(self, value):
+        if value == '1':
+            value = True
+        else:
+            value = False
+        self.control.setValue(value)
+
+    def getXbianValue(self):
+        rc = xbianConfig('updates', 'enablerepo', self.key)
+        return rc[0]
+
+    def setXbianValue(self, value):
+        rc = xbianConfig('updates', 'enablerepo', self.key, str(value))
+        self.DIALOGHEADER = _('Please execute again')
+        self.OKTEXT = _('Check for system updates')
+        self.notifyOnSuccess()
+        return True
+
+
+class enableDevel(enableStaging):
+    DIALOGHEADER =  _('Devel repository')
+    CONTROL = RadioButtonControl(Tag('label', DIALOGHEADER))
+
+    def onInit(self):
+        self.key = 'devel'
+
+
 class update(Category):
     TITLE = _('Update')
     SETTINGS = [updatePackageLabel, packageUpdate,
+                repoLabel, enableStaging, enableDevel,
                 UpdateLabel, InventoryIntGui, updateAuto, snapAPT]
