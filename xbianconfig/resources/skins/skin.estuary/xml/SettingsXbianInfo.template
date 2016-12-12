@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- -----------------------------------------------
+-- Taken a lot of stuff from SettingsCategory.xml --
+------------------------------------------------ -->
+<window>
+	<defaultcontrol always="true">9000</defaultcontrol>
+	<allowoverlay>no</allowoverlay>
+	<controls>
+		<include>DefaultBackground</include>
+		<control type="multiimage">
+			<depth>DepthBackground</depth>
+			<include>FullScreenDimensions</include>
+			<aspectratio>scale</aspectratio>
+			<animation effect="zoom" center="auto" end="102,102" time="0" condition="Integer.IsGreater(System.StereoscopicMode,0)">conditional</animation>
+			<animation effect="fade" start="0" end="100" time="400" reversible="true" condition="!Window.Previous(Settings)">WindowOpen</animation>
+			<animation effect="fade" start="100" end="0" time="300" reversible="true" condition="!Window.Next(Settings)">WindowClose</animation>
+			<animation effect="fade" time="400">VisibleChange</animation>
+			<imagepath colordiffuse="35FFFFFF">$INFO[Skin.String(HomeFanart.path)]settings$INFO[Skin.String(HomeFanart.ext)]</imagepath>
+			<visible>!Player.HasMedia + !String.IsEmpty(Skin.String(HomeFanart.path))</visible>
+		</control>
+		<control type="group">
+			<depth>DepthContentPanel</depth>
+			<include>OpenClose_Left</include>
+			<include content="ContentPanel">
+				<param name="width" value="530" />
+			</include>
+			<control type="grouplist" id="3">
+				<description>button area</description>
+				<left>0</left>
+				<top>160</top>
+				<width>470</width>
+				<height>720</height>
+				<usecontrolcoords>true</usecontrolcoords>
+				<onleft>5</onleft>
+				<onright>5</onright>
+				<onup>3</onup>
+				<ondown>20</ondown>
+			</control>
+			<control type="group">
+				<include>OpenClose_Right</include>
+				<control type="grouplist" id="5">
+					<description>control area</description>
+					<top>163</top>
+					<left>470</left>
+					<pagecontrol>60</pagecontrol>
+					<right>0</right>
+					<bottom>137</bottom>
+					<onleft>3</onleft>
+					<onright>60</onright>
+					<onup>5</onup>
+					<ondown>5</ondown>
+				</control>
+				<control type="image">
+					<left>470</left>
+					<top>160</top>
+					<right>0</right>
+					<height>2</height>
+					<texture colordiffuse="button_focus" border="2">dialogs/separator-grey.png</texture>
+				</control>
+				<control type="image">
+					<left>470</left>
+					<bottom>135</bottom>
+					<right>0</right>
+					<height>2</height>
+					<texture colordiffuse="button_focus" border="2">dialogs/separator-grey.png</texture>
+				</control>
+			</control>
+			<control type="list" id="9000">
+				<left>0</left>
+				<top>160</top>
+				<width>470</width>
+				<height>720</height>
+				<itemgap>-1</itemgap>
+				<onup>9000</onup>
+				<ondown>9000</ondown>
+				<onleft>9001</onleft>
+				<onright>9001</onright>
+				<pagecontrol>-</pagecontrol>
+				<scrolltime>300</scrolltime>
+				<itemlayout height="90" width="470">
+					<!--
+					<control type="image">
+						<texture border="2">lists/separator.png</texture>
+					</control>
+					-->
+					<control type="label" id="95">
+						<description>Menu Label no focus</description>
+						<textoffsetx>40</textoffsetx>
+						<centertop>50%</centertop>
+						<width>470</width>
+						<align>left</align>
+						<font>font37</font>
+						<textcolor>white</textcolor>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+					<control type="label" id="98">
+						<description>click to load Label focus</description>
+						<textoffsetx>90</textoffsetx>
+						<centertop>75%</centertop>
+						<width>470</width>
+						<align>left</align>
+						<font>font10</font>
+						<textcolor>grey</textcolor>
+						<label>$INFO[ListItem.Label2]</label>
+					</control>
+				</itemlayout>
+				<focusedlayout height="90" width="470">
+					<control type="image">
+						<texture colordiffuse="button_focus">lists/focus.png</texture>
+						<!--
+						<texture border="2">lists/separator.png</texture>
+						-->
+					</control>
+					<control type="label" id="96">
+						<description>Menu Label focus</description>
+						<textoffsetx>40</textoffsetx>
+						<centertop>50%</centertop>
+						<width>470</width>
+						<align>left</align>
+						<font>font37</font>
+						<textcolor>white</textcolor>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+					<control type="label" id="97">
+						<description>click to load Label focus</description>
+						<textoffsetx>90</textoffsetx>
+						<centertop>75%</centertop>
+						<width>470</width>
+						<align>left</align>
+						<font>font10</font>
+						<textcolor>white</textcolor>
+						<label>$INFO[ListItem.Label2]</label>
+					</control>
+				</focusedlayout>
+				<content>
+					<control type="xbian" value="Menucategories"/>
+				</content>
+			</control>
+			<control type="group" id="9001">
+				<posx>470</posx>
+				<posy>163</posy>
+				<width>1450</width>
+				<height>779</height>
+				<pagecontrol>60</pagecontrol>
+				<control type="xbian" value="categories"/>
+				<control type="scrollbar" id="60">
+					<right>0</right>
+					<top>163</top>
+					<width>12</width>
+					<bottom>137</bottom>
+					<orientation>vertical</orientation>
+					<texturesliderbackground />
+					<animation effect="slide" end="6,0" time="300" tween="sine" easing="inout" condition="!Control.HasFocus(60)">conditional</animation>
+					<onleft>9001</onleft>
+					<onright>9001</onright>
+					<animation effect="fade" start="0" end="100" time="200" delay="300">Visible</animation>
+					<animation effect="fade" start="100" end="0" time="200">Hidden</animation>
+					<animation effect="fade" start="0" end="100" delay="300" time="320">WindowOpen</animation>
+					<animation effect="fade" start="100" end="0" time="150">WindowClose</animation>
+				</control>
+			</control>
+		</control>
+		<include content="TopBar">
+			<param name="breadcrumbs_label" value="$LOCALIZE[5] / XBian" />
+			<param name="sublabel" value="" />
+		</include>
+		<include>BottomBar</include>
+	</controls>
+</window>

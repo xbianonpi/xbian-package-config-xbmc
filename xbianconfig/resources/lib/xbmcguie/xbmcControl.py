@@ -1,3 +1,4 @@
+import os
 import xbmc
 
 from virtualControl import ControlXml
@@ -5,6 +6,7 @@ from tag import Tag
 from xbmcContainer import *
 
 SKIN_DIR = xbmc.getSkinDir()
+WIZ_FILE = os.path.join('/', 'tmp', '.xbian_wizard')
 
 class scrollbarControl(ControlXml):
     FOCUSABLE = True
@@ -105,7 +107,7 @@ class CategoryLabelControl(ControlXml):
         self.setTag(Tag('shadowcolor', 'black'))
         self.setTag(Tag('aligny', 'center'))
         global SKIN_DIR
-        if SKIN_DIR == 'skin.estuary':
+        if SKIN_DIR == 'skin.estuary' or SKIN_DIR == 'skin.estouchy':
             self.setTag(Tag('textcolor', 'white'))
             self.setTag(Tag('align', 'center'))
         else:
@@ -184,11 +186,24 @@ class SpinControlex(ControlXml):
         self.controls['groupControl'] = GroupControl(*self.getArrayTags())
         self.controls['buttondown'] = ButtonControl()
         global SKIN_DIR
-        if SKIN_DIR == 'skin.estuary':
+        if SKIN_DIR == 'skin.estouchy':
+            currentProperties = [ {'key' : 'colordiffuse', 'value' : 'FF12B2E7'} ]
+            offsetX = 42
+            self.controls['buttondown'].setTag(Tag('posx', 975))
+            self.controls['buttondown'].setTag(Tag('posy', 20))
+            self.controls['buttondown'].setTag(Tag('width', 33))
+            self.controls['buttondown'].setTag(Tag('height', 20))
+            self.controls['buttondown'].setTag(Tag('texturefocus', 'arrow-light-down1-nf.png', currentProperties))
+            self.controls['buttondown'].setTag(Tag('texturenofocus', 'arrow-light-down1-nf.png'))
+        elif SKIN_DIR == 'skin.estuary':
+            if os.path.isfile(WIZ_FILE):
+                posx = 1235
+            else:
+                posx = 1337
             currentProperties = [ {'key' : 'colordiffuse', 'value' : 'button_focus'} ]
             offsetX = 42
-            self.controls['buttondown'].setTag(Tag('posx', 1144))
-            self.controls['buttondown'].setTag(Tag('posy', 20))
+            self.controls['buttondown'].setTag(Tag('posx', posx))
+            self.controls['buttondown'].setTag(Tag('posy', 25))
             self.controls['buttondown'].setTag(Tag('width', 33))
             self.controls['buttondown'].setTag(Tag('height', 20))
             self.controls['buttondown'].setTag(Tag('texturefocus', 'arrow-light-down1-nf.png', currentProperties))
@@ -209,9 +224,16 @@ class SpinControlex(ControlXml):
             self.controls['buttondown'].setTag(Tag('onleft', 9000))
 
         self.controls['buttonup'] = ButtonControl()
-        if SKIN_DIR == 'skin.estuary':
-            self.controls['buttonup'].setTag(Tag('posx', 1177))
+        if SKIN_DIR == 'skin.estouchy':
+            self.controls['buttonup'].setTag(Tag('posx', 1008))
             self.controls['buttonup'].setTag(Tag('posy', 20))
+            self.controls['buttonup'].setTag(Tag('width', 33))
+            self.controls['buttonup'].setTag(Tag('height', 20))
+            self.controls['buttonup'].setTag(Tag('texturefocus', 'arrow-light-up1-nf.png', currentProperties))
+            self.controls['buttonup'].setTag(Tag('texturenofocus', 'arrow-light-up1-nf.png'))
+        elif SKIN_DIR == 'skin.estuary':
+            self.controls['buttonup'].setTag(Tag('posx', posx + 33))
+            self.controls['buttonup'].setTag(Tag('posy', 25))
             self.controls['buttonup'].setTag(Tag('width', 33))
             self.controls['buttonup'].setTag(Tag('height', 20))
             self.controls['buttonup'].setTag(Tag('texturefocus', 'arrow-light-up1-nf.png', currentProperties))

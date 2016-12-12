@@ -23,8 +23,8 @@ __author__ = "Belese (http://www.xbian.org)"
 __url__ = "http://www.xbian.org"
 __credits__ = "XBian"
 __platform__ = "xbmc media center"
-__date__ = "30-11-2012"
-__version__ = "0.0.1"
+__date__ = "2016-12-04"
+__version__ = "17.0.1"
 
 # addon module
 ADDON = Addon(__addonID__)
@@ -39,11 +39,12 @@ ADDON_DATA = xbmc.translatePath("special://profile/addon_data/%s/" % __addonID__
 CATEGORY_PATH = 'categories'
 
 SKIN_DIR = xbmc.getSkinDir()
-if SKIN_DIR == 'skin.estuary':
-    SKIN_RES = '1080i'
+if SKIN_DIR == 'skin.estouchy' or SKIN_DIR == 'skin.estuary':
+    SKIN_RES = 'xml'
 else:
     SKIN_RES = '720p'
 LOCK_FILE = os.path.join('/', 'tmp', '.xbian_config_python')
+WIZ_FILE = os.path.join('/', 'tmp', '.xbian_wizard')
 
 
 class xbianSettingCommon:
@@ -260,7 +261,11 @@ elif mode == 2:
     # plugin.xbianconfig?mode=2
     try:
         win = xbianSettingWizzard()
+        open(WIZ_FILE, 'w').close()
         win.show()
+        if os.path.isfile(WIZ_FILE):
+            os.remove(WIZ_FILE)
+
     except:
         xbmc.log('Exception in xbianSettingWizard %s' % str(traceback.print_exc()), xbmc.LOGERROR)
 else:

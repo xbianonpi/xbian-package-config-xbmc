@@ -1,3 +1,4 @@
+import os
 import itertools
 from tag import Tag
 import xbmc
@@ -6,10 +7,18 @@ id_generator = itertools.count(36000)
 
 # defaultSkin Control Settings
 # check later if possible to get from skin
-defaultSkinSetting = {'height': 40, 'width': 750, 'textcolor': 'grey2', 'focusedcolor': 'white', 'disabledcolor': 'grey3', 'pulseonselect': 'false', 'texturefocus': 'MenuItemFO.png', 'texturenofocus': 'MenuItemNF.png', 'font': 'font13',
+defaultSkinSetting  = {'height': 40, 'width': 750, 'textcolor': 'grey2', 'focusedcolor': 'white', 'disabledcolor': 'grey3', 'pulseonselect': 'false', 'texturefocus': 'MenuItemFO.png', 'texturenofocus': 'MenuItemNF.png', 'font': 'font13',
                       'texturesliderbackground': 'ScrollBarV.png', 'texturesliderbar': 'ScrollBarV_bar.png', 'texturesliderbarfocus': 'ScrollBarV_bar_focus.png', 'textureslidernib': 'ScrollBarNib.png', 'textureslidernibfocus': 'ScrollBarNib.png'}
-defaultSkinSettingEstuary = {'height': 60, 'width': 1256, 'textcolor': 'grey', 'focusedcolor': 'white', 'disabledcolor': 'disabled', 'pulseonselect': 'false', 'texturefocus': 'lists/focus.png', 'texturenofocus': 'lists/separator.png', 'font': 'font13',
-                             'textoffsetx': 42, 'radioposx': 1124 }
+skinSettingEstuary  = {'height': 70, 'width': 1450, 'textcolor': 'grey', 'focusedcolor': 'white', 'disabledcolor': 'disabled', 'pulseonselect': 'false', 'texturefocus': 'lists/focus.png', 'texturenofocus': '','font': 'font13',
+                             'textoffsetx': 42, 'radioposx': 1320 }
+skinSettingEstouchy = {'height': 60, 'width': 1076, 'textcolor': 'grey', 'focusedcolor': 'white', 'disabledcolor': 'disabled', 'pulseonselect': 'false', 'texturefocus': 'lists/focus.png', 'texturenofocus': 'lists/separator.png', 'font': 'font13',
+                             'textoffsetx': 42, 'radioposx': 962 }
+
+# Note for skin Estuary:
+#   Due to Wizard we have to set height and radioposx to different
+#   values depending on running Wizard or not
+
+WIZ_FILE = os.path.join('/', 'tmp', '.xbian_wizard')
 
 # virtual class xbmcxml
 # Base class for Control and Container
@@ -46,18 +55,34 @@ class xbmcxml:
         self.tags = {}
         # set default tag if necessary
         SKIN_DIR = xbmc.getSkinDir()
-        if SKIN_DIR == 'skin.estuary':
-            currentSkinSetting = defaultSkinSettingEstuary
+        if SKIN_DIR == 'skin.estouchy':
+            currentSkinSetting = skinSettingEstouchy
+            currentProperties = [ {'key' : 'colordiffuse', 'value' : 'FF12B2E7' } ]
+            width = 1076
+            radioposx = 962
+        elif SKIN_DIR == 'skin.estuary':
+            currentSkinSetting = skinSettingEstuary
             currentProperties = [ {'key' : 'colordiffuse', 'value' : 'button_focus' } ]
+            if os.path.isfile(WIZ_FILE):
+                width = 1348
+                radioposx = 1218
+            else:
+                width = 1450
+                radioposx = 1320
         else:
             currentSkinSetting = defaultSkinSetting
             currentProperties = None
+            width = 750
 
         if 'defaultSKin' not in kwargs or kwargs['defaultSKin'] == True:
             for default in currentSkinSetting:
                 if default in self.availabletags:
                     if default == 'texturefocus':
                         xbmcxml.setTag(self, Tag(default, currentSkinSetting[default], currentProperties))
+                    elif default == 'width':
+                        xbmcxml.setTag(self, Tag(default, width, currentProperties))
+                    elif default == 'radioposx':
+                        xbmcxml.setTag(self, Tag(default, radioposx, currentProperties))
                     else:
                         xbmcxml.setTag(self, Tag(default, currentSkinSetting[default]))
 

@@ -1,0 +1,97 @@
+<window>
+	<defaultcontrol always="true">10</defaultcontrol>
+        <include>Animation_DialogPopupOpenClose</include>
+        <depth>DepthDialog+</depth>
+        <controls>
+                <control type="group">
+                        <height>380</height>
+                        <centertop>50%</centertop>
+                        <centerleft>50%</centerleft>
+                        <width>1372</width>
+	                <include content="DialogBackgroundCommons">
+        	                <param name="DialogBackgroundWidth" value="1372" />
+                	        <param name="DialogBackgroundHeight" value="380" />
+                        	<param name="DialogHeaderLabel" value="" />
+	                        <param name="DialogHeaderId" value="1" />
+        	        </include>
+	                <control type="textbox" id="9">
+        	                <left>40</left>
+                	        <top>0</top>
+                        	<width>1280</width>
+	                        <height>70</height>
+        	                <font>font30_title</font>
+                	        <align>left</align>
+                        	<aligny>center</aligny>
+	                        <shadowcolor>black</shadowcolor>
+        	                <info>Skin.String(backgrounddialogheader)</info>
+                	        <autoscroll time="3000" delay="4000" repeat="5000">true</autoscroll>
+	                </control>
+			<control type="label" id="45001">
+				<description>line1 label</description>
+				<posx>30</posx>
+				<posy>90</posy>
+				<width>1312</width>
+				<height>30</height>
+				<align>left</align>
+				<aligny>center</aligny>
+				<font>font13</font>
+			</control>
+			<control type="label" id="45002">
+				<description>line2 label</description>
+				<posx>30</posx>
+				<posy>128</posy>
+				<width>1312</width>
+				<height>30</height>
+				<align>left</align>
+				<aligny>center</aligny>
+				<font>font13</font>
+			</control>
+			<control type="label" id="45003">
+				<description>line3 label</description>
+				<posx>30</posx>
+				<posy>166</posy>
+				<width>1312</width>
+				<height>30</height>
+				<align>left</align>
+				<aligny>center</aligny>
+				<font>font13</font>
+			</control>
+			<control type="label" id="45004">
+				<description>line4 label</description>
+				<posx>30</posx>
+				<posy>204</posy>
+				<width>1312</width>
+				<height>30</height>
+				<align>left</align>
+				<aligny>center</aligny>
+				<font>font13</font>
+			</control>
+			<control type="label" id="45005">
+				<description>line5 label</description>
+				<posx>30</posx>
+				<posy>242</posy>
+				<width>1312</width>
+				<height>30</height>
+				<align>left</align>
+				<aligny>center</aligny>
+				<font>font13</font>
+			</control>
+	                <control type="grouplist" id="9000">
+        	                <orientation>horizontal</orientation>
+                	        <left>0</left>
+                        	<top>280</top>
+	                        <width>1372</width>
+        	                <align>center</align>
+                	        <include content="DefaultDialogButton">
+                        	        <param name="id" value="10" />
+	                                <param name="onclick" value="PreviousMenu" />
+        	                        <param name="label" value="Background" />
+                	        </include>
+				<onleft>10</onleft>
+				<onright>10</onright>
+				<onup>10</onup>
+				<ondown>10</ondown>
+                	</control>
+		</control>
+	</controls>
+</window>

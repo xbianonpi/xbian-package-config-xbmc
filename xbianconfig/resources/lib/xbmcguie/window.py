@@ -13,8 +13,8 @@ ACTION_PREVIOUS_MENU = 10
 ACTION_BACK = 92
 
 SKIN_DIR = xbmc.getSkinDir()
-if SKIN_DIR == 'skin.estuary':
-    SKIN_RES = '1080i'
+if SKIN_DIR == 'skin.estouchy' or SKIN_DIR == 'skin.estuary':
+    SKIN_RES = 'xml'
 else:
     SKIN_RES = '720p'
 

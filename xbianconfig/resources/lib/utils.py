@@ -34,7 +34,6 @@ def getSetting(key):
     else:
         return None
 
-
 def getNumeric(header, default=None, min=False, max=False):
     dialog = xbmcgui.Dialog()
     cont = True
@@ -301,14 +300,13 @@ def wifiConnect(interface):
 
 
 def visiblecondition(key):
-    return 'Stringcompare(Window.Property(%s),1)' % key
+    return 'StringCompare(Window.Property(%s),1)' % key
 
 
 def setvisiblecondition(key, value, id=False):
     if id:
         xbmc.executebuiltin('SetProperty(%s,%d,%d)' % ( key, 1 if value else 0, id))
-    else:
-        xbmc.executebuiltin('SetProperty(%s,%d)' % ( key, 1 if value else 0))
+    xbmc.executebuiltin('SetProperty(%s,%d)' % ( key, 1 if value else 0))
 
 
 ADVANCED = Tag('visible', visiblecondition('advancedmode'))

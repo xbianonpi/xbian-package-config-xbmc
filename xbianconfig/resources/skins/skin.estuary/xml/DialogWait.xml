@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<include>Animation_DialogPopupOpenClose</include>
+	<depth>DepthDialog+</depth>
+	<controls>
+                <control type="group">
+                        <height>200</height>
+                        <centertop>50%</centertop>
+                        <centerleft>50%</centerleft>
+                        <width>915</width>
+                        <include content="DialogBackgroundCommons">
+				<param name="DialogBackgroundWidth" value="915" />
+				<param name="DialogBackgroundHeight" value="200" />
+				<param name="DialogHeaderLabel" value="" />
+				<param name="DialogHeaderId" value="1" />
+			</include>
+			<control type="textbox" id="9">
+        	                <left>40</left>
+                	        <top>0</top>
+                        	<width>855</width>
+	                        <height>70</height>
+        	                <font>font30_title</font>
+                	        <align>left</align>
+                        	<aligny>center</aligny>
+	                        <shadowcolor>black</shadowcolor>
+				<info>Skin.String(waitheader)</info>
+				<autoscroll time="3000" delay="4000" repeat="5000">true</autoscroll>
+			</control>
+	                <control type="label">
+        	                <description>Info</description>
+                	        <left>30</left>
+                        	<top>115</top>
+	                        <width>825</width>
+        	                <height>30</height>
+                	        <align>center</align>
+                        	<aligny>center</aligny>
+	                        <info>Skin.String(waitinfo)</info>
+        	                <font>font13</font>
+	                </control>
+		</control>
+	</controls>
+</window>
+
