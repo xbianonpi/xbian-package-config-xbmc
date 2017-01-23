@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Gábor Szurgent <szurgent@gmail.com>, 2016
+# Gábor Szurgent <szurgent@gmail.com>, 2016-2017
 msgid ""
 msgstr ""
 "Project-Id-Version: XBian Translation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-05 09:41-0300\n"
-"PO-Revision-Date: 2016-04-06 09:11+0000\n"
+"POT-Creation-Date: 2017-01-03 19:54+0100\n"
+"PO-Revision-Date: 2017-01-21 16:20+0000\n"
 "Last-Translator: Gábor Szurgent <szurgent@gmail.com>\n"
 "Language-Team: Hungarian (Hungary) (http://www.transifex.com/teamxbian/xbian-translation/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
@@ -17,179 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: xbianconfig/default.py:90 xbianconfig/services/upgrade.py:99
-#: xbianconfig/categories/55_backup.py:342
-#: xbianconfig/categories/55_backup.py:441
-msgid "A reboot is required. Do you want to reboot now?"
-msgstr "Újraindítás szükséges. Akarod most újraindítani?"
-
-#: xbianconfig/default.py:113
-msgid "XBian Config"
-msgstr "XBian Config"
-
-#: xbianconfig/default.py:113 xbianconfig/default.py:164
-#: xbianconfig/categories/30_packages.py:244
-#: xbianconfig/categories/20_services.py:214
-#: xbianconfig/categories/55_backup.py:384
-#: xbianconfig/categories/55_backup.py:400
-#: xbianconfig/categories/55_backup.py:436
-#: xbianconfig/categories/55_backup.py:448
-#: xbianconfig/categories/55_backup.py:458
-#: xbianconfig/categories/40_update.py:168
-msgid "Please wait..."
-msgstr "Türelem..."
-
-#: xbianconfig/default.py:128
-msgid "Initialisation..."
-msgstr "Inicializálás..."
-
-#: xbianconfig/default.py:156 xbianconfig/default.py:164
-msgid "Loading"
-msgstr "Betöltés"
-
-#: xbianconfig/wizard/30_license.py:5
-msgid "Enter your License key"
-msgstr "Add meg a licenc kulcsodat"
-
-#: xbianconfig/wizard/30_license.py:6
-msgid "License key"
-msgstr "Licenc kulcs"
-
-#: xbianconfig/wizard/30_license.py:7
-msgid ""
-"The Raspberry Pi can decode the majority of video and audio formats, "
-"however, in order to decode VC-1 (Used in some BluRay discs) and MPEG-2, you"
-" will need to purchase a license key for these.[CR]They are available at "
-"http://www.raspberrypi.com/license-keys/[CR][CR]If you already have a "
-"license key, you can enter it now."
-msgstr "A Raspberry Pi dekódolni tudja a főbb video és audio formátumokat, de a VC-1 (némely BluRay lemezek kódolása) és MPEG-2 dekódoláshoz licenc kulcsot kell vásárolni, ami a következő oldalon lehetséges:[CR]http://www.raspberrypi.com/license-keys/[CR][CR]Ha már van licenc kulcsod, akkor most megadhatod."
-
-#: xbianconfig/wizard/60_package.py:5
-msgid "Install new packages"
-msgstr "Új csomagok telepítése"
-
-#: xbianconfig/wizard/60_package.py:6
-msgid "package"
-msgstr "csomag"
-
-#: xbianconfig/wizard/60_package.py:7
-msgid ""
-"XBian comes with everything needed for XBMC but you can easily add pre-"
-"configured  packages like Torrent, Newsbin, CouchPotatoe and many "
-"more.[CR][CR]Users can create their own package and share it with others. If"
-" you feel you have something that others may like, go to the XBian Forum and"
-" post a thread, and someone will get back to you with "
-"information.[CR][CR]Please be patient while the package list is loading."
-msgstr "Az XBiannal mindent megkapsz ami szükséges az XBMC-hez de könnyen hozzáadhatsz kiegészítőket, mint a Torrent, Newsbin, CouchPotatoe és hasonlóak.[CR][CR] A fálhasználók a maguk készítette csomagokokat is megoszthatják egymással. Ha úgy érzed bekerülhetne még valami hasznos, nyiss róla témát az XBian fórumon majd elfogadás esetén várd ki míg megjelenik a friss csomag lista amiben benne van. "
-
-#: xbianconfig/wizard/20_network.py:5
-msgid "Configure your network"
-msgstr "Hálózati beállítások"
-
-#: xbianconfig/wizard/20_network.py:6 xbianconfig/categories/10_system.py:36
-#: xbianconfig/categories/10_system.py:190
-msgid "Network"
-msgstr "Hálózat"
-
-#: xbianconfig/wizard/20_network.py:7
-msgid ""
-"Configuring your wired or wireless connection in XBian is really easy. XBian"
-" can run without internet access but you will have a better experience with "
-"it."
-msgstr "A vezetékes és vezeték nélküli hálózat beállítása egyszerű az XBianban. Internet hozzáféréssel még nagyobb élményben lehet részed de az XBian annélkül is használható."
-
-#: xbianconfig/wizard/50_update.py:5
-msgid "Update XBian"
-msgstr "XBian frissítése"
-
-#: xbianconfig/wizard/50_update.py:6
-msgid "update"
-msgstr "frissítés"
-
-#: xbianconfig/wizard/50_update.py:7
-msgid ""
-"You can now choose how XBian will be updated and how often to check for "
-"updates.[CR][CR]By default, XBian will not be updated automatically, but you"
-" will be advised when a new update is available.[CR][CR]To update go to "
-"System -> XBian -> Update and select the packages to upgrade.[CR][CR]If you "
-"wish XBian to be updated automatically, you can set it now."
-msgstr "Most kiválaszthatod a frissítés módját és gyakoriságát.[CR][CR]Alapértelmezésben az XBian nem frissül automatikusan de értesít a frissítésekről.[CR][CR]A frissétes a Rendszer-> Beállítások -> XBian -> Frissítés menüben lehetséges a frissítendő csomag kiválasztásával.[CR][CR]Ha szeretnéd, hogy automatikus legyen a frissítés, most beállíthatod."
-
-#: xbianconfig/wizard/10_welcome.py:5
-msgid "Welcome to XBian"
-msgstr "Jó szórakozást kíván az XBian!"
-
-#: xbianconfig/wizard/10_welcome.py:6
-msgid "Welcome"
-msgstr "Jó szórakozást!"
-
-#: xbianconfig/wizard/10_welcome.py:7
-msgid ""
-"Thanks for choosing XBian.[CR][CR]XBian is a free Open Source media centre "
-"XBian for the Raspberry Pi.[CR]Our slogans is \"XBMC on Raspberry Pi, the "
-"Bleeding edge\" as our main focus is on delivering the fasted media centre "
-"for the Raspberry Pi.[CR][CR]We believe that everyone can make XBian "
-"better.[CR]Please visit our www.xbian.org for support. If you have any "
-"questions, suggestions or contributions, please share them with us!"
-msgstr "Köszönjük, hogy a XBian-t választottad.[CR][CR]Az XBian egy ingyenes nyílt forráskódu média kezelő Raspberryre.[CR]Szlogenünk: \"XBMC on Raspberry Pi, the Bleeding edge\", célkitűzésünk egy gyors média center Raspberry Pire.[CR][CR]Hisszük, hogy mindenki segíthet az XBian fejlesztésében.[CR]Segítségért látogasd meg honlapunkat: www.xbian.org. Ha kérdésed, javaslatod van vagy hozzájárulnál a munkánkhoz, fordulj hozzánk bizalommal."
-
-#: xbianconfig/wizard/40_backup.py:5
-msgid "Restore Home"
-msgstr "Home kötet visszaállítása"
-
-#: xbianconfig/wizard/40_backup.py:6
-msgid "Restore"
-msgstr "Visszaállítás"
-
-#: xbianconfig/wizard/40_backup.py:7
-msgid ""
-"XBian will offer you an easy way to backup your setup.[CR]If you have a "
-"previous backup of your home[CR](it contain your XBMC configuration, addons,"
-" settings including Libraries...),[CR]you can restore now.[CR][CR]Later, if "
-"you want to do a backup, create a snapshot and many more,[CR],go to "
-"system->xbian->backup"
-msgstr "Az XBian lehetővé teszi a beállításaid egyszerű mentését.[CR]Ha van korábbi home kötet mentésed[CR](amiben megvan az XBMC beállítás, add-onok, könyvtárak)[CR]most visszaállíthatod.[CR]A későbbiekben készíthetsz rendszer-visszaállítási pontokat és mentéseket is.[CR] Keresd a Rendszer -> Beállítások -> XBian -> Mentés menüpontot"
-
-#: xbianconfig/wizard/99_finish.py:5
-msgid "It's time to play"
-msgstr "Szórakozásra fel!"
-
-#: xbianconfig/wizard/99_finish.py:6
-msgid "Finish"
-msgstr "Vége"
-
-#: xbianconfig/wizard/99_finish.py:7
-msgid ""
-"You now have a fully configured XBian.[CR]We hope it will give you a great "
-"experience.[CR][CR]If you want to manage additional XBian settings: Go "
-"System -> XBian.[CR]If you want to rerun this Wizard at a later date: Select"
-" tab XBian Wizard under System"
-msgstr "Elkészült a teljesen beállított XBianod[CR]Reméljük egy élmény lesz a használata.[CR]További CBian beállításokat a  Rendszer -> Beállítások -> XBian  menüpontban találsz.[CR]Ha újra szeretnéd futtatni ezt a varázslót, keresd az XBian varázsót a beállításokban."
-
-#: xbianconfig/categories/60_preference.py:16
-msgid "Advanced"
-msgstr "Haladó"
-
-#: xbianconfig/categories/60_preference.py:20
-msgid "Advanced_mode"
-msgstr "Haladó mód"
-
-#: xbianconfig/categories/60_preference.py:52
-msgid "Notifications"
-msgstr "Értesítések"
-
-#: xbianconfig/categories/60_preference.py:56
-msgid "Notify on error"
-msgstr "Értesítés a sikertelen műveletekről"
-
-#: xbianconfig/categories/60_preference.py:64
-msgid "Notify on success"
-msgstr "Értesítés a sikeres műveletekről"
-
-#: xbianconfig/categories/60_preference.py:72
-msgid "Ask confirmation before saving new settings"
-msgstr "Megerősítés az új beállítások mentése előtt"
 
 #: xbianconfig/categories/10_system.py:19
 msgid "Video output"
@@ -231,6 +58,11 @@ msgstr "Képméret növelés (overscan) tiltása"
 msgid "Disable the 'rainbow' screen at really start of RPI"
 msgstr "Raspberry 'szivárvány' indulási képernyőjének tiltása"
 
+#: xbianconfig/categories/10_system.py:36
+#: xbianconfig/categories/10_system.py:190 xbianconfig/wizard/20_network.py:6
+msgid "Network"
+msgstr "Hálózat"
+
 #: xbianconfig/categories/10_system.py:46
 msgid "Select interface to configure"
 msgstr "Válaszd ki a beállítandó interfészt"
@@ -240,12 +72,13 @@ msgid "Status"
 msgstr "Állapot"
 
 #: xbianconfig/categories/10_system.py:75
-#: xbianconfig/resources/lib/utils.py:251
+#: xbianconfig/resources/lib/utils.py:264
 msgid "SSID"
 msgstr "SSID"
 
 #: xbianconfig/categories/10_system.py:82
-#: xbianconfig/categories/55_backup.py:79
+#: xbianconfig/categories/55_backup.py:83
+#: xbianconfig/categories/55_backup.py:412
 msgid "Type"
 msgstr "Mód"
 
@@ -279,246 +112,190 @@ msgstr "Hiba"
 msgid "OK"
 msgstr "OK"
 
-#: xbianconfig/categories/10_system.py:202
+#: xbianconfig/categories/10_system.py:227
 msgid "Please wait while updating..."
 msgstr "Várj míg a frissítés befejeződik..."
 
-#: xbianconfig/categories/10_system.py:203
-#: xbianconfig/categories/10_system.py:211
+#: xbianconfig/categories/10_system.py:228
+#: xbianconfig/categories/10_system.py:236
 #, python-format
 msgid "Reloading values for %s"
 msgstr "%s értékeinek újratöltése"
 
-#: xbianconfig/categories/10_system.py:238
+#: xbianconfig/categories/10_system.py:235
+#: xbianconfig/categories/20_services.py:152
+#: xbianconfig/categories/20_services.py:159
+#: xbianconfig/categories/20_services.py:163
+msgid "Refresh"
+msgstr "Frissítés"
+
+#: xbianconfig/categories/10_system.py:240
 #, python-format
 msgid "Successfully connected to %s"
 msgstr "%s csatlakozva"
 
-#: xbianconfig/categories/10_system.py:241
-#: xbianconfig/resources/lib/utils.py:294
+#: xbianconfig/categories/10_system.py:243
+#: xbianconfig/resources/lib/utils.py:309
 #, python-format
 msgid "Failed to connect to %s"
 msgstr "%s: sikertelen csatlakozás"
 
-#: xbianconfig/categories/10_system.py:309
-#: xbianconfig/categories/10_system.py:315
-#: xbianconfig/categories/10_system.py:500
-#: xbianconfig/categories/30_packages.py:262
-#: xbianconfig/categories/30_packages.py:351
+#: xbianconfig/categories/10_system.py:320
+#: xbianconfig/categories/10_system.py:341
+#: xbianconfig/categories/10_system.py:526
 #: xbianconfig/categories/20_services.py:205
 #: xbianconfig/categories/20_services.py:233
-#: xbianconfig/categories/55_backup.py:177
-#: xbianconfig/categories/55_backup.py:292
+#: xbianconfig/categories/30_packages.py:279
+#: xbianconfig/categories/30_packages.py:319
+#: xbianconfig/categories/55_backup.py:322
+#: xbianconfig/categories/55_backup.py:585
 #: xbianconfig/categories/40_update.py:158
 msgid "An unexpected error occurred"
 msgstr "Váratlan hiba történt"
 
-#: xbianconfig/categories/10_system.py:320
+#: xbianconfig/categories/10_system.py:323
+#, python-format
+msgid "Restarting %s"
+msgstr "%s újraindítása"
+
+#: xbianconfig/categories/10_system.py:323 xbianconfig/services/upgrade.py:261
+msgid "Please wait while updating"
+msgstr "Várj míg a frissítés befejeződik"
+
+#: xbianconfig/categories/10_system.py:346
 msgid "Licenses"
 msgstr "Licencek"
 
-#: xbianconfig/categories/10_system.py:324
+#: xbianconfig/categories/10_system.py:350
 msgid "MPG2 license"
 msgstr "MPG2 licenc"
 
-#: xbianconfig/categories/10_system.py:326
-#: xbianconfig/categories/10_system.py:369
+#: xbianconfig/categories/10_system.py:352
+#: xbianconfig/categories/10_system.py:395 xbianconfig/services/upgrade.py:187
 #, python-format
 msgid "%s successfully updated"
 msgstr "%s sikeresen frissítve"
 
-#: xbianconfig/categories/10_system.py:327
-#: xbianconfig/categories/10_system.py:370
+#: xbianconfig/categories/10_system.py:353
+#: xbianconfig/categories/10_system.py:396
 #, python-format
 msgid ""
 "A %s must be 9 or 10 characters long and looks like 0x00000000. You can "
 "specify maximum 8 licenses, separated by comma."
 msgstr "A %s 9 vagy 10 karakteres, a fornátuma 0x00000000. Maximum 8 licence adható meg vesszővel elválasztva."
 
-#: xbianconfig/categories/10_system.py:367
+#: xbianconfig/categories/10_system.py:393
 msgid "VC1 license"
 msgstr "VC1 licenc"
 
-#: xbianconfig/categories/10_system.py:379
-#: xbianconfig/categories/10_system.py:411
+#: xbianconfig/categories/10_system.py:405
+#: xbianconfig/categories/10_system.py:437
 msgid "Connectivity"
 msgstr "Kapcsolat a kijelzővel"
 
-#: xbianconfig/categories/10_system.py:440
-#: xbianconfig/categories/10_system.py:729
+#: xbianconfig/categories/10_system.py:466
+#: xbianconfig/categories/10_system.py:811
 msgid "System"
 msgstr "Rendszer"
 
-#: xbianconfig/categories/10_system.py:444
-#: xbianconfig/categories/10_system.py:445
+#: xbianconfig/categories/10_system.py:470
+#: xbianconfig/categories/10_system.py:471
 msgid "Hostname"
 msgstr "Gépnév"
 
-#: xbianconfig/categories/10_system.py:446
+#: xbianconfig/categories/10_system.py:472
 msgid "Hostname successfully changed"
 msgstr "Gépnév sikeresen megváltoztatva"
 
-#: xbianconfig/categories/10_system.py:472
-#: xbianconfig/categories/10_system.py:473
+#: xbianconfig/categories/10_system.py:498
+#: xbianconfig/categories/10_system.py:499
 msgid "Kernel"
 msgstr "Kernel"
 
-#: xbianconfig/categories/10_system.py:473
+#: xbianconfig/categories/10_system.py:499
 msgid "Version"
 msgstr "Verzió"
 
-#: xbianconfig/categories/10_system.py:474
+#: xbianconfig/categories/10_system.py:500
 msgid "Successfully switched kernel versions"
 msgstr "Kernel verzió sikeresen lecserélve"
 
-#: xbianconfig/categories/10_system.py:502
+#: xbianconfig/categories/10_system.py:528
 msgid "You're already running this kernel version"
 msgstr "Pillanatnyilag is ezt a kernelt futtatod"
 
-#: xbianconfig/categories/10_system.py:512
-#: xbianconfig/categories/10_system.py:555
+#: xbianconfig/categories/10_system.py:538
+#: xbianconfig/categories/10_system.py:581
 msgid "Overclocking"
 msgstr "Órajel emelés"
 
-#: xbianconfig/categories/10_system.py:556
+#: xbianconfig/categories/10_system.py:582
 msgid "The overclock settings are successfully changed"
 msgstr "Új órajel értékek beállítva"
 
-#: xbianconfig/categories/10_system.py:596
-#: xbianconfig/categories/10_system.py:597
-#: xbianconfig/categories/10_system.py:609
+#: xbianconfig/categories/10_system.py:621
+msgid "required"
+msgstr "szükséges"
+
+#: xbianconfig/categories/10_system.py:621
+msgid "always"
+msgstr "mindig"
+
+#: xbianconfig/categories/10_system.py:621
+msgid "never"
+msgstr "soha"
+
+#: xbianconfig/categories/10_system.py:627
+#: xbianconfig/categories/10_system.py:642
+msgid "Use of initramfs"
+msgstr "Initramfs használata"
+
+#: xbianconfig/categories/10_system.py:678
+#: xbianconfig/categories/10_system.py:679
+#: xbianconfig/categories/10_system.py:691
 msgid "Timezone"
 msgstr "Időzóna"
 
-#: xbianconfig/categories/10_system.py:617
+#: xbianconfig/categories/10_system.py:699
 msgid "Location"
 msgstr "Hely"
 
-#: xbianconfig/categories/10_system.py:627
+#: xbianconfig/categories/10_system.py:709
 msgid "Not Set"
 msgstr "Nincs megadva"
 
-#: xbianconfig/categories/10_system.py:638
+#: xbianconfig/categories/10_system.py:720
 msgid "Accounts"
 msgstr "Felhasználói fiókok"
 
-#: xbianconfig/categories/10_system.py:653
+#: xbianconfig/categories/10_system.py:735
 msgid "Root password"
 msgstr "root jelszó"
 
-#: xbianconfig/categories/10_system.py:654
+#: xbianconfig/categories/10_system.py:736
 msgid "Password:"
 msgstr "Jelszó:"
 
-#: xbianconfig/categories/10_system.py:655
+#: xbianconfig/categories/10_system.py:737
 msgid "root password successfully changed"
 msgstr "root felhasználó jelszava sikeresen megváltoztatva"
 
-#: xbianconfig/categories/10_system.py:656
+#: xbianconfig/categories/10_system.py:738
 msgid "Passwords didn't match"
 msgstr "A megadott jelszavak nem azonosak"
 
-#: xbianconfig/categories/10_system.py:685
+#: xbianconfig/categories/10_system.py:767
 msgid "XBian password"
 msgstr "xbian jelszó"
 
-#: xbianconfig/categories/10_system.py:686
+#: xbianconfig/categories/10_system.py:768
 msgid "xbian password successfully changed"
 msgstr "xbian felhasználó jelszava sikeresen megváltoztatva"
 
-#: xbianconfig/categories/10_system.py:695
-#: xbianconfig/categories/10_system.py:696
+#: xbianconfig/categories/10_system.py:777
+#: xbianconfig/categories/10_system.py:778
 msgid "SSH root login"
 msgstr "SSH bejelentkezés root felhasználóval"
-
-#: xbianconfig/categories/30_packages.py:123
-msgid "Get more..."
-msgstr "Még több..."
-
-#: xbianconfig/categories/30_packages.py:216
-msgid "Install or remove packages"
-msgstr "Csomag telepítés vagy eltávolítás"
-
-#: xbianconfig/categories/30_packages.py:217
-msgid "Installed"
-msgstr "Telepítve van"
-
-#: xbianconfig/categories/30_packages.py:218
-msgid "Not installed"
-msgstr "Nincs telepítve"
-
-#: xbianconfig/categories/30_packages.py:225
-msgid "Loading package database dialog..."
-msgstr "Csomaglista párbeszédpanel betöltése..."
-
-#: xbianconfig/categories/30_packages.py:241
-msgid "Are you sure you want to remove this package?"
-msgstr "Biztosan eltávolítod a csomagot?"
-
-#: xbianconfig/categories/30_packages.py:244
-msgid "Remove"
-msgstr "Eltávolít"
-
-#: xbianconfig/categories/30_packages.py:257
-msgid "This package is not installed"
-msgstr "Ez a csomag nincs telepítve"
-
-#: xbianconfig/categories/30_packages.py:259
-msgid "This is an essential package, and cannot be removed"
-msgstr "Ez egy létfontosságú csomag, nem távolítható el"
-
-#: xbianconfig/categories/30_packages.py:273
-msgid "The package was successfully installed"
-msgstr "Csomag sikeresen telepítve"
-
-#: xbianconfig/categories/30_packages.py:281
-msgid "This package has been successfully removed"
-msgstr "Csomag sikeresen eltávolítva"
-
-#: xbianconfig/categories/30_packages.py:285
-msgid "Downloading remote package database..."
-msgstr "Távoli csomaglista letöltése..."
-
-#: xbianconfig/categories/30_packages.py:301
-#: xbianconfig/categories/30_packages.py:369
-msgid "Packages"
-msgstr "Csomagok"
-
-#: xbianconfig/categories/30_packages.py:303
-msgid "Information"
-msgstr "Információ"
-
-#: xbianconfig/categories/30_packages.py:303
-msgid "Install"
-msgstr "Telepítés"
-
-#: xbianconfig/categories/30_packages.py:309
-msgid "Are you sure you want to install or update this package?"
-msgstr "Biztosan akarod telepíteni/frissíteni ezt a csomagot?"
-
-#: xbianconfig/categories/30_packages.py:326
-msgid "The latest version of this package is already installed"
-msgstr "A csomag legfrissebb verziója már telepítve van"
-
-#: xbianconfig/categories/30_packages.py:330
-#: xbianconfig/categories/30_packages.py:334
-msgid "The package version you are trying to install could not be found"
-msgstr "A csomag telepíteni kivánt verziója nem található"
-
-#: xbianconfig/categories/30_packages.py:338
-msgid ""
-"You are already running a newer version of this package than officially "
-"available"
-msgstr "A csomagból frissebbet futtatsz, mint a hivatalos verzió"
-
-#: xbianconfig/categories/30_packages.py:342
-#: xbianconfig/categories/40_update.py:154
-msgid "There is a size mismatch for the remote packages"
-msgstr "Méret eltérés a távoli csomaghoz képest"
-
-#: xbianconfig/categories/30_packages.py:346
-msgid "A serious error occured while processing this package"
-msgstr "A csomag feldolgozása közben súlyos hiba történt"
 
 #: xbianconfig/categories/20_services.py:69
 #: xbianconfig/categories/20_services.py:214
@@ -538,6 +315,7 @@ msgid "Stopped"
 msgstr "Megállítva"
 
 #: xbianconfig/categories/20_services.py:112
+#: xbianconfig/services/upgrade.py:187
 msgid "Service"
 msgstr "Szolgáltatás"
 
@@ -570,18 +348,44 @@ msgid "Autostart"
 msgstr "Automatikus indulás"
 
 #: xbianconfig/categories/20_services.py:150
+#: xbianconfig/categories/20_services.py:175
 msgid "Delete"
 msgstr "Törlés"
-
-#: xbianconfig/categories/20_services.py:152
-#: xbianconfig/categories/20_services.py:163
-msgid "Refresh"
-msgstr "Frissítés"
 
 #: xbianconfig/categories/20_services.py:158
 #, python-format
 msgid "Do you want to %s"
 msgstr "Biztosan akarod ezt: %s?"
+
+#: xbianconfig/categories/20_services.py:170
+#, python-format
+msgid "Can not %s %s"
+msgstr "Nem lehetséges: %s %s"
+
+#: xbianconfig/categories/20_services.py:173
+#, python-format
+msgid "%s %s successfully"
+msgstr "%s %s: sikeres"
+
+#: xbianconfig/categories/20_services.py:193
+#, python-format
+msgid "%s already running"
+msgstr "%s már fut"
+
+#: xbianconfig/categories/20_services.py:196
+#, python-format
+msgid "%s already stopped"
+msgstr "%s megállt"
+
+#: xbianconfig/categories/20_services.py:199
+#, python-format
+msgid "Autostart already enabled for %s"
+msgstr "%s automatikus indulása engedélyezve"
+
+#: xbianconfig/categories/20_services.py:202
+#, python-format
+msgid "Autostart already disabled for %s"
+msgstr "%s automatikus indulása letiltva"
 
 #: xbianconfig/categories/20_services.py:209
 msgid "Name"
@@ -591,6 +395,19 @@ msgstr "Név"
 #, python-format
 msgid "Do you want to insert %s"
 msgstr "Biztoasan hozzáadod a következőt: %s?"
+
+#: xbianconfig/categories/20_services.py:214
+#: xbianconfig/categories/30_packages.py:240
+#: xbianconfig/categories/30_packages.py:296
+#: xbianconfig/categories/55_backup.py:699
+#: xbianconfig/categories/55_backup.py:715
+#: xbianconfig/categories/55_backup.py:751
+#: xbianconfig/categories/55_backup.py:763
+#: xbianconfig/categories/55_backup.py:773
+#: xbianconfig/categories/40_update.py:168 xbianconfig/default.py:76
+#: xbianconfig/default.py:118 xbianconfig/default.py:170
+msgid "Please wait..."
+msgstr "Türelem..."
 
 #: xbianconfig/categories/20_services.py:224
 msgid "The service has successfully been inserted"
@@ -605,8 +422,114 @@ msgid "This service does not exists..."
 msgstr "Szolgáltatás nem létezik..."
 
 #: xbianconfig/categories/20_services.py:257
+#: xbianconfig/categories/30_packages.py:340
+#: xbianconfig/categories/30_packages.py:347
 msgid "Services"
 msgstr "Szolgáltatások"
+
+#: xbianconfig/categories/30_packages.py:125
+msgid "Get more..."
+msgstr "Még több..."
+
+#: xbianconfig/categories/30_packages.py:218
+msgid "Install or remove packages"
+msgstr "Csomag telepítés vagy eltávolítás"
+
+#: xbianconfig/categories/30_packages.py:219
+msgid "Installed"
+msgstr "Telepítve van"
+
+#: xbianconfig/categories/30_packages.py:220
+msgid "Not installed"
+msgstr "Nincs telepítve"
+
+#: xbianconfig/categories/30_packages.py:227
+msgid "Loading package database dialog..."
+msgstr "Csomaglista párbeszédpanel betöltése..."
+
+#: xbianconfig/categories/30_packages.py:236
+msgid "Are you sure you want to install or update this package?"
+msgstr "Biztosan akarod telepíteni/frissíteni ezt a csomagot?"
+
+#: xbianconfig/categories/30_packages.py:240
+#: xbianconfig/categories/30_packages.py:283
+#: xbianconfig/categories/30_packages.py:371
+msgid "Install"
+msgstr "Telepítés"
+
+#: xbianconfig/categories/30_packages.py:255
+msgid "The latest version of this package is already installed"
+msgstr "A csomag legfrissebb verziója már telepítve van"
+
+#: xbianconfig/categories/30_packages.py:259
+#: xbianconfig/categories/30_packages.py:263
+msgid "The package version you are trying to install could not be found"
+msgstr "A csomag telepíteni kivánt verziója nem található"
+
+#: xbianconfig/categories/30_packages.py:267
+msgid ""
+"You are already running a newer version of this package than officially "
+"available"
+msgstr "A csomagból frissebbet futtatsz, mint a hivatalos verzió"
+
+#: xbianconfig/categories/30_packages.py:271
+#: xbianconfig/categories/40_update.py:154
+msgid "There is a size mismatch for the remote packages"
+msgstr "Méret eltérés a távoli csomaghoz képest"
+
+#: xbianconfig/categories/30_packages.py:275
+msgid "A serious error occured while processing this package"
+msgstr "A csomag feldolgozása közben súlyos hiba történt"
+
+#: xbianconfig/categories/30_packages.py:283
+#: xbianconfig/categories/30_packages.py:371
+msgid "Information"
+msgstr "Információ"
+
+#: xbianconfig/categories/30_packages.py:283
+#: xbianconfig/categories/40_update.py:231
+#: xbianconfig/categories/40_update.py:344 xbianconfig/services/upgrade.py:202
+#: xbianconfig/services/upgrade.py:261 xbianconfig/services/upgrade.py:268
+msgid "Update"
+msgstr "Frissítés"
+
+#: xbianconfig/categories/30_packages.py:283
+#: xbianconfig/categories/30_packages.py:296
+msgid "Remove"
+msgstr "Eltávolít"
+
+#: xbianconfig/categories/30_packages.py:293
+msgid "Are you sure you want to remove this package?"
+msgstr "Biztosan eltávolítod a csomagot?"
+
+#: xbianconfig/categories/30_packages.py:311
+msgid "This package is not installed"
+msgstr "Ez a csomag nincs telepítve"
+
+#: xbianconfig/categories/30_packages.py:313
+msgid "This is an essential package, and cannot be removed"
+msgstr "Ez egy létfontosságú csomag, nem távolítható el"
+
+#: xbianconfig/categories/30_packages.py:316
+msgid "The package version you are trying to remove could not be found"
+msgstr "Az eltávolítani kívánt verziójú csomag nem található"
+
+#: xbianconfig/categories/30_packages.py:341
+msgid "The package was successfully installed"
+msgstr "Csomag sikeresen telepítve"
+
+#: xbianconfig/categories/30_packages.py:348
+msgid "This package has been successfully removed"
+msgstr "Csomag sikeresen eltávolítva"
+
+#: xbianconfig/categories/30_packages.py:352
+msgid "Downloading remote package database..."
+msgstr "Távoli csomaglista letöltése..."
+
+#: xbianconfig/categories/30_packages.py:368
+#: xbianconfig/categories/30_packages.py:394
+msgid "Packages"
+msgstr "Csomagok"
 
 #: xbianconfig/categories/50_xbmc.py:17 xbianconfig/categories/50_xbmc.py:353
 msgid "XBMC"
@@ -635,7 +558,7 @@ msgstr "USB HotPlug"
 
 #: xbianconfig/categories/50_xbmc.py:124 xbianconfig/categories/50_xbmc.py:125
 msgid "Enable USB disk automounting"
-msgstr "USB kötöetek automatikus felcsatolásának engedélyezése"
+msgstr "USB kötetek automatikus felcsatolásának engedélyezése"
 
 #: xbianconfig/categories/50_xbmc.py:151 xbianconfig/categories/50_xbmc.py:152
 msgid "Make automounted disks available via SMB"
@@ -674,12 +597,14 @@ msgid "Manage snapshot"
 msgstr "Rendszer-visszaállítási pontok kezelése"
 
 #: xbianconfig/categories/55_backup.py:31
-#: xbianconfig/categories/55_backup.py:269
+#: xbianconfig/categories/55_backup.py:458
+#: xbianconfig/categories/55_backup.py:558 xbianconfig/services/upgrade.py:211
 msgid "Home backup"
 msgstr "Home kötet mentése"
 
 #: xbianconfig/categories/55_backup.py:35
-#: xbianconfig/categories/55_backup.py:151
+#: xbianconfig/categories/55_backup.py:161
+#: xbianconfig/categories/55_backup.py:297 xbianconfig/services/upgrade.py:207
 msgid "System backup"
 msgstr "Rendszer mentése"
 
@@ -700,151 +625,221 @@ msgstr "Visszamenőleg megtatrandó mentések száma"
 msgid "Enable weekly snapshot"
 msgstr "Készítés hetente"
 
-#: xbianconfig/categories/55_backup.py:74
+#: xbianconfig/categories/55_backup.py:70
+msgid "Enable monthly snapshot"
+msgstr "Rendszervisszaállítási-pont készítese havonta"
+
+#: xbianconfig/categories/55_backup.py:78
+#: xbianconfig/categories/55_backup.py:408
 msgid "Auto image"
 msgstr "Automatikus lemezkép mentés"
 
-#: xbianconfig/categories/55_backup.py:86
+#: xbianconfig/categories/55_backup.py:90
 msgid "Destination type"
 msgstr "Cél típusa"
 
-#: xbianconfig/categories/55_backup.py:93
+#: xbianconfig/categories/55_backup.py:97
 msgid "Block device"
 msgstr "Blokk eszköz"
 
-#: xbianconfig/categories/55_backup.py:100
+#: xbianconfig/categories/55_backup.py:104
+#: xbianconfig/categories/55_backup.py:419
 msgid "Destination: "
 msgstr "Cél:"
 
-#: xbianconfig/categories/55_backup.py:106
-#: xbianconfig/categories/55_backup.py:267
+#: xbianconfig/categories/55_backup.py:111
+#: xbianconfig/categories/55_backup.py:114
+#: xbianconfig/categories/55_backup.py:426
+#: xbianconfig/categories/55_backup.py:429
+msgid "Number of images to keep"
+msgstr "Megtartandó lemezképek száma"
+
+#: xbianconfig/categories/55_backup.py:176
+#: xbianconfig/categories/55_backup.py:359
+msgid "Select Device"
+msgstr "Eszköz kiválasztása"
+
+#: xbianconfig/categories/55_backup.py:248
+#: xbianconfig/categories/55_backup.py:514
 msgid "Start backup now"
 msgstr "Mentés indítása"
 
-#: xbianconfig/categories/55_backup.py:172
+#: xbianconfig/categories/55_backup.py:312
+msgid "Backup system is finished"
+msgstr "Rendszermentés sikeres"
+
+#: xbianconfig/categories/55_backup.py:317
+#: xbianconfig/categories/55_backup.py:580
 msgid "Can't prepare destination filesystem"
 msgstr "Nem sikerült a cél fájlrendszer előkészítése"
 
-#: xbianconfig/categories/55_backup.py:184
+#: xbianconfig/categories/55_backup.py:320
+#: xbianconfig/categories/55_backup.py:583
+msgid "Backup not started"
+msgstr "Mentés nem indult el"
+
+#: xbianconfig/categories/55_backup.py:332
+#: xbianconfig/categories/55_backup.py:599
 #, python-format
 msgid "Write backup to %s?"
 msgstr "Indulhat a mentés ide: %s?"
 
-#: xbianconfig/categories/55_backup.py:187
+#: xbianconfig/categories/55_backup.py:336
 #, python-format
 msgid "This will erase ALL data on %s, continue?"
 msgstr "%s MINDEN adata el fog veszni, folytatod?"
 
-#: xbianconfig/categories/55_backup.py:193
+#: xbianconfig/categories/55_backup.py:344
 msgid "Please wait while creating backup file"
 msgstr "Várj míg a mentés befejeződik..."
 
-#: xbianconfig/categories/55_backup.py:206
-msgid "Select Device"
-msgstr "Eszköz kiválasztása"
-
-#: xbianconfig/categories/55_backup.py:282
-msgid ""
-"Backup file is prepared at /xbmc-backup. Please grab the file over network "
-"or save locally."
-msgstr "A mentés elkészült az /xbmc-backup mappába. A mentés elmásolhatod helyi mappába vagy a hálózaton keresztül."
-
-#: xbianconfig/categories/55_backup.py:287
-msgid "Backup /home process failed!"
-msgstr "/home kötet mentése sikertelen!"
-
-#: xbianconfig/categories/55_backup.py:296
-#: xbianconfig/categories/55_backup.py:311
-msgid "Backup /home to file"
-msgstr "/home kötet mentése fájlba"
-
-#: xbianconfig/categories/55_backup.py:299
-msgid ""
-"It can take several minutes depending on size of your /home/xbian directory"
-msgstr "Ez hosszabb ideig is eltarthat a /home/xbian kötet méretétől függően"
-
-#: xbianconfig/categories/55_backup.py:301
-msgid ""
-"File will be created under /xbian-backup, which is also accessible through "
-"smb share"
-msgstr "A fájl az /xbian-backup mappába kerül majd, ami elérhet SMB megosztásként a hálózatról is."
-
-#: xbianconfig/categories/55_backup.py:303
-msgid ""
-"Until finished, there will be just temp folder. Once ready, .img file will "
-"appear."
-msgstr "Az elkészültéig átmeneti mappában van, ha elkészült akkor lesz elérhető az .img fájl."
-
-#: xbianconfig/categories/55_backup.py:305
-msgid ""
-"You can copy the file directly to you computer (the file will be deleted "
-"during reboots!)"
-msgstr "A fájlt el kell másolnod a saját gépedre (törölve lesz újraindításkor)"
-
-#: xbianconfig/categories/55_backup.py:307
-msgid ""
-"To restore your XBMC, just copy .img file to /xbian-backup/put_to_restore "
-"folder."
-msgstr "Az XBMC visszaállításához másold az .img fájlt a /xbian-backup/put_to_restore mappába"
-
-#: xbianconfig/categories/55_backup.py:327
-#: xbianconfig/categories/55_backup.py:329
-#: xbianconfig/categories/55_backup.py:367
+#: xbianconfig/categories/55_backup.py:519
+#: xbianconfig/categories/55_backup.py:652
 msgid "Restore backup"
 msgstr "Mentett lemezkép visszaállítása"
 
-#: xbianconfig/categories/55_backup.py:357
+#: xbianconfig/categories/55_backup.py:574
+msgid ""
+"Backup /home is finished. In case of destination folder/xbmc-backup, please "
+"grab the file over network or save locally."
+msgstr "/home mappa mentése kész. A mentés helyén keletkezett /xbmc-backup mappát ments le helyben vagy a hálózaton keresztül"
+
+#: xbianconfig/categories/55_backup.py:604
+msgid "It can take several minutes depending on size of your /home directory"
+msgstr "Hosszabb ideig is eltarthat a /home mappa méretétől függően"
+
+#: xbianconfig/categories/55_backup.py:605
+msgid ""
+"If file is created under /xbian-backup, it is also accessible through smb "
+"share"
+msgstr "Ha keletkeztek fájlok a /xbmc-backup mappában, azok elérhetőek a samba hálózati megosztáson keresztül"
+
+#: xbianconfig/categories/55_backup.py:606
+msgid ""
+"Until finished, there will be just temp folder. Once ready, .img.gz file "
+"will appear."
+msgstr "A befejezésig átmeneti mappába dolgozik a folyamat. Sikeres befejezés után jelenik meg az .img.gz kiterjesztésű fájl."
+
+#: xbianconfig/categories/55_backup.py:607
+msgid ""
+"You can copy the file directly to you computer (the file will be deleted "
+"during boot!)"
+msgstr "A fájlt le tudod másolni a saját gépedre. (újraindításkor letörlődik!)"
+
+#: xbianconfig/categories/55_backup.py:608
+msgid ""
+"To restore your /home folder, just copy .img.gz file to /xbian-"
+"backup/put_to_restore folder."
+msgstr "A /home mappa visszaállításához másold be az .img.gz fájlt az /xbian-backup/put_to_restore mappába."
+
+#: xbianconfig/categories/55_backup.py:611
+msgid "Backup /home to file"
+msgstr "/home kötet mentése fájlba"
+
+#: xbianconfig/categories/55_backup.py:628
+msgid "Please wait, /home is restored in background now"
+msgstr "/home mappa visszaállítása folyamatban a háttérben"
+
+#: xbianconfig/categories/55_backup.py:628
+msgid "After this has been done, Kodi will be restarted automatically"
+msgstr "Befejezés után a Kodi automatikusan újra fog indulni"
+
+#: xbianconfig/categories/55_backup.py:641
 msgid "Select Home Image"
 msgstr "Válaszd ki a Home kötet lemezképét"
 
-#: xbianconfig/categories/55_backup.py:358
+#: xbianconfig/categories/55_backup.py:643
 #, python-format
-msgid "%s : Do you want to restore home from %s?"
-msgstr "%s: Vissza akarod állítani a Home kötetet ebből: %s?"
+msgid "Do you want to restore /home from %s"
+msgstr "Biztosan visszaállítod a %s fájlból a /home mappát?"
 
-#: xbianconfig/categories/55_backup.py:364
+#: xbianconfig/categories/55_backup.py:649
 msgid "It can take several minutes depending on size of your backup image."
 msgstr "Ez hosszabb ideig is eltarthat a lemezkép méretétől függően"
 
-#: xbianconfig/categories/55_backup.py:382
+#: xbianconfig/categories/55_backup.py:697
 msgid "Mount a snapshot"
-msgstr "Visszaállítási pont felcsatolása (mount)"
+msgstr "Rendszer-visszaállítási pont felcsatolása (mount)"
 
-#: xbianconfig/categories/55_backup.py:383
-#: xbianconfig/categories/55_backup.py:456
+#: xbianconfig/categories/55_backup.py:698
+#: xbianconfig/categories/55_backup.py:771
 msgid "Snapshot"
 msgstr "Rendszer-visszaállítási pont"
 
-#: xbianconfig/categories/55_backup.py:388
-#: xbianconfig/categories/55_backup.py:461
+#: xbianconfig/categories/55_backup.py:703
+#: xbianconfig/categories/55_backup.py:776
 msgid "Loading volumes..."
 msgstr "Kötetek betöltése"
 
-#: xbianconfig/categories/55_backup.py:396
+#: xbianconfig/categories/55_backup.py:711
 msgid "Btrfs volume"
 msgstr "Btrfs kötet"
 
-#: xbianconfig/categories/55_backup.py:435
+#: xbianconfig/categories/55_backup.py:750
 msgid "Rollback to a snapshot"
 msgstr "Visszaállás egy korábbi Rendszer-visszaállítási pontra"
 
-#: xbianconfig/categories/55_backup.py:447
+#: xbianconfig/categories/55_backup.py:756 xbianconfig/services/upgrade.py:157
+#: xbianconfig/default.py:95
+msgid "A reboot is required. Do you want to reboot now?"
+msgstr "Újraindítás szükséges. Akarod most újraindítani?"
+
+#: xbianconfig/categories/55_backup.py:762
 msgid "Delete a snapshot"
 msgstr "Rendszer-visszaállítási pont törlése"
 
-#: xbianconfig/categories/55_backup.py:455
+#: xbianconfig/categories/55_backup.py:770
 msgid "Create a snapshot"
 msgstr "Rendszer-visszaállítási pont készítése"
 
-#: xbianconfig/categories/55_backup.py:474
+#: xbianconfig/categories/55_backup.py:789
 msgid "Snapshot name"
 msgstr "Rendszer-visszaállítási pont neve"
 
-#: xbianconfig/categories/55_backup.py:537
+#: xbianconfig/categories/55_backup.py:860
 msgid "Backup"
 msgstr "Mentés"
 
+#: xbianconfig/categories/59_extra.py:11
+msgid "Extra"
+msgstr "Extra"
+
+#: xbianconfig/categories/60_preference.py:16
+msgid "Advanced"
+msgstr "Haladó"
+
+#: xbianconfig/categories/60_preference.py:20
+msgid "Advanced_mode"
+msgstr "Haladó mód"
+
+#: xbianconfig/categories/60_preference.py:52
+msgid "Notifications"
+msgstr "Értesítések"
+
+#: xbianconfig/categories/60_preference.py:56
+msgid "Notify on error"
+msgstr "Értesítés a sikertelen műveletekről"
+
+#: xbianconfig/categories/60_preference.py:64
+msgid "Notify on success"
+msgstr "Értesítés a sikeres műveletekről"
+
+#: xbianconfig/categories/60_preference.py:72
+msgid "Ask confirmation before saving new settings"
+msgstr "Megerősítés az új beállítások mentése előtt"
+
+#: xbianconfig/categories/60_preference.py:85
+#: xbianconfig/categories/60_preference.py:89
+#: xbianconfig/categories/60_preference.py:100
+msgid "Enable all Hints"
+msgstr "Minden tipp engedélyezése"
+
+#: xbianconfig/categories/60_preference.py:106
+msgid "Do you want to continue?"
+msgstr "Akarja folytatni?"
+
 #: xbianconfig/categories/40_update.py:58
+#: xbianconfig/categories/40_update.py:330
 msgid "Check for system updates"
 msgstr "Rendszer frissítések ellenőrzése"
 
@@ -897,11 +892,6 @@ msgstr "Rendelkezésre álló frissítések automatikus telepítése"
 msgid "Do a snapshot with APT-GET transaction"
 msgstr "Rendszer-visszaállítási pont létrehozása a frissítés előtt"
 
-#: xbianconfig/categories/40_update.py:231
-#: xbianconfig/categories/40_update.py:303
-msgid "Update"
-msgstr "Frissítés"
-
 #: xbianconfig/categories/40_update.py:260
 #: xbianconfig/categories/40_update.py:278
 msgid "Auto update package inventory"
@@ -912,9 +902,21 @@ msgstr "Csomaglista automatikus frissítése"
 msgid "interval (days)"
 msgstr "Frissítési időköz (napokban)"
 
-#: xbianconfig/categories/59_extra.py:11
-msgid "extra"
-msgstr "Extra"
+#: xbianconfig/categories/40_update.py:303
+msgid "Additional repositories"
+msgstr "További források"
+
+#: xbianconfig/categories/40_update.py:307
+msgid "Staging repository"
+msgstr "Végleges közeli próba verziók (staging repo)"
+
+#: xbianconfig/categories/40_update.py:329
+msgid "Please execute again"
+msgstr "Kérem ismételje meg"
+
+#: xbianconfig/categories/40_update.py:336
+msgid "Devel repository"
+msgstr "Fejlesztői verziók (devel repo)"
 
 #: xbianconfig/resources/lib/xbmcguie/category.py:73
 msgid "XBian"
@@ -940,29 +942,181 @@ msgstr "Biztosan alkalmazod a módosításokat?"
 msgid "Click to load..."
 msgstr "Kattints..."
 
-#: xbianconfig/resources/lib/utils.py:46
+#: xbianconfig/resources/lib/xbianWindow.py:65
+#: xbianconfig/resources/lib/xbianDialog.py:28 xbianconfig/default.py:162
+#: xbianconfig/default.py:170
+msgid "Loading"
+msgstr "Betöltés"
+
+#: xbianconfig/resources/lib/utils.py:58
 #, python-format
 msgid "Value must be greater than %d"
 msgstr "Az érték magasabb kell legyen mint %d"
 
-#: xbianconfig/resources/lib/utils.py:50
+#: xbianconfig/resources/lib/utils.py:62
 #, python-format
 msgid "Value must be lower than %d"
 msgstr "Az érték alacsonyabb kell legyen mint %d"
 
-#: xbianconfig/resources/lib/utils.py:223
+#: xbianconfig/resources/lib/utils.py:236
 msgid "Scan"
 msgstr "Keresés"
 
-#: xbianconfig/resources/lib/utils.py:223
+#: xbianconfig/resources/lib/utils.py:236
 msgid "Scanning for available networks..."
 msgstr "Elérhető hálózatok kereése..."
 
-#: xbianconfig/resources/lib/utils.py:257
+#: xbianconfig/resources/lib/utils.py:270
 msgid "Enter credentials for selected interface"
 msgstr "Add meg a kiválasztot interfész hitelesítő adatait."
 
-#: xbianconfig/resources/lib/utils.py:265
+#: xbianconfig/resources/lib/utils.py:278
 #, python-format
 msgid "Please wait. Trying to connect to %s"
 msgstr "Csatlakozási kísérlet a következőhöz: %s"
+
+#: xbianconfig/services/upgrade.py:168
+msgid "Never show this hint again?"
+msgstr "Ne mutasd többé ezt a tippet"
+
+#: xbianconfig/services/upgrade.py:202 xbianconfig/services/upgrade.py:268
+msgid "Package"
+msgstr "Telepítőcsomag"
+
+#: xbianconfig/services/upgrade.py:202
+msgid "Some XBian package can be updated"
+msgstr "Néhány XBian telepítőcsameg frissíthető"
+
+#: xbianconfig/services/upgrade.py:207 xbianconfig/services/upgrade.py:211
+msgid "This type of backup has not been made for a long time!"
+msgstr "Régen készült ilyen típusú mentés!"
+
+#: xbianconfig/services/upgrade.py:268
+msgid "Updates installed successfully"
+msgstr "Frissítések sikeresen telepítve"
+
+#: xbianconfig/wizard/10_welcome.py:5
+msgid "Welcome to XBian"
+msgstr "Jó szórakozást kíván az XBian!"
+
+#: xbianconfig/wizard/10_welcome.py:6
+msgid "Welcome"
+msgstr "Jó szórakozást!"
+
+#: xbianconfig/wizard/10_welcome.py:7
+msgid ""
+"Thanks for choosing XBian.[CR][CR]XBian is a free Open Source media centre "
+"XBian for the Raspberry Pi.[CR]Our slogans is \"XBMC on Raspberry Pi, the "
+"Bleeding edge\" as our main focus is on delivering the fasted media centre "
+"for the Raspberry Pi.[CR][CR]We believe that everyone can make XBian "
+"better.[CR]Please visit our www.xbian.org for support. If you have any "
+"questions, suggestions or contributions, please share them with us!"
+msgstr "Köszönjük, hogy a XBian-t választottad.[CR][CR]Az XBian egy ingyenes nyílt forráskódu média kezelő Raspberryre.[CR]Szlogenünk: \"XBMC on Raspberry Pi, the Bleeding edge\", célkitűzésünk egy gyors média center Raspberry Pire.[CR][CR]Hisszük, hogy mindenki segíthet az XBian fejlesztésében.[CR]Segítségért látogasd meg honlapunkat: www.xbian.org. Ha kérdésed, javaslatod van vagy hozzájárulnál a munkánkhoz, fordulj hozzánk bizalommal."
+
+#: xbianconfig/wizard/20_network.py:5
+msgid "Configure your network"
+msgstr "Hálózati beállítások"
+
+#: xbianconfig/wizard/20_network.py:7
+msgid ""
+"Configuring your wired or wireless connection in XBian is really easy. XBian"
+" can run without internet access but you will have a better experience with "
+"it."
+msgstr "A vezetékes és vezeték nélküli hálózat beállítása egyszerű az XBianban. Internet hozzáféréssel még nagyobb élményben lehet részed de az XBian annélkül is használható."
+
+#: xbianconfig/wizard/30_license.py:5
+msgid "Enter your License key"
+msgstr "Add meg a licenc kulcsodat"
+
+#: xbianconfig/wizard/30_license.py:6
+msgid "License key"
+msgstr "Licenc kulcs"
+
+#: xbianconfig/wizard/30_license.py:7
+msgid ""
+"The Raspberry Pi can decode the majority of video and audio formats, "
+"however, in order to decode VC-1 (Used in some BluRay discs) and MPEG-2, you"
+" will need to purchase a license key for these.[CR]They are available at "
+"http://www.raspberrypi.com/license-keys/[CR][CR]If you already have a "
+"license key, you can enter it now."
+msgstr "A Raspberry Pi dekódolni tudja a főbb video és audio formátumokat, de a VC-1 (némely BluRay lemezek kódolása) és MPEG-2 dekódoláshoz licenc kulcsot kell vásárolni, ami a következő oldalon lehetséges:[CR]http://www.raspberrypi.com/license-keys/[CR][CR]Ha már van licenc kulcsod, akkor most megadhatod."
+
+#: xbianconfig/wizard/40_backup.py:5
+msgid "Restore Home"
+msgstr "Home kötet visszaállítása"
+
+#: xbianconfig/wizard/40_backup.py:6
+msgid "Restore"
+msgstr "Visszaállítás"
+
+#: xbianconfig/wizard/40_backup.py:7
+msgid ""
+"XBian will offer you an easy way to backup your setup.[CR]If you have a "
+"previous backup of your home[CR](it contain your XBMC configuration, addons,"
+" settings including Libraries...),[CR]you can restore now.[CR][CR]Later, if "
+"you want to do a backup, create a snapshot and many more,[CR],go to "
+"system->xbian->backup"
+msgstr "Az XBian lehetővé teszi a beállításaid egyszerű mentését.[CR]Ha van korábbi home kötet mentésed[CR](amiben megvan az XBMC beállítás, add-onok, könyvtárak)[CR]most visszaállíthatod.[CR]A későbbiekben készíthetsz rendszer-visszaállítási pontokat és mentéseket is.[CR] Keresd a Rendszer -> XBian -> Mentés menüpontot"
+
+#: xbianconfig/wizard/50_update.py:5
+msgid "Update XBian"
+msgstr "XBian frissítése"
+
+#: xbianconfig/wizard/50_update.py:6
+msgid "update"
+msgstr "frissítés"
+
+#: xbianconfig/wizard/50_update.py:7
+msgid ""
+"You can now choose how XBian will be updated and how often to check for "
+"updates.[CR][CR]By default, XBian will not be updated automatically, but you"
+" will be advised when a new update is available.[CR][CR]To update go to "
+"System -> XBian -> Update and select the packages to upgrade.[CR][CR]If you "
+"wish XBian to be updated automatically, you can set it now."
+msgstr "Most kiválaszthatod a frissítés módját és gyakoriságát.[CR][CR]Alapértelmezésben az XBian nem frissül automatikusan de értesít a frissítésekről.[CR][CR]A frissétes a Rendszer-> XBian -> Frissítés menüben lehetséges a frissítendő csomag kiválasztásával.[CR][CR]Ha szeretnéd, hogy automatikus legyen a frissítés, most beállíthatod."
+
+#: xbianconfig/wizard/60_package.py:5
+msgid "Install new packages"
+msgstr "Új csomagok telepítése"
+
+#: xbianconfig/wizard/60_package.py:6
+msgid "package"
+msgstr "csomag"
+
+#: xbianconfig/wizard/60_package.py:7
+msgid ""
+"XBian comes with everything needed for XBMC but you can easily add pre-"
+"configured  packages like Torrent, Newsbin, CouchPotatoe and many "
+"more.[CR][CR]Users can create their own package and share it with others. If"
+" you feel you have something that others may like, go to the XBian Forum and"
+" post a thread, and someone will get back to you with "
+"information.[CR][CR]Please be patient while the package list is loading."
+msgstr "Az XBiannal mindent megkapsz ami szükséges az XBMC-hez de könnyen hozzáadhatsz kiegészítőket, mint a Torrent, Newsbin, CouchPotatoe és hasonlóak.[CR][CR] A fálhasználók a maguk készítette csomagokokat is megoszthatják egymással. Ha úgy érzed bekerülhetne még valami hasznos, nyiss róla témát az XBian fórumon majd elfogadás esetén várd ki míg megjelenik a friss csomag lista amiben benne van. "
+
+#: xbianconfig/wizard/99_finish.py:5
+msgid "It's time to play"
+msgstr "Szórakozásra fel!"
+
+#: xbianconfig/wizard/99_finish.py:6
+msgid "Finish"
+msgstr "Vége"
+
+#: xbianconfig/wizard/99_finish.py:7
+msgid ""
+"You now have a fully configured XBian.[CR]We hope it will give you a great "
+"experience.[CR][CR]If you want to manage additional XBian settings: Go "
+"System -> XBian.[CR]If you want to rerun this Wizard at a later date: Select"
+" tab XBian Wizard under System"
+msgstr "Elkészült a teljesen beállított XBianod[CR]Reméljük egy élmény lesz a használata.[CR]További CBian beállításokat a  Rendszer -> XBian  menüpontban találsz.[CR]Ha újra szeretnéd futtatni ezt a varázslót, keresd az XBian varázsót a beállításokban."
+
+#: xbianconfig/default.py:76
+msgid "XBian-config is still running"
+msgstr "XBian-config még fut"
+
+#: xbianconfig/default.py:118
+msgid "XBian Config"
+msgstr "XBian Config"
+
+#: xbianconfig/default.py:133
+msgid "Initialisation..."
+msgstr "Inicializálás..."
