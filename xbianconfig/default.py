@@ -117,6 +117,7 @@ class xbianSettingWindow(xbianSettingCommon):
         self.wait = xbmcgui.DialogProgress()
         self.wait.create(_('XBian Config'), _('Please wait...'))
         self.wait.update(0)
+        open(os.path.join(ROOTDIR, 'resources', 'skins', SKIN_DIR, SKIN_RES, 'SettingsXbianInfo.xml'), 'w').close()
         self.window = XbianWindow('SettingsXbianInfo.xml', ROOTDIR)
 
     def onClean(self):
@@ -172,6 +173,7 @@ class xbianSettingDialog(xbianSettingCommon):
         from resources.lib.xbianDialog import XbianDialog
         self.title = ''
         self.settings = []
+        open(os.path.join(ROOTDIR, 'resources', 'skins', SKIN_DIR, SKIN_RES, 'SettingsXbianDialog.xml'), 'w').close()
         self.window = XbianDialog('SettingsXbianDialog.xml', ROOTDIR)
 
     def createDialog(self, title, settings, checkReboot=False):
