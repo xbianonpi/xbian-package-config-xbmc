@@ -33,11 +33,17 @@ class updateControl(MultiSettingControl):
         char_set = string.ascii_lowercase
         self.key = ''.join(random.sample(char_set, 6))
         self.keyupdateall = '%sall' % self.key
+        self.keyswitchdistribution = '%sdistup' % self.key
         self.nbUpdate = 15
         self.nbcanbeupdate = 0
         self.updates = []
         for i in range(self.nbUpdate):
             self.updates.append({})
+
+        self.switchDistribution = ButtonControl(Tag('label', ''), Tag('visible', visiblecondition(
+            self.keyswitchdistribution)), Tag('enable', '!%s' % visiblecondition(SKINVARAPTRUNNIG)))
+        self.switchDistribution.onClick = lambda switchdistribution: self.onSwitchDistribution()
+        self.addControl(self.switchDistribution)
 
         keynoupdate = ''
         for i, update in enumerate(self.updates):
@@ -48,12 +54,12 @@ class updateControl(MultiSettingControl):
             self.addControl(update['name'])
             keynoupdate += '!Control.IsVisible(%d) + ' % update['name'].getId()
         keynoupdate = keynoupdate[:-3]
-        self.udpateAll = ButtonControl(Tag('label', 'Update all'), Tag('visible', visiblecondition(
+        self.updateAll = ButtonControl(Tag('label', _('Update all')), Tag('visible', visiblecondition(
             self.keyupdateall)), Tag('enable', '!%s' % visiblecondition(SKINVARAPTRUNNIG)))
-        self.udpateAll.onClick = lambda updateall: self.onUpdateAll()
-        self.addControl(self.udpateAll)
+        self.updateAll.onClick = lambda updateall: self.onUpdateAll()
+        self.addControl(self.updateAll)
 
-        setvisiblecondition(KEYFORCECHECK, False, xbmcgui.getCurrentWindowId())
+        setvisiblecondition(KEYFORCECHECK, False)
         self.forceCheck = ButtonControl(
             Tag('label', _('Check for system updates')),
             Tag('visible', visiblecondition(KEYFORCECHECK)),
@@ -61,8 +67,8 @@ class updateControl(MultiSettingControl):
         self.forceCheck.onClick = lambda forcecheck: self.onForceCheck()
         self.addControl(self.forceCheck)
 
-        self.udpateNo = ButtonControl(Tag('label', ''), Tag('visible', '%s' % keynoupdate))
-        self.addControl(self.udpateNo)
+        self.updateNo = ButtonControl(Tag('label', ''), Tag('visible', '%s' % keynoupdate))
+        self.addControl(self.updateNo)
 
     def getCurrentUpdate(self, control):
         for i, update in enumerate(self.updates):
@@ -73,24 +79,27 @@ class updateControl(MultiSettingControl):
         values = update.split(';')
         self.updates[int(values[0]) - 1]['name'].setLabel(values[1])
         self.updates[int(values[0]) - 1]['name'].setValue(values[3])
-        setvisiblecondition('%s%d' % (self.key, int(values[0]) - 1), True, xbmcgui.getCurrentWindowId())
+        setvisiblecondition('%s%d' % (self.key, int(values[0]) - 1), True)
         self.nbcanbeupdate += 1
         if self.nbcanbeupdate == 2:
-            setvisiblecondition(self.keyupdateall, True, xbmcgui.getCurrentWindowId())
+            setvisiblecondition(self.keyupdateall, True)
         elif self.nbcanbeupdate == 1:
-            setvisiblecondition(self.keyupdateall, False, xbmcgui.getCurrentWindowId())
+            setvisiblecondition(self.keyupdateall, False)
 
     def removeUpdate(self, update):
         values = update.split(';')
-        setvisiblecondition('%s%d' % (self.key, int(values[0]) - 1), False, xbmcgui.getCurrentWindowId())
+        setvisiblecondition('%s%d' % (self.key, int(values[0]) - 1), False)
         self.nbcanbeupdate -= 1
         if self.nbcanbeupdate == 1:
-            setvisiblecondition(self.keyupdateall, False, xbmcgui.getCurrentWindowId())
+            setvisiblecondition(self.keyupdateall, False)
 
     def onUpdateClick(self, updateId):
         pass
 
     def onUpdateAll(self):
+        pass
+
+    def onSwitchDistribution(self):
         pass
 
     def onForceCheck(self):
@@ -106,11 +115,11 @@ class packageUpdate(Setting):
     DIALOGHEADER = _('Updates')
     ERRORTEXT = _('A serious error occured while processing these packages')
     OKTEXT = _('The packages are successfully updated')
-    APPLYTEXT = _('Are you sure you want to update these packages?')
 
     def onInit(self):
         self.control.onUpdateClick = self.onUpdate
         self.control.onUpdateAll = self.onUpdateAll
+        self.control.onSwitchDistribution = self.onSwitchDistribution
         self.control.onForceCheck = self.onForceCheck
         self.needrefreshing = False
         self.keyword()
@@ -119,26 +128,54 @@ class packageUpdate(Setting):
         self.key = 'packages'
 
     def checkUpdateFinish(self):
-        return xbianConfig('updates', 'progress')[0] != '1'
+        rc = xbianConfig('updates', 'progress')
+        if not rc or rc[0] == '1':
+            return False
+        return True
 
     def onUpdateFinished(self):
         os.remove(self.lockfile)
-        # refresh gui
-        # remove settings from gui
-        for update in self.xbianValue:
-            self.control.removeUpdate(update)
-        # reload value
+        countInstalled = 0
+        if self.checkStatus:
+            rc = xbianConfig('updates', 'status')
+            if rc:
+                countInstalled = int(rc[0].split(' ')[0])
+        # refresh gui, clean and reload value
         self.xbianValue = self.getXbianValue()
-        self.notifyOnSuccess()
+        if countInstalled < 0:
+            self.ERRORTEXT = _('A serious error occured while processing these packages')
+            self.notifyOnError()
+        elif self.updateId == '+':
+            xbianConfig('updates', 'distupgrade', 'finish')
+            self.notifyOnSuccess(True, 20000)
+        else:
+            self.notifyOnSuccess(True, 10000)
 
     def onUpdate(self, updateId):
-        self.lockfile = '/var/lock/.%s' % self.key
-        open(self.lockfile, 'w').close()
-        updateId = str(updateId)
+        self.updateId = str(updateId)
+        if self.updateId == '+':
+            self.APPLYTEXT = _('Are you sure you want to do an Distritubion upgrade?\n\nThis will take a long time')
+        else:
+            self.APPLYTEXT = _('Are you sure you want to update these packages?')
         if self.askConfirmation(True):
-            rc = xbianConfig('updates', 'install', self.key, updateId)
+            self.lockfile = '/var/lock/.%s' % self.key
+            open(self.lockfile, 'w').close()
+            setvisiblecondition(SKINVARAPTRUNNIG, True)
+            if self.updateId == '+':
+                progress = dialogWait(
+                    _('Please wait...'),
+                    _('Retrieving list of upgradeable packages...'))
+                progress.show()
+                rc = xbianConfig('updates', 'distupgrade', 'prepare')
+                if rc and rc[0] == '1':
+                    rc = xbianConfig('updates', 'distupgrade', 'execute')
+                progress.close()
+            else:
+                rc = xbianConfig('updates', 'install', self.key, self.updateId)
+            setvisiblecondition(SKINVARAPTRUNNIG, False)
             if rc and rc[0] == '1':
                 self.needrefreshing = True
+                self.checkStatus = True
                 dlg = dialogWaitBackground(self.DIALOGHEADER, [
                 ], self.checkUpdateFinish, APTLOGFILE, skinvar=SKINVARAPTRUNNIG, id=xbmcgui.getCurrentWindowId(), onFinishedCB=self.onUpdateFinished)
                 dlg.show()
@@ -160,7 +197,7 @@ class packageUpdate(Setting):
                 self.notifyOnError()
 
     def onForceCheck(self):
-        setvisiblecondition(SKINVARAPTRUNNIG, True, xbmcgui.getCurrentWindowId())
+        setvisiblecondition(SKINVARAPTRUNNIG, True)
         self.lockfile = '/var/lock/.%s' % self.key
         open(self.lockfile, 'w').close()
 
@@ -169,26 +206,46 @@ class packageUpdate(Setting):
             _('Retrieving list of upgradeable packages...'))
         progress.show()
         rc = xbianConfig('updates', 'updatedb')
-        progress.close()
-        if rc and rc[0] == '1':
+        if rc and not rc[0] < '0':
             self.needrefreshing = True
+            self.checkStatus = False
+            self.updateId = '-'
             self.onUpdateFinished()
-        setvisiblecondition(SKINVARAPTRUNNIG, False, xbmcgui.getCurrentWindowId())
+        else:
+            os.remove(self.lockfile)
+        progress.close()
+        setvisiblecondition(SKINVARAPTRUNNIG, False)
 
     def onUpdateAll(self):
-        updates = '-'
-        self.onUpdate(updates)
+        self.onUpdate('-')
+
+    def onSwitchDistribution(self):
+        self.onUpdate('+')
 
     def getXbianValue(self):
+        distup = False
+        rc = xbianConfig('updates', 'distupgrade', 'query')
+        if rc and not (rc[0] == '0'):
+            self.control.switchDistribution.setLabel(_('Distribution upgrade to %s') % (rc[0]))
+            setvisiblecondition(self.control.keyswitchdistribution, True)
+            distup = True
+        else:
+            setvisiblecondition(self.control.keyswitchdistribution, False, xbmcgui.getCurrentWindowId())
+        if self.xbianValue:
+            # make sure that entire list is cleaned and hidden
+            for update in self.xbianValue:
+                self.control.removeUpdate(update)
+            self.control.nbcanbeupdate = 0
         rc = xbianConfig('updates', 'list', self.key, cache=False, forcerefresh=self.needrefreshing)
         if rc and not (rc[0] < '1'):
+            # (re)build list
             for update in rc[:15]:
                 self.control.addUpdate(update)
-        else:
-            self.control.udpateNo.setLabel(_('Update_to_date'))
+        elif not distup:
+            self.control.updateNo.setLabel(_('Update_to_date'))
         self.needrefreshing = False
 
-        setvisiblecondition(KEYFORCECHECK, True, xbmcgui.getCurrentWindowId())
+        setvisiblecondition(KEYFORCECHECK, True)
         return rc
 
 
