@@ -68,6 +68,14 @@ class notifyonSuccess(advancedMode):
         self.key = 'notifyonsuccess'
 
 
+class notifyonBusy(advancedMode):
+    DIALOGHEADER = _('Show messages while playing media')
+    CONTROL = RadioButtonControl(Tag('label', DIALOGHEADER))
+
+    def onInit(self):
+        self.key = 'notifywhenbusy'
+
+
 class confirmonChange(advancedMode):
     DIALOGHEADER = _('Ask confirmation before saving new settings')
     CONTROL = RadioButtonControl(Tag('label', DIALOGHEADER))
@@ -76,8 +84,40 @@ class confirmonChange(advancedMode):
         self.key = 'confirmationonchange'
 
 
+class enableAllHintsControl(MultiSettingControl):
+    XBMCDEFAULTCONTAINER = False
+
+    def onInit(self):
+        if getHiddenHints() == 0:
+            self.enableHints = ButtonControl(
+                Tag('label', _('Enable all Hints')),
+                Tag('visible', 'False'))
+        else:
+            self.enableHints = ButtonControl(
+                Tag('label', _('Enable all Hints')),
+                Tag('visible', '!%s' % (visiblecondition('hideresethints'),)))
+        self.enableHints.onClick = lambda enablehints: self.enableAllHints()
+        self.addControl(self.enableHints)
+
+    def enableAllHints(self):
+        pass
+
+
+class enableAllHintsGui(Setting):
+    CONTROL = enableAllHintsControl(ADVANCED)
+    DIALOGHEADER = _('Enable all Hints')
+
+    def onInit(self):
+        self.control.enableAllHints = self.enableAllHints
+
+    def enableAllHints(self):
+        self.APPLYTEXT = _('Do you want to continue?')
+        if self.askConfirmation():
+            setvisiblecondition('hideresethints', True, xbmcgui.getCurrentWindowId())
+            enableAllHints()
+
 # CATEGORY CLASS
 class preference(Category):
     TITLE = 'Preferences'
     SETTINGS = [advancedLabel, advancedMode, notificationLabel,
-                confirmonChange, notifyonError, notifyonSuccess]
+                confirmonChange, notifyonError, notifyonSuccess, notifyonBusy, enableAllHintsGui]
