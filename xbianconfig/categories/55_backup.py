@@ -21,7 +21,7 @@ DEVICE = 'Device'
 FILE = 'File'
 
 DESTINATION_HOME_RESTORE = '/xbmc-backup/put_here_to_restore/'
-
+SYSTEMLOGFILE = '/tmp/xbiancopy.log'
 
 class separator(Setting):
     CONTROL = CategoryLabelControl(Tag('label', _('Manage snapshot')))
@@ -246,7 +246,7 @@ class systemExecControl(MultiSettingControl):
 
         self.ManualBackup = ButtonControl(
             Tag('label', _('Start backup now')),
-            Tag('visible', '!%s' % (visiblecondition('systembackuprunning'), )))
+            Tag('visible', '!%s' % (visiblecondition('backuprunning'), )))
         self.ManualBackup.onClick = lambda manualback: self.startManualBackup()
         self.addControl(self.ManualBackup)
 
@@ -317,7 +317,7 @@ class systemExecGui(Setting):
                 self.ERRORTEXT = _("Can't prepare destination filesystem")
             elif self.rc == '-2':
                 # shouldn't see this error
-                self.ERRORTEXT = _('backup not started')
+                self.ERRORTEXT = _('Backup not started')
             else:
                 self.ERRORTEXT = _('An unexpected error occurred')
             self.notifyOnError()
@@ -341,9 +341,10 @@ class systemExecGui(Setting):
         if self.askConfirmation(confirm):
             xbianConfig('xbiancopy', 'start', '/dev/root', self.value[2])[0]
             dlg = dialogWaitBackground(
-                'Xbian Copy', [_('Please wait while creating backup file')],
+                _('XBian System Backup'), [_('Please wait while creating backup file')],
                 self.checkcopyFinish,
-                skinvar='systembackuprunning',
+                SYSTEMLOGFILE,
+                skinvar='backuprunning',
                 id=xbmcgui.getCurrentWindowId(),
                 onFinishedCB=self.oncopyFinished)
             dlg.show()
@@ -512,12 +513,12 @@ class homeExecControl(MultiSettingControl):
 
         self.ManualBackup = ButtonControl(
             Tag('label', _('Start backup now')),
-            Tag('visible', '!%s' % (visiblecondition('homebackuprunning'), )))
+            Tag('visible', '!%s' % (visiblecondition('backuprunning'), )))
         self.ManualBackup.onClick = lambda manualback: self.startManualBackup()
         self.addControl(self.ManualBackup)
         self.ManualRestore = ButtonControl(
             Tag('label', _('Restore backup')),
-            Tag('visible', '!%s' % (visiblecondition('homebackuprunning'), )))
+            Tag('visible', '!%s' % (visiblecondition('backuprunning'), )))
         self.ManualRestore.onClick = lambda manualrestore: self.startManualRestore()
         self.addControl(self.ManualRestore)
 
@@ -611,7 +612,7 @@ class homeExecGui(Setting):
                 _('Backup /home to file'),
                 msg,
                 self.checkcopyFinish,
-                skinvar='homebackuprunning',
+                skinvar='backuprunning',
                 id=xbmcgui.getCurrentWindowId(),
                 onFinishedCB=self.oncopyFinished)
             dlg.show()
@@ -652,7 +653,7 @@ class homeExecGui(Setting):
                 _('Restore backup'),
                 msg,
                 self.checkcopyFinishRestore,
-                skinvar='homebackuprunning',
+                skinvar='backuprunning',
                 id=xbmcgui.getCurrentWindowId(),
                 onFinishedCB=self.oncopyFinishedRestore)
             dlg.show()
