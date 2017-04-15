@@ -3,6 +3,7 @@ import xbmcgui
 from xbianconfig import xbianConfig
 import time
 import os
+import shutil
 from xbmcaddon import Addon
 import pickle
 import base64
@@ -34,6 +35,19 @@ def getSetting(key):
     else:
         return None
 
+HINTS = [ 'xbiancopy', 'backuphome', 'updates', 'upgradenotify' ]
+
+def getHiddenHints():
+    hidden = 0
+    for hint in HINTS:
+        if getSetting('hide.' + hint) == 1:
+            hidden = hidden + 1
+    return hidden
+
+def enableAllHints():
+    for hint in HINTS:
+        setSetting('hide.' + hint, 0)
+
 def getNumeric(header, default=None, min=False, max=False):
     dialog = xbmcgui.Dialog()
     cont = True
@@ -49,6 +63,16 @@ def getNumeric(header, default=None, min=False, max=False):
                 dialog.ok(header, _('Value must be lower than %d' % (max, )))
                 cont = True
     return rc
+
+
+def remove(path):
+    if os.path.isfile(path) or os.path.islink(path):
+        os.remove(path)
+    elif os.path.isdir(path):
+        shutil.rmtree(path)
+    else:
+        return False
+    return True
 
 
 def getIp(header, default=None):
@@ -130,12 +154,18 @@ class dialogWaitBackground:
     def show(self):
         # display foreground dialog
         if self.skinvar:
-            setvisiblecondition(self.skinvar, True, self.id)
+            setvisiblecondition(self.skinvar, True)
         if self.logFile:
             try:
+                i = 0
+                while i < 5:
+                    if os.path.isfile(self.logFile):
+                        break
+                    xbmc.sleep(500) # Give background job a bit time to create logfile
+                    i = i + 1
                 self.logFile = open(self.logFile, 'r')
             except:
-                print 'Cant open logfile'
+                print 'Cant open logfile %s' % (self.logFile,)
                 self.logFile = None
 
         self.backgroundThread = threading.Thread(None, self._pollLoop, None)
@@ -172,7 +202,7 @@ class dialogWaitBackground:
         if self.onFinishedCB:
             self.onFinishedCB()
         if self.skinvar:
-            setvisiblecondition(self.skinvar, False, self.id)
+            setvisiblecondition(self.skinvar, False)
         self.finished = True
         self.close()
 
@@ -198,6 +228,7 @@ class dialogWaitBackground:
         if self.checkFn:
             while not self.checkFn():
                 self._poll()
+            self._poll()
             self.onFinished()
 
     def _poll(self):
@@ -306,6 +337,8 @@ def visiblecondition(key):
 def setvisiblecondition(key, value, id=False):
     if id:
         xbmc.executebuiltin('SetProperty(%s,%d,%d)' % ( key, 1 if value else 0, id))
+    else:
+        xbmc.executebuiltin('SetProperty(%s,%d,%d)' % ( key, 1 if value else 0, xbmcgui.getCurrentWindowId()))
     xbmc.executebuiltin('SetProperty(%s,%d)' % ( key, 1 if value else 0))
 
 
