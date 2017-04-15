@@ -43,6 +43,18 @@ if SKIN_DIR == 'skin.estouchy' or SKIN_DIR == 'skin.estuary':
     SKIN_RES = 'xml'
 else:
     SKIN_RES = '720p'
+
+if xbmc.__version__ < '2.25.0':
+    default_skin = 'skin.confluence'
+else:
+    default_skin = 'skin.estuary'
+
+curdir = os.getcwd()
+os.chdir(os.path.join(ROOTDIR, 'resources', 'skins'))
+remove('Default')
+os.symlink(default_skin, 'Default')
+os.chdir(curdir)
+
 LOCK_FILE = os.path.join('/', 'tmp', '.xbian_config_python')
 WIZ_FILE = os.path.join('/', 'tmp', '.xbian_wizard')
 
