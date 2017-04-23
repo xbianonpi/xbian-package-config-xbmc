@@ -1,201 +1,126 @@
-# msgfmt -o /usr/share/locale/en/LC_MESSAGES/xbian.mo xbian.po
-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
 # Translators:
-# Translators:
-# Translators:
+# belese <belese2@gmail.com>, 2016
 # Philip Østli <philip.ostli@hotmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: XBian Translation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-05 09:41-0300\n"
-"PO-Revision-Date: 2014-10-22 19:51+0000\n"
-"Last-Translator: anaconda\n"
-"Language-Team: Norwegian (http://www.transifex.com/projects/p/xbian-"
-"translation/language/no/)\n"
-"Language: no\n"
+"POT-Creation-Date: 2017-04-23 19:01+0200\n"
+"PO-Revision-Date: 2017-04-23 17:01+0000\n"
+"Last-Translator: belese <belese2@gmail.com>\n"
+"Language-Team: Norwegian (http://www.transifex.com/teamxbian/xbian-translation/language/no/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: no\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: xbianconfig/default.py:90 xbianconfig/services/upgrade.py:99
-#: xbianconfig/categories/55_backup.py:342
-#: xbianconfig/categories/55_backup.py:441
+#: xbianconfig/services/xbianworker.py:20
+#: xbianconfig/services/xbianworker.py:21
+#: xbianconfig/services/xbianworker.py:22
+msgid "Update notification"
+msgstr ""
+
+#: xbianconfig/services/xbianworker.py:20
+msgid "Resident part of package xbmc-config has been changed"
+msgstr ""
+
+#: xbianconfig/services/xbianworker.py:20
+#: xbianconfig/services/xbianworker.py:22
+msgid "A restart of Kodi is recommended"
+msgstr ""
+
+#: xbianconfig/services/xbianworker.py:21
+msgid "Package xbmc has been updated"
+msgstr ""
+
+#: xbianconfig/services/xbianworker.py:21
+msgid "You have to restart Kodi immediately"
+msgstr ""
+
+#: xbianconfig/services/xbianworker.py:22
+msgid "Package upstart-xbmc-bridge has been updated"
+msgstr ""
+
+#: xbianconfig/services/xbianworker.py:190
+#: xbianconfig/categories/55_backup.py:757 xbianconfig/default.py:107
 msgid "A reboot is required. Do you want to reboot now?"
 msgstr "En omstart er nødvendig. Vil du starte på nytt nå?"
 
-#: xbianconfig/default.py:113
-msgid "XBian Config"
+#: xbianconfig/services/xbianworker.py:200
+msgid "Never show this hint again?"
 msgstr ""
 
-#   commom
-#
-#: xbianconfig/default.py:113 xbianconfig/default.py:164
-#: xbianconfig/categories/30_packages.py:244
-#: xbianconfig/categories/20_services.py:214
-#: xbianconfig/categories/55_backup.py:384
-#: xbianconfig/categories/55_backup.py:400
-#: xbianconfig/categories/55_backup.py:436
-#: xbianconfig/categories/55_backup.py:448
-#: xbianconfig/categories/55_backup.py:458
-#: xbianconfig/categories/40_update.py:168
-msgid "Please wait..."
+#: xbianconfig/services/xbianworker.py:220
+#: xbianconfig/categories/20_services.py:112
+msgid "Service"
 msgstr ""
 
-#: xbianconfig/default.py:128
-msgid "Initialisation..."
+#: xbianconfig/services/xbianworker.py:220
+#: xbianconfig/categories/10_system.py:352
+#: xbianconfig/categories/10_system.py:395
+#, python-format
+msgid "%s successfully updated"
+msgstr "%s er oppdatert"
+
+#: xbianconfig/services/xbianworker.py:250
+#: xbianconfig/services/xbianworker.py:257
+#: xbianconfig/services/xbianworker.py:366
+#: xbianconfig/services/xbianworker.py:373
+#: xbianconfig/categories/30_packages.py:283
+#: xbianconfig/categories/40_update.py:288
+#: xbianconfig/categories/40_update.py:401
+msgid "Update"
+msgstr "Oppdater"
+
+#: xbianconfig/services/xbianworker.py:250
+msgid "Distribution"
 msgstr ""
 
-#: xbianconfig/default.py:156 xbianconfig/default.py:164
-msgid "Loading"
+#: xbianconfig/services/xbianworker.py:250
+#, python-format
+msgid "A distribution upgrade to %s is available"
 msgstr ""
 
-#: xbianconfig/wizard/30_license.py:5
-msgid "Enter your License key"
+#: xbianconfig/services/xbianworker.py:257
+#: xbianconfig/services/xbianworker.py:373
+msgid "Package"
 msgstr ""
 
-#: xbianconfig/wizard/30_license.py:6
-msgid "License key"
+#: xbianconfig/services/xbianworker.py:257
+msgid "Some XBian package can be updated"
 msgstr ""
 
-#: xbianconfig/wizard/30_license.py:7
-msgid ""
-"The Raspberry Pi can decode the majority of video and audio formats, "
-"however, in order to decode VC-1 (Used in some BluRay discs) and MPEG-2, you "
-"will need to purchase a license key for these.[CR]They are available at "
-"http://www.raspberrypi.com/license-keys/[CR][CR]If you already have a "
-"license key, you can enter it now."
+#: xbianconfig/services/xbianworker.py:262
+#: xbianconfig/categories/55_backup.py:35
+#: xbianconfig/categories/55_backup.py:161
+#: xbianconfig/categories/55_backup.py:297
+msgid "System backup"
 msgstr ""
 
-#: xbianconfig/wizard/60_package.py:5
-msgid "Install new packages"
+#: xbianconfig/services/xbianworker.py:262
+#: xbianconfig/services/xbianworker.py:266
+msgid "This type of backup has not been made for a long time!"
 msgstr ""
 
-#: xbianconfig/wizard/60_package.py:6
-msgid "package"
+#: xbianconfig/services/xbianworker.py:266
+#: xbianconfig/categories/55_backup.py:31
+#: xbianconfig/categories/55_backup.py:459
+#: xbianconfig/categories/55_backup.py:559
+msgid "Home backup"
 msgstr ""
 
-#: xbianconfig/wizard/60_package.py:7
-msgid ""
-"XBian comes with everything needed for XBMC but you can easily add pre-"
-"configured  packages like Torrent, Newsbin, CouchPotatoe and many more.[CR]"
-"[CR]Users can create their own package and share it with others. If you feel "
-"you have something that others may like, go to the XBian Forum and post a "
-"thread, and someone will get back to you with information.[CR][CR]Please be "
-"patient while the package list is loading."
+#: xbianconfig/services/xbianworker.py:366
+#: xbianconfig/categories/10_system.py:323
+msgid "Please wait while updating"
 msgstr ""
 
-#: xbianconfig/wizard/20_network.py:5
-msgid "Configure your network"
-msgstr ""
-
-# xbian-config module network
-#
-#: xbianconfig/wizard/20_network.py:6 xbianconfig/categories/10_system.py:36
-#: xbianconfig/categories/10_system.py:190
-msgid "Network"
-msgstr "Nettverk"
-
-#: xbianconfig/wizard/20_network.py:7
-msgid ""
-"Configuring your wired or wireless connection in XBian is really easy. XBian "
-"can run without internet access but you will have a better experience with "
-"it."
-msgstr ""
-
-#: xbianconfig/wizard/50_update.py:5
-msgid "Update XBian"
-msgstr ""
-
-#: xbianconfig/wizard/50_update.py:6
-msgid "update"
-msgstr ""
-
-#: xbianconfig/wizard/50_update.py:7
-msgid ""
-"You can now choose how XBian will be updated and how often to check for "
-"updates.[CR][CR]By default, XBian will not be updated automatically, but you "
-"will be advised when a new update is available.[CR][CR]To update go to "
-"System -> XBian -> Update and select the packages to upgrade.[CR][CR]If you "
-"wish XBian to be updated automatically, you can set it now."
-msgstr ""
-
-#  wizard
-#
-#: xbianconfig/wizard/10_welcome.py:5
-msgid "Welcome to XBian"
-msgstr ""
-
-#: xbianconfig/wizard/10_welcome.py:6
-msgid "Welcome"
-msgstr ""
-
-#: xbianconfig/wizard/10_welcome.py:7
-msgid ""
-"Thanks for choosing XBian.[CR][CR]XBian is a free Open Source media centre "
-"XBian for the Raspberry Pi.[CR]Our slogans is \"XBMC on Raspberry Pi, the "
-"Bleeding edge\" as our main focus is on delivering the fasted media centre "
-"for the Raspberry Pi.[CR][CR]We believe that everyone can make XBian better."
-"[CR]Please visit our www.xbian.org for support. If you have any questions, "
-"suggestions or contributions, please share them with us!"
-msgstr ""
-
-#: xbianconfig/wizard/40_backup.py:5
-msgid "Restore Home"
-msgstr ""
-
-#: xbianconfig/wizard/40_backup.py:6
-msgid "Restore"
-msgstr ""
-
-#: xbianconfig/wizard/40_backup.py:7
-msgid ""
-"XBian will offer you an easy way to backup your setup.[CR]If you have a "
-"previous backup of your home[CR](it contain your XBMC configuration, addons, "
-"settings including Libraries...),[CR]you can restore now.[CR][CR]Later, if "
-"you want to do a backup, create a snapshot and many more,[CR],go to system-"
-">xbian->backup"
-msgstr ""
-
-#: xbianconfig/wizard/99_finish.py:5
-msgid "It's time to play"
-msgstr ""
-
-#: xbianconfig/wizard/99_finish.py:6
-msgid "Finish"
-msgstr ""
-
-#: xbianconfig/wizard/99_finish.py:7
-msgid ""
-"You now have a fully configured XBian.[CR]We hope it will give you a great "
-"experience.[CR][CR]If you want to manage additional XBian settings: Go "
-"System -> XBian.[CR]If you want to rerun this Wizard at a later date: Select "
-"tab XBian Wizard under System"
-msgstr ""
-
-#: xbianconfig/categories/60_preference.py:16
-msgid "Advanced"
-msgstr ""
-
-#: xbianconfig/categories/60_preference.py:20
-msgid "Advanced_mode"
-msgstr ""
-
-#: xbianconfig/categories/60_preference.py:52
-msgid "Notifications"
-msgstr ""
-
-#: xbianconfig/categories/60_preference.py:56
-msgid "Notify on error"
-msgstr ""
-
-#: xbianconfig/categories/60_preference.py:64
-msgid "Notify on success"
-msgstr ""
-
-#: xbianconfig/categories/60_preference.py:72
-msgid "Ask confirmation before saving new settings"
+#: xbianconfig/services/xbianworker.py:373
+msgid "Updates installed successfully"
 msgstr ""
 
 #: xbianconfig/categories/10_system.py:19
@@ -238,48 +163,52 @@ msgstr ""
 msgid "Disable the 'rainbow' screen at really start of RPI"
 msgstr ""
 
+#: xbianconfig/categories/10_system.py:36
+#: xbianconfig/categories/10_system.py:190 xbianconfig/wizard/20_network.py:6
+msgid "Network"
+msgstr "Nettverk"
+
 #: xbianconfig/categories/10_system.py:46
 msgid "Select interface to configure"
-msgstr ""
+msgstr "Velg nettverkskort å konfigurere"
 
 #: xbianconfig/categories/10_system.py:66
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: xbianconfig/categories/10_system.py:75
-#: xbianconfig/resources/lib/utils.py:251
+#: xbianconfig/resources/lib/utils.py:282
 msgid "SSID"
-msgstr ""
+msgstr "SSID"
 
 #: xbianconfig/categories/10_system.py:82
-#: xbianconfig/categories/55_backup.py:79
+#: xbianconfig/categories/55_backup.py:83
+#: xbianconfig/categories/55_backup.py:413
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: xbianconfig/categories/10_system.py:95
 #: xbianconfig/categories/10_system.py:98
 msgid "IP Address"
-msgstr ""
+msgstr "IP-adresse"
 
 #: xbianconfig/categories/10_system.py:101
 #: xbianconfig/categories/10_system.py:104
 msgid "Netmask"
-msgstr ""
+msgstr "Nettmaske"
 
 #: xbianconfig/categories/10_system.py:107
 #: xbianconfig/categories/10_system.py:110
 msgid "Gateway"
-msgstr ""
+msgstr "Gateway"
 
 #: xbianconfig/categories/10_system.py:113
 #: xbianconfig/categories/10_system.py:116
 #: xbianconfig/categories/10_system.py:119
 #: xbianconfig/categories/10_system.py:122
 msgid "Nameserver"
-msgstr ""
+msgstr "Navnetjener"
 
-# xbian-config dialog
-#
 #: xbianconfig/categories/10_system.py:191
 msgid "Error"
 msgstr "Feilmelding"
@@ -288,359 +217,300 @@ msgstr "Feilmelding"
 msgid "OK"
 msgstr "OK"
 
-#: xbianconfig/categories/10_system.py:202
+#: xbianconfig/categories/10_system.py:227
 msgid "Please wait while updating..."
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:203
-#: xbianconfig/categories/10_system.py:211
+#: xbianconfig/categories/10_system.py:228
+#: xbianconfig/categories/10_system.py:236
 #, python-format
 msgid "Reloading values for %s"
-msgstr ""
+msgstr "Omlaster verdier for %s"
 
-#: xbianconfig/categories/10_system.py:238
-#, python-format
-msgid "Successfully connected to %s"
-msgstr ""
-
-#: xbianconfig/categories/10_system.py:241
-#: xbianconfig/resources/lib/utils.py:294
-#, python-format
-msgid "Failed to connect to %s"
-msgstr ""
-
-#: xbianconfig/categories/10_system.py:309
-#: xbianconfig/categories/10_system.py:315
-#: xbianconfig/categories/10_system.py:500
-#: xbianconfig/categories/30_packages.py:262
-#: xbianconfig/categories/30_packages.py:351
-#: xbianconfig/categories/20_services.py:205
-#: xbianconfig/categories/20_services.py:233
-#: xbianconfig/categories/55_backup.py:177
-#: xbianconfig/categories/55_backup.py:292
-#: xbianconfig/categories/40_update.py:158
-msgid "An unexpected error occurred"
-msgstr "En uventet feil har oppstått"
-
-#: xbianconfig/categories/10_system.py:320
-msgid "Licenses"
-msgstr "Lisenser"
-
-# xbian-config module licensempg2
-#
-#: xbianconfig/categories/10_system.py:324
-msgid "MPG2 license"
-msgstr "MPG2 lisens"
-
-#: xbianconfig/categories/10_system.py:326
-#: xbianconfig/categories/10_system.py:369
-#, python-format
-msgid "%s successfully updated"
-msgstr ""
-
-#: xbianconfig/categories/10_system.py:327
-#: xbianconfig/categories/10_system.py:370
-#, python-format
-msgid ""
-"A %s must be 9 or 10 characters long and looks like 0x00000000. You can "
-"specify maximum 8 licenses, separated by comma."
-msgstr ""
-"En %s må være 9 eller 10 tegn lang og e ut som 0x00000000. Du kan "
-"spesifisere maximalt 8 lisenser, separert med komma."
-
-# xbian-config module licensevc1
-#
-#: xbianconfig/categories/10_system.py:367
-msgid "VC1 license"
-msgstr "VC1 lisens"
-
-#: xbianconfig/categories/10_system.py:379
-#: xbianconfig/categories/10_system.py:411
-msgid "Connectivity"
-msgstr ""
-
-#: xbianconfig/categories/10_system.py:440
-#: xbianconfig/categories/10_system.py:729
-msgid "System"
-msgstr "System"
-
-# xbian-config module hostname
-#
-#: xbianconfig/categories/10_system.py:444
-#: xbianconfig/categories/10_system.py:445
-msgid "Hostname"
-msgstr "Tjernernavn"
-
-#: xbianconfig/categories/10_system.py:446
-msgid "Hostname successfully changed"
-msgstr "Tjenernavn endret"
-
-# xbian-config module kernel
-#
-#: xbianconfig/categories/10_system.py:472
-#: xbianconfig/categories/10_system.py:473
-msgid "Kernel"
-msgstr "Kernel"
-
-#: xbianconfig/categories/10_system.py:473
-msgid "Version"
-msgstr "Versjon"
-
-#: xbianconfig/categories/10_system.py:474
-msgid "Successfully switched kernel versions"
-msgstr ""
-
-#: xbianconfig/categories/10_system.py:502
-msgid "You're already running this kernel version"
-msgstr ""
-
-# xbian-config module overclocking
-#
-#: xbianconfig/categories/10_system.py:512
-#: xbianconfig/categories/10_system.py:555
-msgid "Overclocking"
-msgstr ""
-
-#: xbianconfig/categories/10_system.py:556
-msgid "The overclock settings are successfully changed"
-msgstr ""
-
-# xbian-config module timezone
-#
-#: xbianconfig/categories/10_system.py:596
-#: xbianconfig/categories/10_system.py:597
-#: xbianconfig/categories/10_system.py:609
-msgid "Timezone"
-msgstr ""
-
-#: xbianconfig/categories/10_system.py:617
-msgid "Location"
-msgstr ""
-
-#: xbianconfig/categories/10_system.py:627
-msgid "Not Set"
-msgstr ""
-
-#: xbianconfig/categories/10_system.py:638
-msgid "Accounts"
-msgstr "Kontoer"
-
-# xbian-config module rootpass
-#
-#: xbianconfig/categories/10_system.py:653
-msgid "Root password"
-msgstr ""
-
-#: xbianconfig/categories/10_system.py:654
-msgid "Password:"
-msgstr "Passord"
-
-#: xbianconfig/categories/10_system.py:655
-msgid "root password successfully changed"
-msgstr ""
-
-#: xbianconfig/categories/10_system.py:656
-msgid "Passwords didn't match"
-msgstr ""
-
-# xbian-config module xbianpass
-#
-#: xbianconfig/categories/10_system.py:685
-msgid "XBian password"
-msgstr ""
-
-#: xbianconfig/categories/10_system.py:686
-msgid "xbian password successfully changed"
-msgstr ""
-
-# xbian-config module sshroot
-#
-#: xbianconfig/categories/10_system.py:695
-#: xbianconfig/categories/10_system.py:696
-msgid "SSH root login"
-msgstr ""
-
-#: xbianconfig/categories/30_packages.py:123
-msgid "Get more..."
-msgstr ""
-
-#: xbianconfig/categories/30_packages.py:216
-msgid "Install or remove packages"
-msgstr ""
-
-#: xbianconfig/categories/30_packages.py:217
-msgid "Installed"
-msgstr ""
-
-#: xbianconfig/categories/30_packages.py:218
-msgid "Not installed"
-msgstr ""
-
-#: xbianconfig/categories/30_packages.py:225
-msgid "Loading package database dialog..."
-msgstr ""
-
-#: xbianconfig/categories/30_packages.py:241
-msgid "Are you sure you want to remove this package?"
-msgstr ""
-
-#: xbianconfig/categories/30_packages.py:244
-msgid "Remove"
-msgstr "Fjern"
-
-#: xbianconfig/categories/30_packages.py:257
-msgid "This package is not installed"
-msgstr ""
-
-#: xbianconfig/categories/30_packages.py:259
-msgid "This is an essential package, and cannot be removed"
-msgstr ""
-
-#: xbianconfig/categories/30_packages.py:273
-msgid "The package was successfully installed"
-msgstr ""
-
-#: xbianconfig/categories/30_packages.py:281
-msgid "This package has been successfully removed"
-msgstr ""
-
-#: xbianconfig/categories/30_packages.py:285
-msgid "Downloading remote package database..."
-msgstr ""
-
-# xbian-config module packages
-#
-#: xbianconfig/categories/30_packages.py:301
-#: xbianconfig/categories/30_packages.py:369
-msgid "Packages"
-msgstr ""
-
-# xbian-config module information
-#
-#: xbianconfig/categories/30_packages.py:303
-msgid "Information"
-msgstr "Informasjon"
-
-#: xbianconfig/categories/30_packages.py:303
-msgid "Install"
-msgstr ""
-
-#: xbianconfig/categories/30_packages.py:309
-msgid "Are you sure you want to install or update this package?"
-msgstr ""
-
-#: xbianconfig/categories/30_packages.py:326
-msgid "The latest version of this package is already installed"
-msgstr ""
-
-#: xbianconfig/categories/30_packages.py:330
-#: xbianconfig/categories/30_packages.py:334
-msgid "The package version you are trying to install could not be found"
-msgstr ""
-
-#: xbianconfig/categories/30_packages.py:338
-msgid ""
-"You are already running a newer version of this package than officially "
-"available"
-msgstr ""
-
-#: xbianconfig/categories/30_packages.py:342
-#: xbianconfig/categories/40_update.py:154
-msgid "There is a size mismatch for the remote packages"
-msgstr ""
-
-#: xbianconfig/categories/30_packages.py:346
-msgid "A serious error occured while processing this package"
-msgstr ""
-
-#: xbianconfig/categories/20_services.py:69
-#: xbianconfig/categories/20_services.py:214
-msgid "Edit"
-msgstr ""
-
-#: xbianconfig/categories/20_services.py:71
-msgid "Add a custom service"
-msgstr ""
-
-#: xbianconfig/categories/20_services.py:81
-msgid "Running"
-msgstr ""
-
-#: xbianconfig/categories/20_services.py:81
-msgid "Stopped"
-msgstr ""
-
-#: xbianconfig/categories/20_services.py:112
-msgid "Service"
-msgstr ""
-
-#: xbianconfig/categories/20_services.py:117
-msgid "Start/stop and manage services"
-msgstr ""
-
-#: xbianconfig/categories/20_services.py:137
-#: xbianconfig/categories/20_services.py:185
-msgid "Stop"
-msgstr ""
-
-#: xbianconfig/categories/20_services.py:139
-msgid "Restart"
-msgstr ""
-
-#: xbianconfig/categories/20_services.py:142
-#: xbianconfig/categories/20_services.py:182
-msgid "Start"
-msgstr ""
-
-#: xbianconfig/categories/20_services.py:145
-#: xbianconfig/categories/20_services.py:188
-msgid "Disable autostart"
-msgstr ""
-
-#: xbianconfig/categories/20_services.py:148
-#: xbianconfig/categories/20_services.py:190
-msgid "Autostart"
-msgstr ""
-
-#: xbianconfig/categories/20_services.py:150
-msgid "Delete"
-msgstr ""
-
+#: xbianconfig/categories/10_system.py:235
 #: xbianconfig/categories/20_services.py:152
+#: xbianconfig/categories/20_services.py:159
 #: xbianconfig/categories/20_services.py:163
 msgid "Refresh"
 msgstr ""
 
-#: xbianconfig/categories/20_services.py:158
+#: xbianconfig/categories/10_system.py:240
 #, python-format
-msgid "Do you want to %s"
-msgstr ""
+msgid "Successfully connected to %s"
+msgstr "Vellykket tilkobling til %s"
 
-#: xbianconfig/categories/20_services.py:209
-msgid "Name"
-msgstr "Navn"
-
-#: xbianconfig/categories/20_services.py:212
+#: xbianconfig/categories/10_system.py:243
+#: xbianconfig/resources/lib/utils.py:327
 #, python-format
-msgid "Do you want to insert %s"
+msgid "Failed to connect to %s"
+msgstr "Tilkobling til %s feilet"
+
+#: xbianconfig/categories/10_system.py:320
+#: xbianconfig/categories/10_system.py:341
+#: xbianconfig/categories/10_system.py:526
+#: xbianconfig/categories/30_packages.py:279
+#: xbianconfig/categories/30_packages.py:319
+#: xbianconfig/categories/55_backup.py:322
+#: xbianconfig/categories/55_backup.py:586
+#: xbianconfig/categories/20_services.py:205
+#: xbianconfig/categories/20_services.py:233
+#: xbianconfig/categories/40_update.py:195
+msgid "An unexpected error occurred"
+msgstr "En uventet feil har oppstått"
+
+#: xbianconfig/categories/10_system.py:323
+#, python-format
+msgid "Restarting %s"
 msgstr ""
 
-#: xbianconfig/categories/20_services.py:224
-msgid "The service has successfully been inserted"
+#: xbianconfig/categories/10_system.py:346
+msgid "Licenses"
+msgstr "Lisenser"
+
+#: xbianconfig/categories/10_system.py:350
+msgid "MPG2 license"
+msgstr "MPG2 lisens"
+
+#: xbianconfig/categories/10_system.py:353
+#: xbianconfig/categories/10_system.py:396
+#, python-format
+msgid ""
+"A %s must be 9 or 10 characters long and looks like 0x00000000. You can "
+"specify maximum 8 licenses, separated by comma."
+msgstr "En %s må være 9 eller 10 tegn lang og e ut som 0x00000000. Du kan spesifisere maximalt 8 lisenser, separert med komma."
+
+#: xbianconfig/categories/10_system.py:393
+msgid "VC1 license"
+msgstr "VC1 lisens"
+
+#: xbianconfig/categories/10_system.py:405
+#: xbianconfig/categories/10_system.py:437
+msgid "Connectivity"
+msgstr "Tilkobling"
+
+#: xbianconfig/categories/10_system.py:466
+#: xbianconfig/categories/10_system.py:811
+msgid "System"
+msgstr "System"
+
+#: xbianconfig/categories/10_system.py:470
+#: xbianconfig/categories/10_system.py:471
+msgid "Hostname"
+msgstr "Tjernernavn"
+
+#: xbianconfig/categories/10_system.py:472
+msgid "Hostname successfully changed"
+msgstr "Tjenernavn endret"
+
+#: xbianconfig/categories/10_system.py:498
+#: xbianconfig/categories/10_system.py:499
+msgid "Kernel"
+msgstr "Kernel"
+
+#: xbianconfig/categories/10_system.py:499
+msgid "Version"
+msgstr "Versjon"
+
+#: xbianconfig/categories/10_system.py:500
+msgid "Successfully switched kernel versions"
+msgstr "Operativsystemets kjerne er byttet"
+
+#: xbianconfig/categories/10_system.py:528
+msgid "You're already running this kernel version"
+msgstr "Du kjører allerede denne kjerneversjonen"
+
+#: xbianconfig/categories/10_system.py:538
+#: xbianconfig/categories/10_system.py:581
+msgid "Overclocking"
+msgstr "Overklokking"
+
+#: xbianconfig/categories/10_system.py:582
+msgid "The overclock settings are successfully changed"
+msgstr "Vellykket endring av overklokkingsinnstillinger"
+
+#: xbianconfig/categories/10_system.py:621
+msgid "required"
 msgstr ""
 
-#: xbianconfig/categories/20_services.py:227
-msgid "Failed to refresh the service..."
+#: xbianconfig/categories/10_system.py:621
+msgid "always"
 msgstr ""
 
-#: xbianconfig/categories/20_services.py:230
-msgid "This service does not exists..."
+#: xbianconfig/categories/10_system.py:621
+msgid "never"
 msgstr ""
 
-# xbian-config module services
-#
+#: xbianconfig/categories/10_system.py:627
+#: xbianconfig/categories/10_system.py:642
+msgid "Use of initramfs"
+msgstr ""
+
+#: xbianconfig/categories/10_system.py:678
+#: xbianconfig/categories/10_system.py:679
+#: xbianconfig/categories/10_system.py:691
+msgid "Timezone"
+msgstr ""
+
+#: xbianconfig/categories/10_system.py:699
+msgid "Location"
+msgstr ""
+
+#: xbianconfig/categories/10_system.py:709
+msgid "Not Set"
+msgstr ""
+
+#: xbianconfig/categories/10_system.py:720
+msgid "Accounts"
+msgstr "Kontoer"
+
+#: xbianconfig/categories/10_system.py:735
+msgid "Root password"
+msgstr "Root passord"
+
+#: xbianconfig/categories/10_system.py:736
+msgid "Password:"
+msgstr "Passord"
+
+#: xbianconfig/categories/10_system.py:737
+msgid "root password successfully changed"
+msgstr "Vellykket endring av root passord"
+
+#: xbianconfig/categories/10_system.py:738
+msgid "Passwords didn't match"
+msgstr ""
+
+#: xbianconfig/categories/10_system.py:767
+msgid "XBian password"
+msgstr ""
+
+#: xbianconfig/categories/10_system.py:768
+msgid "xbian password successfully changed"
+msgstr ""
+
+#: xbianconfig/categories/10_system.py:777
+#: xbianconfig/categories/10_system.py:778
+msgid "SSH root login"
+msgstr ""
+
+#: xbianconfig/categories/30_packages.py:125
+msgid "Get more..."
+msgstr "Hent fler..."
+
+#: xbianconfig/categories/30_packages.py:218
+msgid "Install or remove packages"
+msgstr "Installér eller avinstallér pakker"
+
+#: xbianconfig/categories/30_packages.py:219
+msgid "Installed"
+msgstr "Installert"
+
+#: xbianconfig/categories/30_packages.py:220
+msgid "Not installed"
+msgstr "Ikke installert"
+
+#: xbianconfig/categories/30_packages.py:227
+msgid "Loading package database dialog..."
+msgstr "Laster pakkebrønnens dialogboks..."
+
+#: xbianconfig/categories/30_packages.py:236
+msgid "Are you sure you want to install or update this package?"
+msgstr "Er du sikker på at du ønsker å installere eller oppdatere denne pakken?"
+
+#: xbianconfig/categories/30_packages.py:240
+#: xbianconfig/categories/30_packages.py:283
+#: xbianconfig/categories/30_packages.py:371
+msgid "Install"
+msgstr "Installér"
+
+#: xbianconfig/categories/30_packages.py:240
+#: xbianconfig/categories/30_packages.py:296
+#: xbianconfig/categories/55_backup.py:700
+#: xbianconfig/categories/55_backup.py:716
+#: xbianconfig/categories/55_backup.py:752
+#: xbianconfig/categories/55_backup.py:764
+#: xbianconfig/categories/55_backup.py:774
+#: xbianconfig/categories/20_services.py:214
+#: xbianconfig/categories/40_update.py:166
+#: xbianconfig/categories/40_update.py:205 xbianconfig/default.py:88
+#: xbianconfig/default.py:130 xbianconfig/default.py:183
+msgid "Please wait..."
+msgstr ""
+
+#: xbianconfig/categories/30_packages.py:255
+msgid "The latest version of this package is already installed"
+msgstr "Den siste versjonen av denne pakken er allerede installert"
+
+#: xbianconfig/categories/30_packages.py:259
+#: xbianconfig/categories/30_packages.py:263
+msgid "The package version you are trying to install could not be found"
+msgstr "Fant ikke denne versjonen av pakken"
+
+#: xbianconfig/categories/30_packages.py:267
+msgid ""
+"You are already running a newer version of this package than officially "
+"available"
+msgstr "Du kjører en nye versjon av pakken, enn den som er offesiellt tilgjengelig"
+
+#: xbianconfig/categories/30_packages.py:271
+#: xbianconfig/categories/40_update.py:191
+msgid "There is a size mismatch for the remote packages"
+msgstr "Størrelsene på de eksterne pakkene samsvarer ikke"
+
+#: xbianconfig/categories/30_packages.py:275
+msgid "A serious error occured while processing this package"
+msgstr "En alvorlig feil oppstod under prosessering av av pakken"
+
+#: xbianconfig/categories/30_packages.py:283
+#: xbianconfig/categories/30_packages.py:371
+msgid "Information"
+msgstr "Informasjon"
+
+#: xbianconfig/categories/30_packages.py:283
+#: xbianconfig/categories/30_packages.py:296
+msgid "Remove"
+msgstr "Fjern"
+
+#: xbianconfig/categories/30_packages.py:293
+msgid "Are you sure you want to remove this package?"
+msgstr "Er du sikker på at du ønsker å fjerne denne pakken?"
+
+#: xbianconfig/categories/30_packages.py:311
+msgid "This package is not installed"
+msgstr "Pakken er ikke installert"
+
+#: xbianconfig/categories/30_packages.py:313
+msgid "This is an essential package, and cannot be removed"
+msgstr "Dette er en essensiel pakke, og kan ikke fjernes"
+
+#: xbianconfig/categories/30_packages.py:316
+msgid "The package version you are trying to remove could not be found"
+msgstr ""
+
+#: xbianconfig/categories/30_packages.py:340
+#: xbianconfig/categories/30_packages.py:347
 #: xbianconfig/categories/20_services.py:257
 msgid "Services"
+msgstr ""
+
+#: xbianconfig/categories/30_packages.py:341
+msgid "The package was successfully installed"
+msgstr "Pakken ble installert"
+
+#: xbianconfig/categories/30_packages.py:348
+msgid "This package has been successfully removed"
+msgstr "Denne pakken ble fjernet"
+
+#: xbianconfig/categories/30_packages.py:352
+msgid "Downloading remote package database..."
+msgstr "Laster ned ekstern pakkebrønn..."
+
+#: xbianconfig/categories/30_packages.py:368
+#: xbianconfig/categories/30_packages.py:394
+msgid "Packages"
+msgstr "Pakker"
+
+#: xbianconfig/categories/59_extra.py:11
+msgid "Extra"
 msgstr ""
 
 #: xbianconfig/categories/50_xbmc.py:17 xbianconfig/categories/50_xbmc.py:353
@@ -708,16 +578,6 @@ msgstr ""
 msgid "Manage snapshot"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:31
-#: xbianconfig/categories/55_backup.py:269
-msgid "Home backup"
-msgstr ""
-
-#: xbianconfig/categories/55_backup.py:35
-#: xbianconfig/categories/55_backup.py:151
-msgid "System backup"
-msgstr ""
-
 #: xbianconfig/categories/55_backup.py:39
 msgid "Auto snapshot"
 msgstr ""
@@ -735,226 +595,583 @@ msgstr ""
 msgid "Enable weekly snapshot"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:74
+#: xbianconfig/categories/55_backup.py:70
+msgid "Enable monthly snapshot"
+msgstr ""
+
+#: xbianconfig/categories/55_backup.py:78
+#: xbianconfig/categories/55_backup.py:409
 msgid "Auto image"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:86
+#: xbianconfig/categories/55_backup.py:90
 msgid "Destination type"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:93
+#: xbianconfig/categories/55_backup.py:97
 msgid "Block device"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:100
+#: xbianconfig/categories/55_backup.py:104
+#: xbianconfig/categories/55_backup.py:420
 msgid "Destination: "
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:106
-#: xbianconfig/categories/55_backup.py:267
+#: xbianconfig/categories/55_backup.py:111
+#: xbianconfig/categories/55_backup.py:114
+#: xbianconfig/categories/55_backup.py:427
+#: xbianconfig/categories/55_backup.py:430
+msgid "Number of images to keep"
+msgstr ""
+
+#: xbianconfig/categories/55_backup.py:176
+#: xbianconfig/categories/55_backup.py:360
+msgid "Select Device"
+msgstr ""
+
+#: xbianconfig/categories/55_backup.py:248
+#: xbianconfig/categories/55_backup.py:515
 msgid "Start backup now"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:172
+#: xbianconfig/categories/55_backup.py:312
+msgid "Backup system is finished"
+msgstr ""
+
+#: xbianconfig/categories/55_backup.py:317
+#: xbianconfig/categories/55_backup.py:581
 msgid "Can't prepare destination filesystem"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:184
+#: xbianconfig/categories/55_backup.py:320
+#: xbianconfig/categories/55_backup.py:584
+msgid "Backup not started"
+msgstr ""
+
+#: xbianconfig/categories/55_backup.py:332
+#: xbianconfig/categories/55_backup.py:600
 #, python-format
 msgid "Write backup to %s?"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:187
+#: xbianconfig/categories/55_backup.py:336
 #, python-format
 msgid "This will erase ALL data on %s, continue?"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:193
+#: xbianconfig/categories/55_backup.py:344
+msgid "XBian System Backup"
+msgstr ""
+
+#: xbianconfig/categories/55_backup.py:344
 msgid "Please wait while creating backup file"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:206
-msgid "Select Device"
-msgstr ""
-
-#: xbianconfig/categories/55_backup.py:282
-msgid ""
-"Backup file is prepared at /xbmc-backup. Please grab the file over network "
-"or save locally."
-msgstr ""
-
-#: xbianconfig/categories/55_backup.py:287
-msgid "Backup /home process failed!"
-msgstr ""
-
-#       backuphome
-#
-#: xbianconfig/categories/55_backup.py:296
-#: xbianconfig/categories/55_backup.py:311
-msgid "Backup /home to file"
-msgstr ""
-
-#: xbianconfig/categories/55_backup.py:299
-msgid ""
-"It can take several minutes depending on size of your /home/xbian directory"
-msgstr ""
-
-#: xbianconfig/categories/55_backup.py:301
-msgid ""
-"File will be created under /xbian-backup, which is also accessible through "
-"smb share"
-msgstr ""
-
-#: xbianconfig/categories/55_backup.py:303
-msgid ""
-"Until finished, there will be just temp folder. Once ready, .img file will "
-"appear."
-msgstr ""
-
-#: xbianconfig/categories/55_backup.py:305
-msgid ""
-"You can copy the file directly to you computer (the file will be deleted "
-"during reboots!)"
-msgstr ""
-
-#: xbianconfig/categories/55_backup.py:307
-msgid ""
-"To restore your XBMC, just copy .img file to /xbian-backup/put_to_restore "
-"folder."
-msgstr ""
-
-#: xbianconfig/categories/55_backup.py:327
-#: xbianconfig/categories/55_backup.py:329
-#: xbianconfig/categories/55_backup.py:367
+#: xbianconfig/categories/55_backup.py:520
+#: xbianconfig/categories/55_backup.py:653
 msgid "Restore backup"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:357
+#: xbianconfig/categories/55_backup.py:575
+msgid ""
+"Backup /home is finished. In case of destination folder/xbmc-backup, please "
+"grab the file over network or save locally."
+msgstr ""
+
+#: xbianconfig/categories/55_backup.py:605
+msgid "It can take several minutes depending on size of your /home directory"
+msgstr ""
+
+#: xbianconfig/categories/55_backup.py:606
+msgid ""
+"If file is created under /xbian-backup, it is also accessible through smb "
+"share"
+msgstr ""
+
+#: xbianconfig/categories/55_backup.py:607
+msgid ""
+"Until finished, there will be just temp folder. Once ready, .img.gz file "
+"will appear."
+msgstr ""
+
+#: xbianconfig/categories/55_backup.py:608
+msgid ""
+"You can copy the file directly to you computer (the file will be deleted "
+"during boot!)"
+msgstr ""
+
+#: xbianconfig/categories/55_backup.py:609
+msgid ""
+"To restore your /home folder, just copy .img.gz file to /xbian-"
+"backup/put_to_restore folder."
+msgstr ""
+
+#: xbianconfig/categories/55_backup.py:612
+msgid "Backup /home to file"
+msgstr ""
+
+#: xbianconfig/categories/55_backup.py:629
+msgid "Please wait, /home is restored in background now"
+msgstr ""
+
+#: xbianconfig/categories/55_backup.py:629
+msgid "After this has been done, Kodi will be restarted automatically"
+msgstr ""
+
+#: xbianconfig/categories/55_backup.py:642
 msgid "Select Home Image"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:358
+#: xbianconfig/categories/55_backup.py:644
 #, python-format
-msgid "%s : Do you want to restore home from %s?"
+msgid "Do you want to restore /home from %s"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:364
+#: xbianconfig/categories/55_backup.py:650
 msgid "It can take several minutes depending on size of your backup image."
 msgstr ""
 
-# manage snapshot
-#
-#: xbianconfig/categories/55_backup.py:382
+#: xbianconfig/categories/55_backup.py:698
 msgid "Mount a snapshot"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:383
-#: xbianconfig/categories/55_backup.py:456
+#: xbianconfig/categories/55_backup.py:699
+#: xbianconfig/categories/55_backup.py:772
 msgid "Snapshot"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:388
-#: xbianconfig/categories/55_backup.py:461
+#: xbianconfig/categories/55_backup.py:704
+#: xbianconfig/categories/55_backup.py:777
 msgid "Loading volumes..."
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:396
+#: xbianconfig/categories/55_backup.py:712
 msgid "Btrfs volume"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:435
+#: xbianconfig/categories/55_backup.py:751
 msgid "Rollback to a snapshot"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:447
+#: xbianconfig/categories/55_backup.py:763
 msgid "Delete a snapshot"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:455
+#: xbianconfig/categories/55_backup.py:771
 msgid "Create a snapshot"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:474
+#: xbianconfig/categories/55_backup.py:790
 msgid "Snapshot name"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:537
+#: xbianconfig/categories/55_backup.py:861
 msgid "Backup"
 msgstr ""
 
-#: xbianconfig/categories/40_update.py:58
+#: xbianconfig/categories/20_services.py:69
+#: xbianconfig/categories/20_services.py:214
+msgid "Edit"
+msgstr ""
+
+#: xbianconfig/categories/20_services.py:71
+msgid "Add a custom service"
+msgstr ""
+
+#: xbianconfig/categories/20_services.py:81
+msgid "Running"
+msgstr ""
+
+#: xbianconfig/categories/20_services.py:81
+msgid "Stopped"
+msgstr ""
+
+#: xbianconfig/categories/20_services.py:117
+msgid "Start/stop and manage services"
+msgstr ""
+
+#: xbianconfig/categories/20_services.py:137
+#: xbianconfig/categories/20_services.py:185
+msgid "Stop"
+msgstr ""
+
+#: xbianconfig/categories/20_services.py:139
+msgid "Restart"
+msgstr ""
+
+#: xbianconfig/categories/20_services.py:142
+#: xbianconfig/categories/20_services.py:182
+msgid "Start"
+msgstr ""
+
+#: xbianconfig/categories/20_services.py:145
+#: xbianconfig/categories/20_services.py:188
+msgid "Disable autostart"
+msgstr ""
+
+#: xbianconfig/categories/20_services.py:148
+#: xbianconfig/categories/20_services.py:190
+msgid "Autostart"
+msgstr ""
+
+#: xbianconfig/categories/20_services.py:150
+#: xbianconfig/categories/20_services.py:175
+msgid "Delete"
+msgstr ""
+
+#: xbianconfig/categories/20_services.py:158
+#, python-format
+msgid "Do you want to %s"
+msgstr ""
+
+#: xbianconfig/categories/20_services.py:170
+#, python-format
+msgid "Can not %s %s"
+msgstr ""
+
+#: xbianconfig/categories/20_services.py:173
+#, python-format
+msgid "%s %s successfully"
+msgstr ""
+
+#: xbianconfig/categories/20_services.py:193
+#, python-format
+msgid "%s already running"
+msgstr ""
+
+#: xbianconfig/categories/20_services.py:196
+#, python-format
+msgid "%s already stopped"
+msgstr ""
+
+#: xbianconfig/categories/20_services.py:199
+#, python-format
+msgid "Autostart already enabled for %s"
+msgstr ""
+
+#: xbianconfig/categories/20_services.py:202
+#, python-format
+msgid "Autostart already disabled for %s"
+msgstr ""
+
+#: xbianconfig/categories/20_services.py:209
+msgid "Name"
+msgstr "Navn"
+
+#: xbianconfig/categories/20_services.py:212
+#, python-format
+msgid "Do you want to insert %s"
+msgstr ""
+
+#: xbianconfig/categories/20_services.py:224
+msgid "The service has successfully been inserted"
+msgstr ""
+
+#: xbianconfig/categories/20_services.py:227
+msgid "Failed to refresh the service..."
+msgstr ""
+
+#: xbianconfig/categories/20_services.py:230
+msgid "This service does not exists..."
+msgstr ""
+
+#: xbianconfig/categories/60_preference.py:16
+msgid "Advanced"
+msgstr ""
+
+#: xbianconfig/categories/60_preference.py:20
+msgid "Advanced_mode"
+msgstr ""
+
+#: xbianconfig/categories/60_preference.py:52
+msgid "Notifications"
+msgstr ""
+
+#: xbianconfig/categories/60_preference.py:56
+msgid "Notify on error"
+msgstr ""
+
+#: xbianconfig/categories/60_preference.py:64
+msgid "Notify on success"
+msgstr ""
+
+#: xbianconfig/categories/60_preference.py:72
+msgid "Show messages while playing media"
+msgstr ""
+
+#: xbianconfig/categories/60_preference.py:80
+msgid "Ask confirmation before saving new settings"
+msgstr ""
+
+#: xbianconfig/categories/60_preference.py:93
+#: xbianconfig/categories/60_preference.py:97
+#: xbianconfig/categories/60_preference.py:108
+msgid "Enable all Hints"
+msgstr ""
+
+#: xbianconfig/categories/60_preference.py:114
+msgid "Do you want to continue?"
+msgstr ""
+
+#: xbianconfig/categories/40_update.py:57
+msgid "Update all"
+msgstr ""
+
+#: xbianconfig/categories/40_update.py:64
+#: xbianconfig/categories/40_update.py:387
 msgid "Check for system updates"
 msgstr ""
 
-#: xbianconfig/categories/40_update.py:101
-#: xbianconfig/categories/40_update.py:106
-#: xbianconfig/categories/40_update.py:196
+#: xbianconfig/categories/40_update.py:110
+#: xbianconfig/categories/40_update.py:115
+#: xbianconfig/categories/40_update.py:253
 msgid "Updates"
 msgstr ""
 
-#: xbianconfig/categories/40_update.py:107
-#: xbianconfig/categories/40_update.py:156
+#: xbianconfig/categories/40_update.py:116
+#: xbianconfig/categories/40_update.py:146
+#: xbianconfig/categories/40_update.py:193
 msgid "A serious error occured while processing these packages"
 msgstr ""
 
-#: xbianconfig/categories/40_update.py:108
+#: xbianconfig/categories/40_update.py:117
 msgid "The packages are successfully updated"
 msgstr ""
 
-#: xbianconfig/categories/40_update.py:109
+#: xbianconfig/categories/40_update.py:157
+msgid ""
+"Are you sure you want to do an Distritubion upgrade?\n"
+"\n"
+"This will take a long time"
+msgstr ""
+
+#: xbianconfig/categories/40_update.py:159
 msgid "Are you sure you want to update these packages?"
 msgstr ""
 
-#: xbianconfig/categories/40_update.py:148
-msgid "The latest versions of these packages are already installed"
-msgstr ""
-
-#: xbianconfig/categories/40_update.py:150
-#: xbianconfig/categories/40_update.py:152
-msgid "The packages you are trying to install could not be found"
-msgstr ""
-
-#: xbianconfig/categories/40_update.py:169
+#: xbianconfig/categories/40_update.py:167
+#: xbianconfig/categories/40_update.py:206
 msgid "Retrieving list of upgradeable packages..."
 msgstr ""
 
-#: xbianconfig/categories/40_update.py:188
+#: xbianconfig/categories/40_update.py:185
+msgid "The latest versions of these packages are already installed"
+msgstr ""
+
+#: xbianconfig/categories/40_update.py:187
+#: xbianconfig/categories/40_update.py:189
+msgid "The packages you are trying to install could not be found"
+msgstr ""
+
+#: xbianconfig/categories/40_update.py:229
+#, python-format
+msgid "Distribution upgrade to %s"
+msgstr ""
+
+#: xbianconfig/categories/40_update.py:245
 msgid "Update_to_date"
 msgstr ""
 
-#: xbianconfig/categories/40_update.py:200
-#: xbianconfig/categories/40_update.py:205
+#: xbianconfig/categories/40_update.py:257
+#: xbianconfig/categories/40_update.py:262
 msgid "Automatic updates"
 msgstr ""
 
-#: xbianconfig/categories/40_update.py:204
+#: xbianconfig/categories/40_update.py:261
 msgid "Auto install available updates"
 msgstr ""
 
-#: xbianconfig/categories/40_update.py:230
+#: xbianconfig/categories/40_update.py:287
 msgid "Do a snapshot with APT-GET transaction"
 msgstr ""
 
-#: xbianconfig/categories/40_update.py:231
-#: xbianconfig/categories/40_update.py:303
-msgid "Update"
-msgstr "Oppdater"
-
-#: xbianconfig/categories/40_update.py:260
-#: xbianconfig/categories/40_update.py:278
+#: xbianconfig/categories/40_update.py:317
+#: xbianconfig/categories/40_update.py:335
 msgid "Auto update package inventory"
 msgstr ""
 
-#: xbianconfig/categories/40_update.py:265
-#: xbianconfig/categories/40_update.py:267
+#: xbianconfig/categories/40_update.py:322
+#: xbianconfig/categories/40_update.py:324
 msgid "interval (days)"
 msgstr ""
 
-# extra
-#
-#: xbianconfig/categories/59_extra.py:11
-msgid "extra"
+#: xbianconfig/categories/40_update.py:360
+msgid "Additional repositories"
+msgstr ""
+
+#: xbianconfig/categories/40_update.py:364
+msgid "Staging repository"
+msgstr ""
+
+#: xbianconfig/categories/40_update.py:386
+msgid "Please execute again"
+msgstr ""
+
+#: xbianconfig/categories/40_update.py:393
+msgid "Devel repository"
+msgstr ""
+
+#: xbianconfig/wizard/40_backup.py:5
+msgid "Restore Home"
+msgstr ""
+
+#: xbianconfig/wizard/40_backup.py:6
+msgid "Restore"
+msgstr ""
+
+#: xbianconfig/wizard/40_backup.py:7
+msgid ""
+"XBian will offer you an easy way to backup your setup.[CR]If you have a "
+"previous backup of your home[CR](it contain your XBMC configuration, addons,"
+" settings including Libraries...),[CR]you can restore now.[CR][CR]Later, if "
+"you want to do a backup, create a snapshot and many more,[CR],go to "
+"system->xbian->backup"
+msgstr ""
+
+#: xbianconfig/wizard/10_welcome.py:5
+msgid "Welcome to XBian"
+msgstr ""
+
+#: xbianconfig/wizard/10_welcome.py:6
+msgid "Welcome"
+msgstr ""
+
+#: xbianconfig/wizard/10_welcome.py:7
+msgid ""
+"Thanks for choosing XBian.[CR][CR]XBian is a free Open Source media centre "
+"XBian for the Raspberry Pi.[CR]Our slogans is \"XBMC on Raspberry Pi, the "
+"Bleeding edge\" as our main focus is on delivering the fasted media centre "
+"for the Raspberry Pi.[CR][CR]We believe that everyone can make XBian "
+"better.[CR]Please visit our www.xbian.org for support. If you have any "
+"questions, suggestions or contributions, please share them with us!"
+msgstr ""
+
+#: xbianconfig/wizard/30_license.py:5
+msgid "Enter your License key"
+msgstr ""
+
+#: xbianconfig/wizard/30_license.py:6
+msgid "License key"
+msgstr ""
+
+#: xbianconfig/wizard/30_license.py:7
+msgid ""
+"The Raspberry Pi can decode the majority of video and audio formats, "
+"however, in order to decode VC-1 (Used in some BluRay discs) and MPEG-2, you"
+" will need to purchase a license key for these.[CR]They are available at "
+"http://www.raspberrypi.com/license-keys/[CR][CR]If you already have a "
+"license key, you can enter it now."
+msgstr ""
+
+#: xbianconfig/wizard/50_update.py:5
+msgid "Update XBian"
+msgstr ""
+
+#: xbianconfig/wizard/50_update.py:6
+msgid "update"
+msgstr ""
+
+#: xbianconfig/wizard/50_update.py:7
+msgid ""
+"You can now choose how XBian will be updated and how often to check for "
+"updates.[CR][CR]By default, XBian will not be updated automatically, but you"
+" will be advised when a new update is available.[CR][CR]To update go to "
+"System -> XBian -> Update and select the packages to upgrade.[CR][CR]If you "
+"wish XBian to be updated automatically, you can set it now."
+msgstr ""
+
+#: xbianconfig/wizard/20_network.py:5
+msgid "Configure your network"
+msgstr ""
+
+#: xbianconfig/wizard/20_network.py:7
+msgid ""
+"Configuring your wired or wireless connection in XBian is really easy. XBian"
+" can run without internet access but you will have a better experience with "
+"it."
+msgstr ""
+
+#: xbianconfig/wizard/60_package.py:5
+msgid "Install new packages"
+msgstr ""
+
+#: xbianconfig/wizard/60_package.py:6
+msgid "package"
+msgstr ""
+
+#: xbianconfig/wizard/60_package.py:7
+msgid ""
+"XBian comes with everything needed for XBMC but you can easily add pre-"
+"configured  packages like Torrent, Newsbin, CouchPotatoe and many "
+"more.[CR][CR]Users can create their own package and share it with others. If"
+" you feel you have something that others may like, go to the XBian Forum and"
+" post a thread, and someone will get back to you with "
+"information.[CR][CR]Please be patient while the package list is loading."
+msgstr ""
+
+#: xbianconfig/wizard/99_finish.py:5
+msgid "It's time to play"
+msgstr ""
+
+#: xbianconfig/wizard/99_finish.py:6
+msgid "Finish"
+msgstr ""
+
+#: xbianconfig/wizard/99_finish.py:7
+msgid ""
+"You now have a fully configured XBian.[CR]We hope it will give you a great "
+"experience.[CR][CR]If you want to manage additional XBian settings: Go "
+"System -> XBian.[CR]If you want to rerun this Wizard at a later date: Select"
+" tab XBian Wizard under System"
+msgstr ""
+
+#: xbianconfig/default.py:88
+msgid "XBian-config is still running"
+msgstr ""
+
+#: xbianconfig/default.py:130
+msgid "XBian Config"
+msgstr ""
+
+#: xbianconfig/default.py:146
+msgid "Initialisation..."
+msgstr ""
+
+#: xbianconfig/default.py:175 xbianconfig/default.py:183
+#: xbianconfig/resources/lib/xbianDialog.py:28
+#: xbianconfig/resources/lib/xbianWindow.py:65
+msgid "Loading"
+msgstr ""
+
+#: xbianconfig/resources/lib/utils.py:59
+#, python-format
+msgid "Value must be greater than %d"
+msgstr ""
+
+#: xbianconfig/resources/lib/utils.py:63
+#, python-format
+msgid "Value must be lower than %d"
+msgstr ""
+
+#: xbianconfig/resources/lib/utils.py:254
+msgid "Scan"
+msgstr "Skann"
+
+#: xbianconfig/resources/lib/utils.py:254
+msgid "Scanning for available networks..."
+msgstr "Søker etter tilgjengelige nettverk..."
+
+#: xbianconfig/resources/lib/utils.py:288
+msgid "Enter credentials for selected interface"
+msgstr "Skriv inn passord for valgte nettverk"
+
+#: xbianconfig/resources/lib/utils.py:296
+#, python-format
+msgid "Please wait. Trying to connect to %s"
+msgstr "Vennligst vent. Prøver å koble til %s"
+
+#: xbianconfig/resources/lib/xbianWindow.py:39
+msgid "Click to load..."
 msgstr ""
 
 #: xbianconfig/resources/lib/xbmcguie/category.py:73
@@ -976,184 +1193,3 @@ msgstr ""
 #: xbianconfig/resources/lib/xbmcguie/category.py:78
 msgid "Are you sure to apply modification?"
 msgstr ""
-
-#: xbianconfig/resources/lib/xbianWindow.py:39
-msgid "Click to load..."
-msgstr ""
-
-# util
-#
-#: xbianconfig/resources/lib/utils.py:46
-#, python-format
-msgid "Value must be greater than %d"
-msgstr ""
-
-#: xbianconfig/resources/lib/utils.py:50
-#, python-format
-msgid "Value must be lower than %d"
-msgstr ""
-
-#: xbianconfig/resources/lib/utils.py:223
-msgid "Scan"
-msgstr ""
-
-#: xbianconfig/resources/lib/utils.py:223
-msgid "Scanning for available networks..."
-msgstr ""
-
-#: xbianconfig/resources/lib/utils.py:257
-msgid "Enter credentials for selected interface"
-msgstr ""
-
-#: xbianconfig/resources/lib/utils.py:265
-#, python-format
-msgid "Please wait. Trying to connect to %s"
-msgstr ""
-
-# xbian-config main (menu)
-#
-#~ msgid "Config"
-#~ msgstr "Konfigurer"
-
-#~ msgid "Settings"
-#~ msgstr "Instillinger"
-
-#~ msgid "Change various system settings"
-#~ msgstr "Endre system instillinger"
-
-#~ msgid "e.g. Resize SD, Overclocking, Hostname"
-#~ msgstr "f.eks Endre SD, Overklokking, Tjenernavn"
-
-#~ msgid "e.g. Change passwords, SSH root login"
-#~ msgstr "f.eks Bytte passord, SSH innlogging"
-
-#~ msgid "Add/Remove hardware licenses"
-#~ msgstr "Legg til/Fjern maskinvare lisenser"
-
-#~ msgid "e.g. Video output"
-#~ msgstr "f.eks Video utgang"
-
-#~ msgid "Apply"
-#~ msgstr "Bruk"
-
-#~ msgid "Yes"
-#~ msgstr "Ja"
-
-#~ msgid "No"
-#~ msgstr "Nei"
-
-#~ msgid "On"
-#~ msgstr "På"
-
-#~ msgid "Off"
-#~ msgstr "Av"
-
-#~ msgid "Insert"
-#~ msgstr "Sett inn"
-
-#~ msgid "Cancel"
-#~ msgstr "Avbryt"
-
-#~ msgid "Select"
-#~ msgstr "Velg"
-
-#~ msgid "Return"
-#~ msgstr "Tilbake"
-
-#~ msgid "Close"
-#~ msgstr "Lukk"
-
-#~ msgid "Change"
-#~ msgstr "Endre"
-
-#~ msgid "Exit"
-#~ msgstr "Avslutt"
-
-#~ msgid "Enable"
-#~ msgstr "Aktiver"
-
-#~ msgid "Disable"
-#~ msgstr "Deaktiver"
-
-#~ msgid "Confirm:"
-#~ msgstr "Bekreft:"
-
-#~ msgid "Retry"
-#~ msgstr "Prøv igjen"
-
-#~ msgid "Press [space] to select a different option"
-#~ msgstr "Trykk [mellomrom] for neste alternativ"
-
-#~ msgid "Press [space] to enable or disable an option"
-#~ msgstr "Trykk [mellomrom] for å aktivere eller deaktivere et alternativ"
-
-#~ msgid "Loading module. Please wait..."
-#~ msgstr "Laster modul. Vennligst vent..."
-
-#~ msgid "This program requires the following packages:"
-#~ msgstr "Programet krever følgende pakker:"
-
-#~ msgid "Insufficient number of arguments"
-#~ msgstr "Manglende argument"
-
-#~ msgid "Incorrect argument type"
-#~ msgstr "Feil argument type"
-
-# xbian-config module bootflags
-#
-#~ msgid "Boot settings"
-#~ msgstr "Oppstarts instillinger"
-
-#~ msgid "Change various boot settings"
-#~ msgstr "Endre oppstarts instillinger"
-
-#~ msgid "Show XBian splash on boot"
-#~ msgstr "Vis XBian velkomstbilde ved oppstart"
-
-#~ msgid "Disable kernel bootup logo"
-#~ msgstr "Deaktiver kernel oppstarts logo"
-
-#~ msgid "Suppress kernel output"
-#~ msgstr "Ikke vis kernel utdata"
-
-#~ msgid "Kernel loglevel"
-#~ msgstr "Kernel loggnivå"
-
-#~ msgid "Information about this XBian"
-#~ msgstr "Informasjon om denne distribusjonen"
-
-#~ msgid ""
-#~ "XBian is a free, Open Source media center XBian for the Raspberry Pi, "
-#~ "which can be downloaded at http://www.xbian.org. Our slogan is \"XBMC on "
-#~ "Raspberry Pi, bleeding edge\" as our main focus is delivering the fastest "
-#~ "mediacenter solution for the Raspberry Pi. We believe that everyone can "
-#~ "help make XBian better. Please visit our website for support and if you "
-#~ "have suggestions, wishes or contributions, please share them with us!"
-#~ msgstr ""
-#~ "XBian er en gratis, Open Source media senter distribusjon for Raspberry "
-#~ "Pi, som kan lastes ned på http://www.xbian.org. Vårt motto er \"XBMC på "
-#~ "Raspberry Pi, bleeding edge\" for vårt hovedfokus er å levere den "
-#~ "raskeste mediasenter løsningen for Raspberry Pi. Vi tror at alle kan "
-#~ "hjelpe til å gjøre XBian bedre. Besøk vår webside for support og hvis du "
-#~ "har spørsmål, ønsker eller bidrag, bare del dem med oss!"
-
-#~ msgid "Hostname:"
-#~ msgstr "Tjernernavn:"
-
-#~ msgid "Change the default hostname"
-#~ msgstr "Endre standard tjenernavn"
-
-#~ msgid "Manage your MPG2 license"
-#~ msgstr "Behandle din MPG2 lisens"
-
-#~ msgid "Manage your VC1 license"
-#~ msgstr "Behandle din VC1 lisens"
-
-#~ msgid "Change your system language"
-#~ msgstr "Endre systemspråk"
-
-#~ msgid "Letter"
-#~ msgstr "Bokstav"
-
-#~ msgid "System, XBian, and XBMC language successfully updated"
-#~ msgstr "System, XBian, og XBMC språk oppdatert"
