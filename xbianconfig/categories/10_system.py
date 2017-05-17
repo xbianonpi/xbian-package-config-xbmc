@@ -537,7 +537,7 @@ class OverclockControl(MultiSettingControl):
     def onInit(self):
         self.overclockMode = SpinControlex(Tag('label', _('Overclocking')))
         self.addControl(self.overclockMode)
-        self.overclockinglist = xbianConfig('overclocking', 'list', cache=True)
+        self.overclockinglist = xbianConfig('overclocking', 'list')
 
         for mode in self.overclockinglist:
             content = Content(Tag('label', mode), defaultSKin=False)
