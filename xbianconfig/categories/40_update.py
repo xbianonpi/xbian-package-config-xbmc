@@ -385,7 +385,6 @@ class enableStaging(Setting):
         rc = xbianConfig('updates', 'enablerepo', self.key, str(value))
         self.DIALOGHEADER = _('Please execute again')
         self.OKTEXT = _('Check for system updates')
-        self.notifyOnSuccess()
         return True
 
 
