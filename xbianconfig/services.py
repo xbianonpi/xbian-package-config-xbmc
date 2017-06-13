@@ -82,6 +82,8 @@ class eventHandler(pyinotify.ProcessEvent):
         print event
         if event.pathname == PERIODICSETTING or event.name == 'xbian-snap':
             worker.onStatusChanged('setting')
+        elif event.name == MSG4KODI:
+            worker.onStatusChanged(MSG4KODI, event.pathname)
 
 wm = pyinotify.WatchManager()
 
