@@ -1,20 +1,26 @@
 #!/bin/bash
 
+FILES2CHECK="services.py services/xbianworker.py"
+
 if [ $1 == "install" -o $1 == "upgrade" ]; then
-:
+    :
 fi
 
 if [ $1 = upgrade ]; then
 
     if [ -d /usr/local/share/kodi/addons/plugin.xbianconfig ]; then
 	find /usr/local/share/kodi/addons/plugin.xbianconfig -iname SettingsXbianInfo.xml | xargs rm -f 2
-	find /usr/local/share/kodi/addons/plugin.xbianconfig -iname \*.pyc | xargs rm -f 2
+	find /usr/local/share/kodi/addons/plugin.xbianconfig -iname \*.py[co] | xargs rm -f 2
     fi
     if [ -d /home/xbian/.kodi/addons/plugin.xbianconfig ]; then
 	find /home/xbian/.kodi/addons/plugin.xbianconfig -iname SettingsXbianInfo.xml | xargs rm -f
-	find /home/xbian/.kodi/addons/plugin.xbianconfig -iname \*.pyc  | xargs rm -f
+	find /home/xbian/.kodi/addons/plugin.xbianconfig -iname \*.py[co] | xargs rm -f
     fi
 
+    echo $FILES2CHECK > /tmp/files2check.list
+    for f in $FILES2CHECK; do
+        md5sum /usr/local/share/kodi/addons/plugin.xbianconfig/$f >> /tmp/files2check.md5
+    done
 fi
 
 exit 0
