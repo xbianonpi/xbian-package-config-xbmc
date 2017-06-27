@@ -538,6 +538,7 @@ class OverclockControl(MultiSettingControl):
         self.overclockMode = SpinControlex(Tag('label', _('Overclocking')))
         self.addControl(self.overclockMode)
         self.overclockinglist = xbianConfig('overclocking', 'list')
+        self.custom = False
 
         for mode in self.overclockinglist:
             content = Content(Tag('label', mode), defaultSKin=False)
@@ -554,6 +555,7 @@ class OverclockControl(MultiSettingControl):
                 self.customOverclock.addControl(self.Sdram)
                 self.customOverclock.addControl(self.Overvoltage)
                 self.addControl(self.customOverclock)
+                self.custom = True
 
     def setValue(self, value):
         if value:
@@ -562,18 +564,19 @@ class OverclockControl(MultiSettingControl):
                 if value[0] == val.lower():
                     break
             self.overclockMode.setValue(val)
-            self.Arm.setValue(value[1])
-            self.Arm.onClick = lambda arm: self.Arm.setValue(
-                getNumeric('Arm Overclocking', value[1], 400, 1200))
-            self.Core.setValue(value[2])
-            self.Core.onClick = lambda core: self.Core.setValue(
-                getNumeric('Arm Overclocking', value[2], 100, 600))
-            self.Sdram.setValue(value[3])
-            self.Sdram.onClick = lambda sdram: self.Sdram.setValue(
-                getNumeric('Arm Overclocking', value[3], 100, 600))
-            self.Overvoltage.setValue(value[4])
-            self.Overvoltage.onClick = lambda overvolt: self.Overvoltage.setValue(
-                getNumeric('Arm Overclocking', value[4], 0, 12))
+            if self.custom:
+                self.Arm.setValue(value[1])
+                self.Arm.onClick = lambda arm: self.Arm.setValue(
+                    getNumeric('Arm Overclocking', value[1], 400, 1200))
+                self.Core.setValue(value[2])
+                self.Core.onClick = lambda core: self.Core.setValue(
+                    getNumeric('Arm Overclocking', value[2], 100, 600))
+                self.Sdram.setValue(value[3])
+                self.Sdram.onClick = lambda sdram: self.Sdram.setValue(
+                    getNumeric('Arm Overclocking', value[3], 100, 600))
+                self.Overvoltage.setValue(value[4])
+                self.Overvoltage.onClick = lambda overvolt: self.Overvoltage.setValue(
+                    getNumeric('Arm Overclocking', value[4], 0, 12))
 
 
 class overclocking(Setting):
