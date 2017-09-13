@@ -361,10 +361,10 @@ class mpeg2License(Setting):
         return getText(self.DIALOGHEADER, self.getControlValue())
 
     def checkUserValue(self, value):
-        try:
-            keyok = ((len(value) == 10) or (len(value) == 9)) and value[:2] == '0x'
-        except:
-            keyok = False
+        for lic in str.split(value,','):
+            keyok = ((len(lic) == 10) or (len(lic) == 9)) and lic[:2] == '0x'
+            if keyok == False:
+                break
         return keyok
 
     def getXbianValue(self):
