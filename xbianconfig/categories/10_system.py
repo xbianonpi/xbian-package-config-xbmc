@@ -207,7 +207,7 @@ class NetworkSetting(Setting):
             if val == 'mode' and values['mode'] == 'manual':
                 value = 'static'
             elif val == 'mode':
-                value = values.get('mode')
+                value = str(values.get('mode'))
             elif val == 'ssid':
                 value = values.get('ssid')
                 if not value:
@@ -215,7 +215,7 @@ class NetworkSetting(Setting):
                 else:
                     value = base64.b64decode(value)
             else:
-                value = values.get(val)
+                value = str(values.get(val))
             lanConfig.append(value)
         self.xbianValue[interface] = lanConfig
         self.setControlValue({interface: lanConfig})
@@ -247,18 +247,18 @@ class NetworkSetting(Setting):
         self.control.setValue([self.default, value])
 
     def isModified(self):
-        equal = False
+        modif = False
         for key in self.userValue:
-            if self.xbianValue[key][0] != self.userValue[key][0]:
-                equal = True
+            if str(self.xbianValue[key][0]) != str(self.userValue[key][0]):
+                modif = True
                 break
             if self.userValue[key][0] != 'dhcp':
                 j = (0, 2, 3, 4, 5, 6)
                 for i in j:
-                    if self.xbianValue[key][i] != self.userValue[key][i]:
-                        equal = True
+                    if str(self.xbianValue[key][i]) != str(self.userValue[key][i]):
+                        modif = True
                         break
-        return equal
+        return modif
 
     def getUserValue(self):
         tmp = self.getControl().getValue()
@@ -282,7 +282,7 @@ class NetworkSetting(Setting):
                 if val == 'mode' and values['mode'] == 'manual':
                     value = 'static'
                 elif val == 'mode':
-                    value = values.get('mode')
+                    value = str(values.get('mode'))
                 elif val == 'ssid':
                     value = values.get('ssid')
                     if not value:
@@ -290,7 +290,7 @@ class NetworkSetting(Setting):
                     else:
                         value = base64.b64decode(value)
                 else:
-                    value = values.get(val)
+                    value = str(values.get(val))
                 self.lanConfig[interface].append(value)
         return self.lanConfig
 
@@ -298,12 +298,12 @@ class NetworkSetting(Setting):
         ok = True
         for interface in values:
             modified = False
-            if values[interface][0] != self.xbianValue[interface][0]:
+            if str(values[interface][0]) != str(self.xbianValue[interface][0]):
                 modified = True
             elif values[interface][0] != 'dhcp':
                 j = (0, 2, 3, 4, 5, 6)
                 for i in j:
-                    if values[interface][i] != self.xbianValue[interface][i]:
+                    if str(values[interface][i]) != str(self.xbianValue[interface][i]):
                         modified = True
                         break
             if modified:
