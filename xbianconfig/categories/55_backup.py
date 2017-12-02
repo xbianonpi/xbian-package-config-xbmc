@@ -328,8 +328,8 @@ class systemExecGui(Setting):
         AT = self.APPLYTEXT
         if self.value[1] == 'File':
             self.value[2] = 'file:' + self.value[2]
-            dest = xbianConfig('xbiancopy', 'imgdest', '?')[0]
-            self.APPLYTEXT = _('Write backup to %s?') % (dest, )
+            dest = xbianConfig('xbiancopy', 'imgdest', 'exp')[0]
+            self.APPLYTEXT = _('Write backup to %s?') % ('...' + dest[len(dest)-57:] if len(dest) > 60 else dest, )
             confirm = False
             self.keep = self.value[4]
         else:
@@ -590,14 +590,14 @@ class homeExecGui(Setting):
         #self.value = self.control.getValue()
         self.value = self.getXbianValue()
         if self.value[0] == 1 and getSetting('advancedmode') == '1':
-            dest = xbianConfig('xbiancopy', 'homedest', '?')[0]
+            dest = xbianConfig('xbiancopy', 'homedest', 'exp')[0]
             self.keep = self.value[3]
         else:
             dest ='/xbmc-backup/%s_backup_home_%s.img.gz' % (os.uname()[1], datetime.datetime.now().strftime("%d-%m-%y"))
             self.keep = 0
 
         AT = self.APPLYTEXT
-        self.APPLYTEXT = _('Write backup to %s?') % (dest, )
+        self.APPLYTEXT = _('Write backup to %s?') % ('...' + dest[len(dest)-57:] if len(dest) > 60 else dest, )
         confirm = False
         if self.askConfirmation(confirm):
             xbianConfig('xbiancopy', 'homestart', dest)[0]
