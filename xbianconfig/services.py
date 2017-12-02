@@ -10,7 +10,7 @@ print 'XBian services started (%s)' % xbmc.__version__
 __addonID__ = "plugin.xbianconfig"
 
 # Files and/or folders which are be watched by inotify
-PERIODICSETTING = '/etc/apt/apt.conf.d/10xbian-periodic'
+PERIODICSETTING = '/etc/apt/apt.conf.d/20auto-upgrade'
 UPDATEREPO      = '/usr/local/sbin/xbian-update-repo'
 RUNPATH         = '/run'
 REBOOTREQUIRED  = 'reboot-required'
