@@ -40,6 +40,7 @@ class NetworkControl(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
     DHCP = 'DHCP'
     STATIC = 'Static'
+    MANUAL = 'Manual'
 
     def onInit(self):
         self.interface = SpinControlex(
@@ -77,13 +78,15 @@ class NetworkControl(MultiSettingControl):
                 self.interfaceValue[interface]['group'].addControl(
                     self.interfaceValue[interface]['ssid'])
 
-            # add interface mode Control (static/dhcp)
+            # add interface mode Control (dhcp/static/manual)
             self.interfaceValue[interface]['mode'] = SpinControlex(
                 Tag('label', make_label(_('Type'), 1)))
             dhcp = Content(Tag('label', self.DHCP), defaultSKin=False)
             static = Content(Tag('label', self.STATIC), defaultSKin=False)
+            manual = Content(Tag('label', self.MANUAL), defaultSKin=False)
             self.interfaceValue[interface]['mode'].addContent(dhcp)
             self.interfaceValue[interface]['mode'].addContent(static)
+            self.interfaceValue[interface]['mode'].addContent(manual)
             self.interfaceValue[interface]['group'].addControl(
                 self.interfaceValue[interface]['mode'])
 
@@ -142,6 +145,8 @@ class NetworkControl(MultiSettingControl):
             value = networkValue[key]
             if value[0] == 'static':
                 self.interfaceValue[key]['mode'].setValue(self.STATIC)
+            elif value[0] == 'manual':
+                self.interfaceValue[key]['mode'].setValue(self.MANUAL)
             else:
                 self.interfaceValue[key]['mode'].setValue(self.DHCP)
 
@@ -203,12 +208,7 @@ class NetworkSetting(Setting):
                      'gateway', 'nameserver1', 'nameserver2', 'ssid']
 
         for val in guivalues:
-            value = None
-            if val == 'mode' and values['mode'] == 'manual':
-                value = 'static'
-            elif val == 'mode':
-                value = str(values.get('mode'))
-            elif val == 'ssid':
+            if val == 'ssid':
                 value = values.get('ssid')
                 if not value:
                     value = 'Not connected'
@@ -278,12 +278,7 @@ class NetworkSetting(Setting):
             guivalues = ['mode', 'state', 'ip', 'netmask',
                          'gateway', 'nameserver1', 'nameserver2', 'ssid']
             for val in guivalues:
-                value = None
-                if val == 'mode' and values['mode'] == 'manual':
-                    value = 'static'
-                elif val == 'mode':
-                    value = str(values.get('mode'))
-                elif val == 'ssid':
+                if val == 'ssid':
                     value = values.get('ssid')
                     if not value:
                         value = 'Not connected'
@@ -313,7 +308,7 @@ class NetworkSetting(Setting):
                 else:
                     mode = 'static'
                     cmd = [mode, interface, values[interface][2], values[interface][3],
-                           values[interface][4], values[interface][5], values[interface][6]]
+                           values[interface][4], values[interface][5], values[interface][6], str(values[interface][0].lower())]
                 rc = xbianConfig('network', *cmd)
                 if not rc:
                     ok = False
