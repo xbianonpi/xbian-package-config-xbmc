@@ -26,7 +26,7 @@ msgs = [
   [  '7.1',  '7.2',  '7.3' ],
   [  '8.1',  '8.2',  '8.3' ],
   [  '9.1',  '9.2',  '9.3' ],
-  [ '10.1', '10.2', '10.3' ],
+  [ _('Security warning'),    '', _('The standard password of user xbian has not been changed yet'), _('Setting a new one is strongly recommended') ],
 ]
 
 class xbianworker(service):
