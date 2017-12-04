@@ -110,6 +110,9 @@ if os.path.isfile(UPDATEREPO):
 if os.path.isfile(MSG4KODIFILE1):
     worker.onStatusChanged(MSG4KODI, MSG4KODIFILE1)
 
+if os.path.isfile(MSG4KODIFILE2):
+    worker.onStatusChanged(MSG4KODI, MSG4KODIFILE2)
+
 if not os.path.isfile(IMAGESTATUS):
     open(IMAGESTATUS, 'w').close()
 worker.onStatusChanged(XBIANCOPY, IMAGESTATUS)
