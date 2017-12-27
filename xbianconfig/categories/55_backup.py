@@ -310,7 +310,8 @@ class systemExecGui(Setting):
         if self.rc == '1':
             # backup is finished
             self.OKTEXT = _('Backup system is finished')
-            xbianConfig('xbiancopy', 'doclean', self.value[2], self.keep)[0]
+            if self.value[1] == 'File':
+                xbianConfig('xbiancopy', 'doclean', self.value[2], self.keep)[0]
             self.notifyOnSuccess()
         else:
             if self.rc == '-1':
@@ -574,7 +575,8 @@ class homeExecGui(Setting):
             self.OKTEXT = _(
                 "Backup /home is finished. In case of destination folder"
                 "/xbmc-backup, please grab the file over network or save locally.")
-            xbianConfig('xbiancopy', 'doclean', self.value[1], self.keep)[0]
+            if self.keep > 0:
+                xbianConfig('xbiancopy', 'doclean', self.value[1], self.keep)[0]
             self.notifyOnSuccess()
         else:
             if self.rc == '-1':
