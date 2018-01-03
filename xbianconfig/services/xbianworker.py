@@ -107,7 +107,7 @@ class xbianworker(service):
         if done:
             delta = timedelta(days=31,hours=3)
         else:
-            delta = timedelta(days=3)
+            delta = timedelta(days=21)
         planned = xbianConfig('xbiancopy', type)
         if planned:
             if planned[0] == 'daily':

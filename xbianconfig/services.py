@@ -1,6 +1,7 @@
 import os
 import xbmc
 import pyinotify
+from datetime import datetime
 
 from services.firstrun import firstrun
 from services.xbianworker import xbianworker
@@ -113,13 +114,14 @@ if os.path.isfile(MSG4KODIFILE1):
 if os.path.isfile(MSG4KODIFILE2):
     worker.onStatusChanged(MSG4KODI, MSG4KODIFILE2)
 
-if not os.path.isfile(IMAGESTATUS):
-    open(IMAGESTATUS, 'w').close()
-worker.onStatusChanged(XBIANCOPY, IMAGESTATUS)
+if datetime.now().year >= 2018 and datetime.now().year < 2038:
+    if not os.path.isfile(IMAGESTATUS):
+        open(IMAGESTATUS, 'w').close()
+    worker.onStatusChanged(XBIANCOPY, IMAGESTATUS)
 
-if not os.path.isfile(HOMESTATUS):
-    open(HOMESTATUS, 'w').close()
-worker.onStatusChanged(BACKUPHOME, HOMESTATUS)
+    if not os.path.isfile(HOMESTATUS):
+        open(HOMESTATUS, 'w').close()
+    worker.onStatusChanged(BACKUPHOME, HOMESTATUS)
 
 worker.onStart()
 
