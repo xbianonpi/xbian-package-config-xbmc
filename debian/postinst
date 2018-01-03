@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MSGPATHV='/run/splash'
+. /var/lib/dpkg/info/xbian-update.functions
 
 if [ $1 == "configure" ]; then
 
@@ -8,25 +8,12 @@ if [ $1 == "configure" ]; then
 
     find /usr/local/share/{xbmc,kodi}/addons/plugin.xbianconfig -iname \*.py[co] | xargs -L1 rm -f &>/dev/null
 
-    MSG=0
-    for f in $(cat /tmp/files2check.list); do
-        ! grep -q "$(md5sum /usr/local/share/kodi/addons/plugin.xbianconfig/$f)" /tmp/files2check.md5 && MSG=1
+    for f in $(cat /tmp/files2check.list 2>/dev/null); do
+        grep -q "$(md5sum /usr/local/share/kodi/addons/plugin.xbianconfig/$f)" /tmp/files2check.md5 || { kodi_sendmsg '#001'; break; }
     done
     rm -f /tmp/files2check.md5 /tmp/files2check.list
 
-    if [ "$MSG" == 1 ]; then
-        pgrep "xbmc.bin|kodi.bin" >/dev/null && su -c "echo -e \"#001\" >> $MSGPATHV/msg4kodi" xbian || :
-    fi
-
-    # Starting with Kodi v18 SubString and StringCompare as boolean conditions are not longer available. We have to use
-    # String.Contains and String.IsEqual, introduced with Kodi v17, instead. Note: needed for postinst of package
-    # xbmc-package-xbmc also and may be removed when dropping backward compatibility
-    if [ "$(dpkg-query -s xbian-package-xbmc 2>/dev/null | grep -m1 Version | awk '{ print $2 '})" \> "18" ]; then
-        for file in $(grep -m1 -r SubString /usr/local/share/kodi/addons/plugin.xbianconfig/* 2>/dev/null | cut -d ':' -f 1); do
-            sed -i "s/SubString/String.Contains/g" $file
-        done
-        for file in $(grep -m1 -r StringCompare /usr/local/share/kodi/addons/plugin.xbianconfig/* 2>/dev/null | cut -d ':' -f 1); do
-            sed -i "s/StringCompare/String.IsEqual/g" $file
-        done
-    fi
+    patch_configxbmc
 fi
+
+exit 0
