@@ -41,6 +41,7 @@ class NetworkControl(MultiSettingControl):
     DHCP = 'DHCP'
     STATIC = 'Static'
     MANUAL = 'Manual'
+    DISABLE = 'Disable'
 
     def onInit(self):
         self.interface = SpinControlex(
@@ -78,15 +79,17 @@ class NetworkControl(MultiSettingControl):
                 self.interfaceValue[interface]['group'].addControl(
                     self.interfaceValue[interface]['ssid'])
 
-            # add interface mode Control (dhcp/static/manual)
+            # add interface mode Control (dhcp/static/manual/disable)
             self.interfaceValue[interface]['mode'] = SpinControlex(
                 Tag('label', make_label(_('Type'), 1)))
             dhcp = Content(Tag('label', self.DHCP), defaultSKin=False)
             static = Content(Tag('label', self.STATIC), defaultSKin=False)
             manual = Content(Tag('label', self.MANUAL), defaultSKin=False)
+            disable = Content(Tag('label', self.DISABLE), defaultSKin=False)
             self.interfaceValue[interface]['mode'].addContent(dhcp)
             self.interfaceValue[interface]['mode'].addContent(static)
             self.interfaceValue[interface]['mode'].addContent(manual)
+            self.interfaceValue[interface]['mode'].addContent(disable)
             self.interfaceValue[interface]['group'].addControl(
                 self.interfaceValue[interface]['mode'])
 
@@ -147,6 +150,8 @@ class NetworkControl(MultiSettingControl):
                 self.interfaceValue[key]['mode'].setValue(self.STATIC)
             elif value[0] == 'manual':
                 self.interfaceValue[key]['mode'].setValue(self.MANUAL)
+            elif value[0] == 'disable':
+                self.interfaceValue[key]['mode'].setValue(self.DISABLE)
             else:
                 self.interfaceValue[key]['mode'].setValue(self.DHCP)
 
@@ -313,7 +318,7 @@ class NetworkSetting(Setting):
                 if not rc:
                     ok = False
                     self.ERRORTEXT = _('An unexpected error occurred')
-                elif rc[0] == '1':
+                elif rc[0] == '1' and str(values[interface][0].lower()) != 'disable':
                     progress = dialogWait(
                         _('Restarting %s') % (interface, ), _('Please wait while updating'))
                     progress.show()
@@ -328,7 +333,7 @@ class NetworkSetting(Setting):
                         lc += 1
                     self.reloadInterface(interface)
                     progress.close()
-                else:
+                elif str(values[interface][0].lower()) != 'disable':
                     ok = False
                     try:
                         self.ERRORTEXT = rc[1]
