@@ -284,9 +284,12 @@ def wifiConnect(interface):
             canceled = True
         else:
             if networks[selectedNetwork][SECURITY] == 'on':
-                key = getText('%s : %s' % (
-                    _('Enter credentials for selected interface'),
-                    networks[selectedNetwork][SSID]))
+                rc = xbianConfig('network', 'credentials', interface, networks[selectedNetwork][SECURITYTYPE], base64.b64encode(networks[selectedNetwork][SSID]))
+                if rc:
+                    key = base64.b64decode(rc[0])[:-1]
+                else:
+                    key = ''
+                key = getText('%s: %s (%s)' % (_('Enter credentials for selected interface'), networks[selectedNetwork][SSID], networks[selectedNetwork][SECURITYTYPE]), key)
                 if not key:
                     continue
             else:
