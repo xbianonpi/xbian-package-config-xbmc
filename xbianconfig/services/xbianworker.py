@@ -258,13 +258,15 @@ class xbianworker(service):
             self.updatesAvailable = False
             return
 
-        if not self.hideImageWarning and self.xbiancopyDate < (self.eventTime - self.timeImageDiff):
-            self.hideImageWarning = self.showHint(_('System backup'), _('This type of backup has not been made for a long time!'), 'hide.xbiancopy')
-            return
+        if self.xbiancopyDate is not None:
+            if not self.hideImageWarning and self.xbiancopyDate < (self.eventTime - self.timeImageDiff):
+                self.hideImageWarning = self.showHint(_('System backup'), _('This type of backup has not been made for a long time!'), 'hide.xbiancopy')
+                return
 
-        if not self.hideHomeWarning and self.backuphomeDate < (self.eventTime - self.timeHomeDiff) and self.xbiancopyDate < (self.eventTime - self.timeImageDiff):
-            self.hideHomeWarning = self.showHint(_('Home backup'), _('This type of backup has not been made for a long time!'), 'hide.backuphome')
-            return
+        if self.backuphomeDate is not None and self.xbiancopyDate is not None:
+            if not self.hideHomeWarning and self.backuphomeDate < (self.eventTime - self.timeHomeDiff) and self.xbiancopyDate < (self.eventTime - self.timeImageDiff):
+                self.hideHomeWarning = self.showHint(_('Home backup'), _('This type of backup has not been made for a long time!'), 'hide.backuphome')
+                return
 
     def onStatusChanged(self, status, file=None):
         print 'XBian : on status changed (%s,%s)' % (status,file)
