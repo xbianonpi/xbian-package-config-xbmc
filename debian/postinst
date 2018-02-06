@@ -2,7 +2,7 @@
 
 . /var/lib/dpkg/info/xbian-update.functions
 
-if [ $1 == "configure" ]; then
+if [ "$1" = configure ]; then
 
     chown -R xbian:xbian /usr/local/share/{xbmc,kodi}/addons/plugin.xbianconfig/
 
@@ -13,7 +13,12 @@ if [ $1 == "configure" ]; then
     done
     rm -f /tmp/files2check.md5 /tmp/files2check.list
 
+    dpkg-trigger --no-await trigger-xbian-package-config-xbmc
+
+elif [ "$1" = triggered ]; then
+
     patch_configxbmc
+
 fi
 
 exit 0
