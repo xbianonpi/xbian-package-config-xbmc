@@ -720,7 +720,7 @@ class timezone(Setting):
 
 
 class AccountLabel(Setting):
-    CONTROL = CategoryLabelControl(Tag('label', _('Accounts')), ADVANCED)
+    CONTROL = CategoryLabelControl(Tag('label', _('Accounts')))
 
     def onInit(self):
         # check if advanced mode is set
@@ -767,7 +767,7 @@ class rootpwd(Setting):
 
 
 class xbianpwd(rootpwd):
-    CONTROL = ButtonControl(Tag('label', _('XBian password')), ADVANCED)
+    CONTROL = ButtonControl(Tag('label', _('XBian password')))
     OKTEXT = _('xbian password successfully changed')
 
     def onInit(self):
@@ -813,4 +813,4 @@ class sshroot(Setting):
 class system(Category):
     TITLE = _('System')
     SETTINGS = [NewtorkLabel, NetworkSetting, LicenceLabel, mpeg2License, vc1License, SytemLabel, hostname,
-                timezone, kernel, overclocking, initramfs, AccountLabel, rootpwd, xbianpwd, sshroot, connectivityLabel, videooutput]
+                timezone, kernel, overclocking, initramfs, AccountLabel, xbianpwd, rootpwd, sshroot, connectivityLabel, videooutput]
