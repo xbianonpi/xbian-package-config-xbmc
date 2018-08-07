@@ -257,6 +257,71 @@ class servicesManager(Setting):
             self.control.addService(tmp[0], self.services[tmp[0]][0])
 
 
+class serviceTypeLabel(Setting):
+    CONTROL = CategoryLabelControl(Tag('label', _('Service type of')), ADVANCED)
+
+SERVICE_TYPES = [ 'inetd', 'daemon' ]
+
+class SambaControl(MultiSettingControl):
+    XBMCDEFAULTCONTAINER = False
+
+    def onInit(self):
+        self.sambaType = SpinControlex(Tag('label', 'samba'))
+        self.addControl(self.sambaType)
+        self.sambamode = SERVICE_TYPES
+
+        for mode in self.sambamode:
+            content = Content(Tag('label', mode), defaultSKin=False)
+            self.sambaType.addContent(content)
+
+    def setValue(self, value):
+        if value:
+            self.sambaType.setValue(value[0])
+
+class serviceSambaType(Setting):
+    CONTROL = SambaControl(ADVANCED)
+    DIALOGHEADER = 'samba'
+    SAVEMODE = Setting.ONUNFOCUS
+
+    def onInit(self):
+        self.cfgfile = '/etc/default/samba'
+        self.setting = 'RUN_MODE'
+        self.exist = False
+
+    def getUserValue(self):
+        return self.control.getValue()
+
+    def getXbianValue(self):
+        with open(self.cfgfile,'r') as f:
+            value = filter(lambda x: re.match('%s=.*'%self.setting,x),f.readlines())
+        if value:
+            self.exist = True
+            if re.split('=', value[0].strip())[1].replace('\'','').replace('\"','') == SERVICE_TYPES[0]:
+                value[0] = SERVICE_TYPES[0]
+            else:
+                value[0] = SERVICE_TYPES[1]
+        return value
+
+    def setXbianValue(self, value):
+        if self.exist:
+            #replace
+            def replace(x):
+                if re.match('%s=.*'%self.setting,x):
+                    return '%s=%s\n' % (self.setting, value[0])
+                else:
+                    return x
+            with open(self.cfgfile, "r") as f:
+                data = map(replace,open(self.cfgfile,'r').readlines())
+            with open(self.cfgfile, "w") as f:
+                f.writelines(data)
+
+            rc = xbianConfig('services', 'select')
+            if not rc or rc[0] != '1':
+                return False
+
+        return self.exist
+
+
 class services(Category):
     TITLE = _('Services')
-    SETTINGS = [serviceLabel, servicesManager]
+    SETTINGS = [serviceLabel, servicesManager, serviceTypeLabel, serviceSambaType]
