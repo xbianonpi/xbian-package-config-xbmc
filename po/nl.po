@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XBian Translation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-19 16:09+0100\n"
-"PO-Revision-Date: 2017-12-19 15:09+0000\n"
+"POT-Creation-Date: 2018-08-07 21:41+0200\n"
+"PO-Revision-Date: 2018-08-07 19:42+0000\n"
 "Last-Translator: belese <mkreisl@xbian.org>\n"
 "Language-Team: Dutch (http://www.transifex.com/teamxbian/xbian-translation/language/nl/)\n"
 "MIME-Version: 1.0\n"
@@ -69,21 +69,21 @@ msgid "Never show this hint again?"
 msgstr ""
 
 #: xbianconfig/services/xbianworker.py:220
-#: xbianconfig/categories/20_services.py:112
+#: xbianconfig/categories/20_services.py:113
 msgid "Service"
 msgstr "Service"
 
 #: xbianconfig/services/xbianworker.py:220
-#: xbianconfig/categories/10_system.py:347
-#: xbianconfig/categories/10_system.py:390
+#: xbianconfig/categories/10_system.py:352
+#: xbianconfig/categories/10_system.py:395
 #, python-format
 msgid "%s successfully updated"
 msgstr "%s succesvol bijgewerkt"
 
 #: xbianconfig/services/xbianworker.py:250
 #: xbianconfig/services/xbianworker.py:257
-#: xbianconfig/services/xbianworker.py:366
-#: xbianconfig/services/xbianworker.py:373
+#: xbianconfig/services/xbianworker.py:368
+#: xbianconfig/services/xbianworker.py:375
 #: xbianconfig/categories/30_packages.py:283
 #: xbianconfig/categories/40_update.py:288
 #: xbianconfig/categories/40_update.py:400
@@ -100,7 +100,7 @@ msgid "A distribution upgrade to %s is available"
 msgstr ""
 
 #: xbianconfig/services/xbianworker.py:257
-#: xbianconfig/services/xbianworker.py:373
+#: xbianconfig/services/xbianworker.py:375
 msgid "Package"
 msgstr ""
 
@@ -108,31 +108,31 @@ msgstr ""
 msgid "Some XBian package can be updated"
 msgstr ""
 
-#: xbianconfig/services/xbianworker.py:262
+#: xbianconfig/services/xbianworker.py:263
 #: xbianconfig/categories/55_backup.py:35
 #: xbianconfig/categories/55_backup.py:161
 #: xbianconfig/categories/55_backup.py:297
 msgid "System backup"
 msgstr "Systeem backup"
 
-#: xbianconfig/services/xbianworker.py:262
-#: xbianconfig/services/xbianworker.py:266
+#: xbianconfig/services/xbianworker.py:263
+#: xbianconfig/services/xbianworker.py:268
 msgid "This type of backup has not been made for a long time!"
 msgstr ""
 
-#: xbianconfig/services/xbianworker.py:266
+#: xbianconfig/services/xbianworker.py:268
 #: xbianconfig/categories/55_backup.py:31
 #: xbianconfig/categories/55_backup.py:460
 #: xbianconfig/categories/55_backup.py:560
 msgid "Home backup"
 msgstr "Home backup"
 
-#: xbianconfig/services/xbianworker.py:366
-#: xbianconfig/categories/10_system.py:318
+#: xbianconfig/services/xbianworker.py:368
+#: xbianconfig/categories/10_system.py:323
 msgid "Please wait while updating"
 msgstr ""
 
-#: xbianconfig/services/xbianworker.py:373
+#: xbianconfig/services/xbianworker.py:375
 msgid "Updates installed successfully"
 msgstr ""
 
@@ -177,231 +177,231 @@ msgid "Disable the 'rainbow' screen at really start of RPI"
 msgstr "Het 'regenboog' scherm tijdens de start van de RPi uitschakelen"
 
 #: xbianconfig/categories/10_system.py:36
-#: xbianconfig/categories/10_system.py:195 xbianconfig/wizard/20_network.py:6
+#: xbianconfig/categories/10_system.py:200 xbianconfig/wizard/20_network.py:6
 msgid "Network"
 msgstr "Netwerk"
 
-#: xbianconfig/categories/10_system.py:47
+#: xbianconfig/categories/10_system.py:48
 msgid "Select interface to configure"
 msgstr "Selecteer te configureren interface"
 
-#: xbianconfig/categories/10_system.py:67
+#: xbianconfig/categories/10_system.py:68
 msgid "Status"
 msgstr "Status"
 
-#: xbianconfig/categories/10_system.py:76
+#: xbianconfig/categories/10_system.py:77
 #: xbianconfig/resources/lib/utils.py:282
 msgid "SSID"
 msgstr "SSID"
 
-#: xbianconfig/categories/10_system.py:83
+#: xbianconfig/categories/10_system.py:84
 #: xbianconfig/categories/55_backup.py:83
 #: xbianconfig/categories/55_backup.py:414
 msgid "Type"
 msgstr "Type"
 
-#: xbianconfig/categories/10_system.py:98
 #: xbianconfig/categories/10_system.py:101
+#: xbianconfig/categories/10_system.py:104
 msgid "IP Address"
 msgstr "IP Adres"
 
-#: xbianconfig/categories/10_system.py:104
 #: xbianconfig/categories/10_system.py:107
+#: xbianconfig/categories/10_system.py:110
 msgid "Netmask"
 msgstr "Netmask"
 
-#: xbianconfig/categories/10_system.py:110
 #: xbianconfig/categories/10_system.py:113
+#: xbianconfig/categories/10_system.py:116
 msgid "Gateway"
 msgstr "Gateway"
 
-#: xbianconfig/categories/10_system.py:116
 #: xbianconfig/categories/10_system.py:119
 #: xbianconfig/categories/10_system.py:122
 #: xbianconfig/categories/10_system.py:125
+#: xbianconfig/categories/10_system.py:128
 msgid "Nameserver"
 msgstr "Nameserver"
 
-#: xbianconfig/categories/10_system.py:196
+#: xbianconfig/categories/10_system.py:201
 msgid "Error"
 msgstr "Foutmelding"
 
-#: xbianconfig/categories/10_system.py:197
+#: xbianconfig/categories/10_system.py:202
 msgid "OK"
 msgstr "OK"
 
-#: xbianconfig/categories/10_system.py:227
+#: xbianconfig/categories/10_system.py:232
 msgid "Please wait while updating..."
 msgstr "Even geduld, tot het update proces is voltooid ..."
 
-#: xbianconfig/categories/10_system.py:228
-#: xbianconfig/categories/10_system.py:236
+#: xbianconfig/categories/10_system.py:233
+#: xbianconfig/categories/10_system.py:241
 #, python-format
 msgid "Reloading values for %s"
 msgstr "Herladen van de instellingen voor %s"
 
-#: xbianconfig/categories/10_system.py:235
-#: xbianconfig/categories/20_services.py:152
-#: xbianconfig/categories/20_services.py:159
-#: xbianconfig/categories/20_services.py:163
+#: xbianconfig/categories/10_system.py:240
+#: xbianconfig/categories/20_services.py:153
+#: xbianconfig/categories/20_services.py:160
+#: xbianconfig/categories/20_services.py:164
 msgid "Refresh"
 msgstr "Vernieuwen"
 
-#: xbianconfig/categories/10_system.py:240
+#: xbianconfig/categories/10_system.py:245
 #, python-format
 msgid "Successfully connected to %s"
 msgstr "Succesvol verbonden met %s"
 
-#: xbianconfig/categories/10_system.py:243
-#: xbianconfig/resources/lib/utils.py:327
+#: xbianconfig/categories/10_system.py:248
+#: xbianconfig/resources/lib/utils.py:330
 #, python-format
 msgid "Failed to connect to %s"
 msgstr "Kan geen verbinding maken met %s"
 
-#: xbianconfig/categories/10_system.py:315
-#: xbianconfig/categories/10_system.py:336
-#: xbianconfig/categories/10_system.py:521
+#: xbianconfig/categories/10_system.py:320
+#: xbianconfig/categories/10_system.py:341
+#: xbianconfig/categories/10_system.py:526
 #: xbianconfig/categories/30_packages.py:279
 #: xbianconfig/categories/30_packages.py:319
 #: xbianconfig/categories/55_backup.py:323
 #: xbianconfig/categories/55_backup.py:588
-#: xbianconfig/categories/20_services.py:205
-#: xbianconfig/categories/20_services.py:233
+#: xbianconfig/categories/20_services.py:206
+#: xbianconfig/categories/20_services.py:237
 #: xbianconfig/categories/40_update.py:195
 msgid "An unexpected error occurred"
 msgstr "Een onverwachte fout heeft plaatsgevonden"
 
-#: xbianconfig/categories/10_system.py:318
+#: xbianconfig/categories/10_system.py:323
 #, python-format
 msgid "Restarting %s"
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:341
+#: xbianconfig/categories/10_system.py:346
 msgid "Licenses"
 msgstr "Licenties"
 
-#: xbianconfig/categories/10_system.py:345
+#: xbianconfig/categories/10_system.py:350
 msgid "MPG2 license"
 msgstr "MPG2 licentie"
 
-#: xbianconfig/categories/10_system.py:348
-#: xbianconfig/categories/10_system.py:391
+#: xbianconfig/categories/10_system.py:353
+#: xbianconfig/categories/10_system.py:396
 #, python-format
 msgid ""
 "A %s must be 9 or 10 characters long and looks like 0x00000000. You can "
 "specify maximum 8 licenses, separated by comma."
 msgstr "Een %s dient 9 of 10 karakters lang te zijn en ziet er uit als 0x00000000. Je kunt maximaal 8 licenties opgeven, gescheiden door een komma."
 
-#: xbianconfig/categories/10_system.py:388
+#: xbianconfig/categories/10_system.py:393
 msgid "VC1 license"
 msgstr "VC1 licentie"
 
-#: xbianconfig/categories/10_system.py:400
-#: xbianconfig/categories/10_system.py:432
+#: xbianconfig/categories/10_system.py:405
+#: xbianconfig/categories/10_system.py:437
 msgid "Connectivity"
 msgstr "Connectiviteit"
 
-#: xbianconfig/categories/10_system.py:461
-#: xbianconfig/categories/10_system.py:809
+#: xbianconfig/categories/10_system.py:466
+#: xbianconfig/categories/10_system.py:814
 msgid "System"
 msgstr "Systeem"
 
-#: xbianconfig/categories/10_system.py:465
-#: xbianconfig/categories/10_system.py:466
+#: xbianconfig/categories/10_system.py:470
+#: xbianconfig/categories/10_system.py:471
 msgid "Hostname"
 msgstr "Hostnaam"
 
-#: xbianconfig/categories/10_system.py:467
+#: xbianconfig/categories/10_system.py:472
 msgid "Hostname successfully changed"
 msgstr "Hostnaam succesvol gewijzigd"
 
-#: xbianconfig/categories/10_system.py:493
-#: xbianconfig/categories/10_system.py:494
+#: xbianconfig/categories/10_system.py:498
+#: xbianconfig/categories/10_system.py:499
 msgid "Kernel"
 msgstr "Kernel"
 
-#: xbianconfig/categories/10_system.py:494
+#: xbianconfig/categories/10_system.py:499
 msgid "Version"
 msgstr "Versie"
 
-#: xbianconfig/categories/10_system.py:495
+#: xbianconfig/categories/10_system.py:500
 msgid "Successfully switched kernel versions"
 msgstr "Kernel succesvol gewisseld"
 
-#: xbianconfig/categories/10_system.py:523
+#: xbianconfig/categories/10_system.py:528
 msgid "You're already running this kernel version"
 msgstr "Je maakt al gebruik van deze kernel versie"
 
-#: xbianconfig/categories/10_system.py:533
-#: xbianconfig/categories/10_system.py:579
+#: xbianconfig/categories/10_system.py:538
+#: xbianconfig/categories/10_system.py:584
 msgid "Overclocking"
 msgstr "Overklokken"
 
-#: xbianconfig/categories/10_system.py:580
+#: xbianconfig/categories/10_system.py:585
 msgid "The overclock settings are successfully changed"
 msgstr "De overklok instellingen zijn succesvol gewijzigd"
 
-#: xbianconfig/categories/10_system.py:619
+#: xbianconfig/categories/10_system.py:624
 msgid "required"
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:619
+#: xbianconfig/categories/10_system.py:624
 msgid "always"
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:619
+#: xbianconfig/categories/10_system.py:624
 msgid "never"
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:625
-#: xbianconfig/categories/10_system.py:640
+#: xbianconfig/categories/10_system.py:630
+#: xbianconfig/categories/10_system.py:645
 msgid "Use of initramfs"
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:676
-#: xbianconfig/categories/10_system.py:677
-#: xbianconfig/categories/10_system.py:689
+#: xbianconfig/categories/10_system.py:681
+#: xbianconfig/categories/10_system.py:682
+#: xbianconfig/categories/10_system.py:694
 msgid "Timezone"
 msgstr "Tijdzone"
 
-#: xbianconfig/categories/10_system.py:697
+#: xbianconfig/categories/10_system.py:702
 msgid "Location"
 msgstr "Locatie"
 
-#: xbianconfig/categories/10_system.py:707
+#: xbianconfig/categories/10_system.py:712
 msgid "Not Set"
 msgstr "Niet ingesteld"
 
-#: xbianconfig/categories/10_system.py:718
+#: xbianconfig/categories/10_system.py:723
 msgid "Accounts"
 msgstr "Accounts"
 
-#: xbianconfig/categories/10_system.py:733
+#: xbianconfig/categories/10_system.py:738
 msgid "Root password"
 msgstr "Root wachtwoord"
 
-#: xbianconfig/categories/10_system.py:734
+#: xbianconfig/categories/10_system.py:739
 msgid "Password:"
 msgstr "Wachtwoord:"
 
-#: xbianconfig/categories/10_system.py:735
+#: xbianconfig/categories/10_system.py:740
 msgid "root password successfully changed"
 msgstr "Het root wachtwoord is succesvol gewijzigd"
 
-#: xbianconfig/categories/10_system.py:736
+#: xbianconfig/categories/10_system.py:741
 msgid "Passwords didn't match"
 msgstr "Wachtwoorden zijn niet gelijk"
 
-#: xbianconfig/categories/10_system.py:765
+#: xbianconfig/categories/10_system.py:770
 msgid "XBian password"
 msgstr "XBian wachtwoord"
 
-#: xbianconfig/categories/10_system.py:766
+#: xbianconfig/categories/10_system.py:771
 msgid "xbian password successfully changed"
 msgstr "XBian wachtwoord succesvol gewijzigd"
 
-#: xbianconfig/categories/10_system.py:775
-#: xbianconfig/categories/10_system.py:776
+#: xbianconfig/categories/10_system.py:780
+#: xbianconfig/categories/10_system.py:781
 msgid "SSH root login"
 msgstr "SSH root login"
 
@@ -442,7 +442,7 @@ msgstr "Installeren"
 #: xbianconfig/categories/55_backup.py:754
 #: xbianconfig/categories/55_backup.py:766
 #: xbianconfig/categories/55_backup.py:776
-#: xbianconfig/categories/20_services.py:214
+#: xbianconfig/categories/20_services.py:215
 #: xbianconfig/categories/40_update.py:166
 #: xbianconfig/categories/40_update.py:205 xbianconfig/default.py:88
 #: xbianconfig/default.py:130 xbianconfig/default.py:183
@@ -501,7 +501,7 @@ msgstr ""
 
 #: xbianconfig/categories/30_packages.py:340
 #: xbianconfig/categories/30_packages.py:347
-#: xbianconfig/categories/20_services.py:257
+#: xbianconfig/categories/20_services.py:326
 msgid "Services"
 msgstr "Diensten"
 
@@ -782,111 +782,115 @@ msgstr "Snapshot naam"
 msgid "Backup"
 msgstr "Backup"
 
-#: xbianconfig/categories/20_services.py:69
-#: xbianconfig/categories/20_services.py:214
+#: xbianconfig/categories/20_services.py:70
+#: xbianconfig/categories/20_services.py:215
 msgid "Edit"
 msgstr "Wijzig"
 
-#: xbianconfig/categories/20_services.py:71
+#: xbianconfig/categories/20_services.py:72
 msgid "Add a custom service"
 msgstr "Een custom service toevoegen"
 
-#: xbianconfig/categories/20_services.py:81
+#: xbianconfig/categories/20_services.py:82
 msgid "Running"
 msgstr "Geactiveerd"
 
-#: xbianconfig/categories/20_services.py:81
+#: xbianconfig/categories/20_services.py:82
 msgid "Stopped"
 msgstr "Gestopt"
 
-#: xbianconfig/categories/20_services.py:117
+#: xbianconfig/categories/20_services.py:118
 msgid "Start/stop and manage services"
 msgstr "Starten, stoppen en beheren van diensten"
 
-#: xbianconfig/categories/20_services.py:137
-#: xbianconfig/categories/20_services.py:185
+#: xbianconfig/categories/20_services.py:138
+#: xbianconfig/categories/20_services.py:186
 msgid "Stop"
 msgstr "Stoppen"
 
-#: xbianconfig/categories/20_services.py:139
+#: xbianconfig/categories/20_services.py:140
 msgid "Restart"
 msgstr "Herstarten"
 
-#: xbianconfig/categories/20_services.py:142
-#: xbianconfig/categories/20_services.py:182
+#: xbianconfig/categories/20_services.py:143
+#: xbianconfig/categories/20_services.py:183
 msgid "Start"
 msgstr "Starten"
 
-#: xbianconfig/categories/20_services.py:145
-#: xbianconfig/categories/20_services.py:188
+#: xbianconfig/categories/20_services.py:146
+#: xbianconfig/categories/20_services.py:189
 msgid "Disable autostart"
 msgstr "Autostart uitschakelen"
 
-#: xbianconfig/categories/20_services.py:148
-#: xbianconfig/categories/20_services.py:190
+#: xbianconfig/categories/20_services.py:149
+#: xbianconfig/categories/20_services.py:191
 msgid "Autostart"
 msgstr "Automatisch starten"
 
-#: xbianconfig/categories/20_services.py:150
-#: xbianconfig/categories/20_services.py:175
+#: xbianconfig/categories/20_services.py:151
+#: xbianconfig/categories/20_services.py:176
 msgid "Delete"
 msgstr "Verwijder"
 
-#: xbianconfig/categories/20_services.py:158
+#: xbianconfig/categories/20_services.py:159
 #, python-format
 msgid "Do you want to %s"
 msgstr "Wilt u %s"
 
-#: xbianconfig/categories/20_services.py:170
+#: xbianconfig/categories/20_services.py:171
 #, python-format
 msgid "Can not %s %s"
 msgstr ""
 
-#: xbianconfig/categories/20_services.py:173
+#: xbianconfig/categories/20_services.py:174
 #, python-format
 msgid "%s %s successfully"
 msgstr ""
 
-#: xbianconfig/categories/20_services.py:193
+#: xbianconfig/categories/20_services.py:194
 #, python-format
 msgid "%s already running"
 msgstr ""
 
-#: xbianconfig/categories/20_services.py:196
+#: xbianconfig/categories/20_services.py:197
 #, python-format
 msgid "%s already stopped"
 msgstr ""
 
-#: xbianconfig/categories/20_services.py:199
+#: xbianconfig/categories/20_services.py:200
 #, python-format
 msgid "Autostart already enabled for %s"
 msgstr ""
 
-#: xbianconfig/categories/20_services.py:202
+#: xbianconfig/categories/20_services.py:203
 #, python-format
 msgid "Autostart already disabled for %s"
 msgstr ""
 
-#: xbianconfig/categories/20_services.py:209
+#: xbianconfig/categories/20_services.py:210
 msgid "Name"
 msgstr "Naam"
 
-#: xbianconfig/categories/20_services.py:212
+#: xbianconfig/categories/20_services.py:213
 #, python-format
 msgid "Do you want to insert %s"
 msgstr "Wilt u %s invoegen"
 
-#: xbianconfig/categories/20_services.py:224
+#: xbianconfig/categories/20_services.py:228
 msgid "The service has successfully been inserted"
 msgstr "De service is toegevoegd"
 
-#: xbianconfig/categories/20_services.py:227
+#: xbianconfig/categories/20_services.py:231
 msgid "Failed to refresh the service..."
 msgstr "Het vernieuwen van de service is mislukt"
 
-#: xbianconfig/categories/20_services.py:230
+#: xbianconfig/categories/20_services.py:234
 msgid "This service does not exists..."
 msgstr "De dienst bestaat niet ..."
+
+#: xbianconfig/categories/20_services.py:261
+msgid "Service type of"
+msgstr ""
 
 #: xbianconfig/categories/60_preference.py:16
 msgid "Advanced"
@@ -1174,11 +1178,11 @@ msgstr "Scannen"
 msgid "Scanning for available networks..."
 msgstr "Scannen van beschikbare netwerken ..."
 
-#: xbianconfig/resources/lib/utils.py:288
+#: xbianconfig/resources/lib/utils.py:292
 msgid "Enter credentials for selected interface"
 msgstr "Voer autorisatie in voor geselecteerde interface"
 
-#: xbianconfig/resources/lib/utils.py:296
+#: xbianconfig/resources/lib/utils.py:299
 #, python-format
 msgid "Please wait. Trying to connect to %s"
 msgstr "Een moment geduld. Proberen om verbinding te maken met %s"
