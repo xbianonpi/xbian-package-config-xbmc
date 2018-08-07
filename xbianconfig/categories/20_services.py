@@ -1,3 +1,4 @@
+import re
 import uuid
 
 import xbmc
@@ -213,7 +214,10 @@ class servicesManager(Setting):
         if self.askConfirmation():
             progress = dialogWait(_('Edit'), _('Please wait...'))
             progress.show()
-            rc = xbianConfig('services', 'insert', name)
+            service = name.split(' ')
+            name = service[0]
+            service.append('')
+            rc = xbianConfig('services', 'insert', service[0], service[1])
             if rc and rc[0] == '1':
                 # check service status
                 rcs = xbianConfig('services', 'status', name)
