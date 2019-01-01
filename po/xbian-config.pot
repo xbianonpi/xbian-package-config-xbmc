@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-07 21:41+0200\n"
+"POT-Creation-Date: 2018-12-01 16:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,7 +57,7 @@ msgid "Setting a new one is strongly recommended"
 msgstr ""
 
 #: xbianconfig/services/xbianworker.py:190
-#: xbianconfig/categories/55_backup.py:759 xbianconfig/default.py:107
+#: xbianconfig/categories/55_backup.py:794 xbianconfig/default.py:107
 msgid "A reboot is required. Do you want to reboot now?"
 msgstr ""
 
@@ -435,10 +435,11 @@ msgstr ""
 #: xbianconfig/categories/30_packages.py:240
 #: xbianconfig/categories/30_packages.py:296
 #: xbianconfig/categories/55_backup.py:702
-#: xbianconfig/categories/55_backup.py:718
-#: xbianconfig/categories/55_backup.py:754
-#: xbianconfig/categories/55_backup.py:766
-#: xbianconfig/categories/55_backup.py:776
+#: xbianconfig/categories/55_backup.py:717
+#: xbianconfig/categories/55_backup.py:747
+#: xbianconfig/categories/55_backup.py:788
+#: xbianconfig/categories/55_backup.py:801
+#: xbianconfig/categories/55_backup.py:810
 #: xbianconfig/categories/20_services.py:215
 #: xbianconfig/categories/40_update.py:166
 #: xbianconfig/categories/40_update.py:205 xbianconfig/default.py:88
@@ -746,36 +747,43 @@ msgid "Mount a snapshot"
 msgstr ""
 
 #: xbianconfig/categories/55_backup.py:701
-#: xbianconfig/categories/55_backup.py:774
+#: xbianconfig/categories/55_backup.py:746
+#: xbianconfig/categories/55_backup.py:809
 msgid "Snapshot"
 msgstr ""
 
 #: xbianconfig/categories/55_backup.py:706
-#: xbianconfig/categories/55_backup.py:779
+#: xbianconfig/categories/55_backup.py:751
+#: xbianconfig/categories/55_backup.py:814
 msgid "Loading volumes..."
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:714
+#: xbianconfig/categories/55_backup.py:713
+#: xbianconfig/categories/55_backup.py:759
 msgid "Btrfs volume"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:753
+#: xbianconfig/categories/55_backup.py:745
+msgid "Umount a snapshot"
+msgstr ""
+
+#: xbianconfig/categories/55_backup.py:787
 msgid "Rollback to a snapshot"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:765
+#: xbianconfig/categories/55_backup.py:800
 msgid "Delete a snapshot"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:773
+#: xbianconfig/categories/55_backup.py:808
 msgid "Create a snapshot"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:792
+#: xbianconfig/categories/55_backup.py:830
 msgid "Snapshot name"
 msgstr ""
 
-#: xbianconfig/categories/55_backup.py:863
+#: xbianconfig/categories/55_backup.py:900
 msgid "Backup"
 msgstr ""
 
@@ -1153,7 +1161,7 @@ msgstr ""
 
 #: xbianconfig/default.py:175 xbianconfig/default.py:183
 #: xbianconfig/resources/lib/xbianDialog.py:28
-#: xbianconfig/resources/lib/xbianWindow.py:65
+#: xbianconfig/resources/lib/xbianWindow.py:67
 msgid "Loading"
 msgstr ""
 
@@ -1184,7 +1192,7 @@ msgstr ""
 msgid "Please wait. Trying to connect to %s"
 msgstr ""
 
-#: xbianconfig/resources/lib/xbianWindow.py:39
+#: xbianconfig/resources/lib/xbianWindow.py:40
 msgid "Click to load..."
 msgstr ""
 
