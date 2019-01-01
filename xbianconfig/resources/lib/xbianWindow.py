@@ -3,6 +3,7 @@ from xbmcguie.window import WindowSkinXml
 import threading
 import xbmc
 
+from resources.lib.xbianconfig import xbianConfig
 from resources.lib.utils import setvisiblecondition, getSetting
 
 import resources.lib.translation
@@ -45,6 +46,7 @@ class XbianWindow(WindowSkinXml):
                     self.publicMethod[category.getTitle()][key] = public[key]
         xbmc.log('XBian-config : End Show(onInit) XbianWindow', xbmc.LOGDEBUG)
         setvisiblecondition('advancedmode', getSetting('advancedmode') == '1')
+        setvisiblecondition('umountsnapshot', xbianConfig('mount', cmd=['sudo', 'btrfs-auto-snapshot']))
 
     def onHeritFocus(self, controlId):
         # handle listitem menu click for dynamic load value

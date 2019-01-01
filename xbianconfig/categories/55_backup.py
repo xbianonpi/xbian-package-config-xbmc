@@ -171,7 +171,7 @@ class systemSettingGui(Setting):
         dialog = xbmcgui.Dialog()
         # get a list of uuid here (maybe with size to prevent error)
         # Need a protection to not erase usb HDD with media?
-        uuid_list = xbianConfig('xbiancopy', 'getpart')
+        uuid_list = xbianConfig('xbiancopy', 'getpart', 'all')
         uuid_list = filter(lambda x: len(x) > 0, uuid_list[0].split(';'))
         rc = dialog.select(_('Select Device'), uuid_list)
         if rc == -1:
@@ -311,7 +311,7 @@ class systemExecGui(Setting):
             # backup is finished
             self.OKTEXT = _('Backup system is finished')
             if self.value[1] == 'File':
-                xbianConfig('xbiancopy', 'doclean', self.value[2], self.keep)[0]
+                xbianConfig('xbiancopy', 'doclean', self.value[2], self.keep)
             self.notifyOnSuccess()
         else:
             if self.rc == '-1':
@@ -340,7 +340,7 @@ class systemExecGui(Setting):
             self.keep = 0
 
         if self.askConfirmation(confirm):
-            xbianConfig('xbiancopy', 'start', '/dev/root', self.value[2])[0]
+            xbianConfig('xbiancopy', 'start', '/dev/root', self.value[2])
             dlg = dialogWaitBackground(
                 _('XBian System Backup'), [_('Please wait while creating backup file')],
                 self.checkcopyFinish,
@@ -576,7 +576,7 @@ class homeExecGui(Setting):
                 "Backup /home is finished. In case of destination folder"
                 "/xbmc-backup, please grab the file over network or save locally.")
             if self.keep > 0:
-                xbianConfig('xbiancopy', 'doclean', self.value[1], self.keep)[0]
+                xbianConfig('xbiancopy', 'doclean', self.value[1], self.keep)
             self.notifyOnSuccess()
         else:
             if self.rc == '-1':
@@ -602,7 +602,7 @@ class homeExecGui(Setting):
         self.APPLYTEXT = _('Write backup to %s?') % ('...' + dest[len(dest)-57:] if len(dest) > 60 else dest, )
         confirm = False
         if self.askConfirmation(confirm):
-            xbianConfig('xbiancopy', 'homestart', dest)[0]
+            xbianConfig('xbiancopy', 'homestart', dest)
             msg = [
                 _('It can take several minutes depending on size of your /home directory'),
                 _('If file is created under /xbian-backup, it is also accessible through smb share'),
@@ -696,18 +696,17 @@ class homeExecGui(Setting):
         return True
 
 
-class snapshotmount(Setting):
+class snapshotMount(Setting):
     CONTROL = ButtonControl(Tag('label', _('Mount a snapshot')), ADVANCED)
     DIALOGHEADER = _('Snapshot')
     PROGRESSTEXT = _('Please wait...')
-    BLAKLISTVOLUME = ['modules']
+    EXCLUDE = 'swap'
 
     def getUserValue(self):
         load = dialogWait(self.DIALOGHEADER, _('Loading volumes...'))
         load.show()
-        volumeList = xbianConfig('listvol', cmd=['sudo', 'btrfs-auto-snapshot'])
+        volumeList = xbianConfig('listvol', '--exclude=%s' % self.EXCLUDE, cmd=['sudo', 'btrfs-auto-snapshot'])
         load.close()
-        volumeList = list(set(volumeList) - set(self.BLAKLISTVOLUME))
         have_to_stop = False
         dialog = xbmcgui.Dialog()
         while not have_to_stop:
@@ -735,52 +734,91 @@ class snapshotmount(Setting):
         return ''
 
     def runCmd(self, volume, snapshot):
-        # TODO check command
-        mountdir = '/tmp/' + snapshot.split('/@')[0] + '@' + snapshot.split('/@')[1]
-        if not os.path.isdir(mountdir):
-            try:
-                os.mkdir(mountdir)
-            except:
-                print 'XBian-Config : Cannot create mount dir : %s' % mountdir
-
-        print xbianConfig('-t', 'btrfs', '-o', 'subvol=%s' % snapshot, '/dev/root', mountdir, cmd=['sudo', '/bin/mount'])
+        xbianConfig('mount', '--helper', snapshot, cmd=['sudo', 'btrfs-auto-snapshot'])
+        setvisiblecondition('umountsnapshot', xbianConfig('mount', cmd=['sudo', 'btrfs-auto-snapshot']))
 
     def getXbianValue(self):
         return ''
 
 
-class snapshotRollback(snapshotmount):
-    CONTROL = ButtonControl(Tag('label', _('Rollback to a snapshot')))
+class snapshotUmount(Setting):
+    CONTROL = ButtonControl(Tag('label', _('Umount a snapshot')), ADVANCED, Tag('visible', visiblecondition('umountsnapshot')))
+    DIALOGHEADER = _('Snapshot')
     PROGRESSTEXT = _('Please wait...')
+    EXCLUDE = 'swap'
+
+    def getUserValue(self):
+        load = dialogWait(self.DIALOGHEADER, _('Loading volumes...'))
+        load.show()
+        mountList = xbianConfig('mount', '--helper', cmd=['sudo', 'btrfs-auto-snapshot'])
+        sep = xbianConfig('fstype', cmd=['sudo', 'btrfs-auto-snapshot'])[1]
+        load.close()
+        have_to_stop = False
+        dialog = xbmcgui.Dialog()
+        while not have_to_stop:
+            volId = dialog.select(_('Btrfs volume'), map(lambda x: x.split(sep)[0], mountList))
+            if volId == -1:
+                have_to_stop = True
+            else:
+                selectedVolume = map(lambda x: x.split(sep)[0], mountList)[volId]
+                mountItems = filter(lambda x: selectedVolume + sep in x, mountList)
+                snapId = dialog.select('Snapshot', map(lambda x: x.split(sep)[1], mountItems))
+                if snapId != -1 and self.askConfirmation():
+                    try:
+                        dlg = dialogWait(self.DIALOGHEADER, self.PROGRESSTEXT)
+                        dlg.show()
+                        self.runCmd(selectedVolume, mountItems[snapId])
+                    except:
+                        print 'error running btrfs-auto-spashot command %s' % (mountItems[snapId])
+                    finally:
+                        have_to_stop = True
+                        dlg.close()
+        return ''
 
     def runCmd(self, volume, snapshot):
-        print xbianConfig('rollback', snapshot, cmd=['sudo', 'btrfs-auto-snapshot'])
+        xbianConfig('umount', '--helper', snapshot, cmd=['sudo', 'btrfs-auto-snapshot'])
+        setvisiblecondition('umountsnapshot', xbianConfig('mount', cmd=['sudo', 'btrfs-auto-snapshot']))
+
+    def getXbianValue(self):
+        return ''
+
+
+class snapshotRollback(snapshotMount):
+    CONTROL = ButtonControl(Tag('label', _('Rollback to a snapshot')))
+    PROGRESSTEXT = _('Please wait...')
+    EXCLUDE = 'modules,swap'
+
+    def runCmd(self, volume, snapshot):
+        xbianConfig('rollback', snapshot, cmd=['sudo', 'btrfs-auto-snapshot'])
         dialog = xbmcgui.Dialog().yesno(
             'Reboot', _('A reboot is required. Do you want to reboot now?'))
         if dialog:
             xbmc.executebuiltin('Reboot')
 
 
-class snapshotDestroy(snapshotmount):
+class snapshotDestroy(snapshotMount):
     CONTROL = ButtonControl(Tag('label', _('Delete a snapshot')), ADVANCED)
     PROGRESSTEXT = _('Please wait...')
 
     def runCmd(self, volume, snapshot):
-        print xbianConfig('destroy', snapshot, cmd=['sudo', 'btrfs-auto-snapshot'])
+        xbianConfig('destroy', snapshot, cmd=['sudo', 'btrfs-auto-snapshot'])
 
 
 class snapshotCreate(Setting):
     CONTROL = ButtonControl(Tag('label', _('Create a snapshot')))
     DIALOGHEADER = _('Snapshot')
-    BLAKLISTVOLUME = ['modules']
     PROGRESSTEXT = _('Please wait...')
+    EXCLUDE = 'swap'
 
     def getUserValue(self):
         load = dialogWait(self.DIALOGHEADER, _('Loading volumes...'))
         load.show()
-        volumeList = xbianConfig('listvol', cmd=['sudo', 'btrfs-auto-snapshot'])
+        volumeList = xbianConfig('listvol', '--exclude=%s' % self.EXCLUDE, cmd=['sudo', 'btrfs-auto-snapshot'])
+        try:
+            self.fstype = xbianConfig('fstype', cmd=['sudo', 'btrfs-auto-snapshot'])[0] + '-'
+        except:
+            self.fstype=''
         load.close()
-        volumeList = list(set(volumeList) - set(self.BLAKLISTVOLUME))
         have_to_stop = False
         dialog = xbmcgui.Dialog()
         while not have_to_stop:
@@ -790,8 +828,8 @@ class snapshotCreate(Setting):
             else:
                 snapshot = getText(
                     _('Snapshot name'),
-                    'btrfs-user-snap-%s' % (
-                        datetime.datetime.now().strftime("%Y-%m-%d-%H%M"), ))
+                    '%suser-snap-%s' % (
+                        self.fstype, datetime.datetime.now().strftime("%Y-%m-%d-%H%M"), ))
                 if snapshot and self.askConfirmation():
                     try:
                         dlg = dialogWait(self.DIALOGHEADER, self.PROGRESSTEXT)
@@ -805,8 +843,7 @@ class snapshotCreate(Setting):
         return ''
 
     def runCmd(self, volume, snapshot):
-        # TODO check command
-        print xbianConfig('snapshot', '--name', snapshot, volume, cmd=['sudo', 'btrfs-auto-snapshot'])
+        xbianConfig('snapshot', '--name', snapshot, volume, cmd=['sudo', 'btrfs-auto-snapshot'])
 
     def getXbianValue(self):
         return ''
@@ -863,4 +900,4 @@ class backup(Category):
     TITLE = _('Backup')
     SETTINGS = [homeBackupLabel, homeSettingGui, homeExecGui,
                 systemBackupLabel, systemSettingGui, systemExecGui,
-                snapshotLabel, dailySnapshotGui, weeklySnapshotGui, monthlySnapshotGui, separator, snapshotmount, snapshotRollback, snapshotDestroy, snapshotCreate]
+                snapshotLabel, dailySnapshotGui, weeklySnapshotGui, monthlySnapshotGui, separator, snapshotMount, snapshotUmount, snapshotRollback, snapshotDestroy, snapshotCreate]
