@@ -3,10 +3,10 @@ import xbmc
 import pyinotify
 from datetime import datetime
 
+print 'XBian-config : services (%s) started' % xbmc.__version__
+
 from services.firstrun import firstrun
 from services.xbianworker import xbianworker
-
-print 'XBian services started (%s)' % xbmc.__version__
 
 __addonID__ = "plugin.xbianconfig"
 
@@ -94,7 +94,7 @@ wm.add_watch(SETTINGPATH, pyinotify.IN_DELETE | pyinotify.IN_CREATE | pyinotify.
 wm.add_watch(RUNPATH, pyinotify.IN_DELETE | pyinotify.IN_CREATE | pyinotify.IN_MODIFY | pyinotify.IN_MOVED_TO)
 wm.add_watch(MASTERPATH, pyinotify.IN_DELETE | pyinotify.IN_CREATE | pyinotify.IN_MODIFY)
 if MASTERPATH != ADDONPATH:
-    print 'XBian : add profile path %s' % ADDONPATH
+    print 'XBian-config : add profile path %s' % ADDONPATH
     wm.add_watch(ADDONPATH, pyinotify.IN_DELETE | pyinotify.IN_CREATE | pyinotify.IN_MODIFY)
 wm.add_watch('/run/splash', pyinotify.IN_DELETE | pyinotify.IN_CREATE | pyinotify.IN_MODIFY)
 wm.watch_transient_file(PERIODICSETTING, pyinotify.IN_MODIFY, eventHandler)
@@ -124,7 +124,6 @@ if datetime.now().year >= 2018 and datetime.now().year < 2038:
     worker.onStatusChanged(BACKUPHOME, HOMESTATUS)
 
 worker.onStart()
-
 notifier.stop()
 
-print 'XBian services finished'
+print 'XBian-config : services finished'

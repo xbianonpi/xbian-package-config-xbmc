@@ -70,7 +70,7 @@ class xbianworker(service):
             self.msgcontent.append([ '', '', '' ])
             self.msgcount -= 1
 
-        print 'XBian : xbianworker service started'
+        print 'XBian-config : xbianworker service started'
 
     def actualizeSettings(self, notify=False):
         rc = xbianConfig('updates', 'enableauto')
@@ -119,7 +119,7 @@ class xbianworker(service):
         return delta
 
     def onAbortRequested(self):
-        print 'XBian : abort requested'
+        print 'XBian-config : abort requested'
 
         self.StopRequested = True
         try:
@@ -128,7 +128,7 @@ class xbianworker(service):
             pass
 
     def doRefresh(self, force=False):
-        print 'XBian : on refresh (%s)' % 'Forced' if force else 'on saver'
+        print 'XBian-config : on refresh (%s)' % 'Forced' if force else 'on saver'
         self.refreshNext = self.eventTime + timedelta(hours=3)
         if not self.forceRefresh and (self.enableauto or self.StopRequested):
             return
@@ -137,13 +137,13 @@ class xbianworker(service):
                                                                  None or getSetting('lastupdatecheck') < (self.eventTime - timedelta(days=self.deltaCheck)))):
 
             setSetting('lastupdatecheck', self.eventTime)
-            print 'XBian : running internal database updates (%s)' % self.forceRefresh
+            print 'XBian-config : running internal database updates (%s)' % self.forceRefresh
 
             # flush package cache if needed and refresh
             pkglist = xbianConfig('packages', 'list', cache=True)
             pkglistnc = xbianConfig('packages', 'list')
             if pkglistnc[0] == '-3' or str(pkglist) != str(pkglistnc):
-                print 'XBian : cleaning package cache'
+                print 'XBian-config : cleaning package cache'
                 pkglist = xbianConfig('packages', 'updatedb', forceclean=True)
                 if pkglist and pkglist[0] == '1':
                     pkglist = xbianConfig('packages', 'list', forcerefresh=True)
@@ -164,27 +164,27 @@ class xbianworker(service):
 
             if rc and rc[0] and len(rc[0]) > 2:
                 self.updatesAvailable = True
-                print 'XBian : new updates available'
+                print 'XBian-config : new updates available'
             else:
                 self.updatesAvailable = False
                 if getSetting('hide.updates') != 1:
                     self.hideUpdatesAvailable = False
-        print 'XBian : on refresh done'
+        print 'XBian-config : on refresh done'
 
 
     def onScreensaverActivated(self):
-        print 'XBian : on saver'
+        print 'XBian-config : on saver'
         self.inScreenSaver = True
         self.eventTime = datetime.now()
         self.doRefresh()
 
     def onScreensaverDeactivated(self):
-        print 'XBian : on saver deactivated'
+        print 'XBian-config : on saver deactivated'
         self.inScreenSaver = False
         self.loop = 30
 
     def showRebootDialog(self):
-        print 'XBian : show reboot dialog'
+        print 'XBian-config : show reboot dialog'
         if xbmcgui.Dialog().yesno(
                 'XBian-config',
                 _('A reboot is required. Do you want to reboot now?')):
@@ -192,7 +192,7 @@ class xbianworker(service):
         self.rebootPending = False
 
     def showHint(self, header, message, hint):
-        print 'XBian : show hint (%s)' % hint
+        print 'XBian-config : show hint (%s)' % hint
         if getSetting('advancedmode') == '1':
             if xbmcgui.Dialog().yesno(
                     header,
@@ -204,7 +204,7 @@ class xbianworker(service):
         return True
 
     def showMessage(self, header, messages):
-        print 'XBian : show message (%s)' % messages
+        print 'XBian-config : show message (%s)' % messages
         xbmcgui.Dialog().ok(header, messages[0], messages[1], messages[2])
         return True
 
@@ -269,7 +269,7 @@ class xbianworker(service):
                 return
 
     def onStatusChanged(self, status, file=None):
-        print 'XBian : on status changed (%s,%s)' % (status,file)
+        print 'XBian-config : on status changed (%s,%s)' % (status,file)
         if status == 'setting':
             self.actualizeSettings(True)
         elif status == 'reboot':
@@ -316,7 +316,7 @@ class xbianworker(service):
                             i += 1
                 self.loop = 10
             except:
-                print 'XBian : error reading message(s) from %s' % (file)
+                print 'XBian-config : error reading message(s) from %s' % (file)
             if fd:
                 fd.close()
             try:
@@ -386,4 +386,5 @@ class xbianworker(service):
                 xbmc.sleep(500)  # Repeat (ms)
                 self.loop = self.loop - 1
 
-        print 'XBian : xbianworker service finished'
+        xbianConfig() # Relese resources
+        print 'XBian-config : xbianworker service finished'
