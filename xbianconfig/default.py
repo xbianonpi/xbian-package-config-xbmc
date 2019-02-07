@@ -23,11 +23,13 @@ __author__ = "Belese (http://www.xbian.org)"
 __url__ = "http://www.xbian.org"
 __credits__ = "XBian"
 __platform__ = "xbmc media center"
-__date__ = "2016-12-04"
-__version__ = "17.0.1"
+__date__ = "2018-02-07"
+__version__ = "18.0.1"
 
 # addon module
 ADDON = Addon(__addonID__)
+
+print 'XBian-config : application (%s) run' % __version__
 
 ADDON_DIR = ADDON.getAddonInfo("path")
 LangXBMC = xbmc.getLocalizedString
@@ -62,7 +64,7 @@ WIZ_FILE = os.path.join('/', 'tmp', '.xbian_wizard')
 class xbianSettingCommon:
 
     def __init__(self):
-        xbmc.log('XBian : XBian-config started')
+        xbmc.log('XBian-config : started')
         from resources.lib.updateworker import Updater
         if xbianConfig('updates', 'progress')[0] != '1':
             setvisiblecondition('aptrunning', False)
@@ -152,7 +154,7 @@ class xbianSettingWindow(xbianSettingCommon):
                 try:
                     self.window.addCategory(catinstance)
                 except:
-                    xbmc.log('XBian : Cannot add category: %s \n%s' %
+                    xbmc.log('XBian-config : Cannot add category: %s \n%s' %
                              (str(module), str(sys.exc_info())))
 
         if not self.stop:
@@ -167,7 +169,7 @@ class xbianSettingWindow(xbianSettingCommon):
             self.wait.close()
             self.wait = None
             self.window.doModal()
-            xbmc.log('XBian : XBian-config-python closed')
+            xbmc.log('XBian-config : XBian-config-python closed')
 
     def update_progress(self, categoryname, settingName, perc):
         perc = self.globalProgress + int(perc / self.total)
@@ -284,3 +286,6 @@ elif mode == 2:
         xbmc.log('Exception in xbianSettingWizard %s' % str(traceback.print_exc()), xbmc.LOGERROR)
 else:
     xbmc.log('XBian-config : Unknown mode : %d' % mode, xbmc.LOGERROR)
+
+xbianConfig() # Release resources
+print 'XBian-config  application stop'
