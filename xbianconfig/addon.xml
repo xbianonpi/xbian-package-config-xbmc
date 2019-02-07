@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="plugin.xbianconfig"
-    name="XBian-Config" version="17.0.1" provider-name="xbian">
+    name="XBian-Config" version="18.0.1" provider-name="xbian">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
@@ -10,8 +10,14 @@
   <extension point="xbmc.service" library="services.py" start="startup"/>
   <extension point="xbmc.addon.metadata">
     <summary lang="en">Easily configure your XBian installation.</summary>
-    <description lang="en">XBian is a free, Open Source media center distribution for the Raspberry Pi, which can be downloaded at http://www.xbian.org. Our slogan is “XBMC on Raspberry Pi, bleeding edge” as our main focus is delivering the fastest mediacenter solution for the Raspberry Pi. We believe that everyone can help make XBian better. Please visit our website for support and if you have suggestions, wishes or contributions, please share them with us!</description>
+    <description lang="en">XBian is a free, Open Source media center distribution for the Raspberry Pi, which can be downloaded at https://www.xbian.org. Our slogan is “XBMC on Raspberry Pi, bleeding edge” as our main focus is delivering the fastest mediacenter solution for the Raspberry Pi. We believe that everyone can help make XBian better. Please visit our website for support and if you have suggestions, wishes or contributions, please share them with us!</description>
     <platform>all</platform>
     <language></language>
+    <news>
+v18.0.1
+- Issue running under Kodi v18 fixed:
+  enable remote control ends in "failed to start" and Kodi freezed completely
+  see http://forum.xbian.org/thread-3962-post-35750.html#pid35750
+    </news>
   </extension>
 </addon>
