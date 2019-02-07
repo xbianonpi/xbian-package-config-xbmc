@@ -4,9 +4,9 @@
 
 if [ "$1" = configure ]; then
 
-    chown -R xbian:xbian /usr/local/share/{xbmc,kodi}/addons/plugin.xbianconfig/
+    chown -R xbian:xbian /usr/local/share/{xbmc,kodi}/addons/plugin.xbianconfig/ 2>/dev/null
 
-    find /usr/local/share/{xbmc,kodi}/addons/plugin.xbianconfig -iname \*.py[co] | xargs -L1 rm -f &>/dev/null
+    find /usr/local/share/{xbmc,kodi}/addons/plugin.xbianconfig -iname \*.py[co] 2>/dev/null | xargs -L1 rm -f
 
     for f in $(cat /tmp/files2check.list 2>/dev/null); do
         grep -q "$(md5sum /usr/local/share/kodi/addons/plugin.xbianconfig/$f)" /tmp/files2check.md5 || { kodi_sendmsg '#001'; break; }
