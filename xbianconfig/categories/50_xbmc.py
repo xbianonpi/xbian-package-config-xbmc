@@ -26,17 +26,24 @@ class xbmcTvOff(MultiSettingControl):
         self.addControl(self.tvOffEnable)
         self.tvOffProperty = MultiSettingControl(
             Tag('visible', 'SubString(Control.GetLabel(%d),*)' % self.tvOffEnable.getId()))
-        self.delay = ButtonControl(
-            Tag('label',
-                '        - %s' % (_('delay (min)'), )))
-        self.delay.onClick = lambda delay: self.delay.setValue(
-            getNumeric(_('delay (min)'), self.delay.getValue(), 0, 60))
-        self.tvOffProperty.addControl(self.delay)
+        self.tvIgnorePlayer = RadioButtonControl(
+            Tag('label', '    - %s' % (_('Ignore status of media player'), )))
+        self.tvOffProperty.addControl(self.tvIgnorePlayer)
+        self.tvStartExit = RadioButtonControl(
+            Tag('label', '    - %s' % (_('Turn TV ON when XBMC starts and OFF when XBMC stops or vice versa'), )))
+        self.tvOffProperty.addControl(self.tvStartExit)
+        self.tvDelay = ButtonControl(
+            Tag('label', '    - %s' % (_('delay (min)'), )))
+        self.tvDelay.onClick = lambda tvDelay: self.tvDelay.setValue(
+            getNumeric(_('delay (min)'), self.tvDelay.getValue(), 0, 60))
+        self.tvOffProperty.addControl(self.tvDelay)
         self.addControl(self.tvOffProperty)
 
     def setValue(self, value):
         self.tvOffEnable.setValue(value[0])
-        self.delay.setValue(value[1])
+        self.tvIgnorePlayer.setValue(value[1])
+        self.tvStartExit.setValue(value[2])
+        self.tvDelay.setValue(value[3])
 
 
 class xbmcTvOffGui(Setting):
@@ -51,10 +58,12 @@ class xbmcTvOffGui(Setting):
     def getXbianValue(self):
         rc = xbianConfig('xbmc', 'tvoff')
         r = rc[0].split(' ')
-        return [int(r[0]), r[1]]
+        rc = xbianConfig('xbmc', 'exitoff')
+        return [int(r[0]), int(r[2]), int(rc[0]), r[1]]
 
     def setXbianValue(self, value):
-        rc = xbianConfig('xbmc', 'tvoff', str(value[0]), str(value[1]))
+        xbianConfig('xbmc', 'exitoff', str(value[2]))
+        rc = xbianConfig('xbmc', 'tvoff', str(value[0]), str(value[3]), str(value[1]))
         if rc and rc[0] == '1':
             return True
         else:
@@ -238,7 +247,7 @@ class SpinDownHdd(MultiSettingControl):
             Tag('visible',
                 'SubString(Control.GetLabel(%d),*)' % (self.spinDownEnable.getId(), )))
         self.delay = ButtonControl(
-            Tag('label', '        - %s' % (_('delay (min)'), )))
+            Tag('label', '    - %s' % (_('delay (min)'), )))
         self.delay.onClick = lambda delay: self.delay.setValue(
             getNumeric(_('delay (min)'), self.delay.getValue(), 0, 20))
         self.spinDownProperty.addControl(self.delay)
@@ -259,11 +268,11 @@ class DynamicPriority(MultiSettingControl):
         self.priorityProperty = MultiSettingControl(
             Tag('visible', 'SubString(Control.GetLabel(%d),*)' % self.priorityEnable.getId()))
         self.lowPriority = ButtonControl(
-            Tag('label', '        - %s' % (_('Lower Nice priority'), )))
+            Tag('label', '    - %s' % (_('Lower Nice priority'), )))
         self.lowPriority.onClick = lambda lowPriority: self.lowPriority.setValue(
             getNumeric(_('Lower Nice priority'), self.lowPriority.getValue(), -19, 20))
         self.highPriority = ButtonControl(
-            Tag('label', '        - %s' % (_('Higher Nice priority'), )))
+            Tag('label', '    - %s' % (_('Higher Nice priority'), )))
         self.highPriority.onClick = lambda highPriority: self.highPriority.setValue(
             getNumeric(_('Higher Nice priority'), self.highPriority.getValue(), -19, 20))
         self.priorityProperty.addControl(self.lowPriority)
