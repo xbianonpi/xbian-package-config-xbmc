@@ -56,11 +56,11 @@ def getNumeric(header, default=None, min=False, max=False):
         cont = False
         if min:
             if int(rc) < min:
-                dialog.ok(header, _('Value must be greater than %d' % (min, )))
+                dialog.ok(header, _('Value must be greater than %d') % (min, ))
                 cont = True
         if max:
             if int(rc) > max:
-                dialog.ok(header, _('Value must be lower than %d' % (max, )))
+                dialog.ok(header, _('Value must be lower than %d') % (max, ))
                 cont = True
     return rc
 
