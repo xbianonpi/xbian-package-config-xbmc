@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: XBian Translation\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-01 16:51+0100\n"
-"PO-Revision-Date: 2018-12-01 15:51+0000\n"
+"POT-Creation-Date: 2019-03-02 18:11+0100\n"
+"PO-Revision-Date: 2019-03-02 17:12+0000\n"
 "Last-Translator: belese <mkreisl@xbian.org>\n"
 "Language-Team: Russian (http://www.transifex.com/teamxbian/xbian-translation/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -58,7 +58,7 @@ msgid "Setting a new one is strongly recommended"
 msgstr "Настоятельно рекомендуется установить новый"
 
 #: xbianconfig/services/xbianworker.py:190
-#: xbianconfig/categories/55_backup.py:794 xbianconfig/default.py:107
+#: xbianconfig/categories/55_backup.py:794 xbianconfig/default.py:109
 msgid "A reboot is required. Do you want to reboot now?"
 msgstr "Требуется перезагрузка. Хотите перезагрузиться сейчас?"
 
@@ -443,8 +443,8 @@ msgstr "Установка"
 #: xbianconfig/categories/55_backup.py:810
 #: xbianconfig/categories/20_services.py:215
 #: xbianconfig/categories/40_update.py:166
-#: xbianconfig/categories/40_update.py:205 xbianconfig/default.py:88
-#: xbianconfig/default.py:130 xbianconfig/default.py:183
+#: xbianconfig/categories/40_update.py:205 xbianconfig/default.py:90
+#: xbianconfig/default.py:132 xbianconfig/default.py:185
 msgid "Please wait..."
 msgstr "Пожалуйста ждите..."
 
@@ -525,64 +525,72 @@ msgstr "Пакеты"
 msgid "Extra"
 msgstr "Дополнительный"
 
-#: xbianconfig/categories/50_xbmc.py:17 xbianconfig/categories/50_xbmc.py:353
+#: xbianconfig/categories/50_xbmc.py:17 xbianconfig/categories/50_xbmc.py:362
 msgid "XBMC"
 msgstr "XBMC"
 
-#: xbianconfig/categories/50_xbmc.py:25 xbianconfig/categories/50_xbmc.py:44
+#: xbianconfig/categories/50_xbmc.py:25 xbianconfig/categories/50_xbmc.py:51
 msgid "Turn CEC capable TV OFF with screensaver"
 msgstr "Выключить телевизор с поддержкой CEC с помощью заставки"
 
-#: xbianconfig/categories/50_xbmc.py:31 xbianconfig/categories/50_xbmc.py:33
-#: xbianconfig/categories/50_xbmc.py:241 xbianconfig/categories/50_xbmc.py:243
+#: xbianconfig/categories/50_xbmc.py:30
+msgid "Ignore status of media player"
+msgstr ""
+
+#: xbianconfig/categories/50_xbmc.py:33
+msgid "Turn TV ON when XBMC starts and OFF when XBMC stops or vice versa"
+msgstr ""
+
+#: xbianconfig/categories/50_xbmc.py:36 xbianconfig/categories/50_xbmc.py:38
+#: xbianconfig/categories/50_xbmc.py:250 xbianconfig/categories/50_xbmc.py:252
 msgid "delay (min)"
 msgstr "задержка (мин)"
 
-#: xbianconfig/categories/50_xbmc.py:66 xbianconfig/categories/50_xbmc.py:67
+#: xbianconfig/categories/50_xbmc.py:75 xbianconfig/categories/50_xbmc.py:76
 msgid "Turn CEC capable TV ON when XBMC exits"
 msgstr "Включить телевизор с поддержкой CEC при выходе из XBMC"
 
-#: xbianconfig/categories/50_xbmc.py:93 xbianconfig/categories/50_xbmc.py:94
+#: xbianconfig/categories/50_xbmc.py:102 xbianconfig/categories/50_xbmc.py:103
 msgid "Turn CEC capable TV OFF on RPI shutdown"
 msgstr "Выключить телевизор с поддержкой CEC при выключении RPI"
 
-#: xbianconfig/categories/50_xbmc.py:119
+#: xbianconfig/categories/50_xbmc.py:128
 msgid "USB HotPlug"
 msgstr "Замена USB в горячем режиме"
 
-#: xbianconfig/categories/50_xbmc.py:124 xbianconfig/categories/50_xbmc.py:125
+#: xbianconfig/categories/50_xbmc.py:133 xbianconfig/categories/50_xbmc.py:134
 msgid "Enable USB disk automounting"
 msgstr "Разрешить автоматическое монтирование USB диска"
 
-#: xbianconfig/categories/50_xbmc.py:151 xbianconfig/categories/50_xbmc.py:152
+#: xbianconfig/categories/50_xbmc.py:160 xbianconfig/categories/50_xbmc.py:161
 msgid "Make automounted disks available via SMB"
 msgstr "Сделать автоматически смонтированные диски доступными через SMB"
 
-#: xbianconfig/categories/50_xbmc.py:178 xbianconfig/categories/50_xbmc.py:179
+#: xbianconfig/categories/50_xbmc.py:187 xbianconfig/categories/50_xbmc.py:188
 msgid "Shares should be world  writable (including anonymous access)"
 msgstr "Общие ресурсы должны быть доступны для записи (включая анонимный доступ)"
 
-#: xbianconfig/categories/50_xbmc.py:205 xbianconfig/categories/50_xbmc.py:206
+#: xbianconfig/categories/50_xbmc.py:214 xbianconfig/categories/50_xbmc.py:215
 msgid "Include partition UUID in mnt folder name"
 msgstr "Включение раздел UUID в имя папки mnt "
 
-#: xbianconfig/categories/50_xbmc.py:235 xbianconfig/categories/50_xbmc.py:303
+#: xbianconfig/categories/50_xbmc.py:244 xbianconfig/categories/50_xbmc.py:312
 msgid "Spin Down HDD"
 msgstr "Снизить скорость вращения жесткого диска"
 
-#: xbianconfig/categories/50_xbmc.py:257 xbianconfig/categories/50_xbmc.py:281
+#: xbianconfig/categories/50_xbmc.py:266 xbianconfig/categories/50_xbmc.py:290
 msgid "XBMC Dynamic Priority"
 msgstr "Динамический приоритет XBMC"
 
-#: xbianconfig/categories/50_xbmc.py:262 xbianconfig/categories/50_xbmc.py:264
+#: xbianconfig/categories/50_xbmc.py:271 xbianconfig/categories/50_xbmc.py:273
 msgid "Lower Nice priority"
 msgstr "Понизить приоритет Nice"
 
-#: xbianconfig/categories/50_xbmc.py:266 xbianconfig/categories/50_xbmc.py:268
+#: xbianconfig/categories/50_xbmc.py:275 xbianconfig/categories/50_xbmc.py:277
 msgid "Higher Nice priority"
 msgstr "Повысить приоритет Nice"
 
-#: xbianconfig/categories/50_xbmc.py:325 xbianconfig/categories/50_xbmc.py:326
+#: xbianconfig/categories/50_xbmc.py:334 xbianconfig/categories/50_xbmc.py:335
 msgid "Mount with sync option"
 msgstr "Монтирование с возможностью синхронизации"
 
@@ -1148,19 +1156,19 @@ msgid ""
 " tab XBian Wizard under System"
 msgstr "Теперь у вас есть полностью настроенный XBian.[CR]Мы надеемся, что это даст Вам великолепные впечатления.[CR][CR]если вы хотите управлять дополнительными параметрами XBian перейдите: System -> XBian.[CR]Если Вы хотите перезапустить этот мастер установки позже: выберите закладку Xbian Wizard в разделе System"
 
-#: xbianconfig/default.py:88
+#: xbianconfig/default.py:90
 msgid "XBian-config is still running"
 msgstr "XBian-config всё ещё работает"
 
-#: xbianconfig/default.py:130
+#: xbianconfig/default.py:132
 msgid "XBian Config"
 msgstr "Конфигурация XBian"
 
-#: xbianconfig/default.py:146
+#: xbianconfig/default.py:148
 msgid "Initialisation..."
 msgstr "Инициализация..."
 
-#: xbianconfig/default.py:175 xbianconfig/default.py:183
+#: xbianconfig/default.py:177 xbianconfig/default.py:185
 #: xbianconfig/resources/lib/xbianDialog.py:28
 #: xbianconfig/resources/lib/xbianWindow.py:67
 msgid "Loading"
