@@ -79,10 +79,6 @@ class xbmcTvOn(Setting):
         return str(self.getControlValue())
 
     def setControlValue(self, value):
-        if value == '1':
-            value = True
-        else:
-            value = False
         self.control.setValue(value)
 
     def getXbianValue(self):
@@ -106,10 +102,6 @@ class xbmcTvHaltOff(Setting):
         return str(self.getControlValue())
 
     def setControlValue(self, value):
-        if value == '1':
-            value = True
-        else:
-            value = False
         self.control.setValue(value)
 
     def getXbianValue(self):
@@ -137,10 +129,6 @@ class xbmcUSBmount(Setting):
         return str(self.getControlValue())
 
     def setControlValue(self, value):
-        if value == '1':
-            value = True
-        else:
-            value = False
         self.control.setValue(value)
 
     def getXbianValue(self):
@@ -164,10 +152,6 @@ class xbmcUSBsmb(Setting):
         return str(self.getControlValue())
 
     def setControlValue(self, value):
-        if value == '1':
-            value = True
-        else:
-            value = False
         self.control.setValue(value)
 
     def getXbianValue(self):
@@ -191,10 +175,6 @@ class xbmcUSBsmbrw(Setting):
         return str(self.getControlValue())
 
     def setControlValue(self, value):
-        if value == '1':
-            value = True
-        else:
-            value = False
         self.control.setValue(value)
 
     def getXbianValue(self):
@@ -218,10 +198,6 @@ class xbmcUSBuuidname(Setting):
         return str(self.getControlValue())
 
     def setControlValue(self, value):
-        if value == '1':
-            value = True
-        else:
-            value = False
         self.control.setValue(value)
 
     def getXbianValue(self):
@@ -338,10 +314,6 @@ class xbmcUSBsync(Setting):
         return str(self.getControlValue())
 
     def setControlValue(self, value):
-        if value == '1':
-            value = True
-        else:
-            value = False
         self.control.setValue(value)
 
     def getXbianValue(self):

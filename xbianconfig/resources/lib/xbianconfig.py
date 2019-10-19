@@ -15,7 +15,7 @@ import threading
 
 
 def sh_escape(s):
-    return s.replace("(", "\\(").replace(")", "\\)").replace(" ", "\\ ")
+    return s.replace("(", "\\(").replace(")", "\\)").replace(" ", "\\ ").replace("True", "1").replace("False", "0")
 
 
 class bashWorker(threading.Thread):
@@ -109,7 +109,7 @@ def xbianConfig(*args, **kwargs):
     cacheDB = shelve.open(os.path.join(CACHEDIR, CACHEFILE), 'c', writeback=True)
 
     for arg in args:
-        cmd.append(sh_escape(arg))
+        cmd.append(sh_escape(str(arg)))
 
     if cache or force_refresh:
         key = hashlib.md5(json.dumps(cmd, sort_keys=True)).hexdigest()

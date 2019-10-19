@@ -784,10 +784,6 @@ class sshroot(Setting):
         return str(self.getControlValue())
 
     def setControlValue(self, value):
-        if value == '1':
-            value = True
-        else:
-            value = False
         self.control.setValue(value)
 
     def getXbianValue(self):
@@ -795,7 +791,7 @@ class sshroot(Setting):
         return rc[0]
 
     def setXbianValue(self, value):
-        if value == '1':
+        if value == True or value == '1':
             cmd = 'enable'
         else:
             cmd = 'disable'

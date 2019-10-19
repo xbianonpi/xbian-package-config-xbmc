@@ -265,10 +265,6 @@ class updateAuto(Setting):
         return str(self.getControlValue())
 
     def setControlValue(self, value):
-        if value == '1':
-            value = True
-        else:
-            value = False
         self.control.setValue(value)
 
     def getXbianValue(self):
@@ -291,10 +287,6 @@ class snapAPT(Setting):
         return str(self.getControlValue())
 
     def setControlValue(self, value):
-        if value == '1':
-            value = True
-        else:
-            value = False
         self.control.setValue(value)
 
     def getXbianValue(self):
@@ -371,10 +363,6 @@ class enableStaging(Setting):
         return str(self.getControlValue())
 
     def setControlValue(self, value):
-        if value == '1':
-            value = True
-        else:
-            value = False
         self.control.setValue(value)
 
     def getXbianValue(self):

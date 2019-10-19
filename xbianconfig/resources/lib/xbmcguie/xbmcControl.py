@@ -152,6 +152,10 @@ class RadioButtonControl(ControlXml):
 
     def setValue(self, value):
         if hasattr(self, 'Controlinstance'):
+            if value == 'True' or value == '1':
+                value = True
+            elif value == 'False' or value == '0':
+                value = False
             self.Controlinstance.setSelected(value)
 
 

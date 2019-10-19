@@ -23,9 +23,18 @@ ADDON_DATA = xbmc.translatePath("special://profile/addon_data/%s/" % __addonID__
 
 
 def setSetting(key, value):
+    if value == True or value == 'True':
+        value = '1'
+        bValue = True
+    elif value == False or value == 'False':
+        value = '0'
+        bValue = False
+    else:
+        bValue = value
     settingFile = open(os.path.join(ADDON_DATA, str(key)), 'w')
     pickle.dump(value, settingFile)
     settingFile.close()
+    return bValue
 
 
 def getSetting(key):
@@ -335,7 +344,6 @@ def wifiConnect(interface):
 
 def visiblecondition(key):
     return 'StringCompare(Window.Property(%s),1)' % key
-
 
 def setvisiblecondition(key, value, id=False):
     if id:

@@ -27,10 +27,6 @@ class advancedMode(Setting):
         return str(self.getControlValue())
 
     def setControlValue(self, value):
-        if value == '1':
-            value = True
-        else:
-            value = False
         self.control.setValue(value)
 
     def getXbianValue(self):
@@ -42,9 +38,8 @@ class advancedMode(Setting):
         return rc
 
     def setXbianValue(self, value):
-        self.setSetting(self.key, str(value))
         # xbmc.executebuiltin('Skin.ToggleSetting(%s)'%self.key)
-        setvisiblecondition(self.key, value == '1')
+        setvisiblecondition(self.key, self.setSetting(self.key, value))
         return True
 
 

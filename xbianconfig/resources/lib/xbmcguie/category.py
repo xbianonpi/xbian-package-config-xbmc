@@ -118,7 +118,7 @@ class Setting():
         self.globalMethod = methods
 
     def setSetting(self, id, value):
-        setSetting(id, value)
+        return setSetting(id, value)
 
     def getSetting(self, id):
         return getSetting(id)
