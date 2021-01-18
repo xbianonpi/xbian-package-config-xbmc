@@ -1,3 +1,11 @@
+from __future__ import print_function
+from builtins import map
+
+try:
+    import itertools.ifilter as filter
+except ImportError:
+    pass
+
 import datetime
 import os
 import threading
@@ -123,7 +131,7 @@ class systemSettingControl(MultiSettingControl):
         pass
 
     def setValue(self, value):
-        print 'systemSettingControl setValue', value
+        print('systemSettingControl setValue', value)
         # by default, display system auto backup
         #
         # value = [
@@ -172,7 +180,8 @@ class systemSettingGui(Setting):
         # get a list of uuid here (maybe with size to prevent error)
         # Need a protection to not erase usb HDD with media?
         uuid_list = xbianConfig('xbiancopy', 'getpart', 'all')
-        uuid_list = filter(lambda x: len(x) > 0, uuid_list[0].split(';'))
+        #uuid_list = [x for x in uuid_list[0].split(';') if len(x) > 0]
+        uuid_list = list(filter(lambda x: len(x) > 0, uuid_list[0].split(';')))
         rc = dialog.select(_('Select Device'), uuid_list)
         if rc == -1:
             return self.xbianValue[2]  # defaut device value in case of cancel
@@ -259,7 +268,7 @@ class systemExecControl(MultiSettingControl):
         pass
 
     def setValue(self, value):
-        print 'systemExecControl setValue', value
+        print('systemExecControl setValue', value)
         # by default, display system auto backup
         #
         # value = [
@@ -357,7 +366,8 @@ class systemExecGui(Setting):
         # get a list of uuid here (maybe with size to prevent error)
         # Need a protection to not erase usb HDD with media?
         uuid_list = xbianConfig('xbiancopy', 'getpart')
-        uuid_list = filter(lambda x: len(x) > 0, uuid_list[0].split(';'))
+        #uuid_list = [x for x in uuid_list[0].split(';') if len(x) > 0]
+        uuid_list = list(filter(lambda x: len(x) > 0, uuid_list[0].split(';')))
         rc = dialog.select(_('Select Device'), uuid_list)
         if rc == -1:
             return self.xbianValue[2]  # defaut device value in case of cancel
@@ -399,7 +409,7 @@ class systemExecGui(Setting):
         return [actif, imgtype, dest, delta, num]
 
     def setXbianValue(self, value):
-        print 'In systemExecGui setXbianValue was called, please FIXME'
+        print('In systemExecGui setXbianValue was called, please FIXME')
         return True
 
 
@@ -432,7 +442,7 @@ class homeSettingControl(MultiSettingControl):
         self.addControl(self.homeKeep)
 
     def setValue(self, value):
-        print 'homeSettingControl setValue', value
+        print('homeSettingControl setValue', value)
         # by default, display home auto backup
         #
         # value = [
@@ -532,7 +542,7 @@ class homeExecControl(MultiSettingControl):
         pass
 
     def setValue(self, value):
-        print 'homeExecControl setValue', value
+        print('homeExecControl setValue', value)
         # by default, display home auto backup
         #
         # value = [
@@ -692,7 +702,7 @@ class homeExecGui(Setting):
         return [actif, dest, delta, num]
 
     def setXbianValue(self, value):
-        print 'In homeExecGui setXbianValue was called, please FIXME'
+        print('In homeExecGui setXbianValue was called, please FIXME')
         return True
 
 
@@ -718,16 +728,18 @@ class snapshotMount(Setting):
                 load.show()
                 snapshotList = xbianConfig(
                     'list', volumeList[volId], cmd=['sudo', 'btrfs-auto-snapshot'])
-                snapshotList = filter(lambda x: x.split('@')[1], snapshotList)
+                #snapshotList = [x for x in snapshotList if x.split('@')[1]]
+                snapshotList = list(filter(lambda x: x.split('@')[1], snapshotList))
                 load.close()
-                snapId = dialog.select('Snapshot', map(lambda x: x.split('@')[1], snapshotList))
+                #snapId = dialog.select('Snapshot', [x.split('@')[1] for x in snapshotList])
+                snapId = dialog.select('Snapshot', list(map(lambda x: x.split('@')[1], snapshotList)))
                 if snapId != -1 and self.askConfirmation():
                     try:
                         dlg = dialogWait(self.DIALOGHEADER, self.PROGRESSTEXT)
                         dlg.show()
                         self.runCmd(volumeList[volId], snapshotList[snapId])
                     except:
-                        print 'error running btrfs-auto-spashot command %s %s' % (volumeList[volId], snapshotList[snapId])
+                        print('error running btrfs-auto-spashot command %s %s' % (volumeList[volId], snapshotList[snapId]))
                     finally:
                         have_to_stop = True
                         dlg.close()
@@ -756,20 +768,24 @@ class snapshotUmount(Setting):
         have_to_stop = False
         dialog = xbmcgui.Dialog()
         while not have_to_stop:
-            volId = dialog.select(_('Btrfs volume'), map(lambda x: x.split(sep)[0], mountList))
+            #volId = dialog.select(_('Btrfs volume'), [x.split(sep)[0] for x in mountList])
+            volId = dialog.select(_('Btrfs volume'), list(map(lambda x: x.split(sep)[0], mountList)))
             if volId == -1:
                 have_to_stop = True
             else:
-                selectedVolume = map(lambda x: x.split(sep)[0], mountList)[volId]
-                mountItems = filter(lambda x: selectedVolume + sep in x, mountList)
-                snapId = dialog.select('Snapshot', map(lambda x: x.split(sep)[1], mountItems))
+                #selectedVolume = [x.split(sep)[0] for x in mountList][volId]
+                #mountItems = [x for x in mountList if selectedVolume + sep in x]
+                #snapId = dialog.select('Snapshot', [x.split(sep)[1] for x in mountItems])
+                selectedVolume = list(map(lambda x: x.split(sep)[0], mountList))[volId]
+                mountItems = list(filter(lambda x: selectedVolume + sep in x, mountList))
+                snapId = dialog.select('Snapshot', list(map(lambda x: x.split(sep)[1], mountItems)))
                 if snapId != -1 and self.askConfirmation():
                     try:
                         dlg = dialogWait(self.DIALOGHEADER, self.PROGRESSTEXT)
                         dlg.show()
                         self.runCmd(selectedVolume, mountItems[snapId])
                     except:
-                        print 'error running btrfs-auto-spashot command %s' % (mountItems[snapId])
+                        print('error running btrfs-auto-spashot command %s' % (mountItems[snapId]))
                     finally:
                         have_to_stop = True
                         dlg.close()
@@ -836,7 +852,7 @@ class snapshotCreate(Setting):
                         dlg.show()
                         self.runCmd(volumeList[volId], snapshot)
                     except:
-                        print 'error running btrfs-auto-spashot command %s %s' % (volumeList[volId], snapshot)
+                        print('error running btrfs-auto-spashot command %s %s' % (volumeList[volId], snapshot))
                     finally:
                         have_to_stop = True
                         dlg.close()
@@ -866,10 +882,10 @@ class dailySnapshotGui(Setting):
             rc = rc[0].split(' ')
         if rc[0] == '0':
             rc.append(10)
-        return map(int, rc)
+        return list(map(int, rc))
 
     def setXbianValue(self, value):
-        if value[0] == 1:
+        if value[0] == 1 or value[0] == 'True' or value[0] == True:
             value = value[1]
         else:
             value = 0

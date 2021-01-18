@@ -1,9 +1,11 @@
+from __future__ import print_function
+
 import os
 import xbmc
 import pyinotify
 from datetime import datetime
 
-print 'XBian-config : services (%s) started' % xbmc.__version__
+print('XBian-config : services (%s) started' % xbmc.__version__)
 
 from services.firstrun import firstrun
 from services.xbianworker import xbianworker
@@ -47,21 +49,21 @@ worker = xbianworker()
 class eventHandler(pyinotify.ProcessEvent):
 
     def process_IN_CREATE(self, event):
-        print event
+        print(event)
         if event.name == REBOOTREQUIRED:
             worker.onStatusChanged('reboot')
         elif event.name == FORCEREFRESH:
             worker.onStatusChanged('refresh')
 
     def process_IN_DELETE(self, event):
-        print event
+        print(event)
         if event.name == REBOOTREQUIRED:
             worker.onStatusChanged('noreboot')
         elif 'hide.' in event.name:
             worker.onStatusChanged(event.name)
 
     def process_IN_MODIFY(self, event):
-        print event
+        print(event)
         if event.pathname == PERIODICSETTING or event.name == 'xbian-snap' or event.name == 'notifywhenbusy':
             worker.onStatusChanged('setting')
         elif event.name == MSG4KODI:
@@ -80,7 +82,7 @@ class eventHandler(pyinotify.ProcessEvent):
             worker.onStatusChanged('refresh')
 
     def process_IN_MOVED_TO(self, event):
-        print event
+        print(event)
         if event.pathname == PERIODICSETTING or event.name == 'xbian-snap':
             worker.onStatusChanged('setting')
         elif event.name == MSG4KODI:
@@ -94,7 +96,7 @@ wm.add_watch(SETTINGPATH, pyinotify.IN_DELETE | pyinotify.IN_CREATE | pyinotify.
 wm.add_watch(RUNPATH, pyinotify.IN_DELETE | pyinotify.IN_CREATE | pyinotify.IN_MODIFY | pyinotify.IN_MOVED_TO)
 wm.add_watch(MASTERPATH, pyinotify.IN_DELETE | pyinotify.IN_CREATE | pyinotify.IN_MODIFY)
 if MASTERPATH != ADDONPATH:
-    print 'XBian-config : add profile path %s' % ADDONPATH
+    print('XBian-config : add profile path %s' % ADDONPATH)
     wm.add_watch(ADDONPATH, pyinotify.IN_DELETE | pyinotify.IN_CREATE | pyinotify.IN_MODIFY)
 wm.add_watch('/run/splash', pyinotify.IN_DELETE | pyinotify.IN_CREATE | pyinotify.IN_MODIFY)
 wm.watch_transient_file(PERIODICSETTING, pyinotify.IN_MODIFY, eventHandler)
@@ -126,4 +128,4 @@ if datetime.now().year >= 2018 and datetime.now().year < 2038:
 worker.onStart()
 notifier.stop()
 
-print 'XBian-config : services finished'
+print('XBian-config : services finished')

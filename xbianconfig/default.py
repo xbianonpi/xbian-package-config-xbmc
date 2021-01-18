@@ -1,10 +1,13 @@
-# -*- coding: cp1252 -*-
+from __future__ import print_function
 
 import os
 import sys
-import Queue
+import queue
 import traceback
-import urllib
+if sys.version_info.major > 2:
+    import urllib.request, urllib.parse, urllib.error
+else:
+    import urllib
 
 import xbmc
 import xbmcgui
@@ -29,7 +32,7 @@ __version__ = "18.0.1"
 # addon module
 ADDON = Addon(__addonID__)
 
-print 'XBian-config : application (%s) run' % __version__
+print('XBian-config : application (%s) run' % __version__)
 
 ADDON_DIR = ADDON.getAddonInfo("path")
 LangXBMC = xbmc.getLocalizedString
@@ -71,7 +74,7 @@ class xbianSettingCommon:
         else:
             setvisiblecondition('aptrunning', True)
         self.checkReboot = False
-        self.CmdQueue = Queue.Queue()
+        self.CmdQueue = queue.Queue()
         self.updateThread = Updater(self.CmdQueue)
         self.updateThread.start()
         self.onInit()
@@ -173,9 +176,9 @@ class xbianSettingWindow(xbianSettingCommon):
 
     def update_progress(self, categoryname, settingName, perc):
         perc = self.globalProgress + int(perc / self.total)
-        self.wait.update(perc,
-                         '%s %s...' % (_('Loading'), categoryname),
-                         '   %s' % (settingName, ))
+        self.wait.update(perc, '%s %s...' % (_('Loading'), categoryname))
+        #self.wait.update(perc, '%s %s...\n%s' % (_('Loading'), categoryname, settingName))#, %s' % (settingName, ))
+        xbmc.sleep(50)
 
 
 class xbianSettingDialog(xbianSettingCommon):
@@ -264,10 +267,12 @@ elif mode == 1:
     # plugin.xbianconfig?mode=1&title=foo&settings=categories.system.network,categories.vc1license,...
     # (url_quoted text)
     try:
-        print params
+        print(params)
         win = xbianSettingDialog()
-        win.createDialog(
-            urllib.unquote_plus(params["title"]), urllib.unquote_plus(params["settings"]).split(','))
+        if sys.version_info.major > 2:
+            win.createDialog(urllib.parse.unquote_plus(params["title"]), urllib.parse.unquote_plus(params["settings"]).split(','))
+        else:
+            win.createDialog(urllib.unquote_plus(params["title"]), urllib.unquote_plus(params["settings"]).split(','))
         win.show()
     except:
         win.clean()
@@ -288,4 +293,4 @@ else:
     xbmc.log('XBian-config : Unknown mode : %d' % mode, xbmc.LOGERROR)
 
 xbianConfig() # Release resources
-print 'XBian-config  application stop'
+print('XBian-config : application stop')

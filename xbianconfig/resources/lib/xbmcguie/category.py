@@ -1,5 +1,5 @@
-from tag import Tag
-from xbmcContainer import GroupListControl, Content
+from resources.lib.xbmcguie.tag import Tag
+from resources.lib.xbmcguie.xbmcContainer import GroupListControl, Content
 from resources.lib.utils import *
 
 import xbmc

@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 # Dummy file to make this directory a package.
 import os
 __all__ = []
@@ -6,5 +8,5 @@ for module in os.listdir(os.path.dirname(__file__)):
         continue
     __all__.append(module[:-3])
 __all__.sort()
-print '__all__ %s' % str(__all__)
+print('__all__ %s' % str(__all__))
 del module

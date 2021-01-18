@@ -1,5 +1,12 @@
+from __future__ import print_function
+
+try:
+    import itertools.ifilter as filter
+except ImportError:
+    pass
+
 import traceback
-from xbmcguie.window import WindowSkinXml
+from resources.lib.xbmcguie.window import WindowSkinXml
 import threading
 import xbmc
 
@@ -28,10 +35,10 @@ class XbianWindow(WindowSkinXml):
         self.loadingCat = {}
 
     def onInit(self):
-        print 'on inint, before xbmc onInit'
+        print('on inint, before xbmc onInit')
         xbmc.log('XBian-config : Show(onInit) XbianWindow', xbmc.LOGDEBUG)
         WindowSkinXml.onInit(self)
-        print 'on inint, after xbmc onInit'
+        print('on inint, after xbmc onInit')
         # first, get all public method
         for category in self.categories:
             title = category.getTitle()
@@ -58,7 +65,8 @@ class XbianWindow(WindowSkinXml):
     def onHeritAction(self, action):
         if self.menuhasfocus and action in selectAction:
             selectCat = xbmc.getInfoLabel('Container(9000).ListItem(0).Label')
-            category = filter(lambda x: x.getTitle() == selectCat, self.categories)[0]
+            #category = [x for x in self.categories if x.getTitle() == selectCat][0]
+            category = list(filter(lambda x: x.getTitle() == selectCat, self.categories))[0]
             if not self.loadingCat[selectCat]:
                 xbmc.log('XBian-config : Loading value for  %s' %
                          category.getTitle(), xbmc.LOGDEBUG)

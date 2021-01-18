@@ -1,9 +1,9 @@
 import os
 import xbmc
 
-from virtualControl import ControlXml
-from tag import Tag
-from xbmcContainer import *
+from resources.lib.xbmcguie.virtualControl import ControlXml
+from resources.lib.xbmcguie.tag import Tag
+from resources.lib.xbmcguie.xbmcContainer import *
 
 SKIN_DIR = xbmc.getSkinDir()
 WIZ_FILE = os.path.join('/', 'tmp', '.xbian_wizard')

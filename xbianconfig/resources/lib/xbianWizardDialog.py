@@ -1,6 +1,10 @@
+import sys
 import xbmcgui
 import wizard
-import urllib
+if sys.version_info.major > 2:
+    import urllib.request, urllib.parse, urllib.error
+else:
+    import urllib
 
 
 class wizardDialog(xbmcgui.WindowXMLDialog):
@@ -18,9 +22,11 @@ class wizardDialog(xbmcgui.WindowXMLDialog):
         item.setProperty('title', title)
         item.setLabel2(description)
         path = 'None'
-        print action
+        print(action)
         if action is not None:
-            path = 'mode=1&title=%s&settings=%s' % (
-                urllib.quote_plus(smallTitle), urllib.quote_plus(",".join(action)))
+            if sys.version_info.major > 2:
+                path = 'mode=1&title=%s&settings=%s' % (urllib.parse.quote_plus(smallTitle), urllib.parse.quote_plus(",".join(action)))
+            else:
+                path = 'mode=1&title=%s&settings=%s' % (urllib.quote_plus(smallTitle), urllib.quote_plus(",".join(action)))
         item.setProperty('path', path)
         self.mainCtrl.addItem(item)

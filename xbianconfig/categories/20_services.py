@@ -1,3 +1,11 @@
+from __future__ import print_function
+from builtins import map, range
+
+try:
+    import itertools.ifilter as filter
+except ImportError:
+    pass
+
 import re
 import uuid
 
@@ -64,7 +72,7 @@ class ServicesControl(MultiSettingControl):
         self.flagRemove = False
         self.onService = None
         self.onCustom = None
-        for i in xrange(MAXGUISERVICE):
+        for i in range(MAXGUISERVICE):
             self.services.append(Service(self._onService))
             self.addControl(self.services[-1].getControl())
         self.addControl(CategoryLabelControl(Tag('label', _('Edit')), ADVANCED))
@@ -97,6 +105,7 @@ class ServicesControl(MultiSettingControl):
 
     def removeService(self, service):
         xbmc.log('XBian-config : Remove service %s' % service, xbmc.LOGDEBUG)
+        #[x for x in self.services[:self.initialiseIndex] if x.getName() == service][0].disable()
         filter(lambda x: x.getName() == service, self.services[:self.initialiseIndex])[0].disable()
         self.flagRemove = True
 
@@ -165,7 +174,7 @@ class servicesManager(Setting):
                 self.refresh()
                 rc = ['1']
             else:
-                print action, select
+                print(action, select)
                 rc = xbianConfig(*action[select])
             if not rc or rc[0] == '0':
                 self.ERRORTEXT = _('Can not %s %s') % (choice[select], service)
@@ -293,6 +302,7 @@ class serviceSambaType(Setting):
 
     def getXbianValue(self):
         with open(self.cfgfile,'r') as f:
+            #value = [x for x in f.readlines() if re.match('%s=.*'%self.setting,x)]
             value = filter(lambda x: re.match('%s=.*'%self.setting,x),f.readlines())
         if value:
             self.exist = True
@@ -311,7 +321,7 @@ class serviceSambaType(Setting):
                 else:
                     return x
             with open(self.cfgfile, "r") as f:
-                data = map(replace,open(self.cfgfile,'r').readlines())
+                data = list(map(replace,open(self.cfgfile,'r').readlines()))
             with open(self.cfgfile, "w") as f:
                 f.writelines(data)
 

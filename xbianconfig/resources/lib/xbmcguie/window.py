@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import os
 
 import xbmcgui
@@ -36,7 +38,7 @@ class WindowSkinXml(xbmcgui.WindowXML):
     def onInit(self):
         # set the windows instance in all xbmc control
         for control in self.controls:
-            print control
+            print(control)
             control.setWindowInstance(self)
 
     def doXml(self, template):
@@ -62,7 +64,7 @@ class WindowSkinXml(xbmcgui.WindowXML):
         self.onHeritAction(Action)
 
     def onHeritAction(self, Action):
-        print 'super onheritaction%s' % str(Action)
+        print('super onheritaction%s' % str(Action))
         # could be herit on real window
         pass
 

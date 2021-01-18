@@ -1,8 +1,16 @@
+from __future__ import print_function
+
+try:
+    import itertools.ifilter as filter
+except ImportError:
+    pass
+
 import subprocess
 import shelve
 import hashlib
 import json
 import os
+import sys
 import xbmc
 
 
@@ -27,7 +35,7 @@ class bashWorker(threading.Thread):
         self.timer = self.runtime
         self.bashRunning = False
         ###self.processlock = threading.Lock()
-        print 'XBian-config : bashWorker started'
+        print('XBian-config : bashWorker started')
 
     def kill(self):
         if self.bashRunning:
@@ -43,11 +51,11 @@ class bashWorker(threading.Thread):
                 xbmc.sleep(2500)
                 self.timer = self.timer - 1
                 if self.bashRunning:
-                    print 'XBian-config : bashWorker tick %s' % self.timer
+                    print('XBian-config : bashWorker tick %s' % self.timer)
             self.kill()
             self.timer = 34560
-            print 'XBian-config : bashWorker idle'
-        print 'XBian-config : bashWorker terminate'
+            print('XBian-config : bashWorker idle')
+        print('XBian-config : bashWorker terminate')
         self.kill()
 
     def stop(self):
@@ -55,7 +63,7 @@ class bashWorker(threading.Thread):
         self._stopevent.set()
 
     def execute(self, command):
-        print 'XBian-config : write %s' % command
+        print('XBian-config : write %s' % command)
         self.timer = 240
         if not self.bashRunning:
             self.process = subprocess.Popen(['/bin/bash'], shell=False, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
@@ -64,14 +72,14 @@ class bashWorker(threading.Thread):
         ###self.processlock.acquire()
         self.process.stdin.write(command)
 
-        print 'XBian-config : read start'
+        print('XBian-config : read start')
         rcs = []
         while True:
             line = self.process.stdout.readline()[:-1]
             #print 'XBian-config : read %s.' % line
             if line == 'EndCall' or line == '':
                 if line == '':
-                    print 'XBian-config : bashWorker: empty line received'
+                    print('XBian-config : bashWorker: empty line received')
                 ###self.processlock.release()
                 self.kill()
                 #print 'XBian-config : set timer %s' % self.runtime
@@ -95,7 +103,11 @@ def xbianConfig(*args, **kwargs):
     force_clean = kwargs.get('forceclean', False)
 
     CACHEDIR = '/home/xbian/.kodi/userdata/addon_data/plugin.xbianconfig'
-    CACHEFILE = 'cache.db'
+    if sys.version_info.major > 2:
+        CACHEFILE = 'cache'
+    else:
+        CACHEFILE = 'cache.db'
+
 
     if not os.path.isdir(CACHEDIR):
         try:
@@ -106,13 +118,18 @@ def xbianConfig(*args, **kwargs):
     if force_clean:
         os.remove(os.path.join(CACHEDIR, CACHEFILE))
 
-    cacheDB = shelve.open(os.path.join(CACHEDIR, CACHEFILE), 'c', writeback=True)
+    try:
+        cacheDB = shelve.open(os.path.join(CACHEDIR, CACHEFILE), 'c', writeback=True)
+    except:
+        os.remove(os.path.join(CACHEDIR, CACHEFILE))
+        xbmc.log('XBian-config : xbian-config : error opening %s, removing' % (CACHEFILE, ), xbmc.LOGDEBUG)
+        cacheDB = shelve.open(os.path.join(CACHEDIR, CACHEFILE), 'c', writeback=True)
 
     for arg in args:
         cmd.append(sh_escape(str(arg)))
 
     if cache or force_refresh:
-        key = hashlib.md5(json.dumps(cmd, sort_keys=True)).hexdigest()
+        key = hashlib.md5(json.dumps(cmd, sort_keys=True).encode('UTF-8')).hexdigest()
         if key in cacheDB and not force_refresh:
             xbmc.log('XBian-config : xbian-config %s : return cached value : %s' %
                      (' '.join(cmd[2:]), str(cacheDB[key])), xbmc.LOGDEBUG)
@@ -124,16 +141,22 @@ def xbianConfig(*args, **kwargs):
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE)
         rcs = []
         while True:
-            line = process.stdout.readline()[:-1]
+            if sys.version_info.major > 2:
+                line = process.stdout.readline().decode('UTF-8')[:-1]
+            else:
+                line = process.stdout.readline()[:-1]
             if line == '':
                 break
             rcs.append(line)
         process.wait()
 
-    result = filter(lambda x: len(x) > 0, rcs)
+    #result = [x for x in rcs if len(x) > 0]
+    result = list(filter(lambda x: len(x) > 0, rcs))
     if cache or force_refresh:
         cacheDB[key] = result
         cacheDB.sync()
+        xbmc.log('XBian-config : xbian-config %s : save cached value : %s' %
+                 (' '.join(cmd[2:]), str(cacheDB[key])), xbmc.LOGDEBUG)
     xbmc.log('XBian-config : xbian-config %s : %s' % (' '.join(cmd[2:]), str(result)), xbmc.LOGDEBUG)
     if not bashThread:
         process.wait()

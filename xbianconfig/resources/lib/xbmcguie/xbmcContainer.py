@@ -1,5 +1,5 @@
-from virtualControl import xbmcxml, ContainerXml
-from tag import Tag
+from resources.lib.xbmcguie.virtualControl import xbmcxml, ContainerXml
+from resources.lib.xbmcguie.tag import Tag
 
 
 class Content(xbmcxml):

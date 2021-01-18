@@ -1,3 +1,11 @@
+from __future__ import print_function
+from builtins import map, range
+
+try:
+    import itertools.ifilter as filter
+except ImportError:
+    pass
+
 import uuid
 import time
 
@@ -45,7 +53,7 @@ class PackageCategory:
 
     def hasInstalledPackage(self):
         xbmc.log('XBian-config : %s hasInstalledPackage ' % (self.name), xbmc.LOGDEBUG)
-        print self.preinstalled
+        print(self.preinstalled)
         return self.preinstalled > 0
 
     def getName(self):
@@ -87,6 +95,7 @@ class PackageCategory:
     def removePackage(self, package):
         xbmc.log('XBian-config : Remove package %s from category %s' %
                  (package, self.name), xbmc.LOGDEBUG)
+        #[x for x in self.packageList[:self.initialiseIndex] if x.getName() == package][
         filter(lambda x: x.getName() == package, self.packageList[:self.initialiseIndex])[
             0].disable()
         self.flagRemove = True
@@ -111,13 +120,13 @@ class PackageCategory:
     def clean(self):
         # clean xbmc skin var
         setvisiblecondition(self.visiblegetmorekey, False)
-        map(lambda x: x.clean(), self.packageList)
+        list(map(lambda x: x.clean(), self.packageList))
 
     def _createControl(self):
         self.LabelPackageControl = CategoryLabelControl(
             Tag('label', '%s [COLOR lightblue](%d/%d)[/COLOR]' % (self.name, self.preinstalled, self.available)))
         self.control.addControl(self.LabelPackageControl)
-        for i in xrange(self.available):
+        for i in range(self.available):
             self.packageList.append(Package(self._onPackageCLick))
             self.control.addControl(self.packageList[-1].getControl())
         self.visiblegetmorekey = uuid.uuid4()
@@ -197,11 +206,13 @@ class PackagesControl(MultiSettingControl):
         self.onPackage = onPackage
 
     def addPackage(self, group, package):
+        #[x for x in self.packages if x.getName() == group][0].addPackage(package, True)
         filter(lambda x: x.getName() == group, self.packages)[0].addPackage(package, True)
 
     def removePackage(self, group, package):
+        #a = [x for x in self.packages if x.getName() == group]
         a = filter(lambda x: x.getName() == group, self.packages)
-        print a
+        print(a)
         a[0].removePackage(package)
 
     def _onPackage(self, package, value):
@@ -383,11 +394,12 @@ class packagesManager(Setting):
             if group.hasInstalledPackage():
                 tmp = xbianConfig('packages', 'list', group.getName(), cache=True)
                 if tmp[0] != '-2' and tmp[0] != '-3':
+                    #for package in [x for x in [x.split(',') for x in tmp] if int(x[1])]:
                     for package in filter(lambda x: int(x[1]), map(lambda x: x.split(','), tmp)):
                         group.addPackage(package[0])
             else:
                 group.enableGetMore()
-        print 'Finish xbian part'
+        print('Finish xbian part')
 
 
 class packages(Category):

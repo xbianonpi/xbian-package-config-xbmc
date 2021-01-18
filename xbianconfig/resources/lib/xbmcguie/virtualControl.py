@@ -1,6 +1,6 @@
 import os
 import itertools
-from tag import Tag
+from resources.lib.xbmcguie.tag import Tag
 import xbmc
 
 id_generator = itertools.count(36000)

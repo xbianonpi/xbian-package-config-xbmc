@@ -13,6 +13,8 @@ def extra():
 
     settings = []
     for module in __all__:
+        module = 'categories.extra.' + module
+        setarray = __import__(module, globals(), locals(), [module])
         setarray = __import__(module, globals(), locals(), [module])
         settings.extend(getattr(setarray, 'settings'))
     return settings

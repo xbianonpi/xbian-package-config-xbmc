@@ -419,7 +419,7 @@ class videooutputControl(MultiSettingControl):
 
     def setValue(self, values):
         for key in values:
-            if values[key] == '1':
+            if values[key] == '1' or values[key] == 'True':
                 boolvalue = True
             else:
                 boolvalue = False
@@ -429,6 +429,10 @@ class videooutputControl(MultiSettingControl):
         rc = {}
         for videooutput in self.videooutputlist:
             rc[videooutput] = str(self.videooutputcontrol[videooutput].getValue())
+            if rc[videooutput] == 'True':
+                rc[videooutput] = '1'
+            elif rc[videooutput] == 'False':
+                rc[videooutput] = '0'
         return rc
 
 
@@ -791,7 +795,7 @@ class sshroot(Setting):
         return rc[0]
 
     def setXbianValue(self, value):
-        if value == True or value == '1':
+        if value == True or value == 'True' or value == '1':
             cmd = 'enable'
         else:
             cmd = 'disable'

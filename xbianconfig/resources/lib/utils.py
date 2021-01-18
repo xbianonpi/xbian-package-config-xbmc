@@ -1,6 +1,9 @@
+from __future__ import print_function
+from builtins import range
+
 import xbmc
 import xbmcgui
-from xbianconfig import xbianConfig
+from resources.lib.xbianconfig import xbianConfig
 import time
 import os
 import shutil
@@ -23,26 +26,34 @@ ADDON_DATA = xbmc.translatePath("special://profile/addon_data/%s/" % __addonID__
 
 
 def setSetting(key, value):
-    if value == True or value == 'True':
+    if value == 'True' or value == True:
         value = '1'
-        bValue = True
-    elif value == False or value == 'False':
+        vbool = True
+    elif value == 'False' or value == False:
         value = '0'
-        bValue = False
+        vbool = False
     else:
-        bValue = value
-    settingFile = open(os.path.join(ADDON_DATA, str(key)), 'w')
+        vbool = None
+    settingFile = open(os.path.join(ADDON_DATA, str(key)), 'wb')
+    print( 'setSetting file: %s=%s' % (os.path.join(ADDON_DATA, str(key)), value) )
     pickle.dump(value, settingFile)
     settingFile.close()
-    return bValue
-
+    return vbool
 
 def getSetting(key):
     settingPath = os.path.join(ADDON_DATA, str(key))
+    value = None
     if os.path.isfile(settingPath):
-        return pickle.load(open(settingPath, 'r'))
-    else:
-        return None
+        try:
+            value = pickle.load(open(settingPath, 'rb'))
+        except:
+            pass
+    print( 'getSetting file: %s=%s' % (settingPath, value) )
+    if value == 'True' or value == True:
+        value = '1'
+    elif value == 'False' or value == False:
+        value = '0'
+    return value
 
 HINTS = [ 'xbiancopy', 'backuphome', 'updates', 'upgradenotify' ]
 
@@ -174,7 +185,7 @@ class dialogWaitBackground:
                     i = i + 1
                 self.logFile = open(self.logFile, 'r')
             except:
-                print 'Cant open logfile %s' % (self.logFile,)
+                print('Cant open logfile %s' % (self.logFile,))
                 self.logFile = None
 
         self.backgroundThread = threading.Thread(None, self._pollLoop, None)
@@ -221,7 +232,7 @@ class dialogWaitBackground:
             try:
                 line = self.logFile.readline().strip()
             except:
-                print 'Cant read logfile'
+                print('Cant read logfile')
                 line = None
             if not line:
                 break
@@ -242,7 +253,7 @@ class dialogWaitBackground:
 
     def _poll(self):
         # poll log file every second
-        for i in xrange(0, self.polltime, 1000):
+        for i in range(0, self.polltime, 1000):
             if self.logFile and self.state == FOREGROUND:
                 self._checkNewLog()
             xbmc.sleep(1000)

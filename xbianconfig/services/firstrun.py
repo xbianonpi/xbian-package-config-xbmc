@@ -25,7 +25,7 @@ class firstrun(service):
             setSetting('notifyonerror', '1')
             setSetting('notifyonsuccess', '1')
             setSetting('confirmationonchange', '1')
-            xbmc.executebuiltin('XBMC.RunScript(plugin.xbianconfig,mode=2)')
+            xbmc.executebuiltin('RunScript(plugin.xbianconfig,mode=2)')
 
             # xbmcgui.Dialog().ok('Welcome to XBian','Thanks to have chosen XBian','You can configure it, go to','System -> XBian')
             open(firstlock, 'w').close()

@@ -31,7 +31,7 @@ class advancedMode(Setting):
 
     def getXbianValue(self):
         rc = self.getSetting(self.key)
-        if rc == '1':
+        if rc == '1' or rc == 1 or rc == True or rc == 'True':
             setvisiblecondition(self.key, True)
         else:
             setvisiblecondition(self.key, False)

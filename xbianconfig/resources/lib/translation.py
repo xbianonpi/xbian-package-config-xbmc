@@ -13,7 +13,7 @@ CODESET = "UTF-8"
 gettext.bindtextdomain(APP_NAME)
 gettext.textdomain(APP_NAME)
 gettext.bind_textdomain_codeset(APP_NAME, CODESET)
-gettext.install(APP_NAME, unicode=True)
+gettext.install(APP_NAME)
 
 try:
     xbmc_lang = xbmc.getLanguage(xbmc.ISO_639_1)

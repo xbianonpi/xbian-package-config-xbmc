@@ -1,5 +1,5 @@
 import traceback
-from xbmcguie.window import DialogSkinXml
+from resources.lib.xbmcguie.window import DialogSkinXml
 import xbmc
 import resources.lib.translation
 _ = resources.lib.translation.language.gettext
