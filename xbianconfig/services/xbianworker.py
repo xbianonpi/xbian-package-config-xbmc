@@ -56,13 +56,13 @@ class xbianworker(service):
         self.msgcontent = []
         self.loop = 600
 
-        if getSetting('hide.updates') == 1:
+        if int(getSetting('hide.updates')) == 1:
             self.hideUpdatesAvailable = True
-        if getSetting('hide.xbiancopy') == 1:
+        if int(getSetting('hide.xbiancopy')) == 1:
             self.hideImageWarning = True
-        if getSetting('hide.backuphome') == 1:
+        if int(getSetting('hide.backuphome')) == 1:
             self.hideHomeWarning = True
-        if getSetting('hide.upgradenotify') == 1:
+        if int(getSetting('hide.upgradenotify')) == 1:
             self.hideUpgradeNotify = True
 
         self.actualizeSettings()
@@ -96,7 +96,7 @@ class xbianworker(service):
         self.timeImageDiff = self.calcTimedelta('imgplan', self.xbiancopyDone)
         self.timeHomeDiff = self.calcTimedelta('homeplan', self.backuphomeDone)
 
-        if getSetting('notifywhenbusy') == '1':
+        if int(getSetting('notifywhenbusy')) == 1:
             self.notifyWhenBusy = True
         else:
             self.notifyWhenBusy = False
@@ -169,7 +169,7 @@ class xbianworker(service):
                 print('XBian-config : new updates available')
             else:
                 self.updatesAvailable = False
-                if getSetting('hide.updates') != 1:
+                if int(getSetting('hide.updates')) != 1:
                     self.hideUpdatesAvailable = False
         print('XBian-config : on refresh done')
 
@@ -195,7 +195,7 @@ class xbianworker(service):
 
     def showHint(self, header, message, hint):
         print('XBian-config : show hint (%s)' % hint)
-        if getSetting('advancedmode') == '1':
+        if int(getSetting('advancedmode')) == 1:
             if xbmcgui.Dialog().yesno(
                     header,
                     message,'',
@@ -330,32 +330,32 @@ class xbianworker(service):
             if os.path.getsize(file) > 0:
                 self.xbiancopyDone = True
             self.actualizeSettings()
-            if getSetting('hide.' + status) != 1:
+            if int(getSetting('hide.' + status)) != 1:
                self.hideImageWarning = False
         elif status == 'backuphome':
             self.backuphomeDate = datetime.fromtimestamp(os.path.getmtime(file))
             if os.path.getsize(file) > 0:
                 self.backuphomeDone = True
             self.actualizeSettings()
-            if getSetting('hide.' + status) != 1:
+            if int(getSetting('hide.' + status)) != 1:
                 self.hideHomeWarning = False
         elif status == 'hide.xbiancopy':
-            if getSetting(status) == 1:
+            if int(getSetting(status)) == 1:
                 self.hideImageWarning = True
             else:
                 self.hideImageWarning = False
         elif status == 'hide.backuphome':
-            if getSetting(status) == 1:
+            if int(getSetting(status)) == 1:
                 self.hideHomeWarning = True
             else:
                 self.hideHomeWarning = False
         elif status == 'hide.upgradenotify':
-            if getSetting(status) == 1:
+            if int(getSetting(status)) == 1:
                 self.hideUpgradeNotify = True
             else:
                 self.hideUpgradeNotify = False
         elif status == 'hide.updates':
-            if getSetting(status) == 1:
+            if int(getSetting(status)) == 1:
                 self.hideUpdatesAvailable = True
             else:
                 self.hideUpdatesAvailable = False

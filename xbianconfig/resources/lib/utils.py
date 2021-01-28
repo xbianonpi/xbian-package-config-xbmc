@@ -60,7 +60,7 @@ HINTS = [ 'xbiancopy', 'backuphome', 'updates', 'upgradenotify' ]
 def getHiddenHints():
     hidden = 0
     for hint in HINTS:
-        if getSetting('hide.' + hint) == 1:
+        if int(getSetting('hide.' + hint)) == 1:
             hidden = hidden + 1
     return hidden
 

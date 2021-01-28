@@ -601,7 +601,7 @@ class homeExecGui(Setting):
     def startManualBackup(self):
         #self.value = self.control.getValue()
         self.value = self.getXbianValue()
-        if self.value[0] == 1 and getSetting('advancedmode') == '1':
+        if self.value[0] == 1 and int(getSetting('advancedmode')) == 1:
             dest = xbianConfig('xbiancopy', 'homedest', 'exp')[0]
             self.keep = self.value[3]
         else:
