@@ -51,7 +51,7 @@ def getSetting(key):
     print( 'getSetting file: %s=%s' % (settingPath, value) )
     if value == 'True' or value == True:
         value = '1'
-    elif value == 'False' or value == False:
+    elif value == 'False' or value == False or value == 'None' or value == None:
         value = '0'
     return value
 
