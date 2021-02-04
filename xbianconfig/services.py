@@ -13,7 +13,7 @@ from services.xbianworker import xbianworker
 __addonID__ = "plugin.xbianconfig"
 
 # Files and/or folders which are be watched by inotify
-PERIODICSETTING = '/etc/apt/apt.conf.d/20auto-upgrade'
+PERIODICSETTING = '/etc/apt/apt.conf.d/20auto-upgrades'
 UPDATEREPO      = '/usr/local/sbin/xbian-update-repo'
 RUNPATH         = '/run'
 REBOOTREQUIRED  = 'reboot-required'

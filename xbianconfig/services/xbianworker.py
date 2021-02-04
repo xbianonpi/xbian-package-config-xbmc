@@ -130,13 +130,19 @@ class xbianworker(service):
             pass
 
     def doRefresh(self, force=False):
-        print('XBian-config : on refresh (%s)' % 'Forced' if force else 'on saver')
+        print('XBian-config : on refresh (%s)' % ('Forced' if force else 'on saver'))
         self.refreshNext = self.eventTime + timedelta(hours=3)
         if not self.forceRefresh and (self.enableauto or self.StopRequested):
             return
 
-        if self.forceRefresh or ((force or not xbmc.Player().isPlaying()) and self.selfCheck and (getSetting('lastupdatecheck') ==
-                                                                 None or getSetting('lastupdatecheck') < (self.eventTime - timedelta(days=self.deltaCheck)))):
+        try:
+            lucTime = getSetting('lastupdatecheck')
+            if int(lucTime) == 0:
+                lucTime = datetime.strptime('2012-01-01 0:00:00', '%Y-%m-%d %H:%M:%S')
+        except:
+            pass
+
+        if self.forceRefresh or ((force or not xbmc.Player().isPlaying()) and self.selfCheck and (lucTime < (self.eventTime - timedelta(days=self.deltaCheck)))):
 
             setSetting('lastupdatecheck', self.eventTime)
             print('XBian-config : running internal database updates (%s)' % self.forceRefresh)
