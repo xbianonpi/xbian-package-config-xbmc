@@ -218,7 +218,7 @@ class NetworkSetting(Setting):
                 if not value:
                     value = 'Not connected'
                 else:
-                    value = base64.b64decode(value)
+                    value = base64.b64decode(value).decode('utf-8')
             else:
                 value = str(values.get(val))
             lanConfig.append(value)
@@ -288,7 +288,7 @@ class NetworkSetting(Setting):
                     if not value:
                         value = 'Not connected'
                     else:
-                        value = base64.b64decode(value)
+                        value = base64.b64decode(value).decode('utf-8')
                 else:
                     value = str(values.get(val))
                 self.lanConfig[interface].append(value)

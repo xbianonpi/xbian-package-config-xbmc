@@ -304,7 +304,7 @@ def wifiConnect(interface):
             canceled = True
         else:
             if networks[selectedNetwork][SECURITY] == 'on':
-                rc = xbianConfig('network', 'credentials', interface, networks[selectedNetwork][SECURITYTYPE], base64.b64encode(networks[selectedNetwork][SSID]))
+                rc = xbianConfig('network', 'credentials', interface, networks[selectedNetwork][SECURITYTYPE], base64.b64encode(networks[selectedNetwork][SSID].encode('utf-8')))
                 if rc:
                     key = base64.b64decode(rc[0])[:-1]
                 else:
@@ -323,8 +323,8 @@ def wifiConnect(interface):
             current_try = 1
             connected = False
             while not connected and current_try <= retry:
-                rc = xbianConfig('network', 'credentials', interface, networks[selectedNetwork][
-                                 SECURITYTYPE], base64.b64encode(networks[selectedNetwork][SSID]), base64.b64encode(key))
+                rc = xbianConfig('network', 'credentials', interface, networks[selectedNetwork][SECURITYTYPE],
+                                 base64.b64encode(networks[selectedNetwork][SSID].encode('utf-8')).decode('utf-8'), base64.b64encode(key.encode('utf-8')).decode('utf-8'))
                 if rc and rc[0] == '1':
                     restart = xbianConfig('network', 'restart', interface)
                     if restart and restart[0] == '1':
