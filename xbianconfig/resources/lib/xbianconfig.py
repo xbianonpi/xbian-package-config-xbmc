@@ -116,7 +116,10 @@ def xbianConfig(*args, **kwargs):
             exit(0)
 
     if force_clean:
-        os.remove(os.path.join(CACHEDIR, CACHEFILE))
+        try:
+            os.remove(os.path.join(CACHEDIR, CACHEFILE))
+        except:
+            pass
 
     try:
         cacheDB = shelve.open(os.path.join(CACHEDIR, CACHEFILE), 'c', writeback=True)
