@@ -115,7 +115,7 @@ class XbianWindow(WindowSkinXml):
         xbmc.log('XBian-config : Generate windows xml from template : %s to %s' %
                  (template, self.xmlfile), xbmc.LOGDEBUG)
         xmltemplate = open(template)
-        xmlout = open(self.xmlfile, 'w')
+        xmlout = open(self.xmlfile, 'w', encoding='utf8')
         for line in xmltemplate.readlines():
             if '<control type="xbian" value="Menucategories"/>' in line:
                 for category in self.categories:

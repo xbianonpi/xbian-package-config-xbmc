@@ -48,7 +48,7 @@ class XbianDialog(DialogSkinXml):
         xbmc.log('XBian-config : Generate dialog xml from template : %s to %s' %
                  (template, self.xmlfile), xbmc.LOGDEBUG)
         xmltemplate = open(template)
-        xmlout = open(self.xmlfile, 'w')
+        xmlout = open(self.xmlfile, 'w', encoding='utf8')
         for line in xmltemplate.readlines():
             if '<control type="xbian" value="settings"/>' in line:
                 for setting in self.settings:
