@@ -341,7 +341,7 @@ class systemExecGui(Setting):
             dest = xbianConfig('xbiancopy', 'imgdest', 'exp')[0]
             self.APPLYTEXT = _('Write backup to %s?') % ('...' + dest[len(dest)-57:] if len(dest) > 60 else dest, )
             confirm = False
-            self.keep = self.value[4]
+            self.keep = int(self.value[4])
         else:
             self.APPLYTEXT = _('This will erase ALL data on %s, continue?') % (
                 self.value[2], )
@@ -603,7 +603,7 @@ class homeExecGui(Setting):
         self.value = self.getXbianValue()
         if self.value[0] == 1 and int(getSetting('advancedmode')) == 1:
             dest = xbianConfig('xbiancopy', 'homedest', 'exp')[0]
-            self.keep = self.value[3]
+            self.keep = int(self.value[3])
         else:
             dest ='/xbmc-backup/%s_backup_home_%s.img.gz' % (os.uname()[1], datetime.datetime.now().strftime("%d-%m-%y"))
             self.keep = 0
