@@ -615,10 +615,10 @@ class homeExecGui(Setting):
             xbianConfig('xbiancopy', 'homestart', dest)
             msg = [
                 _('It can take several minutes depending on size of your /home directory'),
-                _('If file is created under /xbian-backup, it is also accessible through smb share'),
+                _('If file is created under /xbmc-backup, it is also accessible through smb share'),
                 _('Until finished, there will be just temp folder. Once ready, .img.gz file will appear.'),
                 _('You can copy the file directly to you computer (the file will be deleted during boot!)'),
-                _('To restore your /home folder, just copy .img.gz file to /xbian-backup/put_to_restore folder.'),
+                _('To restore your /home folder, just copy .img.gz file to /xbmc-backup/put_to_restore folder.'),
             ]
             dlg = dialogWaitBackground(
                 _('Backup /home to file'),

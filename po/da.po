@@ -703,7 +703,7 @@ msgstr ""
 
 #: xbianconfig/categories/55_backup.py:608
 msgid ""
-"If file is created under /xbian-backup, it is also accessible through smb "
+"If file is created under /xbmc-backup, it is also accessible through smb "
 "share"
 msgstr ""
 

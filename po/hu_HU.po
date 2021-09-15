@@ -704,7 +704,7 @@ msgstr "Hosszabb ideig is eltarthat a /home mappa méretétől függően"
 
 #: xbianconfig/categories/55_backup.py:608
 msgid ""
-"If file is created under /xbian-backup, it is also accessible through smb "
+"If file is created under /xbmc-backup, it is also accessible through smb "
 "share"
 msgstr "Ha keletkeztek fájlok a /xbmc-backup mappában, azok elérhetőek a samba hálózati megosztáson keresztül"
 
@@ -724,7 +724,7 @@ msgstr "A fájlt le tudod másolni a saját gépedre. (újraindításkor letörl
 msgid ""
 "To restore your /home folder, just copy .img.gz file to /xbian-"
 "backup/put_to_restore folder."
-msgstr "A /home mappa visszaállításához másold be az .img.gz fájlt az /xbian-backup/put_to_restore mappába."
+msgstr "A /home mappa visszaállításához másold be az .img.gz fájlt az /xbmc-backup/put_to_restore mappába."
 
 #: xbianconfig/categories/55_backup.py:614
 msgid "Backup /home to file"

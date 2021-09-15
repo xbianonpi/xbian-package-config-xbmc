@@ -705,9 +705,9 @@ msgstr "To może potrwać kilka minut, w zależności od rozmiaru folderu /home"
 
 #: xbianconfig/categories/55_backup.py:608
 msgid ""
-"If file is created under /xbian-backup, it is also accessible through smb "
+"If file is created under /xbmc-backup, it is also accessible through smb "
 "share"
-msgstr "Jeżeli plik utworzono w /xbian-backup jest on dostępny przez udział SMB"
+msgstr "Jeżeli plik utworzono w /xbmc-backup jest on dostępny przez udział SMB"
 
 #: xbianconfig/categories/55_backup.py:609
 msgid ""
@@ -725,7 +725,7 @@ msgstr "Proszę skopiować plik na komputer (zostanie on usunięty przy restarci
 msgid ""
 "To restore your /home folder, just copy .img.gz file to /xbian-"
 "backup/put_to_restore folder."
-msgstr "Aby przywrócić folder /home umieść plik .img.gz w folderze /xbian-backup/put_to_restore"
+msgstr "Aby przywrócić folder /home umieść plik .img.gz w folderze /xbmc-backup/put_to_restore"
 
 #: xbianconfig/categories/55_backup.py:614
 msgid "Backup /home to file"
