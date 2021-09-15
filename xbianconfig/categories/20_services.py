@@ -303,7 +303,7 @@ class serviceSambaType(Setting):
     def getXbianValue(self):
         with open(self.cfgfile,'r') as f:
             #value = [x for x in f.readlines() if re.match('%s=.*'%self.setting,x)]
-            value = filter(lambda x: re.match('%s=.*'%self.setting,x),f.readlines())
+            value = list(filter(lambda x: re.match('%s=.*'%self.setting,x),f.readlines()))
         if value:
             self.exist = True
             if re.split('=', value[0].strip())[1].replace('\'','').replace('\"','') == SERVICE_TYPES[0]:
