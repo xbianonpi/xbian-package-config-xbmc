@@ -2,12 +2,13 @@ from __future__ import print_function
 
 import os
 import sys
-import queue
 import traceback
 if sys.version_info.major > 2:
     import urllib.request, urllib.parse, urllib.error
+    import queue
 else:
     import urllib
+    import Queue as queue
 
 import xbmc
 import xbmcgui

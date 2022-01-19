@@ -1,7 +1,7 @@
 from __future__ import print_function
-from builtins import map, range
 
 try:
+    from builtins import map, range
     import itertools.ifilter as filter
 except ImportError:
     pass
