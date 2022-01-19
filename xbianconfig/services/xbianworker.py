@@ -31,10 +31,11 @@ msgs = [
   [ _('Security warning'),    '', _('The standard password of user xbian has not been changed yet'), _('Setting a new one is strongly recommended') ],
 ]
 
+monitor = xbmc.Monitor()
+
 class xbianworker(service):
 
     def onInit(self):
-        self.StopRequested = False
         self.updatesAvailable = False
         self.rebootPending = False
         self.upgradePending = False
@@ -54,7 +55,7 @@ class xbianworker(service):
         self.msgcount = 10
         self.msgheader = []
         self.msgcontent = []
-        self.loop = 600
+        self.loop = 60
 
         if int(getSetting('hide.updates')) == 1:
             self.hideUpdatesAvailable = True
@@ -103,7 +104,7 @@ class xbianworker(service):
 
         if notify:
             self.settingsUpdated = True
-            self.loop = 10
+            self.loop = 1
 
     def calcTimedelta(self, type, done):
         if done:
@@ -120,19 +121,10 @@ class xbianworker(service):
                 delta = timedelta(days=31,hours=3)
         return delta
 
-    def onAbortRequested(self):
-        print('XBian-config : abort requested')
-
-        self.StopRequested = True
-        try:
-            os.system('/usr/bin/sudo /bin/kill $(cat /run/lock/xbian-config) >/dev/null 2>&1 || :')
-        except:
-            pass
-
     def doRefresh(self, force=False):
         print('XBian-config : on refresh (%s)' % ('Forced' if force else 'on saver'))
         self.refreshNext = self.eventTime + timedelta(hours=3)
-        if not self.forceRefresh and (self.enableauto or self.StopRequested):
+        if not self.forceRefresh and (self.enableauto or monitor.abortRequested()):
             return
 
         try:
@@ -189,7 +181,7 @@ class xbianworker(service):
     def onScreensaverDeactivated(self):
         print('XBian-config : on saver deactivated')
         self.inScreenSaver = False
-        self.loop = 30
+        self.loop = 3
 
     def showRebootDialog(self):
         print('XBian-config : show reboot dialog')
@@ -228,14 +220,14 @@ class xbianworker(service):
             xbmc.executebuiltin('Notification(' + _('Service') + ' XBianWorker' + ', ' + _('%s successfully updated') % (_('Service'),) +')')
             self.settingsUpdated = False
 
-        if self.inScreenSaver or self.StopRequested or (not self.notifyWhenBusy and xbmc.Player().isPlaying()):
+        if self.inScreenSaver or monitor.abortRequested() or (not self.notifyWhenBusy and xbmc.Player().isPlaying()):
             return
 
         if self.msgcount > 0:
             self.showMessage(self.msgheader[self.msgdisp], self.msgcontent[self.msgdisp])
             self.msgdisp += 1
             if self.msgdisp < self.msgcount:
-                self.loop = 10
+                self.loop = 1
             else:
                 self.msgcount = 0
                 self.msgdisp = 0
@@ -322,7 +314,7 @@ class xbianworker(service):
                         elif i < 4:
                             self.msgcontent[self.msgcount][i-1] = line
                             i += 1
-                self.loop = 10
+                self.loop = 1
             except:
                 print('XBian-config : error reading message(s) from %s' % (file))
             if fd:
@@ -375,10 +367,10 @@ class xbianworker(service):
             if xbianConfig('updates', 'progress')[0] == '1':
                 dlg = dialogWait('XBian' + ' ' +_('Update'), _('Please wait while updating'))
                 dlg.show()
-                while not self.StopRequested and xbianConfig('updates', 'progress')[0] == '1':
-                    xbmc.sleep(300)
+                while not monitor.abortRequested() and xbianConfig('updates', 'progress')[0] == '1':
+                    monitor.waitForAbort(1)
                 dlg.close()
-                if self.StopRequested:
+                if monitor.abortRequested():
                     return
             xbmc.executebuiltin("Notification(%s, %s)" % (_('Package') + ' ' + _('Update'), _('Updates installed successfully')))
             os.remove('/var/lock/.packages')
@@ -386,13 +378,19 @@ class xbianworker(service):
         if xbianConfig('updates', 'progress')[0] != '1':
             setvisiblecondition('aptrunning', False)
 
-        while not self.StopRequested:  # End if XBMC closes
+        while not monitor.abortRequested():  # End if XBMC closes
             self.onIdle()
             if self.loop == 0:
-                self.loop = 600
-            while not self.StopRequested and self.loop > 0:
-                xbmc.sleep(500)  # Repeat (ms)
+                self.loop = 60
+            while not monitor.abortRequested() and self.loop > 0:
+                monitor.waitForAbort(5)
                 self.loop = self.loop - 1
 
-        xbianConfig() # Relese resources
+        print('XBian-config : abort requested')
+        try:
+            os.system('/usr/bin/sudo /bin/kill $(cat /run/lock/xbian-config) >/dev/null 2>&1 || :')
+        except:
+            pass
+
+        xbianConfig() # Release resources
         print('XBian-config : xbianworker service finished')
