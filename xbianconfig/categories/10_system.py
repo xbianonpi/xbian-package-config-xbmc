@@ -535,6 +535,77 @@ class kernel(Setting):
         return ok
 
 
+SKINVARAPTRUNNIG = 'aptrunning'
+APTLOGFILE = '/tmp/aptstatus'
+
+class KernelSwitch(Setting):
+
+    def preInit(self):
+        self.kernel = xbianConfig('kernel', 'capability')
+        if self.kernel[1] == '1':
+            self.CONTROL = RadioButtonControl(Tag('label', _('Install 32-bit Kernel (armv7l)')), AARCH64)
+            self.DIALOGHEADER = _('Install 32-bit Kernel (armv7l)')
+        else:
+            self.CONTROL = RadioButtonControl(Tag('label', _('Install 64-bit Kernel (aarch64)')), AARCH64)
+            self.DIALOGHEADER = _('Install 64-bit Kernel (aarch64)')
+
+    def onInit(self):
+        self.APPLYTEXT = _('Are you sure to change Kernel architecture?')
+        self.key = 'packages'
+        self.statusInstalled = False
+        self.hideNotify = False
+
+    def getUserValue(self):
+        return str(self.getControlValue())
+
+    def setControlValue(self, value):
+        self.control.setValue(value)
+
+    def getXbianValue(self):
+        setvisiblecondition('aarch64', self.kernel[0] == '1' and not self.statusInstalled)
+        return 0
+
+    def notifyOnError(self, force=False, time=15000):
+        if (self.getSetting('notifyonerror') != '0' or force) and not self.hideNotify:
+            xbmc.executebuiltin("Notification(%s,%s,%d)" % (self.DIALOGHEADER, self.ERRORTEXT, time))
+        self.hideNotify = True
+
+    def notifyOnSuccess(self, force=False, time=5000):
+        if (self.getSetting('notifyonsuccess') == '1' or force) and not self.hideNotify:
+            xbmc.executebuiltin("Notification(%s,%s,%d)" % (self.DIALOGHEADER, self.OKTEXT, time))
+        self.hideNotify = True
+
+    def checkInstallFinish(self):
+        return xbianConfig('packages', 'progress')[0] != '1'
+
+    def onInstallFinished(self):
+        if xbianConfig('packages', 'status', self.kernelpackage)[0] == '1':
+            self.OKTEXT = _('The package was successfully installed')
+            self.notifyOnSuccess(True, 10000)
+            self.statusInstalled = True
+            setvisiblecondition('aarch64', False)
+        else:
+            self.ERRORTEXT = _('A serious error occured while processing these packages')
+            self.notifyOnError(True)
+
+    def setXbianValue(self, value):
+        if value:
+            self.kernelpackage = self.kernel[2]
+            self.kernelauxpackage = self.kernel[3]
+            progressDlg = dialogWait(self.DIALOGHEADER, _('Please wait...'))
+            progressDlg.show()
+            xbianConfig('packages', 'updatedb')
+            rc = xbianConfig('packages', 'installtest', self.kernelpackage, self.kernelauxpackage)
+            if rc[0] == '1':
+                rc = xbianConfig('packages', 'install', self.kernelpackage, self.kernelauxpackage)
+            progressDlg.close()
+            if rc[0] == '1':
+                dlg = dialogWaitBackground(self.DIALOGHEADER, [
+                   ], self.checkInstallFinish, APTLOGFILE, skinvar=SKINVARAPTRUNNIG, id=xbmcgui.getCurrentWindowId(), onFinishedCB=self.onInstallFinished)
+                dlg.show()
+        return self.statusInstalled
+
+
 class OverclockControl(MultiSettingControl):
     XBMCDEFAULTCONTAINER = False
 
@@ -813,4 +884,4 @@ class sshroot(Setting):
 class system(Category):
     TITLE = _('System')
     SETTINGS = [NewtorkLabel, NetworkSetting, LicenceLabel, mpeg2License, vc1License, SytemLabel, hostname,
-                timezone, kernel, overclocking, initramfs, AccountLabel, xbianpwd, rootpwd, sshroot, connectivityLabel, videooutput]
+                timezone, kernel, KernelSwitch, overclocking, initramfs, AccountLabel, xbianpwd, rootpwd, sshroot, connectivityLabel, videooutput]

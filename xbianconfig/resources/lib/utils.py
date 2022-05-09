@@ -368,3 +368,4 @@ def setvisiblecondition(key, value, id=False):
 
 
 ADVANCED = Tag('visible', visiblecondition('advancedmode'))
+AARCH64  = Tag('visible', visiblecondition('aarch64'))

@@ -85,6 +85,7 @@ class Setting():
     ADDON = Addon(__addonID__)
 
     def __init__(self):
+        self.preInit()
         self.control = self.CONTROL
         self.control.setTag(Tag('enable', 'false'))
         self.userValue = None
@@ -103,8 +104,13 @@ class Setting():
         self.updatingSetting = False
         self.onInit()
 
+    def preInit(self):
+        # Override this method if you need to do something on start of __init__
+        # don't override __init__
+        pass
+
     def onInit(self):
-        # Override this method if you need to do something on init
+        # Override this method if you need to do something on end of __init__
         # don't override __init__
         pass
 
