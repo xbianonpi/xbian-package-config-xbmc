@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-31 00:05+0200\n"
+"POT-Creation-Date: 2022-04-22 12:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,80 +56,80 @@ msgstr ""
 msgid "Setting a new one is strongly recommended"
 msgstr ""
 
-#: xbianconfig/services/xbianworker.py:198
-#: xbianconfig/categories/55_backup.py:810 xbianconfig/default.py:112
+#: xbianconfig/services/xbianworker.py:190
+#: xbianconfig/categories/55_backup.py:810 xbianconfig/default.py:113
 msgid "A reboot is required. Do you want to reboot now?"
 msgstr ""
 
-#: xbianconfig/services/xbianworker.py:208
+#: xbianconfig/services/xbianworker.py:200
 msgid "Never show this hint again?"
 msgstr ""
 
-#: xbianconfig/services/xbianworker.py:228
+#: xbianconfig/services/xbianworker.py:220
 #: xbianconfig/categories/20_services.py:122
 msgid "Service"
 msgstr ""
 
-#: xbianconfig/services/xbianworker.py:228
+#: xbianconfig/services/xbianworker.py:220
 #: xbianconfig/categories/10_system.py:352
 #: xbianconfig/categories/10_system.py:395
 #, python-format
 msgid "%s successfully updated"
 msgstr ""
 
-#: xbianconfig/services/xbianworker.py:258
-#: xbianconfig/services/xbianworker.py:265
-#: xbianconfig/services/xbianworker.py:376
-#: xbianconfig/services/xbianworker.py:383
+#: xbianconfig/services/xbianworker.py:250
+#: xbianconfig/services/xbianworker.py:257
+#: xbianconfig/services/xbianworker.py:368
+#: xbianconfig/services/xbianworker.py:375
 #: xbianconfig/categories/30_packages.py:294
 #: xbianconfig/categories/40_update.py:284
 #: xbianconfig/categories/40_update.py:388
 msgid "Update"
 msgstr ""
 
-#: xbianconfig/services/xbianworker.py:258
+#: xbianconfig/services/xbianworker.py:250
 msgid "Distribution"
 msgstr ""
 
-#: xbianconfig/services/xbianworker.py:258
+#: xbianconfig/services/xbianworker.py:250
 #, python-format
 msgid "A distribution upgrade to %s is available"
 msgstr ""
 
-#: xbianconfig/services/xbianworker.py:265
-#: xbianconfig/services/xbianworker.py:383
+#: xbianconfig/services/xbianworker.py:257
+#: xbianconfig/services/xbianworker.py:375
 msgid "Package"
 msgstr ""
 
-#: xbianconfig/services/xbianworker.py:265
+#: xbianconfig/services/xbianworker.py:257
 msgid "Some XBian package can be updated"
 msgstr ""
 
-#: xbianconfig/services/xbianworker.py:271
+#: xbianconfig/services/xbianworker.py:263
 #: xbianconfig/categories/55_backup.py:43
 #: xbianconfig/categories/55_backup.py:169
 #: xbianconfig/categories/55_backup.py:306
 msgid "System backup"
 msgstr ""
 
-#: xbianconfig/services/xbianworker.py:271
-#: xbianconfig/services/xbianworker.py:276
+#: xbianconfig/services/xbianworker.py:263
+#: xbianconfig/services/xbianworker.py:268
 msgid "This type of backup has not been made for a long time!"
 msgstr ""
 
-#: xbianconfig/services/xbianworker.py:276
+#: xbianconfig/services/xbianworker.py:268
 #: xbianconfig/categories/55_backup.py:39
 #: xbianconfig/categories/55_backup.py:470
 #: xbianconfig/categories/55_backup.py:570
 msgid "Home backup"
 msgstr ""
 
-#: xbianconfig/services/xbianworker.py:376
+#: xbianconfig/services/xbianworker.py:368
 #: xbianconfig/categories/10_system.py:323
 msgid "Please wait while updating"
 msgstr ""
 
-#: xbianconfig/services/xbianworker.py:383
+#: xbianconfig/services/xbianworker.py:375
 msgid "Updates installed successfully"
 msgstr ""
 
@@ -187,7 +187,7 @@ msgid "Status"
 msgstr ""
 
 #: xbianconfig/categories/10_system.py:77
-#: xbianconfig/resources/lib/utils.py:302
+#: xbianconfig/resources/lib/utils.py:305
 msgid "SSID"
 msgstr ""
 
@@ -250,7 +250,7 @@ msgid "Successfully connected to %s"
 msgstr ""
 
 #: xbianconfig/categories/10_system.py:248
-#: xbianconfig/resources/lib/utils.py:350
+#: xbianconfig/resources/lib/utils.py:353
 #, python-format
 msgid "Failed to connect to %s"
 msgstr ""
@@ -299,7 +299,7 @@ msgid "Connectivity"
 msgstr ""
 
 #: xbianconfig/categories/10_system.py:470
-#: xbianconfig/categories/10_system.py:814
+#: xbianconfig/categories/10_system.py:884
 msgid "System"
 msgstr ""
 
@@ -329,76 +329,118 @@ msgstr ""
 msgid "You're already running this kernel version"
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:542
-#: xbianconfig/categories/10_system.py:588
+#: xbianconfig/categories/10_system.py:546
+#: xbianconfig/categories/10_system.py:547
+msgid "Install 32-bit Kernel (armv7l)"
+msgstr ""
+
+#: xbianconfig/categories/10_system.py:549
+#: xbianconfig/categories/10_system.py:550
+msgid "Install 64-bit Kernel (aarch64)"
+msgstr ""
+
+#: xbianconfig/categories/10_system.py:553
+msgid "Are you sure to change Kernel architecture?"
+msgstr ""
+
+#: xbianconfig/categories/10_system.py:582
+#: xbianconfig/categories/30_packages.py:352
+msgid "The package was successfully installed"
+msgstr ""
+
+#: xbianconfig/categories/10_system.py:586
+#: xbianconfig/categories/40_update.py:116
+#: xbianconfig/categories/40_update.py:146
+#: xbianconfig/categories/40_update.py:193
+msgid "A serious error occured while processing these packages"
+msgstr ""
+
+#: xbianconfig/categories/10_system.py:593
+#: xbianconfig/categories/30_packages.py:251
+#: xbianconfig/categories/30_packages.py:307
+#: xbianconfig/categories/55_backup.py:712
+#: xbianconfig/categories/55_backup.py:727
+#: xbianconfig/categories/55_backup.py:759
+#: xbianconfig/categories/55_backup.py:804
+#: xbianconfig/categories/55_backup.py:817
+#: xbianconfig/categories/55_backup.py:826
+#: xbianconfig/categories/20_services.py:224
+#: xbianconfig/categories/40_update.py:166
+#: xbianconfig/categories/40_update.py:205 xbianconfig/default.py:94
+#: xbianconfig/default.py:136 xbianconfig/default.py:189
+msgid "Please wait..."
+msgstr ""
+
+#: xbianconfig/categories/10_system.py:612
+#: xbianconfig/categories/10_system.py:658
 msgid "Overclocking"
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:589
+#: xbianconfig/categories/10_system.py:659
 msgid "The overclock settings are successfully changed"
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:628
+#: xbianconfig/categories/10_system.py:698
 msgid "required"
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:628
+#: xbianconfig/categories/10_system.py:698
 msgid "always"
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:628
+#: xbianconfig/categories/10_system.py:698
 msgid "never"
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:634
-#: xbianconfig/categories/10_system.py:649
+#: xbianconfig/categories/10_system.py:704
+#: xbianconfig/categories/10_system.py:719
 msgid "Use of initramfs"
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:685
-#: xbianconfig/categories/10_system.py:686
-#: xbianconfig/categories/10_system.py:698
+#: xbianconfig/categories/10_system.py:755
+#: xbianconfig/categories/10_system.py:756
+#: xbianconfig/categories/10_system.py:768
 msgid "Timezone"
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:706
+#: xbianconfig/categories/10_system.py:776
 msgid "Location"
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:716
+#: xbianconfig/categories/10_system.py:786
 msgid "Not Set"
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:727
+#: xbianconfig/categories/10_system.py:797
 msgid "Accounts"
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:742
+#: xbianconfig/categories/10_system.py:812
 msgid "Root password"
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:743
+#: xbianconfig/categories/10_system.py:813
 msgid "Password:"
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:744
+#: xbianconfig/categories/10_system.py:814
 msgid "root password successfully changed"
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:745
+#: xbianconfig/categories/10_system.py:815
 msgid "Passwords didn't match"
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:774
+#: xbianconfig/categories/10_system.py:844
 msgid "XBian password"
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:775
+#: xbianconfig/categories/10_system.py:845
 msgid "xbian password successfully changed"
 msgstr ""
 
-#: xbianconfig/categories/10_system.py:784
-#: xbianconfig/categories/10_system.py:785
+#: xbianconfig/categories/10_system.py:854
+#: xbianconfig/categories/10_system.py:855
 msgid "SSH root login"
 msgstr ""
 
@@ -430,21 +472,6 @@ msgstr ""
 #: xbianconfig/categories/30_packages.py:294
 #: xbianconfig/categories/30_packages.py:382
 msgid "Install"
-msgstr ""
-
-#: xbianconfig/categories/30_packages.py:251
-#: xbianconfig/categories/30_packages.py:307
-#: xbianconfig/categories/55_backup.py:712
-#: xbianconfig/categories/55_backup.py:727
-#: xbianconfig/categories/55_backup.py:759
-#: xbianconfig/categories/55_backup.py:804
-#: xbianconfig/categories/55_backup.py:817
-#: xbianconfig/categories/55_backup.py:826
-#: xbianconfig/categories/20_services.py:224
-#: xbianconfig/categories/40_update.py:166
-#: xbianconfig/categories/40_update.py:205 xbianconfig/default.py:93
-#: xbianconfig/default.py:135 xbianconfig/default.py:188
-msgid "Please wait..."
 msgstr ""
 
 #: xbianconfig/categories/30_packages.py:266
@@ -501,10 +528,6 @@ msgstr ""
 #: xbianconfig/categories/30_packages.py:358
 #: xbianconfig/categories/20_services.py:336
 msgid "Services"
-msgstr ""
-
-#: xbianconfig/categories/30_packages.py:352
-msgid "The package was successfully installed"
 msgstr ""
 
 #: xbianconfig/categories/30_packages.py:359
@@ -958,12 +981,6 @@ msgstr ""
 msgid "Updates"
 msgstr ""
 
-#: xbianconfig/categories/40_update.py:116
-#: xbianconfig/categories/40_update.py:146
-#: xbianconfig/categories/40_update.py:193
-msgid "A serious error occured while processing these packages"
-msgstr ""
-
 #: xbianconfig/categories/40_update.py:117
 msgid "The packages are successfully updated"
 msgstr ""
@@ -1155,47 +1172,47 @@ msgid ""
 "tab XBian Wizard under System"
 msgstr ""
 
-#: xbianconfig/default.py:93
+#: xbianconfig/default.py:94
 msgid "XBian-config is still running"
 msgstr ""
 
-#: xbianconfig/default.py:135
+#: xbianconfig/default.py:136
 msgid "XBian Config"
 msgstr ""
 
-#: xbianconfig/default.py:151
+#: xbianconfig/default.py:152
 msgid "Initialisation..."
 msgstr ""
 
-#: xbianconfig/default.py:179 xbianconfig/default.py:188
+#: xbianconfig/default.py:180 xbianconfig/default.py:189
 #: xbianconfig/resources/lib/xbianDialog.py:28
-#: xbianconfig/resources/lib/xbianWindow.py:75
+#: xbianconfig/resources/lib/xbianWindow.py:76
 msgid "Loading"
 msgstr ""
 
-#: xbianconfig/resources/lib/utils.py:79
+#: xbianconfig/resources/lib/utils.py:82
 #, python-format
 msgid "Value must be greater than %d"
 msgstr ""
 
-#: xbianconfig/resources/lib/utils.py:83
+#: xbianconfig/resources/lib/utils.py:86
 #, python-format
 msgid "Value must be lower than %d"
 msgstr ""
 
-#: xbianconfig/resources/lib/utils.py:274
+#: xbianconfig/resources/lib/utils.py:277
 msgid "Scan"
 msgstr ""
 
-#: xbianconfig/resources/lib/utils.py:274
+#: xbianconfig/resources/lib/utils.py:277
 msgid "Scanning for available networks..."
 msgstr ""
 
-#: xbianconfig/resources/lib/utils.py:312
+#: xbianconfig/resources/lib/utils.py:315
 msgid "Enter credentials for selected interface"
 msgstr ""
 
-#: xbianconfig/resources/lib/utils.py:319
+#: xbianconfig/resources/lib/utils.py:322
 #, python-format
 msgid "Please wait. Trying to connect to %s"
 msgstr ""
