@@ -281,6 +281,7 @@ def wifiConnect(interface):
     for network in networklist:
         tmp = network.split(',')
         tmp[SSID] = tmp[SSID].replace('"', '')
+        tmp[SSID] = tmp[SSID].encode('utf-8').decode('unicode_escape')
         networks.append(tmp)
     progress.close()
     canceled = False
