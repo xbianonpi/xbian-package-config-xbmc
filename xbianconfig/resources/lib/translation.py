@@ -1,3 +1,4 @@
+import sys
 import gettext
 import locale
 
@@ -12,7 +13,8 @@ CODESET = "UTF-8"
 
 gettext.bindtextdomain(APP_NAME)
 gettext.textdomain(APP_NAME)
-gettext.bind_textdomain_codeset(APP_NAME, CODESET)
+if sys.version_info.major < 3 or sys.version_info.minor < 11:
+    gettext.bind_textdomain_codeset(APP_NAME, CODESET)
 gettext.install(APP_NAME)
 
 try:
@@ -28,5 +30,9 @@ if not system_lang:
 # The priority is: xbmc => xbian => system
 languages = [
     lang for lang in [xbmc_lang, xbian_lang, system_lang] if lang]
-language = gettext.translation(
-    APP_NAME, languages=languages, fallback=True, codeset=CODESET)
+if sys.version_info.major < 3 or sys.version_info.minor < 11:
+    language = gettext.translation(
+        APP_NAME, languages=languages, fallback=True, codeset=CODESET)
+else:
+    language = gettext.translation(
+        APP_NAME, languages=languages, fallback=True)
