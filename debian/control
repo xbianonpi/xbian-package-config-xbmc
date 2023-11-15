@@ -4,7 +4,7 @@ Version: __DATE__
 Section: utils
 Essential: No
 Priority: optional
-Architecture: armhf
+Architecture: all
 Depends: xbian-package-config-shell (>=20230924-0), xbian-update (>=20180101-0), python3-future, python3-pyinotify
 Breaks: xbian-package-xbmc-scripts (<<1.0.1-16), xbian-package-upstart-xbmc-bridge (<<1.1.3), xbian-package-xbmc (<<14.0), xbian-package-xbmc-6q (<<14.0)
 Maintainer: Thiago Bellini <hackedbellini@xbian.org>
