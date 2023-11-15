@@ -36,13 +36,12 @@ done
 
 find $BUILD_DIR/$INSTALL_DIR -name "*.pyc" -delete
 
+arch="_$(grep -m1 'Architecture\:' $BUILD_DIR/DEBIAN/control | awk -F':' '{print $2}' | tr -d ' ')"
+
 package=$(cat debian/control | grep Package | awk '{print $2}')
 version1=$(date +%Y%m%d)
-version2=0
-while [ -f "$package-$version1-$version2.deb" ]; do
-    version2=$(($version2 + 1))
-done
-version=$version1-$version2
+version2=$(find . -mindepth 0 -name $package-$version1\*$arch.deb | wc -l)
+[ "$version2" -gt 0 ] && version="${version1}-${version2}" || version=$version1
 sed -i "s%__DATE__%$version%g" $BUILD_DIR/DEBIAN/control
 
 cd $BUILD_DIR
@@ -53,4 +52,4 @@ find ./ -type f ! -regex '.*.hg.*' ! -regex '.*?debian-binary.*' ! -regex '.*?DE
 cd ..
 
 # FIXME: We should really build the package instead of dpkg-deb here
-fakeroot dpkg-deb -b $BUILD_DIR "$package-$version.deb"
+fakeroot dpkg-deb -b $BUILD_DIR "$package-$version$arch.deb"
