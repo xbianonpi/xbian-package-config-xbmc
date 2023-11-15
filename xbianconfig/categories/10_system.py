@@ -545,9 +545,11 @@ class KernelSwitch(Setting):
         if self.kernel[1] == '1':
             self.CONTROL = RadioButtonControl(Tag('label', _('Install 32-bit Kernel (armv7l)')), AARCH64)
             self.DIALOGHEADER = _('Install 32-bit Kernel (armv7l)')
+            self.arch = 'armv7l'
         else:
             self.CONTROL = RadioButtonControl(Tag('label', _('Install 64-bit Kernel (aarch64)')), AARCH64)
             self.DIALOGHEADER = _('Install 64-bit Kernel (aarch64)')
+            self.arch = 'aarch64'
 
     def onInit(self):
         self.APPLYTEXT = _('Are you sure to change Kernel architecture?')
@@ -584,6 +586,7 @@ class KernelSwitch(Setting):
             self.notifyOnSuccess(True, 10000)
             self.statusInstalled = True
             setvisiblecondition('aarch64', False)
+            xbianConfig('kernel', 'select', self.arch)
         else:
             self.ERRORTEXT = _('A serious error occured while processing these packages')
             self.notifyOnError(True)
